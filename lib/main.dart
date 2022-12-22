@@ -21,7 +21,15 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: '산돌교회',
         theme: ThemeData(
+          primaryColor: Color.fromARGB(255, 190, 180, 170),
           fontFamily: 'KOTRA HOPE',
+          textTheme: const TextTheme(
+            bodyText1: TextStyle(
+              fontSize: 20,
+              color: Colors.black,
+            )
+          ),
+          scaffoldBackgroundColor: Color.fromARGB(255, 241, 237, 233),
         ),
         home: MyHomePage(), 
       );
@@ -34,41 +42,42 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color.fromARGB(255, 241, 237, 233),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(30),
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              // ignore: prefer_const_literals_to_create_immutables
-              children: <Widget>[
-                SizedBox(
-                  height: ScreenUtil().setHeight(220),
-                ),
-                CircleAvatar(
-                  backgroundImage: AssetImage('assets/images/sandol youth praise team.png'),
-                  radius: 60.0,
-                ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(85),
-                ),
-                Text('환영합니다',
-                style: TextStyle(
-                  fontSize: 20
-                ),),
-                SizedBox(
-                  height: ScreenUtil().setHeight(470),
-                ),
-                MoveLogInPage(
-                ),
-                SizedBox(
-                  height: ScreenUtil().setHeight(85),
-                ),
-                ElvbOpenRegistPage(
-                ),
-              ],
+    return GestureDetector(
+      onTap: () { FocusScope.of(context).unfocus();},
+      child: Scaffold(
+        body: Center(
+          child: Padding(
+            padding: EdgeInsets.all(30),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                // ignore: prefer_const_literals_to_create_immutables
+                children: <Widget>[
+                  SizedBox(
+                    height: ScreenUtil().setHeight(220),
+                  ),
+                  CircleAvatar(
+                    backgroundImage: AssetImage('assets/images/sandol youth praise team.png'),
+                    radius: 60.0,
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(85),
+                  ),
+                  Text('환영합니다',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(470),
+                  ),
+                  MoveLogInPage(
+                  ),
+                  SizedBox(
+                    height: ScreenUtil().setHeight(85),
+                  ),
+                  ElvbOpenRegistPage(
+                  ),
+                ],
+              ),
             ),
           ),
         ),
