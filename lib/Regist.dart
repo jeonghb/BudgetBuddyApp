@@ -1,19 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'RegistStatus.dart';
 
-class RegistPage extends StatelessWidget {
+class RegistPage extends StatefulWidget {
   const RegistPage({super.key});
 
   @override
+  State<RegistPage> createState() => _RegistPageState();
+}
+
+class _RegistPageState extends State<RegistPage> {
+
+  @override
   Widget build(BuildContext context) {
+    
+    RegistStatus registStatus = RegistStatus();
     
     String pwCheck = '';
 
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        backgroundColor: Color.fromARGB(255, 241, 237, 233),
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
           physics: ClampingScrollPhysics(),
@@ -42,6 +51,7 @@ class RegistPage extends StatelessWidget {
                         fontSize: 35
                       ),
                     ),
+                    controller: registStatus.id,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { return ValidationCheck.idCheck(value);},
@@ -67,6 +77,7 @@ class RegistPage extends StatelessWidget {
                         fontSize: 35
                       ),
                     ),
+                    controller: registStatus.pw,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { 
@@ -119,6 +130,7 @@ class RegistPage extends StatelessWidget {
                         fontSize: 35
                       ),
                     ),
+                    controller: registStatus.name,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return ValidationCheck.nameCheck(value);},
                   ),
@@ -142,6 +154,7 @@ class RegistPage extends StatelessWidget {
                         fontSize: 35
                       ),
                     ),
+                    controller: registStatus.email,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return ValidationCheck.emailCheck(value);},
                   ),
@@ -165,6 +178,7 @@ class RegistPage extends StatelessWidget {
                         fontSize: 35,
                       ),
                     ),
+                    controller: registStatus.phoneNumber,
                     validator: (value) { return ValidationCheck.phoneNumberCheck(value);},
                   ),
                   SizedBox(
@@ -188,6 +202,7 @@ class RegistPage extends StatelessWidget {
                         color: Colors.black
                       ),),
                       onPressed: () {
+                        registStatus.Regist();
                         Navigator.push(context, MaterialPageRoute(builder: (context) => RegistPage()),
                         );
                       },

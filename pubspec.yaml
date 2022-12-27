@@ -37,6 +37,11 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   flutter_screenutil: ^5.6.0
+  google_fonts: ^3.0.1
+  http: ^0.13.5
+  convert: ^3.1.1
+  async: ^2.9.0
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:
@@ -80,6 +85,11 @@ flutter:
       fonts:
         - asset: assets/fonts/KOTRA HOPE.otf
         - asset: assets/fonts/KOTRA HOPE.ttf
+    - family: GOOGLE SEN
+      fonts:
+        - asset: assets/fonts/Sen-Regular.ttf
+        - asset: assets/fonts/Sen-Bold.ttf
+        - asset: assets/fonts/Sen-ExtraBold.ttf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

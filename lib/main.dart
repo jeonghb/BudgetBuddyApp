@@ -1,6 +1,7 @@
 // ignore_for_file: sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:test/Regist.dart';
 import 'package:test/LogIn.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,15 +22,18 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: '산돌교회',
         theme: ThemeData(
-          primaryColor: Color.fromARGB(255, 190, 180, 170),
-          fontFamily: 'KOTRA HOPE',
-          textTheme: const TextTheme(
-            bodyText1: TextStyle(
-              fontSize: 20,
-              color: Colors.black,
-            )
-          ),
-          scaffoldBackgroundColor: Color.fromARGB(255, 241, 237, 233),
+          primaryColor: Color.fromARGB(255, 90, 68, 223),
+          fontFamily: 'GOOGLE SEN',
+          textTheme: GoogleFonts.senTextTheme(TextTheme().copyWith(
+            bodyText1: GoogleFonts.oswald(
+              fontSize: 50,
+              color: Colors.white,
+              textStyle: TextStyle(
+                fontWeight: FontWeight.bold,
+              )
+            ),
+          )),
+          scaffoldBackgroundColor: Color.fromARGB(255, 90, 68, 223),
         ),
         home: MyHomePage(), 
       );
@@ -54,27 +58,41 @@ class MyHomePage extends StatelessWidget {
                 // ignore: prefer_const_literals_to_create_immutables
                 children: <Widget>[
                   SizedBox(
-                    height: ScreenUtil().setHeight(220),
+                    height: ScreenUtil().setHeight(200),
                   ),
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/sandol youth praise team.png'),
-                    radius: 60.0,
-                  ),
-                  SizedBox(
-                    height: ScreenUtil().setHeight(85),
-                  ),
-                  Text('환영합니다',
+                  Text('SANDOL',
                     style: Theme.of(context).textTheme.bodyText1,
                   ),
                   SizedBox(
-                    height: ScreenUtil().setHeight(470),
-                  ),
-                  MoveLogInPage(
+                    height: ScreenUtil().setHeight(700),
                   ),
                   SizedBox(
-                    height: ScreenUtil().setHeight(85),
+                    width: double.infinity,
+                    height: ScreenUtil().setHeight(130),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        )
+                      ),
+                      child: Text('로그인',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Color.fromARGB(255, 90, 68, 223),
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),
+                        );
+                      },
+                    ),
                   ),
-                  ElvbOpenRegistPage(
+                  SizedBox(
+                    height: ScreenUtil().setHeight(50),
+                  ),
+                  MoveLogInPage(
                   ),
                 ],
               ),
@@ -96,55 +114,31 @@ class MoveLogInPage extends StatefulWidget {
 class _MoveLogInPage extends State<MoveLogInPage> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: TextButton(
-        child: 
-          Text(
-            '이미 가입되어 있으신가요?',
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: <Widget>[
+          Text('아직 회원이 아니신가요?',
             style: TextStyle(
-            fontSize: 20,
-            color: Color.fromARGB(255, 238, 135, 128)
-            // decoration: TextDecoration.underline,
+              fontSize: 15,
+              color: Colors.white,
             ),
           ),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),
-            );
-          },
-      )
-    );
-  }
-}
-
-class ElvbOpenRegistPage extends StatefulWidget {
-  const ElvbOpenRegistPage({super.key});
-
-  @override
-  State<ElvbOpenRegistPage> createState() => _TxtBtnOpenRegistPage();
-}
-
-class _TxtBtnOpenRegistPage extends State<ElvbOpenRegistPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: double.infinity,
-        height: ScreenUtil().setHeight(130),
-        child: TextButton(
-          style: TextButton.styleFrom(
-            backgroundColor: Color.fromARGB(255, 190, 180, 170),
+          TextButton(
+            child: Text('회원가입',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                decoration: TextDecoration.underline,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => RegistPage()),);
+            },
           ),
-          child: Text('다음',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black
-          ),),
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => RegistPage()),
-            );
-          },
-        ),
-      ),
+        ],
+      )
     );
   }
 }
