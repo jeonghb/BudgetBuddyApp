@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/main.dart';
 import 'RegistStatus.dart';
 
 class RegistPage extends StatefulWidget {
@@ -9,13 +10,13 @@ class RegistPage extends StatefulWidget {
   @override
   State<RegistPage> createState() => _RegistPageState();
 }
+    
+RegistStatus registStatus = RegistStatus();
 
 class _RegistPageState extends State<RegistPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-    RegistStatus registStatus = RegistStatus();
     
     String pwCheck = '';
 
@@ -33,8 +34,6 @@ class _RegistPageState extends State<RegistPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   TextFormField(
-                    autofocus: true,
-                    autovalidateMode: AutovalidateMode.always,
                     decoration: InputDecoration(
                       labelText: '아이디',
                       hintText: 'ID',
@@ -51,6 +50,9 @@ class _RegistPageState extends State<RegistPage> {
                         fontSize: 35
                       ),
                     ),
+                    autofocus: true,
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.name,
                     controller: registStatus.id,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
@@ -60,8 +62,6 @@ class _RegistPageState extends State<RegistPage> {
                     height: 30,
                   ),
                   TextFormField(
-                    obscureText: true,
-                    autovalidateMode: AutovalidateMode.always,
                     decoration: InputDecoration(labelText: '비밀번호',
                       hintText: '●●●●●●●●',
                       hintStyle: TextStyle(
@@ -77,6 +77,9 @@ class _RegistPageState extends State<RegistPage> {
                         fontSize: 35
                       ),
                     ),
+                    obscureText: true,
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.visiblePassword,
                     controller: registStatus.pw,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
@@ -89,8 +92,6 @@ class _RegistPageState extends State<RegistPage> {
                     height: 30,
                   ),
                   TextFormField(
-                    obscureText: true,
-                    autovalidateMode: AutovalidateMode.always,
                     decoration: InputDecoration(labelText: '비밀번호 확인',
                       hintText: '●●●●●●●●',
                       hintStyle: TextStyle(
@@ -106,6 +107,9 @@ class _RegistPageState extends State<RegistPage> {
                         fontSize: 35
                       ),
                     ),
+                    obscureText: true,
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { return ValidationCheck.pwEqualCheck(value, pwCheck);},
@@ -114,7 +118,6 @@ class _RegistPageState extends State<RegistPage> {
                     height: 30,
                   ),
                   TextFormField(
-                    autovalidateMode: AutovalidateMode.always,
                     decoration: InputDecoration(labelText: '이름',
                       hintText: '홍길동',
                       hintStyle: TextStyle(
@@ -130,6 +133,8 @@ class _RegistPageState extends State<RegistPage> {
                         fontSize: 35
                       ),
                     ),
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.name,
                     controller: registStatus.name,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return ValidationCheck.nameCheck(value);},
@@ -138,7 +143,6 @@ class _RegistPageState extends State<RegistPage> {
                     height: 30,
                   ),
                   TextFormField(
-                    autovalidateMode: AutovalidateMode.always,
                     decoration: InputDecoration(labelText: '이메일',
                       hintText: 'honggildong@gmail.com',
                       hintStyle: TextStyle(
@@ -154,6 +158,8 @@ class _RegistPageState extends State<RegistPage> {
                         fontSize: 35
                       ),
                     ),
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.emailAddress,
                     controller: registStatus.email,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return ValidationCheck.emailCheck(value);},
@@ -162,9 +168,8 @@ class _RegistPageState extends State<RegistPage> {
                     height: 30,
                   ),
                   TextFormField(
-                    autovalidateMode: AutovalidateMode.always,
                     decoration: InputDecoration(labelText: '휴대폰번호',
-                      hintText: '010-1234-5678',
+                      hintText: '(-)없이 입력. ex)01012345678',
                       hintStyle: TextStyle(
                         color: Colors.grey,
                       ),
@@ -178,13 +183,17 @@ class _RegistPageState extends State<RegistPage> {
                         fontSize: 35,
                       ),
                     ),
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.phone,
                     controller: registStatus.phoneNumber,
                     validator: (value) { return ValidationCheck.phoneNumberCheck(value);},
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                  CheckSexWidget(),
+                  CheckSexWidget(
+                    
+                  ),
                   Text(''),
                   SizedBox(
                     // height: 80,
@@ -196,15 +205,16 @@ class _RegistPageState extends State<RegistPage> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 190, 180, 170),
                       ),
-                      child: Text('가입',
+                      child: Text('가입 신청',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.black
                       ),),
                       onPressed: () {
                         registStatus.Regist();
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => RegistPage()),
-                        );
+                        // if (registStatus.Regist() == true) {
+                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
+                        // }
                       },
                     ),
                   ),
@@ -219,7 +229,9 @@ class _RegistPageState extends State<RegistPage> {
 }
 
 class CheckSexWidget extends StatefulWidget {
-  const CheckSexWidget({super.key});
+  CheckSexWidget({super.key});
+
+  late ValueChanged<DateTime> birthDay;
 
   @override
   State<CheckSexWidget> createState() => _CheckSexWidgetState();
@@ -260,16 +272,16 @@ class _CheckSexWidgetState extends State<CheckSexWidget> {
               ),
               CupertinoButton(
                 child: Text('${date.year}-${date.month}-${date.day}',
-                style: TextStyle(
-                  color: birthDay
-                ),),
+                  style: TextStyle(
+                    color: birthDay
+                  ),
+                ),
                 onPressed: () => _showDialog(
                   CupertinoDatePicker(
                     onDateTimeChanged: (DateTime newDate) {setState(() => date = newDate);},
                     mode: CupertinoDatePickerMode.date,
                     initialDateTime: date,
                     maximumDate: DateTime.now(),
-                    // use24hFormat: false,
                   ),
                 ),
               ),
