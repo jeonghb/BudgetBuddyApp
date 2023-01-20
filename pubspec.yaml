@@ -45,6 +45,7 @@ dependencies:
   firebase_core: ^2.4.1
   firebase_auth: ^4.2.5
   provider: ^6.0.5
+  crypto: ^3.0.2
 
 dev_dependencies:
   flutter_test:

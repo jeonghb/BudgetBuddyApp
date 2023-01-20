@@ -1,19 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/LogIn.dart';
 import 'package:test/main.dart';
 import 'RegistStatus.dart';
 
-class RegistPage extends StatefulWidget {
-  const RegistPage({super.key});
+class UserRegist extends StatefulWidget {
+  const UserRegist({super.key});
 
   @override
-  State<RegistPage> createState() => _RegistPageState();
+  State<UserRegist> createState() => _UserRegist();
 }
     
 RegistStatus registStatus = RegistStatus();
 
-class _RegistPageState extends State<RegistPage> {
+class _UserRegist extends State<UserRegist> {
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +56,7 @@ class _RegistPageState extends State<RegistPage> {
                     controller: registStatus.id,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return ValidationCheck.idCheck(value);},
+                    validator: (value) { return registStatus.idCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
@@ -85,7 +85,7 @@ class _RegistPageState extends State<RegistPage> {
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { 
                       pwCheck = value == null ? '' : value.toString();
-                      return ValidationCheck.pwCheck(value);
+                      return registStatus.pwCheck(value);
                     },
                   ),
                   SizedBox(
@@ -112,32 +112,7 @@ class _RegistPageState extends State<RegistPage> {
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return ValidationCheck.pwEqualCheck(value, pwCheck);},
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: '이름',
-                      hintText: '홍길동',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 223, 219, 215),
-                      labelStyle: TextStyle(
-                        fontSize: 35
-                      ),
-                    ),
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.name,
-                    controller: registStatus.name,
-                    textInputAction: TextInputAction.next,
-                    validator: (value) { return ValidationCheck.nameCheck(value);},
+                    validator: (value) { return registStatus.pwEqualCheck(value, pwCheck);},
                   ),
                   SizedBox(
                     height: 30,
@@ -162,7 +137,7 @@ class _RegistPageState extends State<RegistPage> {
                     keyboardType: TextInputType.emailAddress,
                     controller: registStatus.email,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return ValidationCheck.emailCheck(value);},
+                    validator: (value) { return registStatus.emailCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
@@ -186,17 +161,10 @@ class _RegistPageState extends State<RegistPage> {
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.phone,
                     controller: registStatus.phoneNumber,
-                    validator: (value) { return ValidationCheck.phoneNumberCheck(value);},
+                    validator: (value) { return registStatus.phoneNumberCheck(value);},
                   ),
                   SizedBox(
                     height: 20,
-                  ),
-                  CheckSexWidget(
-                    
-                  ),
-                  Text(''),
-                  SizedBox(
-                    // height: 80,
                   ),
                   SizedBox(
                     width: double.infinity,
@@ -211,10 +179,59 @@ class _RegistPageState extends State<RegistPage> {
                         color: Colors.black
                       ),),
                       onPressed: () {
-                        registStatus.Regist();
-                        // if (registStatus.Regist() == true) {
-                        //   Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
-                        // }
+                        registStatus.Regist().then((String result) {
+                          if (result == "0") {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
+                          }
+                          else if (result == "1") {
+                            showDialog(
+                              context: context, 
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  title: Column(children: <Widget>[Text('회원가입')]),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[Text("이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.",),],
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('확인'), 
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
+                          }
+                          else {
+                            showDialog(
+                              context: context, 
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  title: Column(children: <Widget>[Text('회원가입')]),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: <Widget>[Text("가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('확인'), 
+                                      onPressed: () {Navigator.pop(context);},
+                                    )
+                                  ],
+                                );
+                              }
+                            );
+                          }
+                        });
                       },
                     ),
                   ),
@@ -225,149 +242,5 @@ class _RegistPageState extends State<RegistPage> {
         ),
       ),
     );
-  }
-}
-
-class CheckSexWidget extends StatefulWidget {
-  CheckSexWidget({super.key});
-
-  late ValueChanged<DateTime> birthDay;
-
-  @override
-  State<CheckSexWidget> createState() => _CheckSexWidgetState();
-}
-
-class _CheckSexWidgetState extends State<CheckSexWidget> {
-
-  DateTime date = DateTime.now();
-  bool male = true;
-  bool famale = false;
-  Color birthDay = Color.fromARGB(255, 197, 197, 197);
-  late List<bool> isSelected = [male, famale];
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          Container(
-            height: ScreenUtil().setHeight(100),
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-            ),
-            child: Row(children: <Widget>[
-              Container(
-                padding: EdgeInsets.all(10),
-                height: ScreenUtil().setHeight(100),
-                decoration: BoxDecoration(
-                  border: Border(right: BorderSide(color: Colors.grey))
-                ),
-                child: Center(
-                  child: Text('생년월일',
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),)
-                  ),
-              ),
-              CupertinoButton(
-                child: Text('${date.year}-${date.month}-${date.day}',
-                  style: TextStyle(
-                    color: birthDay
-                  ),
-                ),
-                onPressed: () => _showDialog(
-                  CupertinoDatePicker(
-                    onDateTimeChanged: (DateTime newDate) {setState(() => date = newDate);},
-                    mode: CupertinoDatePickerMode.date,
-                    initialDateTime: date,
-                    maximumDate: DateTime.now(),
-                  ),
-                ),
-              ),
-            ],)
-          ),
-          SizedBox(
-            width: ScreenUtil().setWidth(50),
-          ),
-          ToggleButtons(
-            isSelected: isSelected,
-            children: [
-              Padding(padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(60)), child: Text('남'),),
-              Padding(padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(60)), child: Text('여'),)
-            ],
-            onPressed: toggleSelect,
-          ),
-        ],
-      ),
-    );
-  }
-  
-  void _showDialog(Widget child) {
-    showCupertinoModalPopup<void>(
-      context: context,
-      builder: (BuildContext context) => Container(
-        height: ScreenUtil().setHeight(360),
-        padding: const EdgeInsets.only(top: 6.0),
-        // The Bottom margin is provided to align the popup above the system navigation bar.
-        margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        // Provide a background color for the popup.
-        color: CupertinoColors.systemBackground.resolveFrom(context),
-        // Use a SafeArea widget to avoid system overlaps.
-        child: SafeArea(
-          top: false,
-          child: child,
-        ),
-      ),
-    );
-  }
-
-  void toggleSelect(value){
-    if (value == 0){
-      male = true;
-      famale = false;
-    }
-    else{
-      male = false;
-      famale = true;
-    }
-
-    setState(() =>{
-      isSelected = [male, famale]
-    });
-  }
-}
-
-class ValidationCheck{
-  static RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
-  static RegExp pwRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}');
-  static RegExp nameRegExp = RegExp(r'[가-힣]');
-  static RegExp emailRegExp = RegExp(r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
-  static RegExp phoneNumberRegExp = RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$');
-
-  static String? idCheck(String? value) {
-    return value == null || value.length < 5 || idRegExp.hasMatch(value) ? '5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : null;
-  }
-
-  static String? pwCheck(String? value) {
-    return value == null || !pwRegExp.hasMatch(value) ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : null;
-  }
-
-  static String? pwEqualCheck(String? value, String pwCheck) {
-    return pwCheck == '' ? '비밀번호를 입력해주세요.' : (value == null ? '' : value.toString()) != pwCheck ? '입력한 비밀번호와 일치하지 않습니다.' : null;
-  }
-
-  static String? nameCheck(String? value) {
-    return value == null || value.length < 2 || !nameRegExp.hasMatch(value) ? '정상적인 이름 형식이 아닙니다.' : null;
-  }
-
-  static String? emailCheck(String? value) {
-    return value == null || !emailRegExp.hasMatch(value) ? '정상적인 이메일 형식이 아닙니다.' : null;
-  }
-
-  static String? phoneNumberCheck(String? value) {
-    return value == null || !phoneNumberRegExp.hasMatch(value) ? '정상적인 휴대폰번호 형식이 아닙니다.' : null;
   }
 }

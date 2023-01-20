@@ -6,6 +6,7 @@ import 'package:test/Regist.dart';
 import 'package:test/LogIn.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:test/UserRegistCheck.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -144,7 +145,7 @@ class _MoveLogInPage extends State<MoveLogInPage> {
               ),
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => RegistPage()),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck()),);
             },
           ),
         ],
