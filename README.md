@@ -1,16 +1,7 @@
-# test
+이 프로젝트는 플러터를 처음하는 개발자의 공부 겸 불편사항을 반영하여 개발된 프로젝트입니다.
 
-A new Flutter project.
+플러터 배울 겸 불편했던 업무처리를 원격으로 처리할 수 있도록 만들어보려고 합니다.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+[목표]
+1. 회계 영수증 처리를 어플로 처리할 수 있도록 기능 제공
+2. 부서별 커뮤니티 환경 제공
