@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Sandol
+Bundle-SymbolicName: Sandol
+Bundle-Version: 1.0.0.qualifier
+Export-Package: com.sandol.app.controller,
+ com.sandol.app.dao,
+ com.sandol.app.service,
+ com.sandol.app.vo
