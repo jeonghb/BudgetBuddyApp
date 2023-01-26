@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/LogIn.dart';
 import 'package:test/main.dart';
-import 'RegistStatus.dart';
+import 'class/RegistStatus.dart';
+    
+RegistStatus registStatus = RegistStatus();
 
 class UserRegist extends StatefulWidget {
-  const UserRegist({super.key});
+  const UserRegist(registStatus, {super.key});
 
   @override
   State<UserRegist> createState() => _UserRegist();
 }
-    
-RegistStatus registStatus = RegistStatus();
 
 class _UserRegist extends State<UserRegist> {
 

@@ -31,4 +31,10 @@ public class UserRegistController {
 		
 		return result;
 	}
+	
+	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
+	@ResponseBody
+	public String userCheck(@RequestBody UserRegistVO vo) {
+		return userService.getUserCheck(vo);
+	}
 }

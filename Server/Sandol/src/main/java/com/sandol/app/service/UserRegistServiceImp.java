@@ -12,6 +12,11 @@ public class UserRegistServiceImp implements UserRegistService {
 	
 	@Inject
 	UserRegistDAO dao;
+
+	@Override
+	public String getUserCheck(UserRegistVO userRegistVO) {
+		return dao.getUserCheck(userRegistVO);
+	}
 	
 	@Override
 	public String getUserInfo(String id) {
@@ -22,5 +27,4 @@ public class UserRegistServiceImp implements UserRegistService {
 	public boolean setUserRegist(UserRegistVO userRegistVO) {
 		return dao.setUserRegist(userRegistVO);
 	}
-	
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/RegistStatus.dart';
+import 'package:test/class/RegistStatus.dart';
 import 'package:test/UserRegist.dart';
 import 'package:test/widget/BirthdaySelect.dart';
 import 'package:test/widget/SexSelect.dart';
@@ -23,6 +23,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
+        backgroundColor: Colors.white,
         body: Center(
           child: Padding(
             padding: EdgeInsets.all(30),
@@ -50,7 +51,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
                     controller: registStatus.name,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     validator: (value) { return registStatus.nameCheck(value);},
                   ),
                   SizedBox(height: 30),
@@ -58,7 +59,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     children: <Widget>[
                       BirthdaySelectWidget(),
                       SizedBox(width: 45),
-                      SexSelectWidget(),
+                      SexSelectWidget(sex: 'male'),
                     ],
                   ),
                   SizedBox(height: 50),
@@ -75,9 +76,9 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         color: Colors.black
                       ),),
                       onPressed: () {
-                        registStatus.Regist().then((String result) {
+                        registStatus.Check().then((String result) {
                           if (result == "0") {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist()),);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(registStatus)),);
                           }
                           else if (result == "1") {
                             showDialog(

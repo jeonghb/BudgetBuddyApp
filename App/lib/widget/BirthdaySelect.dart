@@ -50,7 +50,7 @@ class _BirthdaySelectWidget extends State<BirthdaySelectWidget> {
               CupertinoButton(
                 child: Text('${date.year}-${date.month}-${date.day}',
                   style: TextStyle(
-                    color: birthDay
+                    color: Colors.blue
                   ),
                 ),
                 onPressed: () {
@@ -62,7 +62,6 @@ class _BirthdaySelectWidget extends State<BirthdaySelectWidget> {
                       maximumDate: DateTime.now(),
                     ),
                   );
-
                   birthday = '${date.year}-${date.month}-${date.day}';
                 }
               ),

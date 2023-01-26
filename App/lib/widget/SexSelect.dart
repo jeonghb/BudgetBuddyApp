@@ -2,14 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+String sex = '';
+
 class SexSelectWidget extends StatefulWidget {
   SexSelectWidget({super.key, @required sex});
 
   @override
   State<SexSelectWidget> createState() => _SexSelectWidget();
 }
-
-String sex = 'male';
 
 class _SexSelectWidget extends State<SexSelectWidget> {
   DateTime date = DateTime.now();

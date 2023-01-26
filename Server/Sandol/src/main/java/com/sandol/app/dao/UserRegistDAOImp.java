@@ -15,8 +15,16 @@ public class UserRegistDAOImp implements UserRegistDAO {
 	SqlSessionTemplate tmp;
 	
 	@Override
-	public String getUserInfo(String id) {
-		
+	public String getUserCheck(UserRegistVO userRegistVO) {
+		try {
+			return tmp.selectOne("com.sandol.mapper.app.selectUserCheck", userRegistVO);
+		}catch (NullPointerException e) {
+			return "-1";
+		}
+	}
+	
+	@Override
+	public String getUserInfo(String id) {		
 		try {
 			return tmp.selectOne("com.sandol.mapper.app.selectUserInfo", id);
 		} catch (NullPointerException e) {

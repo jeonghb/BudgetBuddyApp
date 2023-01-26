@@ -1,6 +1,0 @@
-INDEX VERSION 1.4+D:\sandolApp\Server\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-3363880214.index
-3009223547.index
-3895107695.index
-1339342777.index
-1696055758.index
