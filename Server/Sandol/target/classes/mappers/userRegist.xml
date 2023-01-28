@@ -6,7 +6,7 @@
 <mapper namespace="com.sandol.mapper.app">
 
 	<select id="selectUserCheck" resultType="String" parameterType="userRegistVO">
-		SELECT COUNT(*) count
+		SELECT COUNT(*)
 		FROM user
 		WHERE LENGTH(user_id) > 0
 		AND user_nm = #{name}

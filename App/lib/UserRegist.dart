@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/LogIn.dart';
 import 'package:test/main.dart';
 import 'class/RegistStatus.dart';
-    
-RegistStatus registStatus = RegistStatus();
 
 class UserRegist extends StatefulWidget {
-  const UserRegist(registStatus, {super.key});
+  RegistStatus registStatus;
+  
+  UserRegist(this.registStatus, {super.key});
 
   @override
   State<UserRegist> createState() => _UserRegist();
@@ -53,10 +53,10 @@ class _UserRegist extends State<UserRegist> {
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: registStatus.id,
+                    controller: widget.registStatus.id,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return registStatus.idCheck(value);},
+                    validator: (value) { return widget.registStatus.idCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
@@ -80,12 +80,12 @@ class _UserRegist extends State<UserRegist> {
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
-                    controller: registStatus.pw,
+                    controller: widget.registStatus.pw,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { 
                       pwCheck = value == null ? '' : value.toString();
-                      return registStatus.pwCheck(value);
+                      return widget.registStatus.pwCheck(value);
                     },
                   ),
                   SizedBox(
@@ -112,7 +112,7 @@ class _UserRegist extends State<UserRegist> {
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return registStatus.pwEqualCheck(value, pwCheck);},
+                    validator: (value) { return widget.registStatus.pwEqualCheck(value, pwCheck);},
                   ),
                   SizedBox(
                     height: 30,
@@ -135,9 +135,9 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.emailAddress,
-                    controller: registStatus.email,
+                    controller: widget.registStatus.email,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return registStatus.emailCheck(value);},
+                    validator: (value) { return widget.registStatus.emailCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
@@ -160,8 +160,8 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.phone,
-                    controller: registStatus.phoneNumber,
-                    validator: (value) { return registStatus.phoneNumberCheck(value);},
+                    controller: widget.registStatus.phoneNumber,
+                    validator: (value) { return widget.registStatus.phoneNumberCheck(value);},
                   ),
                   SizedBox(
                     height: 20,
@@ -179,7 +179,7 @@ class _UserRegist extends State<UserRegist> {
                         color: Colors.black
                       ),),
                       onPressed: () {
-                        registStatus.Regist().then((String result) {
+                        widget.registStatus.Regist().then((String result) {
                           if (result == "0") {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
                           }
@@ -193,15 +193,13 @@ class _UserRegist extends State<UserRegist> {
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[Text("이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.",),],
+                                    children: <Widget>[Text("이미 사용중인 아이디입니다.",),],
                                   ),
                                   actions: <Widget>[
                                     TextButton(
                                       child: Text('확인'), 
                                       onPressed: () {
                                         Navigator.pop(context);
-                                        Navigator.pop(context);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
                                       },
                                     )
                                   ],
