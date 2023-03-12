@@ -27,4 +27,9 @@ public class UserRegistServiceImp implements UserRegistService {
 	public boolean setUserRegist(UserRegistVO userRegistVO) {
 		return dao.setUserRegist(userRegistVO);
 	}
+	
+	@Override
+	public UserRegistVO LogIn(UserRegistVO userRegistVO) {
+		return dao.LogIn(userRegistVO);
+	}
 }

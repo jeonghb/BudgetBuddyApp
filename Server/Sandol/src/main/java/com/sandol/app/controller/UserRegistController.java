@@ -37,4 +37,10 @@ public class UserRegistController {
 	public String userCheck(@RequestBody UserRegistVO vo) {
 		return userService.getUserCheck(vo);
 	}
+	
+	@RequestMapping(value = "/LogIn", method = RequestMethod.POST)
+	@ResponseBody
+	public UserRegistVO userLogIn(@RequestBody UserRegistVO vo) {
+		return userService.LogIn(vo);
+	}
 }

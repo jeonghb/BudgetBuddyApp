@@ -24,5 +24,11 @@
    		ON DUPLICATE KEY UPDATE
    			reg_dt = reg_dt
     </insert>
+    <select id="LogIn" resultType="userRegistVO" parameterType="userRegistVO">
+    	SELECT user_id id, user_pw pw, user_nm name, user_email email, user_phone phoneNumber, user_birthday birthDay, user_sex sex
+    	FROM user
+    	WHERE user_id = #{id}
+    	AND user_pw = #{pw}
+    </select>
       
 </mapper>

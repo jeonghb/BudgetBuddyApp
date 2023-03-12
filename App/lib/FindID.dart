@@ -1,90 +1,56 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/class/User.dart';
-import 'package:test/UserRegist.dart';
 import 'package:test/widget/BirthdaySelect.dart';
 import 'package:test/widget/SexSelect.dart';
 
-import 'LogIn.dart';
+import 'class/User.dart';
 
-class UserRegistCheck extends StatefulWidget {
-  const UserRegistCheck({super.key});
+class FindID extends StatefulWidget {
+  FindID({super.key});
 
   @override
-  State<UserRegistCheck> createState() => _UserRegistCheck();
+  State<FindID> createState() => _FindID();
 }
     
 User user = User();
 
-class _UserRegistCheck extends State<UserRegistCheck> {
-
+class _FindID extends State<FindID> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('SANDOL',
-            style: TextStyle(
-              color: Color.fromARGB(255, 90, 68, 223),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
         backgroundColor: Colors.white,
-        body: Center(
-          child: Padding(
-            padding: EdgeInsets.all(30),
-            child: SingleChildScrollView(
+        resizeToAvoidBottomInset: true,
+        body: SingleChildScrollView(
+          physics: ClampingScrollPhysics(),
+          child: Container(
+            padding: EdgeInsets.fromLTRB(30, 100, 30, 100),
+            child: Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('회원가입',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40
-                    ),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Text('이름',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
                   TextFormField(
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                    decoration: InputDecoration(labelText: '이름',
+                      hintText: '홍길동',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Colors.red)
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Colors.red)
+                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
                       ),
                       filled: true,
-                      fillColor: Colors.white,
+                      fillColor: Color.fromARGB(255, 223, 219, 215),
+                      labelStyle: TextStyle(
+                        fontSize: 35
+                      ),
                     ),
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
                     controller: user.name,
-                    textInputAction: TextInputAction.next,
+                    textInputAction: TextInputAction.done,
                     validator: (value) { return user.nameCheck(value);},
                   ),
                   SizedBox(height: 30),
@@ -103,7 +69,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color.fromARGB(255, 190, 180, 170),
                       ),
-                      child: Text('다음',
+                      child: Text('아이디 찾기',
                       style: TextStyle(
                         fontSize: 20,
                         color: Colors.black
@@ -111,7 +77,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                       onPressed: () {
                         user.Check().then((String result) {
                           if (result == "0") {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user)),);
+                            // Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user)),);
                           }
                           else if (result == "1") {
                             showDialog(
@@ -131,7 +97,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                         Navigator.pop(context);
-                                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                                        // Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
                                       },
                                     )
                                   ],

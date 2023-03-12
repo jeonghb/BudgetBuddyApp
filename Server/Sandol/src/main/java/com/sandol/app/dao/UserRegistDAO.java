@@ -9,4 +9,6 @@ public interface UserRegistDAO {
 	public String getUserInfo(String id);
 	
 	public boolean setUserRegist(UserRegistVO userRegistVO);
+	
+	public UserRegistVO LogIn(UserRegistVO userRegistVO);
 }

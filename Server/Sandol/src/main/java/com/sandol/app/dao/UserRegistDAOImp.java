@@ -40,4 +40,24 @@ public class UserRegistDAOImp implements UserRegistDAO {
 		
 		return true;
 	}
+
+	@Override
+	public UserRegistVO LogIn(UserRegistVO userRegistVO) {
+		UserRegistVO newVO = null;
+		
+		try {
+			newVO = tmp.selectOne("com.sandol.mapper.app.LogIn", userRegistVO);
+			if (newVO.getName() != null) {
+				userRegistVO.setLogInIsSuccess(true);
+				userRegistVO.LogInUpdate(newVO);
+			}
+			else {
+				userRegistVO.setLogInIsSuccess(false);
+			}
+		} catch (NullPointerException e) {
+			return userRegistVO;
+		}
+		
+		return userRegistVO;
+	}
 }

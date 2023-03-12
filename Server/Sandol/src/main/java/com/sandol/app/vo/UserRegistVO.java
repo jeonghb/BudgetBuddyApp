@@ -1,15 +1,16 @@
 package com.sandol.app.vo;
 
 public class UserRegistVO {
-	boolean registCheck;
-	String id;
-	String pw;
-	String name;
-	String email;
-	String phoneNumber;
-	String birthDay;
-	String sex;
-
+	private boolean registCheck;
+	private String id;
+	private String pw;
+	private String name;
+	private String email;
+	private String phoneNumber;
+	private String birthDay;
+	private String sex;
+	private boolean LogInIsSuccess;
+	
 	public boolean isRegistCheck() {
 		return registCheck;
 	}
@@ -57,5 +58,18 @@ public class UserRegistVO {
 	}
 	public void setSex(String sex) {
 		this.sex = sex;
+	}
+	public boolean isLogInIsSuccess() {
+		return LogInIsSuccess;
+	}
+	public void setLogInIsSuccess(boolean logInIsSuccess) {
+		LogInIsSuccess = logInIsSuccess;
+	}
+	public void LogInUpdate(UserRegistVO newVO) {
+		this.name = newVO.getName();
+		this.email = newVO.getEmail();
+		this.phoneNumber = newVO.getPhoneNumber();
+		this.birthDay = newVO.getBirthDay();
+		this.sex = newVO.getSex();
 	}
 }

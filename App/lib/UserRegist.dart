@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/LogIn.dart';
-import 'package:test/main.dart';
-import 'class/RegistStatus.dart';
+import 'package:test/FirstRun.dart';
+import 'class/User.dart';
 
 class UserRegist extends StatefulWidget {
-  RegistStatus registStatus;
+  User user;
   
-  UserRegist(this.registStatus, {super.key});
+  UserRegist(this.user, {super.key});
 
   @override
   State<UserRegist> createState() => _UserRegist();
@@ -53,10 +53,10 @@ class _UserRegist extends State<UserRegist> {
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: widget.registStatus.id,
+                    controller: widget.user.id,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return widget.registStatus.idCheck(value);},
+                    validator: (value) { return widget.user.idCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
@@ -80,12 +80,12 @@ class _UserRegist extends State<UserRegist> {
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
-                    controller: widget.registStatus.pw,
+                    controller: widget.user.pw,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { 
                       pwCheck = value == null ? '' : value.toString();
-                      return widget.registStatus.pwCheck(value);
+                      return widget.user.pwCheck(value);
                     },
                   ),
                   SizedBox(
@@ -112,7 +112,7 @@ class _UserRegist extends State<UserRegist> {
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return widget.registStatus.pwEqualCheck(value, pwCheck);},
+                    validator: (value) { return widget.user.pwEqualCheck(value, pwCheck);},
                   ),
                   SizedBox(
                     height: 30,
@@ -135,9 +135,9 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.emailAddress,
-                    controller: widget.registStatus.email,
+                    controller: widget.user.email,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return widget.registStatus.emailCheck(value);},
+                    validator: (value) { return widget.user.emailCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
@@ -160,8 +160,8 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.phone,
-                    controller: widget.registStatus.phoneNumber,
-                    validator: (value) { return widget.registStatus.phoneNumberCheck(value);},
+                    controller: widget.user.phoneNumber,
+                    validator: (value) { return widget.user.phoneNumberCheck(value);},
                   ),
                   SizedBox(
                     height: 20,
@@ -179,9 +179,9 @@ class _UserRegist extends State<UserRegist> {
                         color: Colors.black
                       ),),
                       onPressed: () {
-                        widget.registStatus.Regist().then((String result) {
+                        widget.user.Regist().then((String result) {
                           if (result == "0") {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => MyHomePage()),);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);
                           }
                           else if (result == "1") {
                             showDialog(

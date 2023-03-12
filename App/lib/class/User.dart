@@ -1,12 +1,10 @@
 import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 
-class RegistStatus with ChangeNotifier {
+class User with ChangeNotifier {
   TextEditingController id = TextEditingController();
   TextEditingController pw = TextEditingController();
   TextEditingController name = TextEditingController();
@@ -26,6 +24,17 @@ class RegistStatus with ChangeNotifier {
     sex.text = 'male';
   }
 
+  // User({required this.name, required this.email, required this.phoneNumber, required this.birthDay, required this.sex});
+
+  // factory User.fromJson(Map<String, dynamic> json) {
+  //   return User(
+  //     name: json['name'],
+  //     email: json['email'],
+  //     phoneNumber: json['phoneNumber'],
+  //     birthDay: json['birthDay'],
+  //     sex: json['sex']);
+  // }
+
   Future<String> Check() async {
     Uri uri = Uri.parse('http://192.168.0.2:8081/userCheck');
     // Uri uri = Uri.parse('http://61.82.156.112:6112/userCheck');
@@ -42,8 +51,8 @@ class RegistStatus with ChangeNotifier {
   }
 
   Future<String> Regist() async {
-    Uri uri = Uri.parse('http://192.168.0.2:8081/userRegist');
-    // Uri uri = Uri.parse('http://61.82.156.112:6112/userRegist');
+    // Uri uri = Uri.parse('http://192.168.0.2:8081/userRegist');
+    Uri uri = Uri.parse('http://211.197.27.23:8081/userRegist');
 
     http.Response response = await http.post(
       uri,
@@ -78,5 +87,29 @@ class RegistStatus with ChangeNotifier {
 
    String phoneNumberCheck(String? value) {
     return value == null || !phoneNumberRegExp.hasMatch(value) ? '정상적인 휴대폰번호 형식이 아닙니다.' : '';
+  }
+
+  Future<String> LogIn() async {
+    //Uri uri = Uri.parse('http://192.168.0.2:8081/LogIn');
+    Uri uri = Uri.parse('http://211.197.27.23:8081/LogIn');
+
+    http.Response response = await http.post(
+      uri,
+      headers: {"Content-Type": "application/json"},
+      body: json.encode({'id': id.text, 'pw': sha512.convert(utf8.encode(pw.text)).toString()})
+    );
+
+    if (json.decode(response.body)['logInIsSuccess']) {
+      name.text = json.decode(response.body)['name'];
+      email.text = json.decode(response.body)['email'];
+      phoneNumber.text = json.decode(response.body)['phoneNumber'];
+      birthDay.text = json.decode(response.body)['birthDay'];
+      sex.text = json.decode(response.body)['sex'];
+
+      return '0';
+    }
+    else {
+      return '1';
+    }
   }
 }

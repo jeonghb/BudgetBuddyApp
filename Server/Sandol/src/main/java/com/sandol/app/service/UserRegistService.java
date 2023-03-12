@@ -9,4 +9,6 @@ public interface UserRegistService {
 	public String getUserInfo(String id);
 	
 	public boolean setUserRegist(UserRegistVO userRegistVO);
+	
+	public UserRegistVO LogIn(UserRegistVO userRegistVO);
 }
