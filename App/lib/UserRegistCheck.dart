@@ -1,11 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/class/User.dart';
 import 'package:test/UserRegist.dart';
-import 'package:test/widget/BirthdaySelect.dart';
-import 'package:test/widget/SexSelect.dart';
-
 import 'LogIn.dart';
+
+User user = User();
 
 class UserRegistCheck extends StatefulWidget {
   const UserRegistCheck({super.key});
@@ -13,11 +13,8 @@ class UserRegistCheck extends StatefulWidget {
   @override
   State<UserRegistCheck> createState() => _UserRegistCheck();
 }
-    
-User user = User();
 
 class _UserRegistCheck extends State<UserRegistCheck> {
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -87,15 +84,9 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     textInputAction: TextInputAction.next,
                     validator: (value) { return user.nameCheck(value);},
                   ),
-                  SizedBox(height: 30),
-                  Row(
-                    children: <Widget>[
-                      BirthdaySelectWidget(),
-                      SizedBox(width: 45),
-                      SexSelectWidget(sex: 'male'),
-                    ],
-                  ),
-                  SizedBox(height: 50),
+                  SizedBox(height: 20),
+                  BirthdaySelectWidget(),
+                  SexSelectWidget(sex: 'male'),
                   SizedBox(
                     width: double.infinity,
                     height: ScreenUtil().setHeight(120),
@@ -109,6 +100,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         color: Colors.black
                       ),),
                       onPressed: () {
+                        user.birthDay.text = birthday;
                         user.Check().then((String result) {
                           if (result == "0") {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user)),);
@@ -172,5 +164,172 @@ class _UserRegistCheck extends State<UserRegistCheck> {
         )
       )
     );
+  }
+}
+
+class BirthdaySelectWidget extends StatefulWidget {
+  BirthdaySelectWidget({super.key});
+
+  late ValueChanged<DateTime> birthDay;
+
+  @override
+  State<BirthdaySelectWidget> createState() => _BirthdaySelectWidget();
+}
+
+String birthday = '';
+
+class _BirthdaySelectWidget extends State<BirthdaySelectWidget> {
+
+  DateTime date = DateTime.now();
+  bool male = true;
+  bool famale = false;
+  late List<bool> isSelected = [male, famale];
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: <Widget>[
+          Container(
+            height: ScreenUtil().setHeight(100),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.grey),
+            ),
+            child: Row(children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(10),
+                height: ScreenUtil().setHeight(100),
+                decoration: BoxDecoration(
+                  border: Border(right: BorderSide(color: Colors.grey))
+                ),
+                child: Center(
+                  child: Text('생년월일',
+                    style: TextStyle(
+                      fontSize: 15,
+                    ),)
+                  ),
+              ),
+              CupertinoButton(
+                child: Text('${date.year}-${date.month}-${date.day}',
+                  style: TextStyle(
+                    color: Colors.blue
+                  ),
+                ),
+                onPressed: () {
+                  _showDialog(
+                    CupertinoDatePicker(
+                      onDateTimeChanged: (DateTime newDate) {setState(() => date = newDate); birthday = date.toString();},
+                      mode: CupertinoDatePickerMode.date,
+                      initialDateTime: date,
+                      maximumDate: DateTime.now(),
+                      
+                    ),
+                  );
+                  // birthday = '${date.year}-${date.month}-${date.day}';
+                }
+              ),
+            ],)
+          ),
+        ],
+      ),
+    );
+  }
+  
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: ScreenUtil().setHeight(360),
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+String sex = "male";
+
+class SexSelectWidget extends StatefulWidget {
+  SexSelectWidget({super.key, @required sex});
+
+  @override
+  State<SexSelectWidget> createState() => _SexSelectWidget();
+}
+
+class _SexSelectWidget extends State<SexSelectWidget> {
+  DateTime date = DateTime.now();
+  bool male = true;
+  bool famale = false;
+  Color birthDay = Color.fromARGB(255, 197, 197, 197);
+  late List<bool> isSelected = [male, famale];
+
+  @override
+  Widget build(BuildContext context) {
+    
+    user.sex.text = sex;
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Expanded(
+        child: ToggleButtons(
+          isSelected: isSelected,
+          children: [
+            Padding(padding: EdgeInsets.all(10), child: Text('남'),),
+            Padding(padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(60)), child: Text('여'),)
+          ],
+
+          onPressed: toggleSelect,
+        ),
+      ),
+    );
+  }
+  
+  void _showDialog(Widget child) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => Container(
+        height: ScreenUtil().setHeight(360),
+        padding: const EdgeInsets.only(top: 6.0),
+        // The Bottom margin is provided to align the popup above the system navigation bar.
+        margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        // Provide a background color for the popup.
+        color: CupertinoColors.systemBackground.resolveFrom(context),
+        // Use a SafeArea widget to avoid system overlaps.
+        child: SafeArea(
+          top: false,
+          child: child,
+        ),
+      ),
+    );
+  }
+
+  void toggleSelect(value){
+    if (value == 0){
+      sex = 'male';
+      male = true;
+      famale = false;
+    }
+    else{
+      sex = 'female';
+      male = false;
+      famale = true;
+    }
+
+    setState(() =>{
+      isSelected = [male, famale]
+    });
   }
 }

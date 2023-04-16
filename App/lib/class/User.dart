@@ -11,6 +11,9 @@ class User with ChangeNotifier {
   TextEditingController email = TextEditingController();
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController birthDay = TextEditingController();
+  // TextEditingController birthDayYear = TextEditingController();
+  // TextEditingController birthDayMonth = TextEditingController();
+  // TextEditingController birthDayDay = TextEditingController();
   TextEditingController sex = TextEditingController();
   
   static RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
@@ -20,7 +23,10 @@ class User with ChangeNotifier {
   static RegExp phoneNumberRegExp = RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$');
 
   RegistStatus() {
-    birthDay.text = DateTime.now().toString().substring(0, 10);
+    birthDay.text = DateTime.now().toString();
+    // birthDayYear.text = DateTime.now().year.toString();
+    // birthDayMonth.text = DateTime.now().month.toString();
+    // birthDayDay.text = DateTime.now().day.toString();
     sex.text = 'male';
   }
 
@@ -36,8 +42,8 @@ class User with ChangeNotifier {
   // }
 
   Future<String> Check() async {
-    Uri uri = Uri.parse('http://192.168.0.2:8081/userCheck');
-    // Uri uri = Uri.parse('http://61.82.156.112:6112/userCheck');
+    // Uri uri = Uri.parse('http://192.168.0.2:8081/userCheck');
+    Uri uri = Uri.parse('http://211.197.27.23:8081/userCheck');
 
     http.Response response = await http.post(
       uri,
@@ -104,6 +110,9 @@ class User with ChangeNotifier {
       email.text = json.decode(response.body)['email'];
       phoneNumber.text = json.decode(response.body)['phoneNumber'];
       birthDay.text = json.decode(response.body)['birthDay'];
+      // birthDayYear.text = json.decode(response.body)['birthDay'].toString().substring(0, 4);
+      // birthDayMonth.text = json.decode(response.body)['birthDay'].toString().substring(5, 2);
+      // birthDayDay.text = json.decode(response.body)['birthDay'].toString().substring(7, 2);
       sex.text = json.decode(response.body)['sex'];
 
       return '0';
