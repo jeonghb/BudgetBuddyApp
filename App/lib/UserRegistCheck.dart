@@ -84,9 +84,14 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     textInputAction: TextInputAction.next,
                     validator: (value) { return user.nameCheck(value);},
                   ),
+                  Row(
+                    children: <Widget>[
+                      BirthdaySelectWidget(),
+                      SizedBox(width: 20),
+                      SexSelectWidget(sex: 'male'),
+                    ],
+                  ),
                   SizedBox(height: 20),
-                  BirthdaySelectWidget(),
-                  SexSelectWidget(sex: 'male'),
                   SizedBox(
                     width: double.infinity,
                     height: ScreenUtil().setHeight(120),

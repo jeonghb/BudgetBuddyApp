@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/FindID.dart';
 import 'package:test/class/User.dart';
+import 'package:test/home.dart';
 
 import 'FirstRun.dart';
 
@@ -156,7 +157,7 @@ class _LogInPage extends State<LogInPage> {
                           onPressed: () {
                             user.LogIn().then((String result) {
                               if (result == "0") {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
                               }
                               else if (result == "1") {
                                 showDialog(
