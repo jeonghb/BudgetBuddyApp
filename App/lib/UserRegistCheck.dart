@@ -33,7 +33,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(
-            padding: EdgeInsets.all(30),
+            padding: EdgeInsets.all(20),
             child: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,37 +41,37 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                   Text('회원가입',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 40
+                      fontSize: 30
                     ),
                   ),
                   SizedBox(
-                    height: 40,
+                    height: 30,
                   ),
                   Text('이름',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold
                     ),
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 12,
                   ),
                   TextFormField(
                     decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
                       ),
                       enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
                       ),
                       errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         borderSide: BorderSide(color: Colors.red)
                       ),
                       focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
                         borderSide: BorderSide(color: Colors.red)
                       ),
                       filled: true,
@@ -84,10 +84,51 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     textInputAction: TextInputAction.next,
                     validator: (value) { return user.nameCheck(value);},
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                       Text('생년월일',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(01)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(10)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    autofocus: true,
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.name,
+                    controller: user.name,
+                    textInputAction: TextInputAction.next,
+                    validator: (value) { return user.nameCheck(value);},
+                  ),
+
                   Row(
                     children: <Widget>[
                       BirthdaySelectWidget(),
-                      SizedBox(width: 20),
+                      SizedBox(width: 30),
                       SexSelectWidget(sex: 'male'),
                     ],
                   ),
@@ -97,12 +138,12 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     height: ScreenUtil().setHeight(120),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 190, 180, 170),
+                        backgroundColor: Color.black,
                       ),
                       child: Text('다음',
                       style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.black
+                        fontSize: 18,
+                        color: Colors.white
                       ),),
                       onPressed: () {
                         user.birthDay.text = birthday;

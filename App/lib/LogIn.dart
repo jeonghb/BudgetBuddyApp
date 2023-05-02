@@ -68,7 +68,7 @@ class _LogInPage extends State<LogInPage> {
                       TextFormField(
                         decoration: InputDecoration(hintText: '아이디를 입력해주세요.',
                           focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
                           ),
                           hintStyle: TextStyle(
@@ -77,7 +77,7 @@ class _LogInPage extends State<LogInPage> {
                             ),
                           prefixIcon: Image.asset('assets/images/ID1.png'),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
                           ),
                           filled: true,
@@ -93,7 +93,7 @@ class _LogInPage extends State<LogInPage> {
                       TextFormField(
                         decoration: InputDecoration(hintText: '비밀번호를 입력해주세요.',
                             focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
                           ),
                           hintStyle: TextStyle(
@@ -102,7 +102,7 @@ class _LogInPage extends State<LogInPage> {
                           ),
                           prefixIcon: Image.asset('assets/images/PW1.png'),
                           enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
                           ),
                           filled: true,
@@ -120,7 +120,7 @@ class _LogInPage extends State<LogInPage> {
                         children: <Widget>[
                           Checkbox(
                             activeColor: Colors.white,
-                            checkColor: Colors.black,
+                            checkColor: Color.fromARGB(255, 90, 68, 223),
                             side: MaterialStateBorderSide.resolveWith(
                               (states) => BorderSide(width: 1.0, color: Colors.grey),
                             ),
@@ -144,13 +144,13 @@ class _LogInPage extends State<LogInPage> {
                           style: TextButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 90, 68, 223),
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15),
+                              borderRadius: BorderRadius.circular(10),
                             )
                           ),
                           child: Text('로그인',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              fontSize: 20,
+                              fontSize: 18,
                               color: Colors.white,
                             ),
                           ),
