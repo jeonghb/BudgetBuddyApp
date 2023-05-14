@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'Bill.dart';
+import 'BillApproval.dart';
+import 'BillRequest.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -36,9 +36,16 @@ class _Home extends State<Home> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => Bill()),);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BillRequest()),);
                     },
-                    child: Text('영수증 제출'))
+                    child: Text('영수증 제출')
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => BillApproval()),);
+                    },
+                    child: Text('영수증 결재')
+                  ),
                 ]
               )
             )

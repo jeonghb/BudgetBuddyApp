@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 import 'class/BillData.dart';
 
-class Bill extends StatefulWidget {
-  const Bill({super.key});
+class BillRequest extends StatefulWidget {
+  const BillRequest({super.key});
 
   @override
-  State<Bill> createState() => _Bill();
+  State<BillRequest> createState() => _BillRequest();
 }
 
 BillData billData = BillData();
 
-class _Bill extends State<Bill> {
+class _BillRequest extends State<BillRequest> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -38,8 +38,7 @@ class _Bill extends State<Bill> {
                 children: <Widget>[
                   Text('결제금액',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40
+                      fontSize: 20
                     ),
                   ),
                   TextFormField(
@@ -69,10 +68,9 @@ class _Bill extends State<Bill> {
                     controller: billData.requestAmount,
                     textInputAction: TextInputAction.next,
                   ),
-                  Text('멤버',
+                  Text('참여자',
                     style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40
+                      fontSize: 20
                     ),
                   ),
                   TextFormField(
@@ -101,6 +99,44 @@ class _Bill extends State<Bill> {
                     keyboardType: TextInputType.name,
                     controller: billData.memberList,
                     textInputAction: TextInputAction.next,
+                  ),
+                  Text('메모',
+                    style: TextStyle(
+                      fontSize: 20
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    autofocus: true,
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.name,
+                    controller: billData.memo,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  TextButton(
+                    onPressed: () {
+
+                    }, 
+                    child: Text('첨부사진 추가')
                   ),
                 ],
               )

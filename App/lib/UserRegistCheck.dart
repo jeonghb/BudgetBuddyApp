@@ -119,10 +119,10 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     ),
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.name,
-                    controller: user.name,
+                    keyboardType: TextInputType.number,
+                    // controller: user.birthDay,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return user.nameCheck(value);},
+                    // validator: (value) { return user.nameCheck(value);},
                   ),
 
                   Row(
@@ -138,7 +138,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     height: ScreenUtil().setHeight(120),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.black,
+                        backgroundColor: Colors.black,
                       ),
                       child: Text('다음',
                       style: TextStyle(
