@@ -5,6 +5,8 @@
 		
 	<typeAliases>
 	   <typeAlias alias="userRegistVO" type="com.sandol.app.vo.UserRegistVO"/>
+	   <typeAlias alias="departmentVO" type="com.sandol.app.vo.DepartmentVO"/>
+	   <typeAlias alias="BillVO" type="com.sandol.app.vo.BillVO"/>
 	</typeAliases>
 	
 </configuration>

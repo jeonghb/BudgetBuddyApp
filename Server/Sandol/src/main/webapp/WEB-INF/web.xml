@@ -32,6 +32,12 @@
 		<url-pattern>/userCheck</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/LogIn</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getDepartmentList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/setDepartment</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/requestBill</url-pattern>
 	</servlet-mapping>
 
 </web-app>

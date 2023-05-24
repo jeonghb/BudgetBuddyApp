@@ -65,6 +65,7 @@ public class UserRegistVO {
 	public void setLogInIsSuccess(boolean logInIsSuccess) {
 		LogInIsSuccess = logInIsSuccess;
 	}
+	
 	public void LogInUpdate(UserRegistVO newVO) {
 		this.name = newVO.getName();
 		this.email = newVO.getEmail();
