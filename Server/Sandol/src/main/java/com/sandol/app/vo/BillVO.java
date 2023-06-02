@@ -6,17 +6,24 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BillVO {
-	private int requestUserId;
+	private int requestId;
+	private String requestUserId;
 	private int requestAmount;
-	private Date paymentDatetime;
+	private String paymentDatetime;
 	private String memo;
 	private int approvalRequestDepartmentId; 
 	private List<MultipartFile> fileList;
-	
-	public int getRequestUserId() {
+
+	public int getRequestId() {
+		return requestId;
+	}
+	public void setRequestId(int requestId) {
+		this.requestId = requestId;
+	}
+	public String getRequestUserId() {
 		return requestUserId;
 	}
-	public void setRequestUserId(int requestUserId) {
+	public void setRequestUserId(String requestUserId) {
 		this.requestUserId = requestUserId;
 	}
 	public int getRequestAmount() {
@@ -25,10 +32,10 @@ public class BillVO {
 	public void setRequestAmount(int requestAmount) {
 		this.requestAmount = requestAmount;
 	}
-	public Date getPaymentDatetime() {
+	public String getPaymentDatetime() {
 		return paymentDatetime;
 	}
-	public void setPaymentDatetime(Date paymentDatetime) {
+	public void setPaymentDatetime(String paymentDatetime) {
 		this.paymentDatetime = paymentDatetime;
 	}
 	public String getMemo() {

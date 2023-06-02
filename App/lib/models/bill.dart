@@ -6,10 +6,10 @@ import 'package:image_picker/image_picker.dart';
 
 class Bill with ChangeNotifier {
   TextEditingController requestId = TextEditingController();
-  TextEditingController registDateTime = TextEditingController();
+  TextEditingController registDatetime = TextEditingController();
   TextEditingController requestAmount = TextEditingController();
   TextEditingController fileName = TextEditingController();
-  TextEditingController paymentDateTime = TextEditingController();
+  TextEditingController paymentDatetime = TextEditingController();
   TextEditingController memo = TextEditingController();
   String approvalRequestDepartmentId = '';
   String approvalRequestDepartmentName = '';
@@ -17,7 +17,7 @@ class Bill with ChangeNotifier {
   TextEditingController approvalType = TextEditingController();
   TextEditingController approvalDatetime = TextEditingController();
   TextEditingController calculateStatus = TextEditingController();
-  TextEditingController calculateDateTime = TextEditingController();
+  TextEditingController calculateDatetime = TextEditingController();
 
   Future<bool> save() async {
     Uri uri = Uri.parse('http://211.197.27.23:8081/requestBill');
@@ -28,7 +28,7 @@ class Bill with ChangeNotifier {
       body: json.encode({
         'requestUserId': 'goddnsl',
         'requestAmount': requestAmount.text,
-        'paymentDatetime': paymentDateTime.text, 
+        'paymentDatetime': paymentDatetime.text.substring(0, 16), 
         'memo': memo.text, 
         'approvalRequestDepartmentId': approvalRequestDepartmentId, 
         'fileList': fileList,

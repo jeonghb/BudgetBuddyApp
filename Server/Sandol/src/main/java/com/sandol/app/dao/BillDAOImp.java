@@ -1,7 +1,5 @@
 package com.sandol.app.dao;
 
-import java.util.List;
-
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -17,7 +15,12 @@ public class BillDAOImp implements BillDAO {
 	@Override
 	public boolean requestBill(BillVO billVO) {
 		try {
-			tmp.insert("com.sandol.mapper.app.requestBill", billVO);
+			int requestId = tmp.insert("com.sandol.mapper.app.requestBill", billVO);
+			
+			if (requestId > 0) {
+				billVO.setRequestId(requestId);
+			}
+			else return false;
 		}catch (NullPointerException e) {
 			return false;
 		}

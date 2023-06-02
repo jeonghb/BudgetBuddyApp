@@ -27,6 +27,7 @@ class _BillRequest extends State<BillRequest> {
     super.initState();
 
     GetDepartmentList(departmentList);
+    bill.paymentDatetime.text = DateTime.now().toString();
   }
 
   @override
@@ -192,7 +193,7 @@ class _BillRequest extends State<BillRequest> {
                   ),
                   TextButton(
                     onPressed: () async {
-                      if (!await bill.save()) {
+                      if (await bill.save()) {
                         // ignore: use_build_context_synchronously
                         showDialog(
                           context: context, 

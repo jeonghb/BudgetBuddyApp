@@ -5,8 +5,12 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-    <insert id="requestBill" parameterType="BillVO">
-   		CALL request_bill(#{requestUserId}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId})
+    <insert id="requestBill" statementType="CALLABLE" parameterType="BillVO">
+   		<![CDATA[CALL request_bill(#{requestUserId}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId, jdbcType=INTEGER})]]>
     </insert>
+    
+    <select id="searchBillList" statementType="CALLABLE" resultType="BillVO">
+    	<![CDATA[CALL search_bill_list()]]>
+    </select>
       
 </mapper>

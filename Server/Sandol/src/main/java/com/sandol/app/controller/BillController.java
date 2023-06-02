@@ -25,7 +25,7 @@ public class BillController {
 	
 	@RequestMapping(value = "/requestBill", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean requestBill(BillVO billVO) {
+	public boolean requestBill(@RequestBody BillVO billVO) {
 		if (billService.requestBill(billVO)) {
 			for (int i = 0; i < billVO.getFileList().size(); i++) {
 				FileVO fileVO = new FileVO();
