@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/receipt_list.dart';
 
-import 'bill_request.dart';
-import 'bill_approval.dart';
+import '../models/receipt.dart';
+import 'receipt_request.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -36,15 +37,27 @@ class _Home extends State<Home> {
                 children: <Widget>[
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BillRequest()),);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
                     },
                     child: Text('영수증 제출')
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BillApproval()),);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: 1)),);
                     },
                     child: Text('영수증 결재')
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: -1)),);
+                    },
+                    child: Text('제출 내역')
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: -1)),);
+                    },
+                    child: Text('월별 정산')
                   ),
                 ]
               )

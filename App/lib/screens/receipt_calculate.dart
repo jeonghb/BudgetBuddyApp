@@ -1,27 +1,22 @@
 import 'package:flutter/material.dart';
 
-import '../models/bill.dart';
+class ReceiptRequest extends StatefulWidget {
 
-class BillApprovalList extends StatefulWidget {
-  const BillApprovalList({super.key});
+  const ReceiptRequest({super.key});
 
   @override
-  State<BillApprovalList> createState() => _BillApprovalList();
+  State<ReceiptRequest> createState() => _ReceiptRequest();
 }
 
-List<Bill> billList = <Bill>[];
-
-class _BillApprovalList extends State<BillApprovalList> {
+class _ReceiptRequest extends State<ReceiptRequest> {
 
   @override
   void initState() {
     super.initState();
-
-    GetBillApprovalList();
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
@@ -51,8 +46,4 @@ class _BillApprovalList extends State<BillApprovalList> {
       )
     );
   }
-}
-
-void GetBillApprovalList() {
-  
 }

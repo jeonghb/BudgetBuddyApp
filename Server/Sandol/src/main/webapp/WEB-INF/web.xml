@@ -37,7 +37,13 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/setDepartment</url-pattern>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/requestBill</url-pattern>
+		<url-pattern>/requestReceipt</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getReceiptList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/rejectReceipt</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/changeSubmissionStatus</url-pattern>
 	</servlet-mapping>
 
 </web-app>

@@ -94,35 +94,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     ),
                   ),
                   SizedBox(
-                    height: 12,
-                  ),
-                  TextFormField(
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(01)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(color: Colors.red)
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        borderSide: BorderSide(color: Colors.red)
-                      ),
-                      filled: true,
-                      fillColor: Colors.white,
-                    ),
-                    autofocus: true,
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.number,
-                    // controller: user.birthDay,
-                    textInputAction: TextInputAction.next,
-                    // validator: (value) { return user.nameCheck(value);},
+                    height: 20,
                   ),
                   Row(
                     children: <Widget>[

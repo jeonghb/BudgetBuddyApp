@@ -6,32 +6,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 
-import '../models/bill.dart';
+import '../models/receipt.dart';
 import '../models/department.dart';
 import 'package:http/http.dart' as http;
 
-class BillRequest extends StatefulWidget {
-  const BillRequest({super.key});
+class ReceiptRequest extends StatefulWidget {
+  final Receipt receipt;
+
+  const ReceiptRequest({super.key, required this.receipt});
 
   @override
-  State<BillRequest> createState() => _BillRequest();
+  State<ReceiptRequest> createState() => _ReceiptRequest();
 }
 
-class _BillRequest extends State<BillRequest> {
+class _ReceiptRequest extends State<ReceiptRequest> {
   DateTime date = DateTime.now();
   List<Department> departmentList = <Department>[];
-  Bill bill = Bill();
 
   @override
   void initState() {
     super.initState();
 
     GetDepartmentList(departmentList);
-    bill.paymentDatetime.text = DateTime.now().toString();
+    widget.receipt.paymentDatetime.text = DateTime.now().toString();
   }
 
   @override
   Widget build(BuildContext context) {
+    final receipt = widget.receipt;
+
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
@@ -53,6 +56,37 @@ class _BillRequest extends State<BillRequest> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Text('제목',
+                    style: TextStyle(
+                      fontSize: 20
+                    ),
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    autofocus: true,
+                    keyboardType: TextInputType.text,
+                    controller: receipt.title,
+                    textInputAction: TextInputAction.next,
+                  ),
                   Text('결제금액',
                     style: TextStyle(
                       fontSize: 20
@@ -82,7 +116,7 @@ class _BillRequest extends State<BillRequest> {
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.number,
-                    controller: bill.requestAmount,
+                    controller: receipt.requestAmount,
                     textInputAction: TextInputAction.next,
                   ),
                   Text('메모',
@@ -114,7 +148,7 @@ class _BillRequest extends State<BillRequest> {
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: bill.memo,
+                    controller: receipt.memo,
                     textInputAction: TextInputAction.next,
                   ),
                   Text('결제일시',
@@ -168,7 +202,7 @@ class _BillRequest extends State<BillRequest> {
                     width: 80,
                     height: 40,
                     child: DropdownButton(
-                      value: bill.approvalRequestDepartmentName,
+                      value: receipt.approvalRequestDepartmentName,
                       items: departmentList.map(
                         (value) { 
                           return DropdownMenuItem<String>(
@@ -179,21 +213,124 @@ class _BillRequest extends State<BillRequest> {
                         ).toList(),
                       onChanged: (value) {
                         setState(() {
-                          bill.approvalRequestDepartmentId = departmentList.firstWhere((element) => element.department_name == value).department_id;
-                          bill.approvalRequestDepartmentName = departmentList.firstWhere((element) => element.department_name == value).department_name;
+                          receipt.approvalRequestDepartmentId = departmentList.firstWhere((element) => element.department_name == value).department_id;
+                          receipt.approvalRequestDepartmentName = departmentList.firstWhere((element) => element.department_name == value).department_name;
                         });
                       }
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      pickImageFromGallery(bill.fileList);
-                    },
-                    child: Text('사진 추가')
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Container(
+                    width: 300,
+                    height: 100,
+                    child: GridView.builder(
+                      padding: EdgeInsets.all(8),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 8,
+                        crossAxisSpacing: 8,
+                      ),
+                      itemCount: receipt.fileList.length + 1,
+                      itemBuilder: (BuildContext context, int index) {
+                        final file =  receipt.fileList.length > 0 ? receipt.fileList[index] : null;
+
+                        if (index == receipt.fileList.length) {
+                          return GestureDetector(
+                            onTap: () {
+                              addImage(receipt);
+                            },
+                            child: Container(
+                              color: Colors.grey,
+                              child: Icon(Icons.add),
+                            ),
+                          );
+                        }
+                        else {
+                          return Stack(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  if (file != null)
+                                    showImage(context, File(file.path));
+                                },
+                                child: Image.file(
+                                  File(receipt.fileList[index].path),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Positioned(
+                                top: 8,
+                                right: 8,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    if (file != null)
+                                      removeImage(receipt, file);
+                                  },
+                                  child: Icon(
+                                    Icons.close,
+                                    color: Colors.red,
+                                  ),
+                                ),
+                              )
+                            ]
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text('계좌번호',
+                        style: TextStyle(
+                          fontSize: 20
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          receipt.AccountNumber.text = '1002-340-513599';
+                        },
+                        child: Text('내 계좌')
+                      ),
+                    ],
+                  ),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                        borderSide: BorderSide(color: Colors.red)
+                      ),
+                      filled: true,
+                      fillColor: Colors.white,
+                    ),
+                    autofocus: true,
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.number,
+                    controller: receipt.AccountNumber,
+                    textInputAction: TextInputAction.next,
+                  ),
+                  SizedBox(
+                    height: 12,
                   ),
                   TextButton(
                     onPressed: () async {
-                      if (await bill.save()) {
+                      if (await receipt.save()) {
                         // ignore: use_build_context_synchronously
                         showDialog(
                           context: context, 
@@ -271,11 +408,30 @@ void GetDepartmentList(List<Department> _departmentList) async {
     }
 }
 
-Future<void> pickImageFromGallery(List<XFile> _fileList) async {
-  final pickedImages = await ImagePicker().pickMultiImage();
+Future<void> addImage(Receipt _receipt) async {
+  List<XFile>? pickedFiles = await ImagePicker().pickMultiImage();
 
-  if (pickedImages != null) {
-    _fileList.clear();
-    _fileList.addAll(pickedImages);
+  if (pickedFiles != null) {
+    _receipt.fileList = pickedFiles;
+  }
+}
+
+void showImage(BuildContext _context, File _file) {
+  showDialog(
+    context: _context, 
+    builder: (BuildContext context) {
+      return Dialog(
+        child: Container(
+          padding: EdgeInsets.all(16),
+          child: Image.file(_file),
+        ),
+      );
+    }
+  );
+}
+
+void removeImage(Receipt _receipt, XFile _file) {
+  if (_file != null) {
+    _receipt.fileList.remove(_file);
   }
 }

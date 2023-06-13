@@ -31,7 +31,7 @@ public class FileVO {
 		this.filePath = filePath;
 	}
 
-	public void setData(BillVO billVO, int _seq) {
+	public void setData(ReceiptVO billVO, int _seq) {
 //		setRelationKey(billVO.getRequestId());
 //		setSeq(_seq);
 //		setFileName(billVO.getFileList()[_seq].);

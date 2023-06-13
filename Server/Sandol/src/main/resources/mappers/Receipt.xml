@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+
+    <insert id="requestReceipt" statementType="CALLABLE" parameterType="ReceiptVO">
+   		<![CDATA[CALL request_receipt(#{requestId}, #{requestUserId}, #{title}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId}, #{accountNumber})]]>
+    </insert>
+    
+    <select id="getRequestReceiptList" statementType="CALLABLE" resultType="ReceiptVO">
+    	<![CDATA[CALL get_request_receipt_list(#{userId}, #{submissionStatus})]]>
+    </select>
+    
+    <update id="changeSubmissionStatus" statementType="CALLABLE" parameterType="ReceiptVO">
+    	<![CDATA[CALL change_submission_status(#{requestId}, #{submissionStatus}, #{rejectMessage})]]>
+    </update>
+      
+</mapper>

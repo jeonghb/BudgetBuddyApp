@@ -7,9 +7,9 @@
 		<setting name="callSettersOnNulls" value="true"/>
 	</settings>
 	<typeAliases>
-	   <typeAlias alias="userRegistVO" type="com.sandol.app.vo.UserRegistVO"/>
-	   <typeAlias alias="departmentVO" type="com.sandol.app.vo.DepartmentVO"/>
-	   <typeAlias alias="BillVO" 	   type="com.sandol.app.vo.BillVO"/>
+		<typeAlias alias="userRegistVO" type="com.sandol.app.vo.UserRegistVO"/>
+		<typeAlias alias="departmentVO" type="com.sandol.app.vo.DepartmentVO"/>
+   		<typeAlias alias="ReceiptVO"	type="com.sandol.app.vo.ReceiptVO"/>
 	</typeAliases>
 	
 </configuration>
