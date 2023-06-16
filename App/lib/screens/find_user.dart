@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/widgets/BirthdaySelect.dart';
 import 'package:test/widgets/SexSelect.dart';
+import 'package:test/widgets/menu_drawer.dart';
 
 import '../models/user.dart';
+import '../widgets/top_bar.dart';
 
 class FindID extends StatefulWidget {
   FindID({super.key});
@@ -20,6 +22,8 @@ class _FindID extends State<FindID> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
+        appBar: TopBar(),
+        endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
@@ -49,7 +53,7 @@ class _FindID extends State<FindID> {
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: user.name,
+                    controller: user.userName,
                     textInputAction: TextInputAction.done,
                     validator: (value) { return user.nameCheck(value);},
                   ),

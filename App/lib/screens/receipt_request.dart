@@ -5,10 +5,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test/app_core.dart';
 
 import '../models/receipt.dart';
 import '../models/department.dart';
 import 'package:http/http.dart' as http;
+
+import '../widgets/menu_drawer.dart';
+import '../widgets/top_bar.dart';
 
 class ReceiptRequest extends StatefulWidget {
   final Receipt receipt;
@@ -38,16 +42,8 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('SANDOL',
-            style: TextStyle(
-              color: Color.fromARGB(255, 90, 68, 223),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
+        appBar: TopBar(),
+        endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(
@@ -391,7 +387,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
 }
 
 void GetDepartmentList(List<Department> _departmentList) async {
-    Uri uri = Uri.parse('http://211.197.27.23:8081/getDepartmentList');
+    Uri uri = Uri.parse(AppCore.baseUrl + '/getDepartmentList');
 
     http.Response response = await http.get(
       uri,

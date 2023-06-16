@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/models/user.dart';
 import 'package:test/screens/user_regist.dart';
+import 'package:test/widgets/top_bar.dart';
+import '../widgets/menu_drawer.dart';
 import 'login.dart';
 
 User user = User();
@@ -20,16 +22,8 @@ class _UserRegistCheck extends State<UserRegistCheck> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('SANDOL',
-            style: TextStyle(
-              color: Color.fromARGB(255, 90, 68, 223),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
+        appBar: TopBar(),
+        endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(
@@ -80,7 +74,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     autofocus: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: user.name,
+                    controller: user.userName,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return user.nameCheck(value);},
                   ),
@@ -117,7 +111,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         color: Colors.white
                       ),),
                       onPressed: () {
-                        user.birthday.text = birthday;
+                        user.userBirthday.text = birthday;
                         user.Check().then((String result) {
                           if (result == "0") {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user)),);
@@ -293,7 +287,7 @@ class _SexSelectWidget extends State<SexSelectWidget> {
   @override
   Widget build(BuildContext context) {
     
-    user.sex.text = sex;
+    user.userSex.text = sex;
 
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
@@ -344,7 +338,7 @@ class _SexSelectWidget extends State<SexSelectWidget> {
       famale = true;
     }
 
-    setState(() =>{
+    setState(() => {
       isSelected = [male, famale]
     });
   }

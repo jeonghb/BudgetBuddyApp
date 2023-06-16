@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:test/screens/receipt_request.dart';
+import 'package:test/widgets/top_bar.dart';
 
 import '../models/receipt.dart';
+import '../widgets/menu_drawer.dart';
 
 enum AuthLevel {
   view,
@@ -30,16 +32,8 @@ class _ReceiptDetail extends State<ReceiptDetail> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('SANDOL',
-            style: TextStyle(
-              color: Color.fromARGB(255, 90, 68, 223),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
+        appBar: TopBar(),
+        endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(

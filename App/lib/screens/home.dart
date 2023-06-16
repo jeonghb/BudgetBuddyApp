@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/receipt_calculate.dart';
 import 'package:test/screens/receipt_list.dart';
+import 'package:test/widgets/menu_drawer.dart';
+import 'package:test/widgets/top_bar.dart';
 
+import '../app_core.dart';
 import '../models/receipt.dart';
+import 'budget_add.dart';
 import 'receipt_request.dart';
 
 class Home extends StatefulWidget {
@@ -17,16 +22,8 @@ class _Home extends State<Home> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('SANDOL',
-            style: TextStyle(
-              color: Color.fromARGB(255, 90, 68, 223),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
+        appBar: TopBar(),
+        endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(
@@ -41,6 +38,12 @@ class _Home extends State<Home> {
                     },
                     child: Text('영수증 제출')
                   ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetAdd()),);
+                  //   },
+                  //   child: Text('예산 추가')
+                  // ),
                   TextButton(
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: 1)),);
@@ -55,7 +58,7 @@ class _Home extends State<Home> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: -1)),);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate(departmentId: AppCore.getInstance().getUser().getDepartmentId(),)),);
                     },
                     child: Text('월별 정산')
                   ),

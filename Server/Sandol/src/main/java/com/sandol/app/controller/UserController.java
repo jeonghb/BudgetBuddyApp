@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sandol.app.service.UserRegistService;
-import com.sandol.app.vo.UserRegistVO;
+import com.sandol.app.service.UserService;
+import com.sandol.app.vo.UserVO;
 
 @Controller
-public class UserRegistController {
+public class UserController {
 //	private static final Logger logger = LoggerFactory.getLogger(UserRegistController.class);
 	
 	@Autowired
-	UserRegistService userService;
+	UserService userService;
 	
 	@RequestMapping(value = "/userRegist", method = RequestMethod.POST)
 	@ResponseBody
-	public String userRegist(@RequestBody UserRegistVO vo) {
+	public String userRegist(@RequestBody UserVO _userVO) {
 		
-		String result = userService.getUserInfo(vo.getId());
+		String result = userService.getUserInfo(_userVO.getId());
 		
 		if (result.equals("0")) {
-			userService.setUserRegist(vo);
+			userService.setUserRegist(_userVO);
 		}
 		
 		return result;
@@ -34,13 +34,13 @@ public class UserRegistController {
 	
 	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String userCheck(@RequestBody UserRegistVO vo) {
-		return userService.getUserCheck(vo);
+	public String userCheck(@RequestBody UserVO _userVO) {
+		return userService.getUserCheck(_userVO);
 	}
 	
 	@RequestMapping(value = "/LogIn", method = RequestMethod.POST)
 	@ResponseBody
-	public UserRegistVO userLogIn(@RequestBody UserRegistVO vo) {
-		return userService.LogIn(vo);
+	public UserVO userLogIn(@RequestBody UserVO _userVO) {
+		return userService.LogIn(_userVO);
 	}
 }

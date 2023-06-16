@@ -5,7 +5,7 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-	<select id="selectUserCheck" resultType="String" parameterType="userRegistVO">
+	<select id="selectUserCheck" resultType="String" parameterType="userVO">
 		SELECT COUNT(*)
 		FROM user
 		WHERE LENGTH(user_id) > 0
@@ -18,13 +18,13 @@
 		FROM user
 		WHERE user_id = #{id}
     </select>
-    <insert id="insertUserInfo" parameterType="userRegistVO">
+    <insert id="insertUserInfo" parameterType="userVO">
    		INSERT INTO user(user_id, user_pw, user_nm, user_email, user_phone, user_birthday, user_sex, reg_dt)
    		VALUES (#{id}, #{pw}, #{name}, #{email}, #{phoneNumber}, #{birthDay}, #{sex}, NOW())
    		ON DUPLICATE KEY UPDATE
    			reg_dt = reg_dt
     </insert>
-    <select id="LogIn" resultType="userRegistVO" parameterType="userRegistVO">
+    <select id="LogIn" resultType="userVO" parameterType="userVO">
     	SELECT user_id id, user_pw pw, user_nm name, user_email email, user_phone phoneNumber, user_birthday birthDay, user_sex sex
     	FROM user
     	WHERE user_id = #{id}

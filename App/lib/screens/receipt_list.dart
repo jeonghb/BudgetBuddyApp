@@ -3,9 +3,12 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:test/app_core.dart';
 import 'package:test/screens/receipt_detail.dart';
 
 import '../models/receipt.dart';
+import '../widgets/menu_drawer.dart';
+import '../widgets/top_bar.dart';
 
 class ReceiptList extends StatefulWidget {
   final int submissionStatus;
@@ -29,7 +32,7 @@ class _ReceiptList extends State<ReceiptList> {
   }
   
   Future<void> GetReceiptList() async {
-    Uri uri = Uri.parse('http://211.197.27.23:8081/getReceiptList');
+    Uri uri = Uri.parse(AppCore.baseUrl + '/getReceiptList');
 
     http.Response response = await http.post(
       uri,
@@ -50,8 +53,6 @@ class _ReceiptList extends State<ReceiptList> {
         tempList.add(receipt);
       }
 
-      print(response.body);
-
       setState(() {
         receiptList = tempList;
       });
@@ -63,16 +64,8 @@ class _ReceiptList extends State<ReceiptList> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          centerTitle: true,
-          title: Text('SANDOL',
-            style: TextStyle(
-              color: Color.fromARGB(255, 90, 68, 223),
-              fontWeight: FontWeight.bold
-            ),
-          ),
-        ),
+        appBar: TopBar(),
+        endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
+import 'package:test/app_core.dart';
 
 class Receipt with ChangeNotifier {
   TextEditingController requestId = TextEditingController();
@@ -70,7 +71,7 @@ class Receipt with ChangeNotifier {
   }
 
   Future<bool> changeSubmissionStatus() async {
-    Uri uri = Uri.parse('http://211.197.27.23:8081/changeSubmissionStatus');
+    Uri uri = Uri.parse(AppCore.baseUrl + '/changeSubmissionStatus');
 
     http.Response response = await http.post(
       uri,

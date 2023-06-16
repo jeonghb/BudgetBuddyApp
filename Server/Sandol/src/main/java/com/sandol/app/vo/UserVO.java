@@ -1,6 +1,6 @@
 package com.sandol.app.vo;
 
-public class UserRegistVO {
+public class UserVO {
 	private boolean registCheck;
 	private String id;
 	private String pw;
@@ -66,7 +66,7 @@ public class UserRegistVO {
 		LogInIsSuccess = logInIsSuccess;
 	}
 	
-	public void LogInUpdate(UserRegistVO newVO) {
+	public void LogInUpdate(UserVO newVO) {
 		this.name = newVO.getName();
 		this.email = newVO.getEmail();
 		this.phoneNumber = newVO.getPhoneNumber();

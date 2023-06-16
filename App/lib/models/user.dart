@@ -1,17 +1,22 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:test/app_core.dart';
 
 class User with ChangeNotifier {
-  TextEditingController id = TextEditingController();
-  TextEditingController pw = TextEditingController();
-  TextEditingController name = TextEditingController();
-  TextEditingController email = TextEditingController();
-  TextEditingController phoneNumber = TextEditingController();
-  TextEditingController birthday = TextEditingController();
-  TextEditingController sex = TextEditingController();
+  TextEditingController userId = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
+  TextEditingController userName = TextEditingController();
+  TextEditingController userEmail = TextEditingController();
+  TextEditingController userPhoneNumber = TextEditingController();
+  TextEditingController userBirthday = TextEditingController();
+  TextEditingController userSex = TextEditingController();
+  int departmentId = -1;
+  // Image? image;
+  bool isLoginSucess = false;
   
   static RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
   static RegExp pwRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}');
@@ -20,10 +25,13 @@ class User with ChangeNotifier {
   static RegExp phoneNumberRegExp = RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$');
 
   RegistStatus() {
-    birthday.text = DateTime.now().toString();
-    sex.text = 'male';
+    userBirthday.text = DateTime.now().toString();
+    userSex.text = 'male';
   }
 
+  int getDepartmentId() {
+    return departmentId;
+  }
 
   Future<String> Check() async {
     // Uri uri = Uri.parse('http://192.168.0.2:8081/userCheck');
@@ -32,7 +40,7 @@ class User with ChangeNotifier {
     http.Response response = await http.post(
       uri,
       headers: {"Content-Type": "application/json"},
-      body: json.encode({'id': id.text, 'pw': sha512.convert(utf8.encode(pw.text)).toString(), 'name': name.text, 'email': email.text, 'phoneNumber': phoneNumber.text, 'birthDay': birthday.text, 'sex': sex.text})
+      body: json.encode({'id': userId.text, 'pw': sha512.convert(utf8.encode(userPassword.text)).toString(), 'name': userName.text, 'email': userEmail.text, 'phoneNumber': userPhoneNumber.text, 'birthDay': userBirthday.text, 'sex': userSex.text})
     );
     
     print(response.body);
@@ -47,7 +55,7 @@ class User with ChangeNotifier {
     http.Response response = await http.post(
       uri,
       headers: {"Content-Type": "application/json"},
-      body: json.encode({'id': id.text, 'pw': sha512.convert(utf8.encode(pw.text)).toString(), 'name': name.text, 'email': email.text, 'phoneNumber': phoneNumber.text, 'birthDay': birthday.text, 'sex': sex.text})
+      body: json.encode({'id': userId.text, 'pw': sha512.convert(utf8.encode(userPassword.text)).toString(), 'name': userName.text, 'email': userEmail.text, 'phoneNumber': userPhoneNumber.text, 'birthDay': userBirthday.text, 'sex': userSex.text})
     );
     
     print(response.body);
@@ -79,32 +87,45 @@ class User with ChangeNotifier {
     return value == null || !phoneNumberRegExp.hasMatch(value) ? '정상적인 휴대폰번호 형식이 아닙니다.' : '';
   }
 
-  Future<String> LogIn() async {
-    //Uri uri = Uri.parse('http://192.168.0.2:8081/LogIn');
-    Uri uri = Uri.parse('http://211.197.27.23:8081/LogIn');
+  Future<String> login(bool isPasswordEncode) async {
+    //Uri uri = Uri.parse(AppCore.localUrl + '/LogIn');
+    Uri uri = Uri.parse(AppCore.baseUrl + '/LogIn');
 
-    http.Response response = await http.post(
-      uri,
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({'id': id.text, 'pw': sha512.convert(utf8.encode(pw.text)).toString()})
-    );
+    try {
+      http.Response response = await http.post(
+        uri,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({'id': userId.text, 'pw': isPasswordEncode ? sha512.convert(utf8.encode(userPassword.text)).toString() : userPassword.text })
+      ).timeout(const Duration(seconds: 5));
 
-    if (response.statusCode == 200)
-    {
-      if (json.decode(response.body)['logInIsSuccess']) {
-        name.text = json.decode(response.body)['name'];
-        email.text = json.decode(response.body)['email'];
-        phoneNumber.text = json.decode(response.body)['phoneNumber'];
-        birthday.text = json.decode(response.body)['birthDay'];
-        sex.text = json.decode(response.body)['sex'];
+      if (response.statusCode == 200)
+      {
+        if (json.decode(response.body)['logInIsSuccess']) {
+          userName.text = json.decode(response.body)['name'];
+          userEmail.text = json.decode(response.body)['email'];
+          userPhoneNumber.text = json.decode(response.body)['phoneNumber'];
+          userBirthday.text = json.decode(response.body)['birthDay'];
+          userSex.text = json.decode(response.body)['sex'];
+          isLoginSucess = true;
 
-        return '0';
+          return '0';
+        }
+        else {
+          isLoginSucess = false;
+          return '1';
+        }
       }
       else {
-        return '1';
+        isLoginSucess = false;
+        return '2';
       }
     }
-    else {
+    on TimeoutException {
+      isLoginSucess = false;
+      return '2';
+    }
+    catch (e) {
+      isLoginSucess = false;
       return '2';
     }
   }

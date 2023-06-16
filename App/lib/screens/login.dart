@@ -1,8 +1,14 @@
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/screens/find_user.dart';
 import 'package:test/models/user.dart';
 import 'package:test/screens/home.dart';
+
+import '../app_core.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -10,14 +16,13 @@ class LogInPage extends StatefulWidget {
   @override
   State<LogInPage> createState() => _LogInPage();
 }
-    
-User user = User();
 
 class _LogInPage extends State<LogInPage> {
+  User user = User();
+  bool isAutoLogIn = true;
 
   @override
   Widget build(BuildContext context) {
-    bool isAutoLogIn = true;
 
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
@@ -82,7 +87,7 @@ class _LogInPage extends State<LogInPage> {
                           fillColor: Colors.white,
                         ),
                         keyboardType: TextInputType.name,
-                        controller: user.id,
+                        controller: user.userId,
                         textInputAction: TextInputAction.next,
                       ),
                       SizedBox(
@@ -111,7 +116,7 @@ class _LogInPage extends State<LogInPage> {
                         ),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
-                        controller: user.pw,
+                        controller: user.userPassword,
                         textInputAction: TextInputAction.done,
                       ),
                       Row(
@@ -123,9 +128,9 @@ class _LogInPage extends State<LogInPage> {
                               (states) => BorderSide(width: 1.0, color: Colors.grey),
                             ),
                             value: isAutoLogIn,
-                            onChanged: (value) {
+                            onChanged: (bool? value) {
                               setState(() {
-                                isAutoLogIn = value!;
+                                isAutoLogIn = value ?? false;
                               });
                             }
                           ),
@@ -153,8 +158,22 @@ class _LogInPage extends State<LogInPage> {
                             ),
                           ),
                           onPressed: () {
-                            user.LogIn().then((String result) {
+                            user.login(true).then((String result) async {
                               if (result == "0") {
+                                SharedPreferences preferences = await SharedPreferences.getInstance();
+                                if (isAutoLogIn) {
+                                  preferences.setBool('autoLogin', true);
+                                  preferences.setString('userId', user.userId.text);
+                                  preferences.setString('userPassword', sha512.convert(utf8.encode(user.userPassword.text)).toString());
+                                }
+                                else {
+                                  preferences.setBool('autoLogin', false);
+                                  preferences.setString('userId', '');
+                                  preferences.setString('userPassword', '');
+                                }
+
+                                AppCore.getInstance().setUser(user);
+
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
                               }
                               else if (result == "1") {
