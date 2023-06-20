@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/widgets/BirthdaySelect.dart';
-import 'package:test/widgets/SexSelect.dart';
 import 'package:test/widgets/menu_drawer.dart';
 
 import '../models/user.dart';
@@ -22,7 +20,7 @@ class _FindID extends State<FindID> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(),
+        appBar: TopBar(type: Type.logout),
         endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
@@ -55,17 +53,9 @@ class _FindID extends State<FindID> {
                     keyboardType: TextInputType.name,
                     controller: user.userName,
                     textInputAction: TextInputAction.done,
-                    validator: (value) { return user.nameCheck(value);},
+                    validator: (value) { return user.nameCheck();},
                   ),
                   SizedBox(height: 30),
-                  Row(
-                    children: <Widget>[
-                      BirthdaySelectWidget(),
-                      SizedBox(width: 45),
-                      SexSelectWidget(sex: 'male'),
-                    ],
-                  ),
-                  SizedBox(height: 50),
                   SizedBox(
                     width: double.infinity,
                     height: ScreenUtil().setHeight(120),
@@ -79,7 +69,7 @@ class _FindID extends State<FindID> {
                         color: Colors.black
                       ),),
                       onPressed: () {
-                        user.Check().then((String result) {
+                        user.isUserCheck().then((String result) {
                           if (result == "0") {
                             // Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user)),);
                           }

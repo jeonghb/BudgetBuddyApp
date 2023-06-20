@@ -23,7 +23,7 @@ public class UserController {
 	@ResponseBody
 	public String userRegist(@RequestBody UserVO _userVO) {
 		
-		String result = userService.getUserInfo(_userVO.getId());
+		String result = userService.getUserInfo(_userVO.getUserId());
 		
 		if (result.equals("0")) {
 			userService.setUserRegist(_userVO);

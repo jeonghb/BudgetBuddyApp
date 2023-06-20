@@ -2,14 +2,14 @@ package com.sandol.app.vo;
 
 public class UserVO {
 	private boolean registCheck;
-	private String id;
-	private String pw;
-	private String name;
-	private String email;
-	private String phoneNumber;
-	private String birthDay;
-	private String sex;
-	private boolean LogInIsSuccess;
+	private String userId;
+	private String userPassword;
+	private String userName;
+	private String userEmail;
+	private String userPhoneNumber;
+	private String userBirthday;
+	private String userSex;
+	private boolean logInIsSuccess;
 	
 	public boolean isRegistCheck() {
 		return registCheck;
@@ -17,60 +17,60 @@ public class UserVO {
 	public void setRegistCheck(boolean registCheck) {
 		this.registCheck = registCheck;
 	}
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getPw() {
-		return pw;
+	public String getUserPassword() {
+		return userPassword;
 	}
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setUserPassword(String userPassword) {
+		this.userPassword = userPassword;
 	}
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
-	public String getEmail() {
-		return email;
+	public String getUserEmail() {
+		return userEmail;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
-	public String getPhoneNumber() {
-		return phoneNumber;
+	public String getUserPhoneNumber() {
+		return userPhoneNumber;
 	}
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
+	public void setUserPhoneNumber(String userPhoneNumber) {
+		this.userPhoneNumber = userPhoneNumber;
 	}
-	public String getBirthDay() {
-		return birthDay;
+	public String getUserBirthday() {
+		return userBirthday;
 	}
-	public void setBirthDay(String birthDay) {
-		this.birthDay = birthDay;
+	public void setUserBirthday(String userBirthday) {
+		this.userBirthday = userBirthday;
 	}
-	public String getSex() {
-		return sex;
+	public String getUserSex() {
+		return userSex;
 	}
-	public void setSex(String sex) {
-		this.sex = sex;
+	public void setUserSex(String userSex) {
+		this.userSex = userSex;
 	}
 	public boolean isLogInIsSuccess() {
-		return LogInIsSuccess;
+		return logInIsSuccess;
 	}
 	public void setLogInIsSuccess(boolean logInIsSuccess) {
-		LogInIsSuccess = logInIsSuccess;
+		this.logInIsSuccess = logInIsSuccess;
 	}
 	
 	public void LogInUpdate(UserVO newVO) {
-		this.name = newVO.getName();
-		this.email = newVO.getEmail();
-		this.phoneNumber = newVO.getPhoneNumber();
-		this.birthDay = newVO.getBirthDay();
-		this.sex = newVO.getSex();
+		setUserName(newVO.getUserName());
+		setUserEmail(newVO.getUserEmail());
+		setUserPhoneNumber(newVO.getUserPhoneNumber());
+		setUserBirthday(newVO.getUserBirthday());
+		setUserSex(newVO.getUserSex());
 	}
 }

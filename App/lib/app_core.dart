@@ -27,12 +27,23 @@ class AppCore {
       localUserInfo.userId.text = preferences.getString('userId')!;
       localUserInfo.userPassword.text = preferences.getString('userPassword')!;
 
-      String result = await localUserInfo.login(false);
+      String result = await localUserInfo.userLogin(false);
       if (result == "0") {
         setUser(localUserInfo);
       }
     }
 
     return getUser();
+  }
+
+  Future<void> logOut() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+
+    preferences.setBool('autoLogin', false);
+    preferences.setString('userId', '');
+    preferences.setString('userPassword', '');
+
+    User initializeUser = User();
+    setUser(initializeUser);
   }
 }

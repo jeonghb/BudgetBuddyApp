@@ -58,7 +58,7 @@ class _ReceiptCalculate extends State<ReceiptCalculate> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(),
+        appBar: TopBar(type: Type.login),
         endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(

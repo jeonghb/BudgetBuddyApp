@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/screens/login.dart';
 import 'package:test/screens/first_run.dart';
+import 'package:test/widgets/text_form_field_v1.dart';
+import 'package:test/widgets/top_bar.dart';
 import '../models/user.dart';
 
 class UserRegist extends StatefulWidget {
-  User user;
+  final User user;
   
-  UserRegist(this.user, {super.key});
+  UserRegist({super.key, required this.user});
 
   @override
   State<UserRegist> createState() => _UserRegist();
@@ -17,12 +18,10 @@ class _UserRegist extends State<UserRegist> {
 
   @override
   Widget build(BuildContext context) {
-    
-    String pwCheck = '';
-
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
+        appBar: TopBar(type: Type.logout),
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
@@ -33,135 +32,89 @@ class _UserRegist extends State<UserRegist> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TextFormField(
-                    decoration: InputDecoration(
-                      labelText: '아이디',
-                      hintText: 'ID',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 223, 219, 215),
-                      labelStyle: TextStyle(
-                        fontSize: 35
-                      ),
+                  Text('회원가입',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30
                     ),
-                    autofocus: true,
-                    autovalidateMode: AutovalidateMode.always,
-                    keyboardType: TextInputType.name,
-                    controller: widget.user.userId,
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return widget.user.idCheck(value);},
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: '비밀번호',
-                      hintText: '●●●●●●●●',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 223, 219, 215),
-                      labelStyle: TextStyle(
-                        fontSize: 35
-                      ),
+                  TextFormFieldV1(
+                    labelText: '아이디',
+                    hintText: 'ID',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.name,
+                    controller: widget.user.userId,
+                    textInputAction: TextInputAction.next,
+                    validator: (value) { return widget.user.idCheck();},
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  TextFormFieldV1(
+                    labelText: '비밀번호',
+                    hintText: '●●●●●●●●',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
                     ),
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
                     controller: widget.user.userPassword,
                     textInputAction: TextInputAction.next,
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
                     validator: (value) { 
-                      pwCheck = value == null ? '' : value.toString();
-                      return widget.user.pwCheck(value);
+                      return widget.user.pwCheck();
                     },
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: '비밀번호 확인',
-                      hintText: '●●●●●●●●',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 223, 219, 215),
-                      labelStyle: TextStyle(
-                        fontSize: 35
-                      ),
+                  TextFormFieldV1(
+                    labelText: '비밀번호 확인',
+                    hintText: '●●●●●●●●',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
                     ),
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    onEditingComplete: () => FocusScope.of(context).nextFocus(),
-                    validator: (value) { return widget.user.pwEqualCheck(value, pwCheck);},
+                    validator: (value) { return widget.user.pwEqualCheck();},
+                    controller: widget.user.userPasswordCheck,
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: '이메일',
-                      hintText: 'honggildong@gmail.com',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 223, 219, 215),
-                      labelStyle: TextStyle(
-                        fontSize: 35
-                      ),
+                  TextFormFieldV1(
+                    labelText: '이메일',
+                    hintText: 'honggildong@gmail.com',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.emailAddress,
                     controller: widget.user.userEmail,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return widget.user.emailCheck(value);},
+                    validator: (value) { return widget.user.emailCheck();},
                   ),
                   SizedBox(
                     height: 30,
                   ),
-                  TextFormField(
-                    decoration: InputDecoration(labelText: '휴대폰번호',
-                      hintText: '(-)없이 입력. ex)01012345678',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        borderSide: BorderSide(color: Color.fromARGB(255, 223, 219, 215))
-                      ),
-                      filled: true,
-                      fillColor: Color.fromARGB(255, 223, 219, 215),
-                      labelStyle: TextStyle(
-                        fontSize: 35,
-                      ),
+                  TextFormFieldV1(
+                    labelText: '휴대폰번호',
+                    hintText: '(-)없이 입력. ex)01012345678',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.phone,
                     controller: widget.user.userPhoneNumber,
-                    validator: (value) { return widget.user.phoneNumberCheck(value);},
+                    validator: (value) { return widget.user.phoneNumberCheck();},
                   ),
                   SizedBox(
                     height: 20,
@@ -171,15 +124,15 @@ class _UserRegist extends State<UserRegist> {
                     height: ScreenUtil().setHeight(120),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 190, 180, 170),
+                        backgroundColor: Colors.black,
                       ),
-                      child: Text('가입 신청',
+                      child: Text('가입하기',
                       style: TextStyle(
                         fontSize: 20,
-                        color: Colors.black
+                        color: Colors.white
                       ),),
                       onPressed: () {
-                        widget.user.Regist().then((String result) {
+                        widget.user.userRegist().then((String result) {
                           if (result == "0") {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);
                           }
@@ -189,11 +142,11 @@ class _UserRegist extends State<UserRegist> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: <Widget>[Text('회원가입')]),
+                                  title: Column(children: const <Widget>[Text('회원가입')]),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[Text("이미 사용중인 아이디입니다.",),],
+                                    children: const <Widget>[Text("이미 사용중인 아이디입니다.",),],
                                   ),
                                   actions: <Widget>[
                                     TextButton(
@@ -213,11 +166,11 @@ class _UserRegist extends State<UserRegist> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: <Widget>[Text('회원가입')]),
+                                  title: Column(children: const <Widget>[Text('회원가입')]),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[Text("가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
+                                    children: const <Widget>[Text("가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
                                   ),
                                   actions: <Widget>[
                                     TextButton(

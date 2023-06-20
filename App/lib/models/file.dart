@@ -12,7 +12,7 @@ class File {
   List<XFile> fileList = [];
 
   Future<String> fileSave() async {
-    Uri uri = Uri.parse(AppCore.baseUrl + '/fileSave');
+    Uri uri = Uri.parse('${AppCore.baseUrl}/fileSave');
 
     http.Response response = await http.post(
       uri,

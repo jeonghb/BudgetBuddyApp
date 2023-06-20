@@ -1,10 +1,8 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 class Department with ChangeNotifier {
-  String department_id = "";
-  String department_name = "";
+  String department_id = '';
+  String department_name = '';
   bool activation_status = true;
 
   void setData(var _json) {

@@ -32,7 +32,7 @@ class _ReceiptList extends State<ReceiptList> {
   }
   
   Future<void> GetReceiptList() async {
-    Uri uri = Uri.parse(AppCore.baseUrl + '/getReceiptList');
+    Uri uri = Uri.parse('${AppCore.baseUrl}/getReceiptList');
 
     http.Response response = await http.post(
       uri,
@@ -64,7 +64,7 @@ class _ReceiptList extends State<ReceiptList> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(),
+        appBar: TopBar(type: Type.login),
         endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(

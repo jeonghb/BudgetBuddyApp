@@ -5,30 +5,17 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-	<select id="selectUserCheck" resultType="String" parameterType="userVO">
-		SELECT COUNT(*)
-		FROM user
-		WHERE LENGTH(user_id) > 0
-		AND user_nm = #{name}
-		AND user_birthday = #{birthDay}
-		AND user_sex = #{sex}
+	<select id="userCheck" resultType="String" parameterType="userVO">
+		<![CDATA[CALL user_check(#{userName}, #{userBirthday}, #{userSex})]]>
 	</select>
     <select id="selectUserInfo" resultType="String" parameterType="String">
-        SELECT COUNT(user_id) count
-		FROM user
-		WHERE user_id = #{id}
+    	<![CDATA[CALL select_user_info(#{userId})]]>
     </select>
     <insert id="insertUserInfo" parameterType="userVO">
-   		INSERT INTO user(user_id, user_pw, user_nm, user_email, user_phone, user_birthday, user_sex, reg_dt)
-   		VALUES (#{id}, #{pw}, #{name}, #{email}, #{phoneNumber}, #{birthDay}, #{sex}, NOW())
-   		ON DUPLICATE KEY UPDATE
-   			reg_dt = reg_dt
+    	<![CDATA[CALL insert_user_info(#{userId}, #{userPassword}, #{userName}, #{userEmail}, #{userPhoneNumber}, #{userBirthday}, #{userSex})]]>
     </insert>
-    <select id="LogIn" resultType="userVO" parameterType="userVO">
-    	SELECT user_id id, user_pw pw, user_nm name, user_email email, user_phone phoneNumber, user_birthday birthDay, user_sex sex
-    	FROM user
-    	WHERE user_id = #{id}
-    	AND user_pw = #{pw}
+    <select id="logIn" resultType="userVO" parameterType="userVO">
+    	<![CDATA[CALL user_login(#{userId}, #{userPassword})]]>
     </select>
       
 </mapper>

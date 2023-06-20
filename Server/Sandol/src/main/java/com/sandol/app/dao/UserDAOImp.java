@@ -15,7 +15,7 @@ public class UserDAOImp implements UserDAO {
 	@Override
 	public String getUserCheck(UserVO _userVO) {
 		try {
-			return tmp.selectOne("com.sandol.mapper.app.selectUserCheck", _userVO);
+			return tmp.selectOne("com.sandol.mapper.app.userCheck", _userVO);
 		}catch (NullPointerException e) {
 			return "-1";
 		}
@@ -46,8 +46,8 @@ public class UserDAOImp implements UserDAO {
 		UserVO newVO = null;
 		
 		try {
-			newVO = tmp.selectOne("com.sandol.mapper.app.LogIn", _userVO);
-			if (newVO.getName() != null) {
+			newVO = tmp.selectOne("com.sandol.mapper.app.logIn", _userVO);
+			if (newVO.getUserName() != null) {
 				_userVO.setLogInIsSuccess(true);
 				_userVO.LogInUpdate(newVO);
 			}

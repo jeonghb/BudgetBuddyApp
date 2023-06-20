@@ -158,7 +158,7 @@ class _LogInPage extends State<LogInPage> {
                             ),
                           ),
                           onPressed: () {
-                            user.login(true).then((String result) async {
+                            user.userLogin(true).then((String result) async {
                               if (result == "0") {
                                 SharedPreferences preferences = await SharedPreferences.getInstance();
                                 if (isAutoLogIn) {
@@ -174,7 +174,7 @@ class _LogInPage extends State<LogInPage> {
 
                                 AppCore.getInstance().setUser(user);
 
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => Home()),);
+                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false,);
                               }
                               else if (result == "1") {
                                 showDialog(

@@ -42,7 +42,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(),
+        appBar: TopBar(type: Type.login),
         endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(
@@ -407,9 +407,7 @@ void GetDepartmentList(List<Department> _departmentList) async {
 Future<void> addImage(Receipt _receipt) async {
   List<XFile>? pickedFiles = await ImagePicker().pickMultiImage();
 
-  if (pickedFiles != null) {
-    _receipt.fileList = pickedFiles;
-  }
+  _receipt.fileList = pickedFiles;
 }
 
 void showImage(BuildContext _context, File _file) {
@@ -427,7 +425,5 @@ void showImage(BuildContext _context, File _file) {
 }
 
 void removeImage(Receipt _receipt, XFile _file) {
-  if (_file != null) {
-    _receipt.fileList.remove(_file);
-  }
+  _receipt.fileList.remove(_file);
 }
