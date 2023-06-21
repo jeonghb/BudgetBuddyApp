@@ -41,8 +41,16 @@ class _UserRegist extends State<UserRegist> {
                   SizedBox(
                     height: 30,
                   ),
+                  Text('아이디',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TextFormFieldV1(
-                    labelText: '아이디',
                     hintText: 'ID',
                     hintStyle: TextStyle(
                       color: Colors.grey,
@@ -52,12 +60,24 @@ class _UserRegist extends State<UserRegist> {
                     controller: widget.user.userId,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return widget.user.idCheck();},
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                      FocusScope.of(context).nextFocus();
+                    },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
+                  ),
+                  Text('비밀번호',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   TextFormFieldV1(
-                    labelText: '비밀번호',
                     hintText: '●●●●●●●●',
                     hintStyle: TextStyle(
                       color: Colors.grey,
@@ -70,12 +90,24 @@ class _UserRegist extends State<UserRegist> {
                     validator: (value) { 
                       return widget.user.pwCheck();
                     },
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                      FocusScope.of(context).nextFocus();
+                    },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
+                  ),
+                  Text('비밀번호 확인',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   TextFormFieldV1(
-                    labelText: '비밀번호 확인',
                     hintText: '●●●●●●●●',
                     hintStyle: TextStyle(
                       color: Colors.grey,
@@ -86,12 +118,24 @@ class _UserRegist extends State<UserRegist> {
                     textInputAction: TextInputAction.next,
                     validator: (value) { return widget.user.pwEqualCheck();},
                     controller: widget.user.userPasswordCheck,
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                      FocusScope.of(context).nextFocus();
+                    },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
+                  ),
+                  Text('이메일',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   TextFormFieldV1(
-                    labelText: '이메일',
                     hintText: 'honggildong@gmail.com',
                     hintStyle: TextStyle(
                       color: Colors.grey,
@@ -101,12 +145,24 @@ class _UserRegist extends State<UserRegist> {
                     controller: widget.user.userEmail,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return widget.user.emailCheck();},
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                      FocusScope.of(context).nextFocus();
+                    },
                   ),
                   SizedBox(
-                    height: 30,
+                    height: 10,
+                  ),
+                  Text('휴대폰번호',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   TextFormFieldV1(
-                    labelText: '휴대폰번호',
                     hintText: '(-)없이 입력. ex)01012345678',
                     hintStyle: TextStyle(
                       color: Colors.grey,
@@ -114,10 +170,11 @@ class _UserRegist extends State<UserRegist> {
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.phone,
                     controller: widget.user.userPhoneNumber,
+                    textInputAction: TextInputAction.done,
                     validator: (value) { return widget.user.phoneNumberCheck();},
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   SizedBox(
                     width: double.infinity,

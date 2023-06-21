@@ -10,10 +10,10 @@ class TextFormFieldV1 extends StatefulWidget {
   final suffixIcon;
   final maxLength;
   final onChanged;
-  final labelText;
   final hintText;
   final hintStyle;
   final obscureText;
+  final VoidCallback? onEditingComplete;
 
   TextFormFieldV1({
     Key? key,
@@ -26,10 +26,10 @@ class TextFormFieldV1 extends StatefulWidget {
     this.suffixIcon,
     this.maxLength,
     this.onChanged,
-    this.labelText,
     this.hintText,
     this.hintStyle,
     this.obscureText,
+    this.onEditingComplete,
      }) : super(key: key,);
 
   @override
@@ -37,16 +37,19 @@ class TextFormFieldV1 extends StatefulWidget {
 }
 
 class _TextFormFieldV1 extends State<TextFormFieldV1> {
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     super.initState();
     widget.controller?.addListener(_handleTextChanged);
+    _focusNode = FocusNode();
   }
 
   @override
   void dispose() {
     widget.controller?.removeListener(_handleTextChanged);
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -76,9 +79,8 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(10)),
-          borderSide: BorderSide(color: Colors.red)
+          borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
         ),
-        labelText: widget.labelText,
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,
         counterText: widget.counterText,
@@ -95,6 +97,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
       validator: (value) { return widget.validator!(value);},
       maxLength: widget.maxLength,
       onChanged: widget.onChanged,
+      onEditingComplete: widget.onEditingComplete,
     );
   }
 }

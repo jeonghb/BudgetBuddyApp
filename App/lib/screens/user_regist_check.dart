@@ -59,11 +59,15 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     controller: user.userName,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return user.nameCheck();},
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                      FocusScope.of(context).nextFocus();
+                    },
                   ),
                   SizedBox(
                     height: 20,
                   ),
-                        Text('생년월일',
+                  Text('생년월일',
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold
@@ -94,6 +98,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           keyboardType: TextInputType.number,
                           controller: user.userBirthdayYear,
                           textInputAction: TextInputAction.next,
+                          onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
                       ),
                       SizedBox(
@@ -119,6 +124,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           keyboardType: TextInputType.number,
                           controller: user.userBirthdayMonth,
                           textInputAction: TextInputAction.next,
+                          onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
                       ),
                       SizedBox(
@@ -144,6 +150,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           keyboardType: TextInputType.number,
                           controller: user.userBirthdayDay,
                           textInputAction: TextInputAction.done,
+                          onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
                       ),
                     ],

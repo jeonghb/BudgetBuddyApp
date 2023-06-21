@@ -1,5 +1,8 @@
+import 'dart:async';
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:http/http.dart' as http;
+import 'models/response_data.dart';
 import 'models/user.dart';
 
 class AppCore {
@@ -45,5 +48,30 @@ class AppCore {
 
     User initializeUser = User();
     setUser(initializeUser);
+  }
+
+  static Future<ResponseData> request(String address, dynamic body) async {
+    ResponseData responseData = ResponseData();
+
+    try {
+      Uri uri = Uri.parse(AppCore.baseUrl + address);
+
+      http.Response response = await http.post(
+        uri,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode(body),
+      ).timeout(const Duration(seconds: 5));
+
+      responseData.statusCode = response.statusCode;
+      responseData.body = json.decode(response.body.toString());
+    }
+    on TimeoutException {
+      responseData.errorMessage = 'Time Out';
+    }
+    catch (e) {
+      responseData.errorMessage = e.toString();
+    }
+    
+    return responseData;
   }
 }

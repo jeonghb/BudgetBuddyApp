@@ -3,8 +3,8 @@ import 'dart:convert';
 
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:test/app_core.dart';
+import 'package:test/models/response_data.dart';
 
 class User with ChangeNotifier {
   TextEditingController userId = TextEditingController();
@@ -53,102 +53,86 @@ class User with ChangeNotifier {
   }
 
   Future<String> isUserCheck() async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/userCheck');
+    String address = '/userCheck';
+    Map<String, String> body = {
+      'userName': userName.text,
+      'userBirthday': getUserBirthday(),
+      'userSex': userSex
+    };
 
-    http.Response response = await http.post(
-      uri,
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
-        'userName': userName.text,
-        'userBirthday': getUserBirthday(),
-        'userSex': userSex
-      }),
-    );
-    
+    ResponseData response = await AppCore.request(address, body);
+
     return response.body;
   }
 
   Future<String> userRegist() async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/userRegist');
-
-    http.Response response = await http.post(
-      uri,
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
-        'userId': userId.text,
-        'userPassword': sha512.convert(utf8.encode(userPassword.text)).toString(),
-        'userName': userName.text,
-        'userEmail': userEmail.text,
-        'userPhoneNumber': userPhoneNumber.text,
-        'userBirthday': userBirthday,
-        'userSex': userSex,
-      }),
-    );
+    String address = '/userRegist';
+    Map<String, dynamic> body = {
+      'userId': userId.text,
+      'userPassword': sha512.convert(utf8.encode(userPassword.text)).toString(),
+      'userName': userName.text,
+      'userEmail': userEmail.text,
+      'userPhoneNumber': userPhoneNumber.text,
+      'userBirthday': userBirthday,
+      'userSex': userSex,
+    };
     
+    ResponseData response = await AppCore.request(address, body);
+
     return response.body;
   }
 
-  String idCheck() {
-    return userId.text == '' || userId.text.length < 5 || idRegExp.hasMatch(userId.text) ? '5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : '';
+  String? idCheck() {
+    return userId.text == '' || userId.text.length < 5 || idRegExp.hasMatch(userId.text) ? '5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : null;
   }
 
-  String pwCheck() {
-    return userPassword.text == '' || !pwRegExp.hasMatch(userPassword.text) ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : '';
+  String? pwCheck() {
+    return userPassword.text == '' || !pwRegExp.hasMatch(userPassword.text) ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : null;
   }
 
-  String pwEqualCheck() {
-    return userPasswordCheck.text == '' ? '비밀번호를 입력해주세요.' : userPasswordCheck.text != userPassword.text ? '입력한 비밀번호와 일치하지 않습니다.' : '';
+  String? pwEqualCheck() {
+    return userPasswordCheck.text == '' ? '비밀번호를 입력해주세요.' : userPasswordCheck.text != userPassword.text ? '입력한 비밀번호와 일치하지 않습니다.' : null;
   }
 
-   String nameCheck() {
-    return userName.text == '' || userName.text.length < 2 || !nameRegExp.hasMatch(userName.text) ? '정상적인 이름 형식이 아닙니다.' : '';
+   String? nameCheck() {
+    return userName.text == '' || userName.text.length < 2 || !nameRegExp.hasMatch(userName.text) ? '정상적인 이름 형식이 아닙니다.' : null;
   }
 
-   String emailCheck() {
-    return userEmail.text == '' || !emailRegExp.hasMatch(userEmail.text) ? '정상적인 이메일 형식이 아닙니다.' : '';
+   String? emailCheck() {
+    return userEmail.text == '' || !emailRegExp.hasMatch(userEmail.text) ? '정상적인 이메일 형식이 아닙니다.' : null;
   }
 
-   String phoneNumberCheck() {
-    return userPhoneNumber.text == '' || !phoneNumberRegExp.hasMatch(userPhoneNumber.text) ? '정상적인 휴대폰번호 형식이 아닙니다.' : '';
+   String? phoneNumberCheck() {
+    return userPhoneNumber.text == '' || !phoneNumberRegExp.hasMatch(userPhoneNumber.text) ? '정상적인 휴대폰번호 형식이 아닙니다.' : null;
   }
 
   Future<String> userLogin(bool isPasswordEncode) async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/LogIn');
+    String address = '/LogIn';
+    Map<String, String> body = {
+      'userId': userId.text,
+      'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword.text)).toString() : userPassword.text
+    };
 
-    try {
-      http.Response response = await http.post(
-        uri,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode({'userId': userId.text, 'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword.text)).toString() : userPassword.text })
-      ).timeout(const Duration(seconds: 5));
+    ResponseData responseData = await AppCore.request(address, body);
 
-      if (response.statusCode == 200)
-      {
-        if (json.decode(response.body)['logInIsSuccess']) {
-          userName.text = json.decode(response.body)['userName'];
-          userEmail.text = json.decode(response.body)['userEmail'];
-          userPhoneNumber.text = json.decode(response.body)['userPhoneNumber'];
-          userBirthday = json.decode(response.body)['userBirthday'];
-          userSex = json.decode(response.body)['userSex'];
-          isLoginSucess = true;
+    if (responseData.statusCode == 200)
+    {
+      if (json.decode(responseData.body)['logInIsSuccess']) {
+        userName.text = json.decode(responseData.body)['userName'];
+        userEmail.text = json.decode(responseData.body)['userEmail'];
+        userPhoneNumber.text = json.decode(responseData.body)['userPhoneNumber'];
+        userBirthday = json.decode(responseData.body)['userBirthday'];
+        userSex = json.decode(responseData.body)['userSex'];
+        isLoginSucess = true;
 
-          return '0';
-        }
-        else {
-          isLoginSucess = false;
-          return '1';
-        }
+        return '0';
       }
       else {
         isLoginSucess = false;
-        return '2';
+        return '1';
       }
     }
-    on TimeoutException {
-      isLoginSucess = false;
-      return '2';
-    }
-    catch (e) {
+    else {
       isLoginSucess = false;
       return '2';
     }

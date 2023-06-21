@@ -49,7 +49,7 @@ class _ReceiptList extends State<ReceiptList> {
       
       for (Map<String, dynamic> json in jsonResponse) {
         Receipt receipt = Receipt();
-        receipt.FromJson(json);
+        receipt.fromJson(json);
         tempList.add(receipt);
       }
 

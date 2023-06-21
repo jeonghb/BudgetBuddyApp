@@ -1,9 +1,6 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:http/http.dart' as http;
 import 'package:test/app_core.dart';
+import 'package:test/models/response_data.dart';
 
 class File {
   String fileId = '';
@@ -12,19 +9,16 @@ class File {
   List<XFile> fileList = [];
 
   Future<String> fileSave() async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/fileSave');
+    String address = '/fileSave';
+    Map<String, dynamic> body = {
+      'fileName': fileName,
+      'filePath': filePath, 
+      'fileList': fileList, 
+    };
 
-    http.Response response = await http.post(
-      uri,
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
-        'fileName': fileName,
-        'filePath': filePath, 
-        'fileList': fileList, 
-        })
-    );
-    
-    if (response.statusCode == 200) {
+    ResponseData responseData = await AppCore.request(address, body);
+
+    if (responseData.statusCode == 200) {
       return '0';
     }
     else {
