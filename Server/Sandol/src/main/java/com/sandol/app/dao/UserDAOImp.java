@@ -17,7 +17,7 @@ public class UserDAOImp implements UserDAO {
 		try {
 			return tmp.selectOne("com.sandol.mapper.app.userCheck", _userVO);
 		}catch (NullPointerException e) {
-			return "-1";
+			return "";
 		}
 	}
 	
@@ -42,11 +42,11 @@ public class UserDAOImp implements UserDAO {
 	}
 
 	@Override
-	public UserVO LogIn(UserVO _userVO) {
+	public UserVO login(UserVO _userVO) {
 		UserVO newVO = null;
 		
 		try {
-			newVO = tmp.selectOne("com.sandol.mapper.app.logIn", _userVO);
+			newVO = tmp.selectOne("com.sandol.mapper.app.login", _userVO);
 			if (newVO.getUserName() != null) {
 				_userVO.setLogInIsSuccess(true);
 				_userVO.LogInUpdate(newVO);
@@ -59,5 +59,39 @@ public class UserDAOImp implements UserDAO {
 		}
 		
 		return _userVO;
+	}
+	
+	@Override
+	public boolean userPasswordFind(UserVO _userVO) {
+		String result = "";
+		
+		try {
+			result = tmp.selectOne("com.sandol.mapper.app.userPasswordFind", _userVO);
+			
+			if (result.equals("0")) {
+				return false;
+			}
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean userPasswordUpdate(UserVO _userVO) {
+		int result = 0;
+		
+		try {
+			result = tmp.update("com.sandol.mapper.app.userPasswordUpdate", _userVO);
+			
+			if (result == 0) {
+				return false;
+			}
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
 	}
 }

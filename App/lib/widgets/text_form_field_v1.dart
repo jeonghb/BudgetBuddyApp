@@ -14,6 +14,7 @@ class TextFormFieldV1 extends StatefulWidget {
   final hintStyle;
   final obscureText;
   final VoidCallback? onEditingComplete;
+  final prefixIcon;
 
   TextFormFieldV1({
     Key? key,
@@ -30,6 +31,7 @@ class TextFormFieldV1 extends StatefulWidget {
     this.hintStyle,
     this.obscureText,
     this.onEditingComplete,
+    this.prefixIcon,
      }) : super(key: key,);
 
   @override
@@ -84,6 +86,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
         hintText: widget.hintText,
         hintStyle: widget.hintStyle,
         counterText: widget.counterText,
+        prefixIcon: widget.prefixIcon,
         suffixIcon: widget.suffixIcon ?? IconButton(icon: Icon(Icons.clear), onPressed: () => widget.controller.clear(),),
         filled: true,
         fillColor: Colors.white,

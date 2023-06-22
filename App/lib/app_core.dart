@@ -1,19 +1,17 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'models/response_data.dart';
 import 'models/user.dart';
 
-class AppCore {
+class AppCore extends ChangeNotifier {
   static String baseUrl = "http://211.197.27.23:8081";
   static String localUrl = "http://192.168.0.2:8081";
   static AppCore instance = AppCore();
   static User user = User();
-
-  static AppCore getInstance() {
-    return instance;
-  }
+  static bool isLoading = false;
 
   void setUser(User _user) {
     user = _user;
@@ -56,6 +54,8 @@ class AppCore {
     try {
       Uri uri = Uri.parse(AppCore.baseUrl + address);
 
+      loadingServerRequest();
+
       http.Response response = await http.post(
         uri,
         headers: {"Content-Type": "application/json"},
@@ -63,15 +63,27 @@ class AppCore {
       ).timeout(const Duration(seconds: 5));
 
       responseData.statusCode = response.statusCode;
-      responseData.body = json.decode(response.body.toString());
-    }
-    on TimeoutException {
-      responseData.errorMessage = 'Time Out';
+      responseData.body = response.body;
     }
     catch (e) {
-      responseData.errorMessage = e.toString();
+      if (e is TimeoutException) {
+        responseData.errorMessage = 'Time Out';
+      }
+      else {
+        responseData.errorMessage = e.toString();
+      }
     }
     
+    finishServerRequest();
+
     return responseData;
+  }
+
+  static void loadingServerRequest() {
+    isLoading = true;
+  }
+
+  static void finishServerRequest() {
+    isLoading = false;
   }
 }

@@ -31,7 +31,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/userCheck</url-pattern>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/LogIn</url-pattern>
+		<url-pattern>/login</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getDepartmentList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
@@ -44,6 +44,10 @@
 		<url-pattern>/rejectReceipt</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/changeSubmissionStatus</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userPasswordFind</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userPasswordUpdate</url-pattern>
 	</servlet-mapping>
 
 </web-app>

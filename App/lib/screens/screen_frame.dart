@@ -20,7 +20,7 @@ class _ScreenFrame extends State<ScreenFrame> {
       onTap: () => { FocusScope.of(context).unfocus()},
       child: SingleChildScrollView(
         child: Scaffold(
-          appBar: TopBar(type: Type.login),
+          appBar: TopBar(type: BarType.login),
           endDrawer: MenuDrawer(),
           backgroundColor: Colors.white,
           body: widget.body,

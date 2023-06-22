@@ -4,11 +4,13 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/screens/find_user.dart';
 import 'package:test/models/user.dart';
+import 'package:test/screens/find_password.dart';
 import 'package:test/screens/home.dart';
+import 'package:test/screens/user_regist_check.dart';
 
 import '../app_core.dart';
+import '../widgets/text_form_field_v1.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -23,7 +25,6 @@ class _LogInPage extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
@@ -32,6 +33,7 @@ class _LogInPage extends State<LogInPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              if (AppCore.isLoading) CircularProgressIndicator(),
               Positioned(
                 top: 0,
                 child: ClipPath(
@@ -68,24 +70,13 @@ class _LogInPage extends State<LogInPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     // ignore: prefer_const_literals_to_create_immutables
                     children: <Widget>[
-                      TextFormField(
-                        decoration: InputDecoration(hintText: '아이디를 입력해주세요.',
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
+                      TextFormFieldV1(
+                        hintText: '아이디를 입력해주세요.',
+                        hintStyle: TextStyle(
+                          fontSize: 18,
+                          color: Color.fromARGB(255, 90, 68, 223)
                           ),
-                          hintStyle: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromARGB(255, 90, 68, 223)
-                            ),
-                          prefixIcon: Image.asset('assets/images/ID1.png'),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                        ),
+                        prefixIcon: Image.asset('assets/images/ID1.png'),
                         keyboardType: TextInputType.name,
                         controller: user.userId,
                         textInputAction: TextInputAction.next,
@@ -93,27 +84,13 @@ class _LogInPage extends State<LogInPage> {
                       SizedBox(
                         height: 10,
                       ),
-                      TextFormField(
-                        decoration: InputDecoration(hintText: '비밀번호를 입력해주세요.',
-                            focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
-                          ),
-                          hintStyle: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromARGB(255, 90, 68, 223)
-                          ),
-                          prefixIcon: Image.asset('assets/images/PW1.png'),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Color.fromARGB(255, 90, 68, 223))
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          labelStyle: TextStyle(
-                            fontSize: 35
-                          ),
+                      TextFormFieldV1(
+                        hintText: '비밀번호를 입력해주세요.',
+                        hintStyle: TextStyle(
+                          fontSize: 18,
+                          color: Color.fromARGB(255, 90, 68, 223)
                         ),
+                        prefixIcon: Image.asset('assets/images/PW1.png'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
                         controller: user.userPassword,
@@ -172,7 +149,7 @@ class _LogInPage extends State<LogInPage> {
                                   preferences.setString('userPassword', '');
                                 }
 
-                                AppCore.getInstance().setUser(user);
+                                AppCore.instance.setUser(user);
 
                                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false,);
                               }
@@ -239,7 +216,7 @@ class _LogInPage extends State<LogInPage> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => FindID()),
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck(userType: UserType.findUser,)),
                               );
                             },
                           ),
@@ -257,7 +234,7 @@ class _LogInPage extends State<LogInPage> {
                               ),
                             ),
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => FindPassword()),
                               );
                             },
                           ),

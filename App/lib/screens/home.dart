@@ -55,7 +55,7 @@ class _Home extends State<Home> {
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate(departmentId: AppCore.getInstance().getUser().getDepartmentId(),)),);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate(departmentId: AppCore.instance.getUser().getDepartmentId(),)),);
                   },
                   child: Text('월별 정산')
                 ),

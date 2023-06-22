@@ -52,7 +52,7 @@ class User with ChangeNotifier {
     userBirthdayDay.text = userBirthday.substring(8, 2);
   }
 
-  Future<String> isUserCheck() async {
+  Future<ResponseData> isUserCheck() async {
     String address = '/userCheck';
     Map<String, String> body = {
       'userName': userName.text,
@@ -60,9 +60,13 @@ class User with ChangeNotifier {
       'userSex': userSex
     };
 
-    ResponseData response = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(address, body);
 
-    return response.body;
+    if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
+      userId.text = responseData.body.toString();
+    }
+
+    return responseData;
   }
 
   Future<String> userRegist() async {
@@ -82,32 +86,56 @@ class User with ChangeNotifier {
     return response.body;
   }
 
+  bool idRegexCheck() {
+    return idRegExp.hasMatch(userId.text);
+  }
+
+  bool passwordRegexCheck() {
+    return pwRegExp.hasMatch(userPassword.text);
+  }
+
+  bool passwordSameCheck() {
+    return userPassword.text == userPasswordCheck.text;
+  }
+
+  bool nameRegexCheck() {
+    return nameRegExp.hasMatch(userName.text);
+  }
+
+  bool emailRegexCheck() {
+    return emailRegExp.hasMatch(userEmail.text);
+  }
+
+  bool phoneNumberRegexCheck() {
+    return phoneNumberRegExp.hasMatch(userPhoneNumber.text);
+  }
+
   String? idCheck() {
-    return userId.text == '' || userId.text.length < 5 || idRegExp.hasMatch(userId.text) ? '5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : null;
+    return userId.text == '' || userId.text.length < 5 || idRegexCheck() ? '5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : null;
   }
 
   String? pwCheck() {
-    return userPassword.text == '' || !pwRegExp.hasMatch(userPassword.text) ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : null;
+    return userPassword.text == '' || !passwordRegexCheck() ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : null;
   }
 
   String? pwEqualCheck() {
     return userPasswordCheck.text == '' ? '비밀번호를 입력해주세요.' : userPasswordCheck.text != userPassword.text ? '입력한 비밀번호와 일치하지 않습니다.' : null;
   }
 
-   String? nameCheck() {
-    return userName.text == '' || userName.text.length < 2 || !nameRegExp.hasMatch(userName.text) ? '정상적인 이름 형식이 아닙니다.' : null;
+  String? nameCheck() {
+    return userName.text == '' || userName.text.length < 2 || !nameRegexCheck() ? '정상적인 이름 형식이 아닙니다.' : null;
   }
 
-   String? emailCheck() {
-    return userEmail.text == '' || !emailRegExp.hasMatch(userEmail.text) ? '정상적인 이메일 형식이 아닙니다.' : null;
+  String? emailCheck() {
+    return userEmail.text == '' || !emailRegexCheck() ? '정상적인 이메일 형식이 아닙니다.' : null;
   }
 
-   String? phoneNumberCheck() {
-    return userPhoneNumber.text == '' || !phoneNumberRegExp.hasMatch(userPhoneNumber.text) ? '정상적인 휴대폰번호 형식이 아닙니다.' : null;
+  String? phoneNumberCheck() {
+    return userPhoneNumber.text == '' || !phoneNumberRegexCheck() ? '정상적인 휴대폰번호 형식이 아닙니다.' : null;
   }
 
   Future<String> userLogin(bool isPasswordEncode) async {
-    String address = '/LogIn';
+    String address = '/login';
     Map<String, String> body = {
       'userId': userId.text,
       'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword.text)).toString() : userPassword.text
@@ -115,8 +143,7 @@ class User with ChangeNotifier {
 
     ResponseData responseData = await AppCore.request(address, body);
 
-    if (responseData.statusCode == 200)
-    {
+    if (responseData.statusCode == 200) {
       if (json.decode(responseData.body)['logInIsSuccess']) {
         userName.text = json.decode(responseData.body)['userName'];
         userEmail.text = json.decode(responseData.body)['userEmail'];
@@ -136,5 +163,27 @@ class User with ChangeNotifier {
       isLoginSucess = false;
       return '2';
     }
+  }
+
+  Future<ResponseData> userPasswordFind() async {
+    String address = '/userPasswordFind';
+    Map<String, String> body = {
+      'userId': userId.text,
+      'userName': userName.text,
+      'userBirthday': getUserBirthday(),
+      'userSex': userSex,
+    };
+
+    return await AppCore.request(address, body);
+  }
+
+  Future<ResponseData> userUpdatePassword() async {
+    String address = '/userPasswordUpdate';
+    Map<String, String> body = {
+      'userId': userId.text,
+      'userPassword': sha512.convert(utf8.encode(userPassword.text)).toString(),
+    };
+
+    return await AppCore.request(address, body);
   }
 }

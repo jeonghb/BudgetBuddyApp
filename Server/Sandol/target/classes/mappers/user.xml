@@ -14,8 +14,14 @@
     <insert id="insertUserInfo" parameterType="userVO">
     	<![CDATA[CALL insert_user_info(#{userId}, #{userPassword}, #{userName}, #{userEmail}, #{userPhoneNumber}, #{userBirthday}, #{userSex})]]>
     </insert>
-    <select id="logIn" resultType="userVO" parameterType="userVO">
+    <select id="login" resultType="userVO" parameterType="userVO">
     	<![CDATA[CALL user_login(#{userId}, #{userPassword})]]>
     </select>
+    <select id="userPasswordFind" resultType="String" parameterType="userVO">
+    	<![CDATA[CALL user_password_find(#{userId}, #{userName}, #{userBirthday}, #{userSex})]]>
+    </select>
+    <update id="userPasswordUpdate" parameterType="userVO">
+    	<![CDATA[CALL user_password_update(#{userId}, #{userPassword})]]>
+    </update>
       
 </mapper>

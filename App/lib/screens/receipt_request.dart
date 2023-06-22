@@ -42,7 +42,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(type: Type.login),
+        appBar: TopBar(type: BarType.login),
         endDrawer: MenuDrawer(),
         backgroundColor: Colors.white,
         body: Center(

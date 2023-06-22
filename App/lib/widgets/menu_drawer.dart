@@ -22,10 +22,10 @@ class _MenuDrawer extends State<MenuDrawer> {
           children: [
             UserAccountsDrawerHeader(
               currentAccountPicture: CircleAvatar(
-                // backgroundImage: AppCore.getInstance().getUser().image,
+                // backgroundImage: AppCore.instance.getUser().image,
               ),
-              accountName: Text(AppCore.getInstance().getUser().userName.text),
-              accountEmail: Text(AppCore.getInstance().getUser().userEmail.text),
+              accountName: Text(AppCore.instance.getUser().userName.text),
+              accountEmail: Text(AppCore.instance.getUser().userEmail.text),
               decoration: BoxDecoration(
                 color: Color.fromARGB(255, 90, 68, 223),
                 borderRadius: BorderRadius.only(
@@ -125,7 +125,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                         TextButton(
                           onPressed: () {
                             Navigator.pop(context);
-                            AppCore.getInstance().logOut();
+                            AppCore.instance.logOut();
 
                             Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
                           },

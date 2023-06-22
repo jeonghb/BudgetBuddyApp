@@ -16,12 +16,20 @@ class UserRegist extends StatefulWidget {
 
 class _UserRegist extends State<UserRegist> {
 
+  bool validationCheck() {
+    if (!widget.user.idRegexCheck() || !widget.user.passwordRegexCheck() || !widget.user.passwordSameCheck() || !widget.user.emailRegexCheck() || !widget.user.phoneNumberRegexCheck()) {
+      return false;
+    }
+
+    return true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(type: Type.logout),
+        appBar: TopBar(type: BarType.logout),
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(
@@ -181,7 +189,7 @@ class _UserRegist extends State<UserRegist> {
                     height: ScreenUtil().setHeight(120),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: Color.fromARGB(255, 90, 68, 223),
                       ),
                       child: Text('가입하기',
                       style: TextStyle(
@@ -189,6 +197,31 @@ class _UserRegist extends State<UserRegist> {
                         color: Colors.white
                       ),),
                       onPressed: () {
+                        if (!validationCheck()) {
+                          showDialog(
+                            context: context, 
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                title: Column(children: const <Widget>[Text('회원가입')]),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: const <Widget>[Text("정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.",),],
+                                ),
+                                actions: <Widget>[
+                                  TextButton(
+                                    child: Text('확인'), 
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              );
+                            },
+                          );
+                          return;
+                        }
                         widget.user.userRegist().then((String result) {
                           if (result == "0") {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);

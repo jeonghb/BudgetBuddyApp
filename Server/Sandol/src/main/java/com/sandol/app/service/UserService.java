@@ -10,5 +10,9 @@ public interface UserService {
 	
 	public boolean setUserRegist(UserVO _userVO);
 	
-	public UserVO LogIn(UserVO _userVO);
+	public UserVO login(UserVO _userVO);
+	
+	public boolean userPasswordFind(UserVO _userVO);
+	
+	public boolean userPasswordUpdate(UserVO _userVO);
 }

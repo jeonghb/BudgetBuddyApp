@@ -29,7 +29,17 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public UserVO LogIn(UserVO _userVO) {
-		return dao.LogIn(_userVO);
+	public UserVO login(UserVO _userVO) {
+		return dao.login(_userVO);
+	}
+	
+	@Override
+	public boolean userPasswordFind(UserVO _userVO) {
+		return dao.userPasswordFind(_userVO);
+	}
+	
+	@Override
+	public boolean userPasswordUpdate(UserVO _userVO) {
+		return dao.userPasswordUpdate(_userVO);
 	}
 }

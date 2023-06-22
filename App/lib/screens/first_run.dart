@@ -98,7 +98,7 @@ class _MoveLogInPage extends State<MoveLogInPage> {
               ),
             ),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck()),);
+              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck(userType: UserType.newUser,)),);
             },
           ),
         ],

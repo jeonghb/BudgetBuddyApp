@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
-  final Type type;
+  final BarType type;
 
   const TopBar({super.key, required this.type});
 
@@ -18,7 +18,7 @@ class _TopBar extends State<TopBar> {
     Widget actionIcon;
 
     switch (widget.type) {
-      case Type.login:
+      case BarType.login:
         actionIcon = IconButton(
           onPressed: () {
             Scaffold.of(context).openEndDrawer();
@@ -29,7 +29,7 @@ class _TopBar extends State<TopBar> {
           ),
         );
         break;
-      case Type.logout:
+      case BarType.logout:
         actionIcon = IconButton(
           onPressed: () {
             Navigator.popUntil(context, ModalRoute.withName('/'));
@@ -69,7 +69,7 @@ class _TopBar extends State<TopBar> {
   }
 }
 
-enum Type {
+enum BarType {
   login,
   logout,
 }

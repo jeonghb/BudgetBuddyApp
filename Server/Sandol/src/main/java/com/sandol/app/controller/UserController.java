@@ -38,9 +38,21 @@ public class UserController {
 		return userService.getUserCheck(_userVO);
 	}
 	
-	@RequestMapping(value = "/LogIn", method = RequestMethod.POST)
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public UserVO userLogIn(@RequestBody UserVO _userVO) {
-		return userService.LogIn(_userVO);
+	public UserVO userLogin(@RequestBody UserVO _userVO) {
+		return userService.login(_userVO);
+	}
+	
+	@RequestMapping(value = "/userPasswordFind", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean userPasswordFind(@RequestBody UserVO _userVO) {
+		return userService.userPasswordFind(_userVO);
+	}
+	
+	@RequestMapping(value = "/userPasswordUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean userPasswordUpdate(@RequestBody UserVO _userVO) {
+		return userService.userPasswordUpdate(_userVO);
 	}
 }

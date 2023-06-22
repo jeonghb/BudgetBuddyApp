@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:test/screens/home.dart';
-
 import 'app_core.dart';
 import 'initialize.dart';
 import 'models/user.dart';
@@ -29,12 +27,12 @@ class _MyApp extends State<MyApp> {
     super.initState();
 
     setState(() {
-      isInitialized = AppCore.getInstance().getUserInfo();
+      isInitialized = AppCore.instance.getUserInfo();
     });
   }
 
   Widget _splashLoadingWidget() {
-    if (AppCore.getInstance().getUser().isLoginSucess) {
+    if (AppCore.instance.getUser().isLoginSucess) {
       return const Home();
     }
     else {
@@ -78,7 +76,7 @@ class _MyApp extends State<MyApp> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: <Widget>[Text('')]),
+                      title: Column(children: const <Widget>[Text('')]),
                       content: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,7 +106,7 @@ class _MyApp extends State<MyApp> {
                 );
               }
             }
-          )
+          ),
         );
       }
     );

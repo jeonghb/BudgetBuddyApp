@@ -1,30 +1,27 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/models/user.dart';
-import 'package:test/screens/user_regist.dart';
-import 'package:test/widgets/top_bar.dart';
+import 'package:test/screens/update_password.dart';
+
 import '../models/response_data.dart';
+import '../models/user.dart';
 import '../widgets/text_form_field_v1.dart';
-import 'login.dart';
+import '../widgets/top_bar.dart';
 
-class UserRegistCheck extends StatefulWidget {
-  final UserType userType;
-
-  const UserRegistCheck({super.key, required this.userType});
+class FindPassword extends StatefulWidget {
+  const FindPassword({super.key});
 
   @override
-  State<UserRegistCheck> createState() => _UserRegistCheck();
+  State<FindPassword> createState() => _FindPassword();
 }
 
-class _UserRegistCheck extends State<UserRegistCheck> {
+class _FindPassword extends State<FindPassword> {
   User user = User();
-  String birthday = '';
-  bool male = true;
-  bool female = false;
-  late List<bool> isSelected = [male, female];
 
   bool validationCheck() {
     if (!user.idRegexCheck()
+      || !user.nameRegexCheck()
       || user.userBirthdayYear.text.trim().replaceAll('0', '').length != 4
       || user.userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
       || user.userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
@@ -48,7 +45,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기',
+                  Text('비밀번호 찾기',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 30
@@ -56,6 +53,33 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                   ),
                   SizedBox(
                     height: 30,
+                  ),
+                  Text('아이디',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  TextFormFieldV1(
+                    hintText: 'ID',
+                    hintStyle: TextStyle(
+                      color: Colors.grey,
+                    ),
+                    autovalidateMode: AutovalidateMode.always,
+                    keyboardType: TextInputType.name,
+                    controller: user.userId,
+                    textInputAction: TextInputAction.next,
+                    validator: (value) { return user.idCheck();},
+                    onEditingComplete: () {
+                      FocusScope.of(context).nextFocus();
+                      FocusScope.of(context).nextFocus();
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
                   ),
                   Text('이름',
                     style: TextStyle(
@@ -228,132 +252,40 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.black,
                       ),
-                      child: Text(widget.userType == UserType.newUser ? '다음' : '조회',
+                      child: Text('조회',
                       style: TextStyle(
                         fontSize: 18,
                         color: Colors.white
                       ),),
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
-                        if (!validationCheck()) {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text('아이디 찾기'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text('정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.',),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
-                          return;
-                        }
-                        
-                        ResponseData responseData = await user.isUserCheck();
-                        if (responseData.statusCode == 200 && user.userId.text.isEmpty) {
-                          switch (widget.userType) {
-                            case UserType.newUser:
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
-                              break;
-                            case UserType.findUser:
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('아이디 찾기'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const <Widget>[Text('가입된 정보가 없습니다.\n회원가입을 진행하시겠습니까?',),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('취소'), 
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
-                              break;
+                        ResponseData responseData = await user.userPasswordFind();
+                        if (responseData.statusCode == 200 && responseData.body.toString() == 'false') {
+                            showDialog(
+                              context: context, 
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                  title: Text('비밀번호 찾기'),
+                                  content: Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: const <Widget>[Text('일치하는 정보가 없습니다.',),],
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('확인'), 
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                    )
+                                  ],
+                                );
+                              },
+                            );
                           }
-                        }
-                        else if (responseData.statusCode == 200 && user.userId.text.isNotEmpty) {
-                          switch (widget.userType) {
-                            case UserType.newUser:
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('회원가입'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const <Widget>[Text("이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.",),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
-                              break;
-                            case UserType.findUser:
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('아이디 찾기'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[Text("가입된 ID는 ${user.userId.text.substring(0, 4)}${Iterable.generate(user.userId.text.length - 4, (_) => '*').join()}입니다.",),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
-                              break;
-                          }
+                        else if (responseData.statusCode == 200 && responseData.body.toString() == 'true') {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword(user: user)),);
                         }
                         else {
                           showDialog(
@@ -361,7 +293,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text(widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기'),
+                                title: Text('비밀번호 찾기'),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -388,9 +320,4 @@ class _UserRegistCheck extends State<UserRegistCheck> {
       )
     );
   }
-}
-
-enum UserType {
-  newUser,
-  findUser
 }
