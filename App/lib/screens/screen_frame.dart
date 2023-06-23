@@ -16,15 +16,15 @@ class _ScreenFrame extends State<ScreenFrame> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => { FocusScope.of(context).unfocus()},
-      child: SingleChildScrollView(
-        child: Scaffold(
-          appBar: TopBar(type: BarType.login),
-          endDrawer: MenuDrawer(),
-          backgroundColor: Colors.white,
-          body: widget.body,
-        ),
+    return Scaffold(
+      appBar: TopBar(type: BarType.login),
+      endDrawer: MenuDrawer(),
+      backgroundColor: Colors.white,
+      body: GestureDetector(
+        onTap: () => { FocusScope.of(context).unfocus()},
+        child: SingleChildScrollView(
+          child: widget.body,
+        )
       ),
     );
   }

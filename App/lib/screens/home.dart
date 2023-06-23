@@ -21,9 +21,18 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      child: ScreenFrame(
-        body : Center(
+    return ScreenFrame(
+      body: WillPopScope(
+        onWillPop: () async {
+          DateTime now = DateTime.now();
+          if (curruentBackPressTime == null || now.difference(curruentBackPressTime!) > Duration(seconds: 2)) {
+            curruentBackPressTime = now;
+            Fluttertoast.showToast(msg: "뒤로가기 버튼을 한번 더 누르면 종료됩니다");
+            return false;
+          }
+          return true;
+        },
+        child : Center(
           child: Padding(
             padding: EdgeInsets.all(30),
             child: Column(
@@ -64,15 +73,6 @@ class _Home extends State<Home> {
           )
         )
       ),
-      onWillPop: () async {
-        DateTime now = DateTime.now();
-        if (curruentBackPressTime == null || now.difference(curruentBackPressTime!) > Duration(seconds: 2)) {
-          curruentBackPressTime = now;
-          Fluttertoast.showToast(msg: "뒤로가기 버튼을 한번 더 누르면 종료됩니다");
-          return false;
-        }
-        return true;
-      }
     );
   }
 }
