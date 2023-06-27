@@ -52,6 +52,15 @@ class _ReceiptRequest extends State<ReceiptRequest> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  Text(
+                    '영수증을 제출해주세요',
+                    style: TextStyle(
+                      fontSize: 30,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
                   Text('제목',
                     style: TextStyle(
                       fontSize: 20

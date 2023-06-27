@@ -8,6 +8,7 @@ class ScreenFrame extends StatefulWidget {
   final bool isAppBar;
   final bool isDrawer;
   final Color backgroundColor;
+  final bool isAlarm;
   
   const ScreenFrame({
     super.key,
@@ -15,6 +16,7 @@ class ScreenFrame extends StatefulWidget {
     this.isDrawer = true,
     required this.body,
     this.backgroundColor = Colors.white,
+    this.isAlarm = false,
   });
 
   @override
@@ -26,7 +28,7 @@ class _ScreenFrame extends State<ScreenFrame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.isAppBar ? TopBar(type: BarType.login) : null,
+      appBar: widget.isAppBar ? TopBar(type: BarType.login, alarm: widget.isAlarm,) : null,
       endDrawer: widget.isDrawer ? MenuDrawer() : null,
       backgroundColor: widget.backgroundColor,
       body: GestureDetector(

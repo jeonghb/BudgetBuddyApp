@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test/screens/receipt_calculate.dart';
 import 'package:test/screens/receipt_list.dart';
 import 'package:test/screens/screen_frame.dart';
 
-import '../app_core.dart';
 import '../models/receipt.dart';
-import 'budget_add.dart';
 import 'receipt_request.dart';
 
 class Home extends StatefulWidget {
@@ -24,6 +21,7 @@ class _Home extends State<Home> {
     return ScreenFrame(
       isAppBar: true,
       isDrawer: true,
+      isAlarm: true,
       body: WillPopScope(
         onWillPop: () async {
           DateTime now = DateTime.now();

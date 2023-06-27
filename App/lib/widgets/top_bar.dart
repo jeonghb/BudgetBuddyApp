@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import '../screens/alarm_list.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final BarType type;
+  final bool alarm;
 
-  const TopBar({super.key, required this.type});
+  const TopBar({super.key, required this.type, this.alarm = false});
 
   @override
   State<TopBar> createState() => _TopBar();
@@ -16,6 +18,7 @@ class _TopBar extends State<TopBar> {
   @override
   Widget build(BuildContext context) {
     Widget actionIcon;
+    Widget leadingIcon;
 
     switch (widget.type) {
       case BarType.login:
@@ -44,6 +47,29 @@ class _TopBar extends State<TopBar> {
         actionIcon = Container();
     }
 
+    if (widget.alarm) {
+      leadingIcon = IconButton(
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => AlarmList()),);
+        },
+        icon: Icon(
+          Icons.notifications_none,
+          color: Colors.black,
+        )
+      );
+    }
+    else {
+      leadingIcon = IconButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        icon: Icon(
+          Icons.arrow_back,
+          color: Colors.black
+        ),
+      );
+    }
+
     return AppBar(
       backgroundColor: Colors.white,
       centerTitle: true,
@@ -53,15 +79,7 @@ class _TopBar extends State<TopBar> {
           fontWeight: FontWeight.bold
         ),
       ),
-      leading: IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: Colors.black
-        ),
-      ),
+      leading: leadingIcon,
       actions: [
         actionIcon
       ],

@@ -50,19 +50,6 @@ class _MyApp extends State<MyApp> {
           title: '산돌교회',
           theme: ThemeData(
             primaryColor: Color.fromARGB(255, 90, 68, 223),
-            fontFamily: 'GOOGLE SEN',
-            textTheme: GoogleFonts.senTextTheme(
-              TextTheme().copyWith(
-                bodyLarge: GoogleFonts.oswald(
-                  fontSize: 50,
-                  color: Colors.white,
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  )
-                ),
-              )
-            ),
-            scaffoldBackgroundColor: Color.fromARGB(255, 90, 68, 223),
           ),
           home: FutureBuilder(
             future: isInitialized,

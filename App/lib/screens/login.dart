@@ -44,7 +44,12 @@ class _LogInPage extends State<LogInPage> {
                           shape: BoxShape.circle
                         ),
                         child: Text('\n\nSANDOL',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: TextStyle(
+                            fontSize: 50,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'GOOGLE SEN',
+                          ),
                         ),
                       )
                     )
