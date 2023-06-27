@@ -1,6 +1,4 @@
-import 'dart:convert';
-
-import 'package:crypto/crypto.dart';
+// ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -21,7 +19,6 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPage extends State<LogInPage> {
   User user = User();
-  bool isAutoLogIn = true;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +77,10 @@ class _LogInPage extends State<LogInPage> {
                         keyboardType: TextInputType.name,
                         controller: user.userId,
                         textInputAction: TextInputAction.next,
+                        onEditingComplete: () {
+                          FocusScope.of(context).nextFocus();
+                          FocusScope.of(context).nextFocus();
+                        },
                       ),
                       SizedBox(
                         height: 10,
@@ -95,27 +96,12 @@ class _LogInPage extends State<LogInPage> {
                         keyboardType: TextInputType.visiblePassword,
                         controller: user.userPassword,
                         textInputAction: TextInputAction.done,
+                        onEditingComplete: () {
+                          FocusScope.of(context).unfocus();
+                        },
                       ),
-                      Row(
-                        children: <Widget>[
-                          Checkbox(
-                            activeColor: Colors.white,
-                            checkColor: Color.fromARGB(255, 90, 68, 223),
-                            side: MaterialStateBorderSide.resolveWith(
-                              (states) => BorderSide(width: 1.0, color: Colors.grey),
-                            ),
-                            value: isAutoLogIn,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isAutoLogIn = value ?? false;
-                              });
-                            }
-                          ),
-                          Text('자동로그인'),
-                          SizedBox(
-                            width: 180,
-                          )
-                        ],
+                      SizedBox(
+                        height: 15,
                       ),
                       SizedBox(
                         width: double.infinity,
@@ -138,16 +124,9 @@ class _LogInPage extends State<LogInPage> {
                             user.userLogin(true).then((String result) async {
                               if (result == "0") {
                                 SharedPreferences preferences = await SharedPreferences.getInstance();
-                                if (isAutoLogIn) {
-                                  preferences.setBool('autoLogin', true);
-                                  preferences.setString('userId', user.userId.text);
-                                  preferences.setString('userPassword', sha512.convert(utf8.encode(user.userPassword.text)).toString());
-                                }
-                                else {
-                                  preferences.setBool('autoLogin', false);
-                                  preferences.setString('userId', '');
-                                  preferences.setString('userPassword', '');
-                                }
+                                preferences.setBool('autoLogin', false);
+                                preferences.setString('userId', '');
+                                preferences.setString('userPassword', '');
 
                                 AppCore.instance.setUser(user);
 
@@ -159,11 +138,11 @@ class _LogInPage extends State<LogInPage> {
                                   builder: (BuildContext context) {
                                     return AlertDialog(
                                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                      title: Column(children: <Widget>[Text('로그인')]),
+                                      title: Column(children: const <Widget>[Text('로그인')]),
                                       content: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[Text("잘못된 정보입니다.",),],
+                                        children: const <Widget>[Text("잘못된 정보입니다.",),],
                                       ),
                                       actions: <Widget>[
                                         TextButton(
