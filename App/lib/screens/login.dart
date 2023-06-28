@@ -1,4 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
+import 'dart:convert';
+
+import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,6 +22,67 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPage extends State<LogInPage> {
   User user = User();
+
+  void login() {
+    user.userLogin(true).then((String result) async {
+      if (result == "0") {
+        SharedPreferences preferences = await SharedPreferences.getInstance();
+        preferences.setBool('autoLogin', true);
+        preferences.setString('userId', user.userId.text);
+        preferences.setString('userPassword', sha512.convert(utf8.encode(user.userPassword.text)).toString());
+
+        AppCore.instance.setUser(user);
+
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false,);
+      }
+      else if (result == "1") {
+        showDialog(
+          context: context, 
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              title: Column(children: const <Widget>[Text('로그인')]),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[Text("잘못된 정보입니다.",),],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('확인'), 
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                )
+              ],
+            );
+          },
+        );
+      }
+      else {
+        showDialog(
+          context: context, 
+          builder: (BuildContext context) {
+            return AlertDialog(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+              title: Column(children: const <Widget>[Text('로그인')]),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const <Widget>[Text("로그인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('확인'), 
+                  onPressed: () {Navigator.pop(context);},
+                )
+              ],
+            );
+          }
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -103,6 +167,7 @@ class _LogInPage extends State<LogInPage> {
                         textInputAction: TextInputAction.done,
                         onEditingComplete: () {
                           FocusScope.of(context).unfocus();
+                          login();
                         },
                       ),
                       SizedBox(
@@ -126,64 +191,7 @@ class _LogInPage extends State<LogInPage> {
                             ),
                           ),
                           onPressed: () {
-                            user.userLogin(true).then((String result) async {
-                              if (result == "0") {
-                                SharedPreferences preferences = await SharedPreferences.getInstance();
-                                preferences.setBool('autoLogin', false);
-                                preferences.setString('userId', '');
-                                preferences.setString('userPassword', '');
-
-                                AppCore.instance.setUser(user);
-
-                                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false,);
-                              }
-                              else if (result == "1") {
-                                showDialog(
-                                  context: context, 
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                      title: Column(children: const <Widget>[Text('로그인')]),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: const <Widget>[Text("잘못된 정보입니다.",),],
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: Text('확인'), 
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                        )
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                              else {
-                                showDialog(
-                                  context: context, 
-                                  builder: (BuildContext context) {
-                                    return AlertDialog(
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                      title: Column(children: <Widget>[Text('로그인')]),
-                                      content: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: <Widget>[Text("로그인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                      ),
-                                      actions: <Widget>[
-                                        TextButton(
-                                          child: Text('확인'), 
-                                          onPressed: () {Navigator.pop(context);},
-                                        )
-                                      ],
-                                    );
-                                  }
-                                );
-                              }
-                            });
+                            login();
                           },
                         ),
                       ),

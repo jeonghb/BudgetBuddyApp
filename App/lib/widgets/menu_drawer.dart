@@ -3,8 +3,6 @@ import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
 import '../models/receipt.dart';
-import '../screens/receipt_calculate.dart';
-import '../screens/receipt_list.dart';
 import '../screens/receipt_request.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -90,101 +88,239 @@ class _MenuDrawer extends State<MenuDrawer> {
       ),
     ];
 
-    return SizedBox(
+    return Drawer(
       width: MediaQuery.of(context).size.width * 0.7,
-      child: Drawer(
-        child: Column(
-          children: [
-            Expanded(
-              flex: 3,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          AppCore.instance.getUser().userName.text,
-                          style: TextStyle(
-                            fontSize: 20,
-                          ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              SizedBox(
+                height: 20,
+                // child: IconButton(
+                //   onPressed: () {
+                //     Navigator.pop(context);
+                //   },
+                //   icon: Icon(Icons.close),
+                // ),
+              ),
+            ]
+          ),
+          Expanded(
+            flex: 3,
+            child: Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        '  ${AppCore.instance.getUser().userName.text}',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
                         ),
-                        Text('님'),
-                      ],
-                    ) 
-                  ),
-                  Expanded(
-                    child: Text(
-                      AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
-                      style: TextStyle(
-                        backgroundColor: Colors.green[100],
                       ),
+                    ],
+                  ) 
+                ),
+                Expanded(
+                  child: Text(
+                    AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
+                    style: TextStyle(
+                      backgroundColor: Colors.green[100],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Row(
+              children: [
+                SizedBox(
+                  width: 10,
+                ),
+                TextButton(
+                  onPressed: () {
+
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30),
+                      side: BorderSide(color: Colors.grey),
+                    ),
+                    minimumSize: Size(80, double.infinity),
+                    padding: EdgeInsets.all(0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/ID1.png',
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '마이페이지',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ]
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                TextButton(
+                  onPressed: () {
+
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Colors.grey),
+                    ),
+                    minimumSize: Size(70, double.infinity),
+                    padding: EdgeInsets.all(0),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(
+                        Icons.lock_outlined,
+                        size: 13
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '권한관리',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ],
+                  ) 
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                TextButton(
+                  onPressed: () {
+
+                  },
+                  style: TextButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(color: Colors.grey),
+                    ),
+                    minimumSize: Size(50, double.infinity),
+                    padding: EdgeInsets.all(0),
+                  ),
+                  child: Row(
+                    children: const [
+                      Icon(
+                        Icons.settings,
+                        size: 13),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        '설정',
+                        style: TextStyle(
+                          fontSize: 9,
+                          color: Colors.black,
+                        )
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+              ],
+            )
+          ),
+          Container(
+            width: double.infinity,
+            height: 20,
+            color: Colors.white,
+          ),
+          Container(
+            width: double.infinity,
+            height: 5,
+            color: Colors.grey,
+          ),
+          Expanded(
+            flex: 26,
+            child: ListView.builder(
+              itemCount: menuList.length,
+              itemBuilder: (context, index) {
+                return menuList[index];
+              }
+            )
+          ),
+          Container(
+            width: double.infinity,
+            height: 5,
+            color: Colors.grey,
+          ),
+          TextButton(
+            onPressed: () {
+              showDialog(
+                context: context, 
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                    title: Column(children: const <Widget>[Text('로그아웃')]),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const <Widget>[Text("로그아웃 하시겠습니까?",),],
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () {Navigator.pop(context);},
+                        child: Text('취소'),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                          AppCore.instance.logOut();
+
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
+                        },
+                        child: Text('확인'),
+                      )
+                    ],
+                  );
+                }
+              );
+            },
+            child: Container(
+              alignment: Alignment.centerLeft,
+              child: Row(
+                children: const [
+                  Icon(
+                    Icons.logout,
+                    color: Colors.black,
+                  ),
+                  Text(
+                    '로그아웃',
+                    style: TextStyle(
+                      color: Colors.black,
                     ),
                   ),
                 ],
-              ),
+              )
             ),
-            Expanded(
-              flex: 13,
-              child: ListView.builder(
-                itemCount: menuList.length,
-                itemBuilder: (context, index) {
-                  return menuList[index];
-                }
-              ),
-            ),
-            TextButton(
-              onPressed: () {
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: const <Widget>[Text('로그아웃')]),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[Text("로그아웃 하시겠습니까?",),],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () {Navigator.pop(context);},
-                          child: Text('취소'),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                            AppCore.instance.logOut();
-
-                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
-                          },
-                          child: Text('확인'),
-                        )
-                      ],
-                    );
-                  }
-                );
-              },
-              child: Container(
-                alignment: Alignment.centerLeft,
-                child: Row(
-                  children: const [
-                    Icon(
-                      Icons.logout,
-                      color: Colors.black,
-                    ),
-                    Text(
-                      '로그아웃',
-                      style: TextStyle(
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                )
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        ],
+    ),
     );
   }
 }
