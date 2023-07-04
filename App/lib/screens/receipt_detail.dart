@@ -103,7 +103,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       SizedBox(
                         width: 50,
                       ),
-                      Text(receipt.paymentDatetime.text,
+                      Text(receipt.paymentDatetime,
                         style: TextStyle(
                           fontSize: 20
                         ),

@@ -23,9 +23,8 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   bool female = false;
   late List<bool> isSelected = [male, female];
 
-  bool validationCheck() {
-    if (!user.idRegexCheck()
-      || user.userBirthdayYear.text.trim().replaceAll('0', '').length != 4
+  bool userRegistCheckValidationCheck() {
+    if (user.userBirthdayYear.text.trim().replaceAll('0', '').length != 4
       || user.userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
       || user.userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
       return false;
@@ -235,13 +234,13 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                       ),),
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
-                        if (!validationCheck()) {
+                        if (!userRegistCheckValidationCheck()) {
                           showDialog(
                             context: context, 
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text('아이디 찾기'),
+                                title: widget.userType == UserType.newUser ? Text('회원가입') : Text('아이디 찾기'),
                                 content: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -273,7 +272,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('아이디 찾기'),
+                                    title: Text('회원가입'),
                                     content: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       crossAxisAlignment: CrossAxisAlignment.start,

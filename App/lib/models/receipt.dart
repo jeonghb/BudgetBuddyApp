@@ -8,10 +8,19 @@ class Receipt with ChangeNotifier {
   TextEditingController registDatetime = TextEditingController();
   TextEditingController title = TextEditingController();
   TextEditingController requestAmount = TextEditingController();
-  TextEditingController paymentDatetime = TextEditingController();
+
+  String paymentDatetime = DateTime.now().toString();
+  TextEditingController paymentDatetimeYear = TextEditingController();
+  TextEditingController paymentDatetimeMonth = TextEditingController();
+  TextEditingController paymentDatetimeDay = TextEditingController();
+  TextEditingController paymentDatetimeHour = TextEditingController();
+  TextEditingController paymentDatetimeMinute = TextEditingController();
+
   TextEditingController memo = TextEditingController();
-  String approvalRequestDepartmentId = '';
+
+  String approvalRequestDepartmentId = '-1';
   String approvalRequestDepartmentName = '';
+
   List<XFile> fileList = [];
   TextEditingController AccountNumber = TextEditingController();
   int submissionStatus = 0;
@@ -28,7 +37,7 @@ class Receipt with ChangeNotifier {
       'requestUserId': 'goddnsl',
       'title': title.text,
       'requestAmount': requestAmount.text,
-      'paymentDatetime': paymentDatetime.text.substring(0, 16), 
+      'paymentDatetime': getPaymentDatetime(), 
       'memo': memo.text, 
       'approvalRequestDepartmentId': approvalRequestDepartmentId, 
       'fileList': fileList,
@@ -55,7 +64,7 @@ class Receipt with ChangeNotifier {
     registDatetime.text = json['registDatatime'].toString();
     title.text = json['title'].toString();
     requestAmount.text = json['requestAmount'].toString();
-    paymentDatetime.text = json['paymentDatetime'].toString();
+    paymentDatetime = json['paymentDatetime'].toString();
     memo.text = json['memo'].toString();
     approvalRequestDepartmentId = json['approvalRequestDepartmentId'].toString();
     approvalRequestDepartmentName = json['approvalRequestDepartmentName'].toString();
@@ -88,5 +97,23 @@ class Receipt with ChangeNotifier {
     else {
       return false;
     }
+  }
+
+  getPaymentDatetime() {
+    if (paymentDatetimeYear.text.isNotEmpty
+     || paymentDatetimeMonth.text.isNotEmpty
+     || paymentDatetimeDay.text.isNotEmpty
+     || paymentDatetimeHour.text.isNotEmpty
+     || paymentDatetimeMinute.text.isNotEmpty) {
+      paymentDatetime = '${paymentDatetimeYear.text.padLeft(4, '0')}-${paymentDatetimeMonth.text.padLeft(2, '0')}-${paymentDatetimeDay.text.padLeft(2, '0')} ${paymentDatetimeHour.text.padLeft(2, '0')}:${paymentDatetimeMinute.text.padLeft(2, '0')}';
+    }
+  }
+
+  setPaymentDatetime() {
+      paymentDatetimeYear.text = paymentDatetime.substring(0, 4);
+      paymentDatetimeMonth.text = paymentDatetime.substring(4, 2);
+      paymentDatetimeDay.text = paymentDatetime.substring(6, 2);
+      paymentDatetimeHour.text = paymentDatetime.substring(9, 2);
+      paymentDatetimeMinute.text = paymentDatetime.substring(12, 2);
   }
 }

@@ -15,6 +15,7 @@ class TextFormFieldV1 extends StatefulWidget {
   final obscureText;
   final VoidCallback? onEditingComplete;
   final prefixIcon;
+  final textAlign;
 
   TextFormFieldV1({
     Key? key,
@@ -32,6 +33,7 @@ class TextFormFieldV1 extends StatefulWidget {
     this.obscureText,
     this.onEditingComplete,
     this.prefixIcon,
+    this.textAlign = TextAlign.left,
      }) : super(key: key,);
 
   @override
@@ -91,6 +93,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
         filled: true,
         fillColor: Colors.white,
       ),
+      textAlign: widget.textAlign,
       obscureText: widget.obscureText ?? false,
       autofocus: true,
       autovalidateMode: widget.autovalidateMode,

@@ -31,12 +31,10 @@ class _ScreenFrame extends State<ScreenFrame> {
       appBar: widget.isAppBar ? TopBar(type: BarType.login, alarm: widget.isAlarm,) : null,
       endDrawer: widget.isDrawer ? MenuDrawer() : null,
       backgroundColor: widget.backgroundColor,
+      resizeToAvoidBottomInset: true,
       body: GestureDetector(
         onTap: () => { FocusScope.of(context).unfocus()},
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: widget.body,
-        )
+        child: widget.body,
       ),
     );
   }

@@ -43,24 +43,27 @@ class FirstRun extends StatelessWidget {
                   ),
                   Expanded(
                     flex: 7,
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
+                    child: SizedBox(
+                      height: double.infinity,
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
-                      ),
-                      child: Text('로그인',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20,
-                          color: Color.fromARGB(255, 90, 68, 223),
+                        child: Text('로그인',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Color.fromARGB(255, 90, 68, 223),
+                          ),
                         ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),
+                          );
+                        },
                       ),
-                      onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),
-                        );
-                      },
                     ),
                   ),
                   Expanded(
@@ -68,7 +71,7 @@ class FirstRun extends StatelessWidget {
                     )
                   ),
                 ],
-              )
+              ),
             ),
             Expanded(
               child: Row(
