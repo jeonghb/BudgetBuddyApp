@@ -21,7 +21,7 @@ class AppCore extends ChangeNotifier {
     return user;
   }
 
-  Future<User> getUserInfo() async {
+  Future<User> getUserDB() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getBool('autoLogin') != null && preferences.getBool('autoLogin')!) {
       User localUserInfo = User();

@@ -26,7 +26,7 @@ class _MyApp extends State<MyApp> {
     super.initState();
 
     setState(() {
-      isInitialized = AppCore.instance.getUserInfo();
+      isInitialized = AppCore.instance.getUserDB();
     });
   }
 

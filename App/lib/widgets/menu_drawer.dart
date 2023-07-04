@@ -3,6 +3,7 @@ import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
 import '../models/receipt.dart';
+import '../screens/my_page.dart';
 import '../screens/receipt_request.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -92,17 +93,20 @@ class _MenuDrawer extends State<MenuDrawer> {
       width: MediaQuery.of(context).size.width * 0.7,
       child: Column(
         children: [
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               SizedBox(
                 height: 20,
-                // child: IconButton(
-                //   onPressed: () {
-                //     Navigator.pop(context);
-                //   },
-                //   icon: Icon(Icons.close),
-                // ),
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.close),
+                ),
               ),
             ]
           ),
@@ -142,7 +146,8 @@ class _MenuDrawer extends State<MenuDrawer> {
                 ),
                 TextButton(
                   onPressed: () {
-
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => MyPage()));
                   },
                   style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
