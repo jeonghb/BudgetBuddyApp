@@ -6,15 +6,10 @@
 <mapper namespace="com.sandol.mapper.app">
 
 	<select id="getDepartmentList" resultType="departmentVO">
-		SELECT department_id departmentId, department_name departmentName, activation_status activationStatus
-		FROM department
+		<![CDATA[CALL get_department_list()]]>
 	</select>
     <insert id="insertDepartment" parameterType="departmentVO">
-   		INSERT INTO department(department_id, department_name, activation_status)
-   		VALUES (#{departmentId}, #{departmentName}, 1)
-   		ON DUPLICATE KEY UPDATE
-   			department_name = #{departmentName},
-   			activation_status = #{activationStatus}
+    	<![CDATA[CALL insert_department(#{departmentId}, #{departmentName}, #{activationStatus})]]>
     </insert>
       
 </mapper>

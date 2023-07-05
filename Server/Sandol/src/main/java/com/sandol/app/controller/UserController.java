@@ -55,4 +55,10 @@ public class UserController {
 	public boolean userPasswordUpdate(@RequestBody UserVO _userVO) {
 		return userService.userPasswordUpdate(_userVO);
 	}
+	
+	@RequestMapping(value = "/userInfoUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean userInfoUpdate(@RequestBody UserVO _userVO) {
+		return userService.userInfoUpdate(_userVO);
+	}
 }

@@ -23,5 +23,8 @@
     <update id="userPasswordUpdate" parameterType="userVO">
     	<![CDATA[CALL user_password_update(#{userId}, #{userPassword})]]>
     </update>
+    <update id="userInfoUpdate" parameterType="userVO">
+    	<![CDATA[CALL user_info_update(#{userId}, #{userEmail}, #{userPhoneNumber}, #{bank}, #{bankAccountNumber})]]>
+    </update>
       
 </mapper>

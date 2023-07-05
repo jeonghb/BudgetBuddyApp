@@ -9,6 +9,8 @@ public class UserVO {
 	private String userPhoneNumber;
 	private String userBirthday;
 	private String userSex;
+	private String bank;
+	private String bankAccountNumber;
 	private boolean logInIsSuccess;
 	
 	public boolean isRegistCheck() {
@@ -58,6 +60,18 @@ public class UserVO {
 	}
 	public void setUserSex(String userSex) {
 		this.userSex = userSex;
+	}
+	public String getBank() {
+		return bank;
+	}
+	public void setBank(String bank) {
+		this.bank = bank;
+	}
+	public String getBankAccountNumber() {
+		return bankAccountNumber;
+	}
+	public void setBankAccountNumber(String bankAccountNumber) {
+		this.bankAccountNumber = bankAccountNumber;
 	}
 	public boolean isLogInIsSuccess() {
 		return logInIsSuccess;

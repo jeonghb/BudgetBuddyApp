@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/password_auth_check.dart';
 import 'package:test/screens/screen_frame.dart';
 
 import '../app_core.dart';
@@ -13,62 +14,127 @@ class MyPage extends StatefulWidget {
 class _MyPage extends State<MyPage> {
   @override
   Widget build(BuildContext context) {
-    List<ListTile> menuList = [
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('개인정보 관리',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          ),
+    List<ExpansionTile> menuList = [
+      ExpansionTile(
+        title: Text(
+          '개인정보 관리',
         ),
-        onTap: () {
-          
-        },
+        children: [
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text(
+              '개인정보 수정',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.userInfoUpdate,)),);
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text(
+              '비밀번호 수정',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.passwordUpdate)),);
+            },
+          ),
+        ],
       ),
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('비밀번호 수정',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          ),
+      ExpansionTile(
+        title: Text(
+          '부서 관리',
         ),
-        onTap: () {
-          
-        },
+        children: [
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('부서 신청',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('부서원 관리',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('부서 승인',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('부서 탈퇴',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              
+            },
+          ),
+        ],
       ),
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('부서관리',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          ),
+      ExpansionTile(
+        title: Text(
+          '직책 관리',
         ),
-        onTap: () {
-          
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('직책 관리',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
+        children: [
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('직책 신청',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              
+            },
           ),
-        ),
-        onTap: () {
-          
-        },
+        ],
       ),
     ];
 

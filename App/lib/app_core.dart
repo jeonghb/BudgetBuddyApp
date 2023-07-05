@@ -86,4 +86,51 @@ class AppCore extends ChangeNotifier {
   static void finishServerRequest() {
     isLoading = false;
   }
+
+  static void showMessage(BuildContext context, String title, String message, ActionType actionType) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          title: Column(children: <Widget>[Text(title)]),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[Text(message,),],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('확인'), 
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<List<String>> getBankList() async {
+    List<String> bankList = <String>[];
+
+    String address = '/getBankList';
+    Map<String, String> body = {
+    };
+
+    ResponseData responseData = await AppCore.request(address, body);
+
+    for (var json in jsonDecode(responseData.body))
+    {
+      bankList.add(json['bankName']);
+    }
+
+    return bankList;
+  }
+}
+
+enum ActionType {
+  ok,
+  yesNo,
 }

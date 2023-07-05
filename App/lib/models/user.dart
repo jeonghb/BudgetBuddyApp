@@ -18,6 +18,8 @@ class User with ChangeNotifier {
   TextEditingController userBirthdayMonth = TextEditingController();
   TextEditingController userBirthdayDay = TextEditingController();
   String userSex = 'male';
+  String bank = '';
+  TextEditingController bankAccountNumber = TextEditingController();
   int departmentId = -1;
   // Image? image;
   bool isLoginSucess = false;
@@ -79,6 +81,21 @@ class User with ChangeNotifier {
       'userPhoneNumber': userPhoneNumber.text,
       'userBirthday': userBirthday,
       'userSex': userSex,
+    };
+    
+    ResponseData response = await AppCore.request(address, body);
+
+    return response.body;
+  }
+
+  Future<String> userUpdate() async {
+    String address = '/userUpdate';
+    Map<String, dynamic> body = {
+      'userId' : userId.text,
+      'userEmail': userEmail.text,
+      'userPhoneNumber': userPhoneNumber.text,
+      'bank': bank,
+      'bankAccountNumber' : bankAccountNumber.text,
     };
     
     ResponseData response = await AppCore.request(address, body);
@@ -185,5 +202,13 @@ class User with ChangeNotifier {
     };
 
     return await AppCore.request(address, body);
+  }
+
+  bool passwordAuthCheck(String password) {
+    if (userPassword.text == password) {
+      return true;
+    }
+    
+    return false;
   }
 }

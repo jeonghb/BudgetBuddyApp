@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/app_core.dart';
 import 'package:test/screens/login.dart';
 
 import '../models/response_data.dart';
@@ -189,7 +190,10 @@ class _UpdatePassword extends State<UpdatePassword> {
                                 actions: <Widget>[
                                   TextButton(
                                     child: Text('확인'), 
-                                    onPressed: () {Navigator.pop(context);},
+                                    onPressed: () {
+                                      AppCore.instance.logOut();
+                                      Navigator.pop(context);
+                                    },
                                   )
                                 ],
                               );

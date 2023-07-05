@@ -48,6 +48,10 @@
 		<url-pattern>/userPasswordFind</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/userPasswordUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userInfoUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getBankList</url-pattern>
 	</servlet-mapping>
 
 </web-app>

@@ -289,14 +289,16 @@ class _MenuDrawer extends State<MenuDrawer> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        onPressed: () {Navigator.pop(context);},
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
                         child: Text('취소'),
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pop(context);
                           AppCore.instance.logOut();
-
+                          
+                          Navigator.pop(context);
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
                         },
                         child: Text('확인'),

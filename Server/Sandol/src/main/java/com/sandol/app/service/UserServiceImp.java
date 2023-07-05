@@ -42,4 +42,9 @@ public class UserServiceImp implements UserService {
 	public boolean userPasswordUpdate(UserVO _userVO) {
 		return dao.userPasswordUpdate(_userVO);
 	}
+	
+	@Override
+	public boolean userInfoUpdate(UserVO _userVO) {
+		return dao.userInfoUpdate(_userVO);
+	}
 }

@@ -94,4 +94,21 @@ public class UserDAOImp implements UserDAO {
 		
 		return true;
 	}
+	
+	@Override
+	public boolean userInfoUpdate(UserVO _userVO) {
+		int result = 0;
+		
+		try {
+			result = tmp.update("com.sandol.mapper.app.userInfoUpdate", _userVO);
+			
+			if (result == 0) {
+				return false;
+			}
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
 }

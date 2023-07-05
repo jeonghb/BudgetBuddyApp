@@ -15,4 +15,6 @@ public interface UserDAO {
 	public boolean userPasswordFind(UserVO _userVO);
 	
 	public boolean userPasswordUpdate(UserVO _userVO);
+	
+	public boolean userInfoUpdate(UserVO _userVO);
 }
