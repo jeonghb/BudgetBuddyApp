@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sandol.app.service.DepartmentService;
 import com.sandol.app.vo.DepartmentVO;
+import com.sandol.app.vo.UserDepartmentVO;
 
 @Controller
 public class DepartmentController {
@@ -28,5 +29,11 @@ public class DepartmentController {
 	@ResponseBody
 	public Boolean setDepartment(@RequestBody DepartmentVO vo) {
 		return departmentService.setDepartment(vo);
+	}
+	
+	@RequestMapping(value = "/departmentRequest", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean departmentRequest(@RequestBody UserDepartmentVO vo) {
+		return departmentService.departmentRequest(vo);
 	}
 }

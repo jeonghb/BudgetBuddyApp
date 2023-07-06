@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/department_request.dart';
 import 'package:test/screens/password_auth_check.dart';
 import 'package:test/screens/screen_frame.dart';
 
 import '../app_core.dart';
+import 'department_member_list.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -68,7 +70,7 @@ class _MyPage extends State<MyPage> {
               ),
             ),
             onTap: () {
-              
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentRequest()),);
             },
           ),
           ListTile(
@@ -82,7 +84,7 @@ class _MyPage extends State<MyPage> {
               ),
             ),
             onTap: () {
-              
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentMemberList()),);
             },
           ),
           ListTile(
@@ -176,7 +178,8 @@ class _MyPage extends State<MyPage> {
                     width: 15,
                   ),
                   Text(
-                    AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
+                    '',
+                    // AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
                     style: TextStyle(
                       backgroundColor: Colors.green[100],
                     ),

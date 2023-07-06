@@ -129,7 +129,8 @@ class _MenuDrawer extends State<MenuDrawer> {
                 ),
                 Expanded(
                   child: Text(
-                    AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
+                    '',
+                    // AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
                     style: TextStyle(
                       backgroundColor: Colors.green[100],
                     ),

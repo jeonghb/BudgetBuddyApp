@@ -18,11 +18,12 @@ class Receipt with ChangeNotifier {
 
   TextEditingController memo = TextEditingController();
 
-  String approvalRequestDepartmentId = '-1';
+  int approvalRequestDepartmentId = -1;
   String approvalRequestDepartmentName = '';
 
   List<XFile> fileList = [];
-  TextEditingController AccountNumber = TextEditingController();
+  String bank = '';
+  TextEditingController bankAccountNumber = TextEditingController();
   int submissionStatus = 0;
   TextEditingController rejectMessage = TextEditingController();
   TextEditingController approvalType = TextEditingController();
@@ -41,7 +42,8 @@ class Receipt with ChangeNotifier {
       'memo': memo.text, 
       'approvalRequestDepartmentId': approvalRequestDepartmentId, 
       'fileList': fileList,
-      'accountNumber': AccountNumber,
+      'bank' : bank,
+      'bankAccountNumber': bankAccountNumber,
     };
 
     ResponseData responseData = await AppCore.request(address, body);
@@ -66,10 +68,10 @@ class Receipt with ChangeNotifier {
     requestAmount.text = json['requestAmount'].toString();
     paymentDatetime = json['paymentDatetime'].toString();
     memo.text = json['memo'].toString();
-    approvalRequestDepartmentId = json['approvalRequestDepartmentId'].toString();
+    approvalRequestDepartmentId = int.parse(json['approvalRequestDepartmentId']);
     approvalRequestDepartmentName = json['approvalRequestDepartmentName'].toString();
     // fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
-    AccountNumber.text = json['accountNumber'].toString();
+    bankAccountNumber.text = json['bankAccountNumber'].toString();
     approvalType.text = json['approvalType'].toString();
     approvalDatetime.text = json['approvalDatetime'].toString();
     calculateStatus.text = json['calculateStatus'].toString();

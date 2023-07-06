@@ -138,7 +138,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                     ),
                   ),
                   Row(
-                    children: <Widget>[
+                    children: const <Widget>[
                       Text('계좌번호',
                         style: TextStyle(
                           fontSize: 20
@@ -164,7 +164,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: <Widget>[Text('반려')]),
+                                  title: Column(children: const <Widget>[Text('반려')]),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -202,11 +202,11 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                  title: Column(children: <Widget>[Text('반려')]),
+                                                  title: Column(children: const <Widget>[Text('반려')]),
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[Text("반려 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
+                                                    children: const <Widget>[Text("반려 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
                                                   ),
                                                   actions: <Widget>[
                                                     TextButton(
@@ -264,11 +264,11 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                  title: Column(children: <Widget>[Text('결재')]),
+                                                  title: Column(children: const <Widget>[Text('결재')]),
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[Text("결재 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
+                                                    children: const <Widget>[Text("결재 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
                                                   ),
                                                   actions: <Widget>[
                                                     TextButton(
@@ -298,11 +298,11 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: <Widget>[Text('송금완료')]),
+                                  title: Column(children: const <Widget>[Text('송금완료')]),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[Text('송금완료 처리하시겠습니까?')],
+                                    children: const <Widget>[Text('송금완료 처리하시겠습니까?')],
                                   ),
                                   actions: <Widget>[
                                     TextButton(
@@ -326,11 +326,11 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                                               builder: (BuildContext context) {
                                                 return AlertDialog(
                                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                  title: Column(children: <Widget>[Text('송금')]),
+                                                  title: Column(children: const <Widget>[Text('송금')]),
                                                   content: Column(
                                                     mainAxisSize: MainAxisSize.min,
                                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: <Widget>[Text("송금완료 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
+                                                    children: const <Widget>[Text("송금완료 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
                                                   ),
                                                   actions: <Widget>[
                                                     TextButton(

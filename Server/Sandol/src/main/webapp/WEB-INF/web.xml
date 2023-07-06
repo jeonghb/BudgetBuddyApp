@@ -52,6 +52,8 @@
 		<url-pattern>/userInfoUpdate</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getBankList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentRequest</url-pattern>
 	</servlet-mapping>
 
 </web-app>

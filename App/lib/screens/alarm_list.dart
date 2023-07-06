@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'screen_frame.dart';
+
 class AlarmList extends StatefulWidget {
   
   const AlarmList({super.key});
@@ -11,6 +13,12 @@ class AlarmList extends StatefulWidget {
 class _AlarmList extends State<AlarmList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return ScreenFrame(
+      body: Column(
+        children: [
+
+        ]
+      ),
+    );
   }
 }

@@ -1,14 +1,14 @@
 package com.sandol.app.vo;
 
 public class DepartmentVO {
-	private String departmentId;
+	private int departmentId;
 	private String departmentName;
 	private boolean activationStatus;
 	
-	public String getDepartmentId() {
+	public int getDepartmentId() {
 		return departmentId;
 	}
-	public void setDepartmentId(String departmentId) {
+	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;
 	}
 	public String getDepartmentName() {

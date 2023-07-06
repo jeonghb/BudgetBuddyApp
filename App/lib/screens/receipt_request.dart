@@ -284,15 +284,15 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                 items: departmentList.map(
                   (value) { 
                     return DropdownMenuItem<String>(
-                      value: value.department_name,
-                      child: Text(value.department_name),
+                      value: value.departmentName,
+                      child: Text(value.departmentName),
                       );
                     },
                   ).toList(),
                 onChanged: (value) {
                   setState(() {
-                    widget.receipt.approvalRequestDepartmentId = departmentList.firstWhere((element) => element.department_name == value).department_id;
-                    widget.receipt.approvalRequestDepartmentName = departmentList.firstWhere((element) => element.department_name == value).department_name;
+                    widget.receipt.approvalRequestDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                    widget.receipt.approvalRequestDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                   });
                 }
               ),
@@ -373,7 +373,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                   ),
                   TextButton(
                     onPressed: () {
-                      widget.receipt.AccountNumber.text = '1002-340-513599';
+                      widget.receipt.bankAccountNumber.text = '1002-340-513599';
                     },
                     child: Text('내 계좌')
                   ),
@@ -381,7 +381,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
               ),
               TextFormFieldV1(
                 keyboardType: TextInputType.number,
-                controller: widget.receipt.AccountNumber,
+                controller: widget.receipt.bankAccountNumber,
                 textInputAction: TextInputAction.next,
               ),
               SizedBox(

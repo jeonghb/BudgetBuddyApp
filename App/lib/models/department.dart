@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class Department with ChangeNotifier {
-  String department_id = '';
-  String department_name = '';
-  bool activation_status = true;
+  int departmentId = -1;
+  String departmentName = '';
+  bool activationStatus = true;
 
-  void setData(var _json) {
-    department_id = _json['departmentId'];
-    department_name = _json['departmentName'];
-    activation_status = _json['activationStatus'] == 1 ? true : false;
+  void setData(var json) {
+    departmentId = int.parse(json['departmentId']);
+    departmentName = json['departmentName'];
+    activationStatus = json['activationStatus'] == 1 ? true : false;
   }
 }

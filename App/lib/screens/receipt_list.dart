@@ -1,12 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
-
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import 'package:test/screens/receipt_detail.dart';
-
 import '../models/receipt.dart';
+import '../models/response_data.dart';
 import '../widgets/menu_drawer.dart';
 import '../widgets/top_bar.dart';
 
@@ -28,26 +26,23 @@ class _ReceiptList extends State<ReceiptList> {
   void initState() {
     super.initState();
 
-    GetReceiptList();
+    getReceiptList();
   }
   
-  Future<void> GetReceiptList() async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/getReceiptList');
+  Future<void> getReceiptList() async {
 
-    http.Response response = await http.post(
-      uri,
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
-        'userId': 'goddnsl',
+    String address = '/getReceiptList';
+    Map<String, String> body = {
+      'userId': AppCore.instance.getUser().userId.text,
         'submissionStatus': submissionStatus,
-        })
-    );
+    };
 
-    if (response.statusCode == 200) {
-      List<dynamic> jsonResponse = jsonDecode(response.body);
+    ResponseData responseData = await AppCore.request(address, body);
+
+    if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       List<Receipt> tempList = [];
       
-      for (Map<String, dynamic> json in jsonResponse) {
+      for (Map<String, dynamic> json in jsonDecode(responseData.body)) {
         Receipt receipt = Receipt();
         receipt.fromJson(json);
         tempList.add(receipt);
@@ -98,8 +93,8 @@ class _ReceiptList extends State<ReceiptList> {
                         child: Column (
                           children: [
                             ListTile(
-                            leading: Text(receipt.title.text),
-                            trailing: hasIamge ? Image.file(File(receipt.fileList[0].path)) : null,
+                              leading: Text(receipt.title.text),
+                              trailing: hasIamge ? Image.file(File(receipt.fileList[0].path)) : null,
                             ),
                             Divider(),
                           ]

@@ -11,5 +11,8 @@
     <insert id="insertDepartment" parameterType="departmentVO">
     	<![CDATA[CALL insert_department(#{departmentId}, #{departmentName}, #{activationStatus})]]>
     </insert>
+    <insert id="departmentRequest" parameterType="userDepartmentVO">
+    	<![CDATA[CALL department_request({#userId}, #{departmentId})]]>
+    </insert>
       
 </mapper>

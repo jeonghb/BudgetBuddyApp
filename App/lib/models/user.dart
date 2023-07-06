@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import 'package:test/models/response_data.dart';
+import 'department.dart';
 
 class User with ChangeNotifier {
   TextEditingController userId = TextEditingController();
@@ -20,7 +20,7 @@ class User with ChangeNotifier {
   String userSex = 'male';
   String bank = '';
   TextEditingController bankAccountNumber = TextEditingController();
-  int departmentId = -1;
+  List<Department> departmentList = <Department>[];
   // Image? image;
   bool isLoginSucess = false;
   
@@ -33,10 +33,6 @@ class User with ChangeNotifier {
   registStatus() {
     userBirthday = DateTime.now().toString();
     userSex = 'male';
-  }
-
-  int getDepartmentId() {
-    return departmentId;
   }
 
   String getUserBirthday() {

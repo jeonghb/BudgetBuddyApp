@@ -10,6 +10,7 @@
 		<typeAlias alias="userVO" type="com.sandol.app.vo.UserVO"/>
 		<typeAlias alias="departmentVO" type="com.sandol.app.vo.DepartmentVO"/>
    		<typeAlias alias="ReceiptVO"	type="com.sandol.app.vo.ReceiptVO"/>
+   		<typeAlias alias="UserDepartmentVO" type="com.sandol.app.vo.UserDepartmentVO"/>
 	</typeAliases>
 	
 </configuration>
