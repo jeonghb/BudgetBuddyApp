@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:test/screens/department_leave.dart';
 import 'package:test/screens/department_request.dart';
 import 'package:test/screens/password_auth_check.dart';
 import 'package:test/screens/screen_frame.dart';
 
 import '../app_core.dart';
 import 'department_member_list.dart';
+import 'department_request_list.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -98,7 +100,7 @@ class _MyPage extends State<MyPage> {
               ),
             ),
             onTap: () {
-              
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentRequestList()),);
             },
           ),
           ListTile(
@@ -112,7 +114,7 @@ class _MyPage extends State<MyPage> {
               ),
             ),
             onTap: () {
-              
+              Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentLeave()));
             },
           ),
         ],
