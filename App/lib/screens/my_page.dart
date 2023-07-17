@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:test/screens/department_leave.dart';
 import 'package:test/screens/department_request.dart';
 import 'package:test/screens/password_auth_check.dart';
+import 'package:test/screens/position_request.dart';
 import 'package:test/screens/screen_frame.dart';
-
 import '../app_core.dart';
 import 'department_member_list.dart';
 import 'department_request_list.dart';
+import 'position_leave.dart';
+import 'position_request_list.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -135,7 +137,35 @@ class _MyPage extends State<MyPage> {
               ),
             ),
             onTap: () {
-              
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequest()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('직책 승인',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequestList()));
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.add_box_outlined),
+            iconColor: Color.fromARGB(255, 90, 68, 223),
+            focusColor: Color.fromARGB(255, 90, 68, 223),
+            title: Text('직책 탈퇴',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.black,
+              ),
+            ),
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => PositionLeave()));
             },
           ),
         ],
