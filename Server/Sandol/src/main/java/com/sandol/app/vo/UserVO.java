@@ -1,5 +1,7 @@
 package com.sandol.app.vo;
 
+import java.util.List;
+
 public class UserVO {
 	private boolean registCheck;
 	private String userId;
@@ -9,8 +11,9 @@ public class UserVO {
 	private String userPhoneNumber;
 	private String userBirthday;
 	private String userSex;
-	private String bank;
+	private int bankId;
 	private String bankAccountNumber;
+	private List<DepartmentVO> departmentList;
 	private boolean logInIsSuccess;
 	
 	public boolean isRegistCheck() {
@@ -61,17 +64,23 @@ public class UserVO {
 	public void setUserSex(String userSex) {
 		this.userSex = userSex;
 	}
-	public String getBank() {
-		return bank;
+	public int getBankId() {
+		return bankId;
 	}
-	public void setBank(String bank) {
-		this.bank = bank;
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
 	}
 	public String getBankAccountNumber() {
 		return bankAccountNumber;
 	}
 	public void setBankAccountNumber(String bankAccountNumber) {
 		this.bankAccountNumber = bankAccountNumber;
+	}
+	public List<DepartmentVO> getDepartmentList() {
+		return departmentList;
+	}
+	public void setDepartmentList(List<DepartmentVO> departmentList) {
+		this.departmentList = departmentList;
 	}
 	public boolean isLogInIsSuccess() {
 		return logInIsSuccess;
@@ -86,5 +95,8 @@ public class UserVO {
 		setUserPhoneNumber(newVO.getUserPhoneNumber());
 		setUserBirthday(newVO.getUserBirthday());
 		setUserSex(newVO.getUserSex());
+		setBankId(newVO.getBankId());
+		setBankAccountNumber(newVO.getBankAccountNumber());
+		setDepartmentList(newVO.getDepartmentList());
 	}
 }

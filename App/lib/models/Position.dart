@@ -1,15 +1,13 @@
-import 'package:flutter/material.dart';
-
-class Position with ChangeNotifier {
-  int departmentId = -1;
+class Position {
   int positionId = -1;
   String positionName = '';
   int authFlag = 0;
   bool activationStatus = true;
 
   void setData(var json) {
-    positionId = int.parse(json['positionId']);
+    positionId = int.parse(json['positionId'].toString());
     positionName = json['positionName'];
-    activationStatus = json['activationStatus'] == 1 ? true : false;
+    // authFlag = int.parse(json['authFlag'].toString());
+    activationStatus = json['positionActivationStatus'] == 1 ? true : false;
   }
 }

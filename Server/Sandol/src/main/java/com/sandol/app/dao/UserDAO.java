@@ -1,5 +1,8 @@
 package com.sandol.app.dao;
 
+import java.util.List;
+
+import com.sandol.app.vo.UserDepartmentPositionVO;
 import com.sandol.app.vo.UserVO;
 
 public interface UserDAO {
@@ -17,4 +20,6 @@ public interface UserDAO {
 	public boolean userPasswordUpdate(UserVO _userVO);
 	
 	public boolean userInfoUpdate(UserVO _userVO);
+	
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(String _userId);
 }

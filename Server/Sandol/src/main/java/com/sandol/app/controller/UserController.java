@@ -1,5 +1,8 @@
 package com.sandol.app.controller;
 
+import java.util.List;
+import java.util.Map;
+
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sandol.app.service.UserService;
+import com.sandol.app.vo.UserDepartmentPositionVO;
 import com.sandol.app.vo.UserVO;
 
 @Controller
@@ -60,5 +64,11 @@ public class UserController {
 	@ResponseBody
 	public boolean userInfoUpdate(@RequestBody UserVO _userVO) {
 		return userService.userInfoUpdate(_userVO);
+	}
+	
+	@RequestMapping(value = "/getLoginUserDepartmentPositionList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(@RequestBody Map<String, String> _userId) {
+		return userService.getLoginUserDepartmentPositionList(_userId.get("userId"));
 	}
 }

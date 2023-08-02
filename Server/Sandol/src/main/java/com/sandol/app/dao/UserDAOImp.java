@@ -1,9 +1,12 @@
 package com.sandol.app.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sandol.app.vo.UserDepartmentPositionVO;
 import com.sandol.app.vo.UserVO;
 
 @Repository
@@ -110,5 +113,14 @@ public class UserDAOImp implements UserDAO {
 		}
 		
 		return true;
+	}
+	
+	@Override
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(String _userId) {
+		try {
+			return tmp.selectList("com.sandol.mapper.app.getLoginUserDepartmentPositionList", _userId);
+		}catch (NullPointerException e) {
+			return null;
+		}
 	}
 }

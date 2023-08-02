@@ -46,7 +46,7 @@ class Receipt with ChangeNotifier {
       'bankAccountNumber': bankAccountNumber,
     };
 
-    ResponseData responseData = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == '1') {
@@ -86,7 +86,7 @@ class Receipt with ChangeNotifier {
       'rejectMessage': rejectMessage.text,
     };
 
-    ResponseData responseData = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == '1') {

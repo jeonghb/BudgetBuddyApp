@@ -1,19 +1,19 @@
 package com.sandol.app.vo;
 
 public class BankVO {
-	private String BankId;
-	private String BankName;
+	private int bankId;
+	private String bankName;
 	
-	public String getBankId() {
-		return BankId;
+	public int getBankId() {
+		return bankId;
 	}
-	public void setBankId(String BankId) {
-		this.BankId = BankId;
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
 	}
 	public String getBankName() {
-		return BankName;
+		return bankName;
 	}
-	public void setBankName(String BankName) {
-		this.BankName = BankName;
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
 	}
 }

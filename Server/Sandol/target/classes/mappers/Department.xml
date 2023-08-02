@@ -4,6 +4,10 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="com.sandol.mapper.app">
+	<resultMap id="DepartmentRequestResultMap" type="DepartmentRequestVO">
+		<result property="retCd" column="ret_cd" jdbcType="INTEGER" />
+		<result property="retMessage" column="ret_message" jdbcType="VARCHAR" />
+	</resultMap>
 
 	<select id="getDepartmentList" resultType="departmentVO">
 		<![CDATA[CALL get_department_list()]]>
@@ -12,7 +16,19 @@
     	<![CDATA[CALL insert_department(#{departmentId}, #{departmentName}, #{activationStatus})]]>
     </insert>
     <insert id="departmentRequest" parameterType="userDepartmentVO">
-    	<![CDATA[CALL department_request({#userId}, #{departmentId})]]>
+    	<![CDATA[CALL department_request(#{userId}, #{departmentId})]]>
     </insert>
-      
+    <select id="getRequestPositilityDepartmentList" resultType="departmentVO">
+		<![CDATA[CALL get_request_positility_department_list(#{userId})]]>
+	</select>
+	<select id="getDepartmentRequestList" resultType="departmentRequestVO">
+		<![CDATA[CALL get_department_request_list(#{userId})]]>
+	</select>
+	<insert id="departmentRequestFinish" parameterType="departmentRequestVO">
+    	<![CDATA[CALL department_request_finish(#{requestUserId}, #{requestDepartmentId}, #{approvalUserId}, #{approvalStatus})]]>
+    </insert>
+	<select id="getDepartmentMemberList" resultType="departmentMemberVO">
+		<![CDATA[CALL get_department_member_list(#{userId})]]>
+	</select>
+    
 </mapper>

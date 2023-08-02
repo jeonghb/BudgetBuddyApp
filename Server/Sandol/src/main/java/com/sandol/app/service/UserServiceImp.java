@@ -1,10 +1,13 @@
 package com.sandol.app.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
 import com.sandol.app.dao.UserDAO;
+import com.sandol.app.vo.UserDepartmentPositionVO;
 import com.sandol.app.vo.UserVO;
 
 @Service
@@ -46,5 +49,10 @@ public class UserServiceImp implements UserService {
 	@Override
 	public boolean userInfoUpdate(UserVO _userVO) {
 		return dao.userInfoUpdate(_userVO);
+	}
+	
+	@Override
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(String _userId) {
+		return dao.getLoginUserDepartmentPositionList(_userId);
 	}
 }

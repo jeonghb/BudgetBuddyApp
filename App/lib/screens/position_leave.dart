@@ -159,7 +159,7 @@ Future<bool> leave(int selectDepartmentId, int selectPositionId) async {
     'positionId' : selectPositionId.toString(),
   };
 
-  ResponseData responseData = await AppCore.request(address, body);
+  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
   if (responseData.statusCode == 200) {
     if (responseData.body == '1') {

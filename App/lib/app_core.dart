@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
@@ -48,7 +50,7 @@ class AppCore extends ChangeNotifier {
     setUser(initializeUser);
   }
 
-  static Future<ResponseData> request(String address, dynamic body) async {
+  static Future<ResponseData> request(ServerType serverType, String address, dynamic body) async {
     ResponseData responseData = ResponseData();
 
     try {
@@ -56,11 +58,24 @@ class AppCore extends ChangeNotifier {
 
       loadingServerRequest();
 
-      http.Response response = await http.post(
-        uri,
-        headers: {"Content-Type": "application/json"},
-        body: json.encode(body),
-      ).timeout(const Duration(seconds: 5));
+      http.Response response;
+
+      switch (serverType)
+      {
+        case ServerType.POST:
+          response = await http.post(
+            uri,
+            headers: {"Content-Type": "application/json"},
+            body: json.encode(body),
+          ).timeout(const Duration(seconds: 5));
+        break;
+        case ServerType.GET:
+          response = await http.get(
+            uri,
+            headers: {"Content-Type": "application/json"},
+          ).timeout(const Duration(seconds: 5));
+        break;
+      }
 
       responseData.statusCode = response.statusCode;
       responseData.body = response.body;
@@ -119,18 +134,35 @@ class AppCore extends ChangeNotifier {
     Map<String, String> body = {
     };
 
-    ResponseData responseData = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
 
-    for (var json in jsonDecode(responseData.body))
+    if (responseData.statusCode == 200)
     {
-      bankList.add(json['bankName']);
+      for (var json in jsonDecode(responseData.body))
+      {
+        bankList.add(json['bankName']);
+      }
     }
 
     return bankList;
+  }
+
+  static String getJsonString(var json, String name) {
+    return json[name]?.toString() ?? '';
+  }
+
+  static int getJsonInt(var json, String name) {
+    String returnValue = json[name]?.toString() ?? '-1';
+    return int.parse(returnValue);
   }
 }
 
 enum ActionType {
   ok,
   yesNo,
+}
+
+enum ServerType {
+  GET,
+  POST,
 }

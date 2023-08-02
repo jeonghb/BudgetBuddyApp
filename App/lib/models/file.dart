@@ -16,7 +16,7 @@ class File {
       'fileList': fileList, 
     };
 
-    ResponseData responseData = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
       return '0';

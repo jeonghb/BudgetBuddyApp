@@ -5,7 +5,7 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-	<select id="getBankList" resultType="BankVO">
+	<select id="getBankList" resultType="bankVO">
 		<![CDATA[CALL get_bank_list()]]>
 	</select>
       

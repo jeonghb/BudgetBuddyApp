@@ -29,7 +29,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
       'userId': AppCore.instance.getUser().userId.text,
     };
 
-    ResponseData responseData = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       List<DepartmentMember> tempList = <DepartmentMember>[];
@@ -72,7 +72,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                 child: Column (
                   children: [
                     ListTile(
-                      leading: Text(departmentMember.departmentName),
+                      leading: Text(departmentMember.userDepartmentName),
                     ),
                     Divider(),
                   ]

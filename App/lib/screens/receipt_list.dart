@@ -37,7 +37,7 @@ class _ReceiptList extends State<ReceiptList> {
         'submissionStatus': submissionStatus,
     };
 
-    ResponseData responseData = await AppCore.request(address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       List<Receipt> tempList = [];

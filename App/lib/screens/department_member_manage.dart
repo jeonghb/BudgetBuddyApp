@@ -32,7 +32,7 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
             widget.departmentMember.userName,
           ),
           Text(
-            widget.departmentMember.departmentName,
+            widget.departmentMember.userDepartmentName,
           ),
           TextButton(
             onPressed: () {

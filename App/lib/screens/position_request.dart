@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:js_interop';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../app_core.dart';
@@ -62,13 +61,13 @@ class _PositionRequest extends State<PositionRequest> {
       position.setData(json);
 
       // 본인이 소속된 부서에 직책 연결
-      Department department = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == position.departmentId);
+      // Department department = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == position.departmentId);
 
-      if (department.isNull) {
-        return;
-      }
+      // if (department == null) {
+      //   return;
+      // }
 
-      department.positionList.add(position);
+      // department.positionList.add(position);
     }
   }
 
@@ -199,7 +198,7 @@ Future<bool> positionRequest(int selectDepartmentId, int selectPositiontId) asyn
     'positionId' : selectPositiontId,
   };
 
-  ResponseData responseData = await AppCore.request(address, body);
+  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
   if (responseData.statusCode == 200) {
     if (responseData.body == '1') {

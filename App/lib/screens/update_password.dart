@@ -72,7 +72,7 @@ class _UpdatePassword extends State<UpdatePassword> {
                     controller: widget.user.userPassword,
                     textInputAction: TextInputAction.next,
                     validator: (value) { 
-                      return widget.user.pwCheck();
+                      return widget.user.passwordCheck();
                     },
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
@@ -100,7 +100,7 @@ class _UpdatePassword extends State<UpdatePassword> {
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return widget.user.pwEqualCheck();},
+                    validator: (value) { return widget.user.passwordEqualCheck();},
                     controller: widget.user.userPasswordCheck,
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();

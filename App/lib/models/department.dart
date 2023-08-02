@@ -8,8 +8,8 @@ class Department with ChangeNotifier {
   List<Position> positionList = <Position>[];
 
   void setData(var json) {
-    departmentId = int.parse(json['departmentId']);
+    departmentId = int.parse(json['departmentId'].toString());
     departmentName = json['departmentName'];
-    activationStatus = json['activationStatus'] == 1 ? true : false;
+    activationStatus = json['departmentActivationStatus'] == 1 ? true : false;
   }
 }

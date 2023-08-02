@@ -35,6 +35,36 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
     }
   }
 
+  void auth() {
+    if (AppCore.instance.getUser().passwordAuthCheck(password.text)) {
+      nextScreenPush();
+    }
+    else {
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            title: Column(children: const <Widget>[Text('비밀번호 확인')]),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Widget>[Text('비밀번호가 일치하지 않습니다.',),],
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('확인'), 
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
@@ -49,40 +79,17 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
             TextFormFieldV1(
               obscureText: true,
               controller: password,
+              onEditingComplete: () {
+                FocusScope.of(context).unfocus();
+                auth();
+              },
             ),
             SizedBox(
               height: 20,
             ),
             TextButton(
               onPressed: () {
-                if (AppCore.instance.getUser().passwordAuthCheck(password.text)) {
-                  Navigator.pop(context);
-                  nextScreenPush();
-                }
-                else {
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('비밀번호 확인')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text('비밀번호가 일치하지 않습니다.',),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
-                }
+                auth();
               },
               child: Text(
                 '확인',

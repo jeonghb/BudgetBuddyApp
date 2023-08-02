@@ -9,8 +9,13 @@
 	<typeAliases>
 		<typeAlias alias="userVO" type="com.sandol.app.vo.UserVO"/>
 		<typeAlias alias="departmentVO" type="com.sandol.app.vo.DepartmentVO"/>
-   		<typeAlias alias="ReceiptVO"	type="com.sandol.app.vo.ReceiptVO"/>
-   		<typeAlias alias="UserDepartmentVO" type="com.sandol.app.vo.UserDepartmentVO"/>
+   		<typeAlias alias="receiptVO"	type="com.sandol.app.vo.ReceiptVO"/>
+   		<typeAlias alias="userDepartmentVO" type="com.sandol.app.vo.UserDepartmentVO"/>
+   		<typeAlias alias="bankVO" type="com.sandol.app.vo.BankVO"/>
+   		<typeAlias alias="userDepartmentPositionVO" type="com.sandol.app.vo.UserDepartmentPositionVO"/>
+   		<typeAlias alias="departmentRequestVO" type="com.sandol.app.vo.DepartmentRequestVO"/>
+   		<typeAlias alias="departmentMemberVO" type="com.sandol.app.vo.DepartmentMemberVO"/>
+   		
 	</typeAliases>
 	
 </configuration>

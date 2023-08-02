@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
+import '../app_core.dart';
 import '../models/department_request.dart';
+import '../models/response_data.dart';
 import 'department_request_manage.dart';
 import 'screen_frame.dart';
 
@@ -13,6 +17,40 @@ class DepartmentRequestList extends StatefulWidget {
 
 class _DepartmentRequestList extends State<DepartmentRequestList> {
   List<DepartmentRequest> departmentRequestList = <DepartmentRequest>[];
+
+  @override
+  void initState() {
+    super.initState();
+
+    departmentRequestList.add(DepartmentRequest());
+
+    getDepartmentRequestList();
+  }
+
+  void getDepartmentRequestList() async {
+    String address = '/getDepartmentRequestList';
+    Map<String, String> body = {
+      'userId': AppCore.instance.getUser().userId.text,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      List<DepartmentRequest> tempList = <DepartmentRequest>[];
+      
+      for (var json in jsonDecode(responseData.body))
+      {
+        DepartmentRequest departmentRequest = DepartmentRequest();
+        departmentRequest.setData(json);
+
+        tempList.add(departmentRequest);
+      }
+
+      setState(() {
+        departmentRequestList = tempList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +73,11 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
 
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentRequestManage(departmentRequest: departmentRequest,)),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentRequestManage(departmentRequest: departmentRequest,)),).then((value) {
+                    if (value == true) {
+                      getDepartmentRequestList();
+                    }
+                  });
                 },
                 child: Column (
                   children: [

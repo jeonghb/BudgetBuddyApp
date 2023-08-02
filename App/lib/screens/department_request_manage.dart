@@ -41,7 +41,7 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                 '생년월일',
               ),
               Text(
-                widget.departmentRequest.requestUserBirthDay,
+                widget.departmentRequest.requestUserBirthday,
               )
             ],
           ),
@@ -91,12 +91,9 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                             child: Text('확인'), 
                             onPressed: () {
                               Navigator.pop(context);
-                              widget.departmentRequest.requestResult = false;
+                              widget.departmentRequest.approvalStatus = 0;
                               widget.departmentRequest.requestFinish().then((bool result) {
-                                if (result) {
-                                  Navigator.pop(context);
-                                }
-                                else {
+                                if (!result) {
                                   showDialog(
                                     context: context, 
                                     builder: (BuildContext context) {
@@ -119,7 +116,7 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                                   );
                                 }
                               });
-                              Navigator.pop(context);
+                              Navigator.pop(context, true);
                             },
                           )
                         ],
@@ -155,12 +152,9 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                             child: Text('확인'), 
                             onPressed: () {
                               Navigator.pop(context);
-                              widget.departmentRequest.requestResult = true;
+                              widget.departmentRequest.approvalStatus = 2;
                               widget.departmentRequest.requestFinish().then((bool result) {
-                                if (result) {
-                                  Navigator.pop(context);
-                                }
-                                else {
+                                if (!result) {
                                   showDialog(
                                     context: context, 
                                     builder: (BuildContext context) {
@@ -183,7 +177,7 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                                   );
                                 }
                               });
-                              Navigator.pop(context);
+                              Navigator.pop(context, true);
                             },
                           )
                         ],
