@@ -30,5 +30,8 @@
 	<select id="getDepartmentMemberList" resultType="departmentMemberVO">
 		<![CDATA[CALL get_department_member_list(#{userId})]]>
 	</select>
+	<insert id="departmentLeave" parameterType="userDepartmentVO">
+    	<![CDATA[CALL department_leave(#{userId}, #{departmentId})]]>
+    </insert>
     
 </mapper>

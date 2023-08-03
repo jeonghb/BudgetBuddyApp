@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import 'package:test/app_core.dart';
 import 'package:test/widgets/menu_drawer.dart';
 
+import '../models/response_data.dart';
 import '../widgets/top_bar.dart';
 
 class ReceiptCalculate extends StatefulWidget {
@@ -27,19 +28,16 @@ class _ReceiptCalculate extends State<ReceiptCalculate> {
   }
 
   Future<void> getMonthList() async {
-    Uri uri = Uri.parse(AppCore.baseUrl + '/getCalculateMonthList');
-
-    http.Response response = await http.post(
-      uri,
-      headers: {"Content-Type": "application/json"},
-      body: json.encode({
+    String address = '/getCalculateMonthList';
+    Map<String, dynamic> body = {
         'userId': 'goddnsl',
         'departmentId': widget.departmentId,
-      })
-    );
+    };
 
-    if (response.statusCode == 200) {
-      List<dynamic> jsonResponse = jsonDecode(response.body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      List<dynamic> jsonResponse = jsonDecode(responseData.body);
       List<String> tempList = <String>[];
       
       for (Map<String, dynamic> json in jsonResponse) {

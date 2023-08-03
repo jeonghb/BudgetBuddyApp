@@ -91,4 +91,21 @@ public class DepartmentDAOImp implements DepartmentDAO {
 			return null;
 		}
 	}
+	
+	@Override
+	public boolean departmentLeave(UserDepartmentVO userDepartmentVO) {
+		int returnCount = 0;
+		try {
+			returnCount = tmp.insert("com.sandol.mapper.app.departmentLeave", userDepartmentVO);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		if (returnCount > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 }

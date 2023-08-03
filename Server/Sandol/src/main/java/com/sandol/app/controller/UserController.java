@@ -25,20 +25,23 @@ public class UserController {
 	
 	@RequestMapping(value = "/userRegist", method = RequestMethod.POST)
 	@ResponseBody
-	public String userRegist(@RequestBody UserVO _userVO) {
+	public boolean userRegist(@RequestBody UserVO _userVO) {
 		
-		String result = userService.getUserInfo(_userVO.getUserId());
+		boolean result = userService.getUserInfo(_userVO.getUserId());
 		
-		if (result.equals("0")) {
+		if (result) {
 			userService.setUserRegist(_userVO);
+			
+			return true;
 		}
-		
-		return result;
+		else {
+			return false;
+		}
 	}
 	
 	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public String userCheck(@RequestBody UserVO _userVO) {
+	public boolean userCheck(@RequestBody UserVO _userVO) {
 		return userService.getUserCheck(_userVO);
 	}
 	

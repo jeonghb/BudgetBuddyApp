@@ -72,7 +72,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                 child: Column (
                   children: [
                     ListTile(
-                      leading: Text(departmentMember.userDepartmentName),
+                      leading: Text(departmentMember.userName),
                     ),
                     Divider(),
                   ]

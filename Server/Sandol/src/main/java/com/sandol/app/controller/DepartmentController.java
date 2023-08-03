@@ -63,4 +63,10 @@ public class DepartmentController {
 	public List<DepartmentMemberVO> getDepartmentMemberList(@RequestBody Map<String, String> _userId) {
 		return departmentService.getDepartmentMemberList(_userId.get("userId"));
 	}
+	
+	@RequestMapping(value = "/departmentLeave", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean departmentLeave(@RequestBody UserDepartmentVO userDepartmentVO) {
+		return departmentService.departmentLeave(userDepartmentVO);
+	}
 }

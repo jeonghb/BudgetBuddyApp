@@ -140,6 +140,31 @@ class _DepartmentRequest extends State<DepartmentRequest> {
                     },
                   );
                 }
+                else {
+                  // ignore: use_build_context_synchronously
+                  showDialog(
+                    context: context, 
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        title: Column(children: const <Widget>[Text('부서 신청')]),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const <Widget>[Text("요청에 실패했습니다.",),],
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('확인'), 
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  );
+                }
               },
               child: Text(
                 '신청',

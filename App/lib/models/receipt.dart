@@ -49,7 +49,7 @@ class Receipt with ChangeNotifier {
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
-      if (responseData.body == '1') {
+      if (responseData.body == 'true') {
         return true;
       }
       else {
@@ -89,7 +89,7 @@ class Receipt with ChangeNotifier {
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
-      if (responseData.body == '1') {
+      if (responseData.body == 'true') {
         return true;
       }
       else {

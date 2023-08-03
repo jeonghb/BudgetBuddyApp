@@ -17,12 +17,12 @@ public class UserServiceImp implements UserService {
 	UserDAO dao;
 
 	@Override
-	public String getUserCheck(UserVO _userVO) {
+	public boolean getUserCheck(UserVO _userVO) {
 		return dao.getUserCheck(_userVO);
 	}
 	
 	@Override
-	public String getUserInfo(String _id) {
+	public boolean getUserInfo(String _id) {
 		return dao.getUserInfo(_id);
 	}
 

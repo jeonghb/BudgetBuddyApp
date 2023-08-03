@@ -52,4 +52,9 @@ public class DepartmentServiceImp implements DepartmentService {
 	public List<DepartmentMemberVO> getDepartmentMemberList(String _userId) {
 		return dao.getDepartmentMemberList(_userId);
 	}
+	
+	@Override
+	public boolean departmentLeave(UserDepartmentVO userDepartmentVO) {
+		return dao.departmentLeave(userDepartmentVO);
+	}
 }

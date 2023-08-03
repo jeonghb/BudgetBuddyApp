@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
-
 import '../models/response_data.dart';
+import 'home.dart';
 import 'screen_frame.dart';
 
 class DepartmentLeave extends StatefulWidget {
@@ -12,8 +12,9 @@ class DepartmentLeave extends StatefulWidget {
 }
 
 class _DepartmentLeave extends State<DepartmentLeave> {
-  int selectDepartmentId = -1;
-  
+  int selectDepartmentId = AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList[0].departmentId : -1;
+  String selectDepartmentName = AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList[0].departmentName : '';
+
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
@@ -28,7 +29,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
           ),
           DropdownButton(
             isExpanded: true,
-            value: AppCore.instance.getUser().departmentList,
+            value: selectDepartmentName,
             items: AppCore.instance.getUser().departmentList.map(
               (value) { 
                 return DropdownMenuItem<String>(
@@ -40,6 +41,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
             onChanged: (value) {
               setState(() {
                 selectDepartmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                selectDepartmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
               });
             }
           ),
@@ -69,7 +71,28 @@ class _DepartmentLeave extends State<DepartmentLeave> {
                           Navigator.pop(context);
                           leave(selectDepartmentId).then((bool result) {
                             if (result) {
-                              Navigator.pop(context);
+                              showDialog(
+                                context: context, 
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                    title: Column(children: const <Widget>[Text('재시작')]),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: const <Widget>[Text("부서가 변경되어 다시 시작합니다.",),],
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('확인'), 
+                                        onPressed: () {
+                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false);
+                                        },
+                                      )
+                                    ],
+                                  );
+                                }
+                              );
                             }
                             else {
                               showDialog(
@@ -113,7 +136,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
 }
 
 Future<bool> leave(int selectDepartmentId) async {
-  String address = '/DepartmentLeave';
+  String address = '/departmentLeave';
   Map<String, String> body = {
     'userId': AppCore.instance.getUser().userId.text,
     'departmentId': selectDepartmentId.toString(),
@@ -122,7 +145,7 @@ Future<bool> leave(int selectDepartmentId) async {
   ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
   if (responseData.statusCode == 200) {
-    if (responseData.body == '1') {
+    if (responseData.body == 'true') {
       return true;
     }
     else {

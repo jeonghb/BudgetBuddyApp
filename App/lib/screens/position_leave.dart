@@ -162,7 +162,7 @@ Future<bool> leave(int selectDepartmentId, int selectPositionId) async {
   ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
   if (responseData.statusCode == 200) {
-    if (responseData.body == '1') {
+    if (responseData.body == 'true') {
       return true;
     }
     else {

@@ -155,6 +155,11 @@ class AppCore extends ChangeNotifier {
     String returnValue = json[name]?.toString() ?? '-1';
     return int.parse(returnValue);
   }
+
+  static bool getJsonBool(var json, String name) {
+    String returnValue = json[name]?.toString() ?? 'false';
+    return returnValue == 'true' ? true : false;
+  }
 }
 
 enum ActionType {

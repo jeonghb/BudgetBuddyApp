@@ -22,4 +22,6 @@ public interface DepartmentDAO {
 	public boolean departmentRequestFinish(DepartmentRequestVO departmentRequestVO);
 	
 	public List<DepartmentMemberVO> getDepartmentMemberList(String _userId);
+	
+	public boolean departmentLeave(UserDepartmentVO userDepartmentVO);
 }

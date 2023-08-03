@@ -11,6 +11,8 @@ import '../models/receipt.dart';
 import '../models/department.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/response_data.dart';
+
 class ReceiptRequest extends StatefulWidget {
   final Receipt receipt;
 
@@ -456,20 +458,21 @@ class _ReceiptRequest extends State<ReceiptRequest> {
 }
 
 void getDepartmentList(List<Department> departmentList) async {
-  Uri uri = Uri.parse('${AppCore.baseUrl}/getDepartmentList');
+  String address = '/getDepartmentList';
+  Map<String, dynamic> body = {
+  };
 
-  http.Response response = await http.get(
-    uri,
-    headers: {"Content-Type": "application/json"},
-  );
+  ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
 
-  departmentList.add(Department());
+  if (responseData.statusCode == 200) {
+    departmentList.add(Department());
 
-  for (var json in jsonDecode(response.body))
-  {
-    Department department = Department();
-    department.setData(json);
-    departmentList.add(department);
+    for (var json in jsonDecode(responseData.body))
+    {
+      Department department = Department();
+      department.setData(json);
+      departmentList.add(department);
+    }
   }
 }
 

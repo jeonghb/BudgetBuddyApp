@@ -23,16 +23,16 @@ class DepartmentMember {
   }
 
   Future<bool> leave() async {
-    String address = '/DepartmentLeave';
+    String address = '/departmentLeave';
     Map<String, String> body = {
       'userId': userId,
-      'userDepartmentId': userDepartmentId.toString(),
+      'departmentId': userDepartmentId.toString(),
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
-      if (responseData.body == '1') {
+      if (responseData.body == 'true') {
         return true;
       }
       else {

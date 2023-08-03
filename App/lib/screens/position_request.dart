@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import '../app_core.dart';
 import '../models/Position.dart';
 import '../models/department.dart';
@@ -15,59 +14,80 @@ class PositionRequest extends StatefulWidget {
 }
 
 class _PositionRequest extends State<PositionRequest> {
-  List<Department> departmentList = <Department>[];
-  int selectPositiontId = -1;
   int selectDepartmentId = -1;
+  String selectDepartmentName = '';
+  int selectPositionId = -1;
+  String selectPositionName = '';
+  List<Department> departmentList = <Department>[];
 
   @override
   void initState() {
     super.initState();
 
-    getDepartmentList();
-    getPositionList();
-  }
+    if (AppCore.instance.getUser().departmentList.isEmpty) {
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            title: Column(children: const <Widget>[Text('직책 신청')]),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Widget>[Text("직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.",),],
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('확인'), 
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+    
+    departmentList = AppCore.instance.getUser().departmentList;
+    selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
 
-  void getDepartmentList() async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/getDepartmentList');
-
-    http.Response response = await http.get(
-      uri,
-      headers: {"Content-Type": "application/json"},
-    );
-
-    for (var json in jsonDecode(response.body))
-    {
-      Department department = Department();
-      department.setData(json);
-
-      // 본인이 소속된 부서만 리스트업
-      if (AppCore.instance.getUser().departmentList.where((element) => element.departmentId == department.departmentId).isNotEmpty) {
-        departmentList.add(department);
-      }
+    for (Department department in departmentList) {
+      department.positionList = <Position>[];
+      getDepartmentPositionList(department.departmentId);
     }
   }
 
-  void getPositionList() async {
-    Uri uri = Uri.parse('${AppCore.baseUrl}/getPositionList');
+  void getDepartmentPositionList(int departmentId) async {
+    String address = '/getDepartmentPositionList';
+    Map<String, int> body = {
+      'departmentId': departmentId,
+    };
 
-    http.Response response = await http.get(
-      uri,
-      headers: {"Content-Type": "application/json"},
-    );
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
-    for (var json in jsonDecode(response.body))
-    {
-      Position position = Position();
-      position.setData(json);
+    if (responseData.statusCode == 200) {
+      List<Position> tempList = <Position>[];
+      tempList.add(Position());
+      for (var json in jsonDecode(responseData.body))
+      {
+        Position position = Position();
+        position.setData(json);
 
-      // 본인이 소속된 부서에 직책 연결
-      // Department department = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == position.departmentId);
+        var test = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentId == departmentId).positionList.firstWhere((element) => element.positionId == position.positionId, orElse: () => Position());
+        // if () {
+          departmentList.firstWhere((department) => department.departmentId == position.departmentId).positionList.add(position);
+        // }
+      }
 
-      // if (department == null) {
-      //   return;
+      // if (departmentList[0].positionList.isNotEmpty) {
+        setState(() {
+          selectPositionId = departmentList[0].positionList[0].positionId;
+          selectPositionName = departmentList[0].positionList[0].positionName;
+        });
       // }
-
-      // department.positionList.add(position);
     }
   }
 
@@ -98,7 +118,7 @@ class _PositionRequest extends State<PositionRequest> {
           ),
           DropdownButton(
             isExpanded: true,
-            value: departmentList[0].departmentName,
+            value: selectDepartmentName,
             items: departmentList.map(
               (value) { 
                 return DropdownMenuItem<String>(
@@ -110,6 +130,11 @@ class _PositionRequest extends State<PositionRequest> {
             onChanged: (value) {
               setState(() {
                 selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                // if (departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList.isNotEmpty) {
+                  selectPositionId = departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList[0].positionId;
+                  selectPositionName = departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList[0].positionName;
+                // }
               });
             }
           ),
@@ -128,7 +153,7 @@ class _PositionRequest extends State<PositionRequest> {
           ),
           DropdownButton(
             isExpanded: true,
-            value: departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList[0].positionName,
+            value: selectPositionName,
             items: departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.map(
               (value) { 
                 return DropdownMenuItem<String>(
@@ -139,7 +164,10 @@ class _PositionRequest extends State<PositionRequest> {
               ).toList(),
             onChanged: (value) {
               setState(() {
-                selectPositiontId = departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionId;
+                // if (departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.isNotEmpty) {
+                  selectPositionId = departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionId;
+                  selectPositionName = departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionName;
+                // }
               });
             }
           ),
@@ -151,7 +179,7 @@ class _PositionRequest extends State<PositionRequest> {
               backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
             ),
             onPressed: () async {
-              if (await positionRequest(selectDepartmentId, selectPositiontId)) {
+              if (await positionRequest(selectDepartmentId, selectPositionId)) {
                 // ignore: use_build_context_synchronously
                 showDialog(
                   context: context, 
@@ -163,6 +191,31 @@ class _PositionRequest extends State<PositionRequest> {
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: const <Widget>[Text("요청 완료",),],
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('확인'), 
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                        )
+                      ],
+                    );
+                  },
+                );
+              }
+              else {
+                // ignore: use_build_context_synchronously
+                showDialog(
+                  context: context, 
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      title: Column(children: const <Widget>[Text('직책 신청')]),
+                      content: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: const <Widget>[Text("요청에 실패했습니다.",),],
                       ),
                       actions: <Widget>[
                         TextButton(
@@ -201,7 +254,7 @@ Future<bool> positionRequest(int selectDepartmentId, int selectPositiontId) asyn
   ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
   if (responseData.statusCode == 200) {
-    if (responseData.body == '1') {
+    if (responseData.body == 'true') {
       return true;
     }
     else {

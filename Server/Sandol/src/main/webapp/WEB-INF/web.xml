@@ -64,6 +64,10 @@
 		<url-pattern>/departmentRequestFinish</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getDepartmentMemberList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentLeave</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getDepartmentPositionList</url-pattern>
 		
 		
 	</servlet-mapping>

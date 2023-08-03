@@ -1,6 +1,5 @@
 package com.sandol.app.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class ReceiptController {
 	@ResponseBody
 	public boolean requestBill(@RequestBody ReceiptVO _receiptVO) {
 		if (receiptService.requestReceipt(_receiptVO)) {
-			for (int i = 0; i < _receiptVO.getFileList().size(); i++) {
+			for (int i = 0; i < _receiptVO.getFileList().size();) {
 				FileVO fileVO = new FileVO();
 				fileVO.setData(_receiptVO, i);
 				
