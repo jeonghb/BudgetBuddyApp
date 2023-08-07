@@ -15,7 +15,8 @@
    		<typeAlias alias="userDepartmentPositionVO" type="com.sandol.app.vo.UserDepartmentPositionVO"/>
    		<typeAlias alias="departmentRequestVO" type="com.sandol.app.vo.DepartmentRequestVO"/>
    		<typeAlias alias="departmentMemberVO" type="com.sandol.app.vo.DepartmentMemberVO"/>
-   		<typeAlias alias="PositionVO" type="com.sandol.app.vo.PositionVO"/>
+   		<typeAlias alias="positionVO" type="com.sandol.app.vo.PositionVO"/>
+   		<typeAlias alias="positionRequestVO" type="com.sandol.app.vo.PositionRequestVO"/>
    		
 	</typeAliases>
 	

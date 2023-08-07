@@ -186,7 +186,7 @@ class User with ChangeNotifier {
 
             Position position = Position();
             position.setData(jsonDepartment);
-            departmentList.where((element) => element.departmentId == department.departmentId).first.positionList.add(position);
+            departmentList.firstWhere((element) => element.departmentId == department.departmentId).positionList.add(position);
           }
         }
 

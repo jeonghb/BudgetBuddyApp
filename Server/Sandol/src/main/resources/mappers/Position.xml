@@ -8,5 +8,8 @@
 	<select id="getDepartmentPositionList" resultType="positionVO">
 		<![CDATA[CALL get_department_position_list(#{departmentId})]]>
 	</select>
+    <insert id="positionRequest" parameterType="positionRequestVO">
+    	<![CDATA[CALL position_request(#{requestUserId}, #{requestPositionId})]]>
+    </insert>
     
 </mapper>

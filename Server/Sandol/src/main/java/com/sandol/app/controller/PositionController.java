@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sandol.app.service.PositionService;
+import com.sandol.app.vo.PositionRequestVO;
 import com.sandol.app.vo.PositionVO;
 
 @Controller
@@ -23,5 +24,11 @@ public class PositionController {
 	@ResponseBody
 	public List<PositionVO> getDepartmentPositionList(@RequestBody Map<String, Integer> departmentId) {
 		return positionService.getDepartmentPositionList(departmentId.get("departmentId"));
+	}
+	
+	@RequestMapping(value = "/positionRequest", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean positionRequest(@RequestBody PositionRequestVO _positionRequestVO) {
+		return positionService.positionRequest(_positionRequestVO);
 	}
 }

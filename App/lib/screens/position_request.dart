@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import '../app_core.dart';
 import '../models/Position.dart';
@@ -19,6 +20,7 @@ class _PositionRequest extends State<PositionRequest> {
   int selectPositionId = -1;
   String selectPositionName = '';
   List<Department> departmentList = <Department>[];
+  List<Position> positionList = <Position>[];
 
   @override
   void initState() {
@@ -53,14 +55,24 @@ class _PositionRequest extends State<PositionRequest> {
     departmentList = AppCore.instance.getUser().departmentList;
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
     selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    positionList.add(Position());
+    selectPositionId = positionList[0].positionId;
+    selectPositionName = positionList[0].positionName;
 
-    for (Department department in departmentList) {
-      department.positionList = <Position>[];
-      getDepartmentPositionList(department.departmentId);
+    setListData();
+  }
+
+  void setListData() async {
+    await Future.wait(departmentList.map((e) => getDepartmentPositionList(e.departmentId)));
+    
+    var result = positionList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId);
+    if (result != null) {
+      selectPositionId = result.positionId;
+      selectPositionName = result.positionName;
     }
   }
 
-  void getDepartmentPositionList(int departmentId) async {
+  Future<void> getDepartmentPositionList(int departmentId) async {
     String address = '/getDepartmentPositionList';
     Map<String, int> body = {
       'departmentId': departmentId,
@@ -70,24 +82,20 @@ class _PositionRequest extends State<PositionRequest> {
 
     if (responseData.statusCode == 200) {
       List<Position> tempList = <Position>[];
-      tempList.add(Position());
+
       for (var json in jsonDecode(responseData.body))
       {
         Position position = Position();
         position.setData(json);
 
-        var test = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentId == departmentId).positionList.firstWhere((element) => element.positionId == position.positionId, orElse: () => Position());
-        // if () {
-          departmentList.firstWhere((department) => department.departmentId == position.departmentId).positionList.add(position);
-        // }
+        if (AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == departmentId).positionList.firstWhereOrNull((element) => element.positionId == position.positionId) == null) {
+          tempList.add(position);
+        }
       }
 
-      // if (departmentList[0].positionList.isNotEmpty) {
-        setState(() {
-          selectPositionId = departmentList[0].positionList[0].positionId;
-          selectPositionName = departmentList[0].positionList[0].positionName;
-        });
-      // }
+      setState(() {
+        positionList.addAll(tempList);
+      });
     }
   }
 
@@ -131,10 +139,11 @@ class _PositionRequest extends State<PositionRequest> {
               setState(() {
                 selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
                 selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
-                // if (departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList.isNotEmpty) {
-                  selectPositionId = departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList[0].positionId;
-                  selectPositionName = departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList[0].positionName;
-                // }
+                var result = positionList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId);
+                if (result != null) {
+                  selectPositionId = result.positionId;
+                  selectPositionName = result.positionName;
+                }
               });
             }
           ),
@@ -154,9 +163,16 @@ class _PositionRequest extends State<PositionRequest> {
           DropdownButton(
             isExpanded: true,
             value: selectPositionName,
-            items: departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.map(
+            items: positionList.where((position) => position.departmentId == selectDepartmentId).length > 0 ? positionList.where((position) => position.departmentId == selectDepartmentId).map(
               (value) { 
                 return DropdownMenuItem<String>(
+                  value: value.positionName,
+                  child: Text(value.positionName),
+                  );
+                },
+              ).toList() : positionList.map(
+                (value) {
+                  return DropdownMenuItem<String>(
                   value: value.positionName,
                   child: Text(value.positionName),
                   );
@@ -164,10 +180,8 @@ class _PositionRequest extends State<PositionRequest> {
               ).toList(),
             onChanged: (value) {
               setState(() {
-                // if (departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.isNotEmpty) {
-                  selectPositionId = departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionId;
-                  selectPositionName = departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionName;
-                // }
+                  selectPositionId = positionList.firstWhere((element) => element.positionName == value).positionId;
+                  selectPositionName = positionList.firstWhere((element) => element.positionName == value).positionName;
               });
             }
           ),
@@ -246,9 +260,8 @@ class _PositionRequest extends State<PositionRequest> {
 Future<bool> positionRequest(int selectDepartmentId, int selectPositiontId) async {
   String address = '/positionRequest';
   Map<String, dynamic> body = {
-    'userId' : AppCore.instance.getUser().userId.text,
-    'departmentId' : selectDepartmentId,
-    'positionId' : selectPositiontId,
+    'requestUserId' : AppCore.instance.getUser().userId.text,
+    'requestPositionId' : selectPositiontId,
   };
 
   ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
