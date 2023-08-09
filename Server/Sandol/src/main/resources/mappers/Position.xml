@@ -8,8 +8,20 @@
 	<select id="getDepartmentPositionList" resultType="positionVO">
 		<![CDATA[CALL get_department_position_list(#{departmentId})]]>
 	</select>
+	<select id="getRequestPossibilityDepartmentPositionList" resultType="positionVO">
+		<![CDATA[CALL get_request_possibility_department_position_list(#{userId})]]>
+	</select>
     <insert id="positionRequest" parameterType="positionRequestVO">
     	<![CDATA[CALL position_request(#{requestUserId}, #{requestPositionId})]]>
+    </insert>
+	<select id="getPositionRequestList" resultType="positionRequestVO">
+		<![CDATA[CALL get_position_request_list(#{userId})]]>
+	</select>
+    <insert id="positionRequestFinish" parameterType="positionRequestVO">
+    	<![CDATA[CALL position_request_finish(#{requestUserId}, #{requestDepartmentId}, #{requestPositionId}, #{approvalUserId}, #{approvalStatus})]]>
+    </insert>
+    <insert id="positionLeave" parameterType="userPositionVO">
+    	<![CDATA[CALL position_leave(#{userId}, #{departmentId}, #{positionId})]]>
     </insert>
     
 </mapper>

@@ -1,5 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:test/app_core.dart';
+import 'package:test/models/response_data.dart';
 import '../models/position_request.dart';
+import 'position_request_manage.dart';
 import 'screen_frame.dart';
 
 class PositionRequestList extends StatefulWidget {
@@ -11,6 +16,40 @@ class PositionRequestList extends StatefulWidget {
 
 class _PositionRequestList extends State<PositionRequestList> {
   List<PositionRequest> positionRequestList = <PositionRequest>[];
+
+  @override
+  void initState() {
+    super.initState();
+
+    positionRequestList.add(PositionRequest());
+
+    getPositionRequestList();
+  }
+
+  void getPositionRequestList() async {
+    String address = '/getPositionRequestList';
+    Map<String, String> body = {
+      'userId': AppCore.instance.getUser().userId.text,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      List<PositionRequest> tempList = <PositionRequest>[];
+
+      for (var json in jsonDecode(responseData.body))
+      {
+        PositionRequest positionRequest = PositionRequest();
+        positionRequest.setData(json);
+
+        tempList.add(positionRequest);
+      }
+
+      setState(() {
+        positionRequestList = tempList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +72,11 @@ class _PositionRequestList extends State<PositionRequestList> {
 
               return GestureDetector(
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => positionRequestManage(positionRequest: positionRequest,)),);
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequestManage(positionRequest: positionRequest,)),).then((value) {
+                    if (value == true) {
+                      getPositionRequestList();
+                    }
+                  });
                 },
                 child: Column (
                   children: [

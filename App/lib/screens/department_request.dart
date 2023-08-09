@@ -28,11 +28,12 @@ class _DepartmentRequest extends State<DepartmentRequest> {
   }
 
   void getDepartmentList() async {
-    String address = '/getDepartmentList';
+    String address = '/getRequestPositilityDepartmentList';
     Map<String, String> body = {
+      'userId': AppCore.instance.getUser().userId.text,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
       List<Department> tempList = <Department>[];

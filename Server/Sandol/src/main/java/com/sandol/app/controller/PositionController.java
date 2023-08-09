@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sandol.app.service.PositionService;
 import com.sandol.app.vo.PositionRequestVO;
 import com.sandol.app.vo.PositionVO;
+import com.sandol.app.vo.UserPositionVO;
 
 @Controller
 public class PositionController {
@@ -26,9 +27,33 @@ public class PositionController {
 		return positionService.getDepartmentPositionList(departmentId.get("departmentId"));
 	}
 	
+	@RequestMapping(value = "/getRequestPossibilityDepartmentPositionList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<PositionVO> getRequestPossibilityDepartmentPositionList(@RequestBody Map<String, String> userId) {
+		return positionService.getRequestPossibilityDepartmentPositionList(userId.get("userId"));
+	}
+	
 	@RequestMapping(value = "/positionRequest", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean positionRequest(@RequestBody PositionRequestVO _positionRequestVO) {
 		return positionService.positionRequest(_positionRequestVO);
+	}
+	
+	@RequestMapping(value = "/getPositionRequestList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<PositionRequestVO> getPositionRequestList(@RequestBody Map<String, String> _userId) {
+		return positionService.getPositionRequestList(_userId.get("userId"));
+	}
+	
+	@RequestMapping(value = "/positionRequestFinish", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean positionRequestFinish(@RequestBody PositionRequestVO _positionRequestVO) {
+		return positionService.positionRequestFinish(_positionRequestVO);
+	}
+	
+	@RequestMapping(value = "/positionLeave", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean positionLeave(@RequestBody UserPositionVO _userPositionVO) {
+		return positionService.positionLeave(_userPositionVO);
 	}
 }

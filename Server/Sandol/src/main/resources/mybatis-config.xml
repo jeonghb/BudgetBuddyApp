@@ -17,7 +17,7 @@
    		<typeAlias alias="departmentMemberVO" type="com.sandol.app.vo.DepartmentMemberVO"/>
    		<typeAlias alias="positionVO" type="com.sandol.app.vo.PositionVO"/>
    		<typeAlias alias="positionRequestVO" type="com.sandol.app.vo.PositionRequestVO"/>
-   		
+   		<typeAlias alias="userPositionVO" type="com.sandol.app.vo.UserPositionVO"/>
 	</typeAliases>
 	
 </configuration>

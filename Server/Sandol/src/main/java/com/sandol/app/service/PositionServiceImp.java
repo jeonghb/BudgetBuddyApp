@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.sandol.app.dao.PositionDAO;
 import com.sandol.app.vo.PositionRequestVO;
 import com.sandol.app.vo.PositionVO;
+import com.sandol.app.vo.UserPositionVO;
 
 @Service
 public class PositionServiceImp implements PositionService {
@@ -14,12 +15,32 @@ public class PositionServiceImp implements PositionService {
 	PositionDAO dao;
 	
 	@Override
-	public List<PositionVO> getDepartmentPositionList(int departmentId) {
-		return dao.getDepartmentPositionList(departmentId);
+	public List<PositionVO> getDepartmentPositionList(int _departmentId) {
+		return dao.getDepartmentPositionList(_departmentId);
+	}
+	
+	@Override
+	public List<PositionVO> getRequestPossibilityDepartmentPositionList(String _userId) {
+		return dao.getRequestPossibilityDepartmentPositionList(_userId);
 	}
 	
 	@Override
 	public boolean positionRequest(PositionRequestVO _positionRequestVO) {
 		return dao.positionRequest(_positionRequestVO);
+	}
+	
+	@Override
+	public List<PositionRequestVO> getPositionRequestList(String _userId) {
+		return dao.getPositionRequestList(_userId);
+	}
+	
+	@Override
+	public boolean positionRequestFinish(PositionRequestVO _positionRequestVO) {
+		return dao.positionRequestFinish(_positionRequestVO);
+	}
+	
+	@Override
+	public boolean positionLeave(UserPositionVO _userPositionVO) {
+		return dao.positionLeave(_userPositionVO);
 	}
 }

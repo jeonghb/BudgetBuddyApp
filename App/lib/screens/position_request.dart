@@ -63,7 +63,7 @@ class _PositionRequest extends State<PositionRequest> {
   }
 
   void setListData() async {
-    await Future.wait(departmentList.map((e) => getDepartmentPositionList(e.departmentId)));
+    await getRequestPossibilityDepartmentPositionList();
     
     var result = positionList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId);
     if (result != null) {
@@ -72,10 +72,10 @@ class _PositionRequest extends State<PositionRequest> {
     }
   }
 
-  Future<void> getDepartmentPositionList(int departmentId) async {
-    String address = '/getDepartmentPositionList';
-    Map<String, int> body = {
-      'departmentId': departmentId,
+  Future<void> getRequestPossibilityDepartmentPositionList() async {
+    String address = '/getRequestPossibilityDepartmentPositionList';
+    Map<String, String> body = {
+      'userId': AppCore.instance.getUser().userId.text,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -88,9 +88,7 @@ class _PositionRequest extends State<PositionRequest> {
         Position position = Position();
         position.setData(json);
 
-        if (AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == departmentId).positionList.firstWhereOrNull((element) => element.positionId == position.positionId) == null) {
-          tempList.add(position);
-        }
+        tempList.add(position);
       }
 
       setState(() {
@@ -170,14 +168,7 @@ class _PositionRequest extends State<PositionRequest> {
                   child: Text(value.positionName),
                   );
                 },
-              ).toList() : positionList.map(
-                (value) {
-                  return DropdownMenuItem<String>(
-                  value: value.positionName,
-                  child: Text(value.positionName),
-                  );
-                },
-              ).toList(),
+              ).toList() : [],
             onChanged: (value) {
               setState(() {
                   selectPositionId = positionList.firstWhere((element) => element.positionName == value).positionId;
@@ -196,7 +187,7 @@ class _PositionRequest extends State<PositionRequest> {
               if (await positionRequest(selectDepartmentId, selectPositionId)) {
                 // ignore: use_build_context_synchronously
                 showDialog(
-                  context: context, 
+                  context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -210,6 +201,7 @@ class _PositionRequest extends State<PositionRequest> {
                         TextButton(
                           child: Text('확인'), 
                           onPressed: () {
+                            Navigator.pop(context);
                             Navigator.pop(context);
                           },
                         )

@@ -12,8 +12,42 @@ class DepartmentLeave extends StatefulWidget {
 }
 
 class _DepartmentLeave extends State<DepartmentLeave> {
-  int selectDepartmentId = AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList[0].departmentId : -1;
-  String selectDepartmentName = AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList[0].departmentName : '';
+  int selectDepartmentId = -1;
+  String selectDepartmentName = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (AppCore.instance.getUser().departmentList.isEmpty) {
+      showDialog(
+        context: context, 
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+            title: Column(children: const <Widget>[Text('부서 탈퇴')]),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: const <Widget>[Text("탈퇴 가능한 부서가 없습니다.",),],
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: Text('확인'), 
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          );
+        },
+      );
+    }
+
+    selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+  }
 
   @override
   Widget build(BuildContext context) {

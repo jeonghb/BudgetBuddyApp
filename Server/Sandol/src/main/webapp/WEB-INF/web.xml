@@ -70,6 +70,14 @@
 		<url-pattern>/getDepartmentPositionList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/positionRequest</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getRequestPossibilityDepartmentPositionList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getPositionRequestList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionRequestFinish</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionLeave</url-pattern>
 		
 		
 	</servlet-mapping>

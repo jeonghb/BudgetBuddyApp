@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-
 import '../app_core.dart';
 import '../models/department_request.dart';
 import '../models/response_data.dart';

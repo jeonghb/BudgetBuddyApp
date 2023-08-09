@@ -14,17 +14,6 @@ class DepartmentRequest {
   int approvalStatus = -1;
 
   void setData(var json) {
-    // requestUserId = json['requestUserId'];
-    // requestUserName = json['requestUserName'];
-    // requestUserBirthday = json['requestUserBirthday'];
-    // requestUserSex = json['requestUserSex'];
-    // requestDepartmentId = int.parse(json['requestDepartmentId'].toString());
-    // requestDepartmentName = json['requestDepartmentName'];
-    // requestDatetime = json['requestDatetime'];
-    // approvalUserId = json['approvalUserId'];
-    // approvalUserName = json['approvalUserName'];
-    // approvalStatus = int.parse(json['approvalStatus'].toString());
-
     requestUserId = AppCore.getJsonString(json, 'requestUserId');
     requestUserName = AppCore.getJsonString(json, 'requestUserName');
     requestUserBirthday = AppCore.getJsonString(json, 'requestUserBirthday');
