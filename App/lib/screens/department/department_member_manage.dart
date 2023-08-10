@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/screens/screen_frame.dart';
 
-import '../models/department_member.dart';
+import '../../models/department_member.dart';
 
 class DepartmentMemberManage extends StatefulWidget {
   final DepartmentMember departmentMember;

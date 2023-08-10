@@ -54,10 +54,10 @@ class User with ChangeNotifier {
 
   Future<ResponseData> isUserCheck() async {
     String address = '/userCheck';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userName': userName.text,
       'userBirthday': getUserBirthday(),
-      'userSex': userSex
+      'userSex': userSex,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -151,7 +151,7 @@ class User with ChangeNotifier {
 
   Future<String> userLogin(bool isPasswordEncode) async {
     String address = '/login';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': userId.text,
       'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword.text)).toString() : userPassword.text
     };
@@ -205,7 +205,7 @@ class User with ChangeNotifier {
 
   Future<ResponseData> userPasswordFind() async {
     String address = '/userPasswordFind';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': userId.text,
       'userName': userName.text,
       'userBirthday': getUserBirthday(),
@@ -217,7 +217,7 @@ class User with ChangeNotifier {
 
   Future<ResponseData> userUpdatePassword() async {
     String address = '/userPasswordUpdate';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': userId.text,
       'userPassword': sha512.convert(utf8.encode(userPassword.text)).toString(),
     };

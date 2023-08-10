@@ -8,7 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/models/user.dart';
 import 'package:test/screens/find_password.dart';
 import 'package:test/screens/home.dart';
-import 'package:test/screens/user_regist_check.dart';
+import 'package:test/screens/user/user_regist_check.dart';
 
 import '../app_core.dart';
 import '../widgets/text_form_field_v1.dart';

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
-import '../models/response_data.dart';
-import 'home.dart';
-import 'screen_frame.dart';
+import '../../models/response_data.dart';
+import '../home.dart';
+import '../screen_frame.dart';
 
 class DepartmentLeave extends StatefulWidget {
   const DepartmentLeave({super.key});
@@ -171,9 +171,9 @@ class _DepartmentLeave extends State<DepartmentLeave> {
 
 Future<bool> leave(int selectDepartmentId) async {
   String address = '/departmentLeave';
-  Map<String, String> body = {
+  Map<String, dynamic> body = {
     'userId': AppCore.instance.getUser().userId.text,
-    'departmentId': selectDepartmentId.toString(),
+    'departmentId': selectDepartmentId,
   };
 
   ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

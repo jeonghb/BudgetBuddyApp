@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:test/screens/receipt_request.dart';
+import 'package:test/screens/receipt/receipt_request.dart';
 import 'package:test/widgets/top_bar.dart';
-
-import '../models/receipt.dart';
-import '../widgets/menu_drawer.dart';
+import '../../models/receipt.dart';
+import '../../widgets/menu_drawer.dart';
 
 enum AuthLevel {
   view,
@@ -24,6 +22,11 @@ class ReceiptDetail extends StatefulWidget {
 
 
 class _ReceiptDetail extends State<ReceiptDetail> {
+  TextEditingController rejectMessage = TextEditingController();
+
+  void showImage(int index) {
+  }
+
   @override
   Widget build(BuildContext context){
     final receipt = widget.receipt;
@@ -52,7 +55,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       SizedBox(
                         width: 50,
                       ),
-                      Text(receipt.title.text,
+                      Text(receipt.title,
                         style: TextStyle(
                           fontSize: 20
                         ),
@@ -69,7 +72,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       SizedBox(
                         width: 50,
                       ),
-                      Text(receipt.requestAmount.text,
+                      Text(receipt.requestAmount.toString(),
                         style: TextStyle(
                           fontSize: 20
                         ),
@@ -86,7 +89,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       SizedBox(
                         width: 50,
                       ),
-                      Text(receipt.memo.text,
+                      Text(receipt.memo,
                         style: TextStyle(
                           fontSize: 20
                         ),
@@ -110,10 +113,27 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       ),
                     ]
                   ),
+                  Row(
+                    children: <Widget>[
+                      Text('구분',
+                        style: TextStyle(
+                          fontSize: 20
+                        ),
+                      ),
+                      SizedBox(
+                        width: 50,
+                      ),
+                      Text(receipt.budgetTypeName,
+                        style: TextStyle(
+                          fontSize: 20
+                        ),
+                      ),
+                    ]
+                  ),
                   SizedBox(
                     height: 12,
                   ),
-                  Container(
+                  SizedBox(
                     width: 300,
                     height: 100,
                     child: GridView.builder(
@@ -171,7 +191,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                                     children: <Widget>[
                                       Text('반려 사유'),
                                       TextFormField(
-                                        controller: receipt.rejectMessage,
+                                        controller: rejectMessage,
                                         maxLines: null,
                                         decoration: InputDecoration(
                                           hintText: '반려 사유를 입력하세요.',
@@ -192,6 +212,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                                       onPressed: () {
                                         Navigator.pop(context);
                                         receipt.submissionStatus = 0;
+                                        receipt.rejectMessage = rejectMessage.text;
                                         receipt.changeSubmissionStatus().then((bool result) {
                                           if (result) {
                                             Navigator.pop(context);
@@ -236,11 +257,11 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: <Widget>[Text('결재')]),
+                                  title: Column(children: const <Widget>[Text('결재')]),
                                   content: Column(
                                     mainAxisSize: MainAxisSize.min,
                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[Text('결재하시겠습니까?')],
+                                    children: const <Widget>[Text('결재하시겠습니까?')],
                                   ),
                                   actions: <Widget>[
                                     TextButton(
@@ -370,8 +391,4 @@ class _ReceiptDetail extends State<ReceiptDetail> {
       )
     );
   }
-}
-
-void showImage(int _index) {
-
 }

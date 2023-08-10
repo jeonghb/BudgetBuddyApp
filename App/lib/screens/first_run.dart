@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:test/screens/login.dart';
-import 'package:test/screens/user_regist_check.dart';
+import 'package:test/screens/user/user_regist_check.dart';
 
 class FirstRun extends StatelessWidget {
   const FirstRun({super.key});

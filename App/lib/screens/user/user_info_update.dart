@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
-import '../widgets/text_form_field_v1.dart';
-import 'screen_frame.dart';
+import '../../widgets/text_form_field_v1.dart';
+import '../screen_frame.dart';
 
 class UserInfoUpdate extends StatefulWidget {
   const UserInfoUpdate({super.key});

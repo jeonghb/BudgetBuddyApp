@@ -1,12 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:test/app_core.dart';
 import 'package:test/widgets/menu_drawer.dart';
 
-import '../models/response_data.dart';
-import '../widgets/top_bar.dart';
+import '../../models/response_data.dart';
+import '../../widgets/top_bar.dart';
 
 class ReceiptCalculate extends StatefulWidget {
   final int departmentId;

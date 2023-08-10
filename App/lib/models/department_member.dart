@@ -24,9 +24,9 @@ class DepartmentMember {
 
   Future<bool> leave() async {
     String address = '/departmentLeave';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': userId,
-      'departmentId': userDepartmentId.toString(),
+      'departmentId': userDepartmentId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

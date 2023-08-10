@@ -2,11 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
-import 'package:test/screens/receipt_detail.dart';
-import '../models/receipt.dart';
-import '../models/response_data.dart';
-import '../widgets/menu_drawer.dart';
-import '../widgets/top_bar.dart';
+import 'package:test/screens/receipt/receipt_detail.dart';
+import '../../models/receipt.dart';
+import '../../models/response_data.dart';
+import '../../widgets/menu_drawer.dart';
+import '../../widgets/top_bar.dart';
 
 class ReceiptList extends StatefulWidget {
   final int submissionStatus;
@@ -32,7 +32,7 @@ class _ReceiptList extends State<ReceiptList> {
   Future<void> getReceiptList() async {
 
     String address = '/getReceiptList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId.text,
         'submissionStatus': submissionStatus,
     };
@@ -44,7 +44,7 @@ class _ReceiptList extends State<ReceiptList> {
       
       for (Map<String, dynamic> json in jsonDecode(responseData.body)) {
         Receipt receipt = Receipt();
-        receipt.fromJson(json);
+        receipt.setData(json);
         tempList.add(receipt);
       }
 
@@ -93,7 +93,7 @@ class _ReceiptList extends State<ReceiptList> {
                         child: Column (
                           children: [
                             ListTile(
-                              leading: Text(receipt.title.text),
+                              leading: Text(receipt.title),
                               trailing: hasIamge ? Image.file(File(receipt.fileList[0].path)) : null,
                             ),
                             Divider(),

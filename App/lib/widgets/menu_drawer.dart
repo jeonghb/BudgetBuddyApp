@@ -3,8 +3,9 @@ import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
 import '../models/receipt.dart';
+import '../screens/budget/budget_type_manage.dart';
 import '../screens/my_page.dart';
-import '../screens/receipt_request.dart';
+import '../screens/receipt/receipt_request.dart';
 
 class MenuDrawer extends StatefulWidget {
   const MenuDrawer({super.key});
@@ -87,6 +88,21 @@ class _MenuDrawer extends State<MenuDrawer> {
           // Navigator.push(context, MaterialPageRoute(builder: (context) => budgetAdd(departmentId: AppCore.getInstance().getUser().departmentIdList)));
         },
       ),
+      ListTile(
+        leading: Icon(Icons.add_box_outlined),
+        iconColor: Color.fromARGB(255, 90, 68, 223),
+        focusColor: Color.fromARGB(255, 90, 68, 223),
+        title: Text(
+          '예산 항목 관리',
+          style: TextStyle(
+            fontSize: 15,
+            color: Colors.black,
+          )
+        ),
+        onTap: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeManage()));
+        },
+      )
     ];
 
     return Drawer(

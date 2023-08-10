@@ -4,10 +4,6 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
 <mapper namespace="com.sandol.mapper.app">
-	<resultMap id="DepartmentRequestResultMap" type="DepartmentRequestVO">
-		<result property="retCd" column="ret_cd" jdbcType="INTEGER" />
-		<result property="retMessage" column="ret_message" jdbcType="VARCHAR" />
-	</resultMap>
 
 	<select id="getDepartmentList" resultType="departmentVO">
 		<![CDATA[CALL get_department_list()]]>

@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/screens/first_run.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/top_bar.dart';
-import '../models/user.dart';
+import '../../models/user.dart';
 
 class UserRegist extends StatefulWidget {
   final User user;

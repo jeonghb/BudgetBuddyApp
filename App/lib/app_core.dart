@@ -131,7 +131,7 @@ class AppCore extends ChangeNotifier {
     List<String> bankList = <String>[];
 
     String address = '/getBankList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
     };
 
     ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
@@ -159,6 +159,11 @@ class AppCore extends ChangeNotifier {
   static bool getJsonBool(var json, String name) {
     String returnValue = json[name]?.toString() ?? 'false';
     return returnValue == 'true' ? true : false;
+  }
+
+  static int parseInt(String value) {
+    String returnValue = value.isEmpty ? '-1' : value;
+    return int.parse(returnValue);
   }
 }
 

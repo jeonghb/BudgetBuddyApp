@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import '../app_core.dart';
-import '../models/department_request.dart';
-import '../models/response_data.dart';
+import '../../app_core.dart';
+import '../../models/department_request.dart';
+import '../../models/response_data.dart';
 import 'department_request_manage.dart';
-import 'screen_frame.dart';
+import '../screen_frame.dart';
 
 class DepartmentRequestList extends StatefulWidget {
   const DepartmentRequestList({super.key});
@@ -27,7 +27,7 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
 
   void getDepartmentRequestList() async {
     String address = '/getDepartmentRequestList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId.text,
     };
 

@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:test/screens/update_password.dart';
+import 'package:test/screens/user/update_password.dart';
 
 import '../models/response_data.dart';
 import '../models/user.dart';

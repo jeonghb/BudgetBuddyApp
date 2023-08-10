@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/models/user.dart';
-import 'package:test/screens/user_regist.dart';
+import 'package:test/screens/user/user_regist.dart';
 import 'package:test/widgets/top_bar.dart';
-import '../models/response_data.dart';
-import '../widgets/text_form_field_v1.dart';
-import 'login.dart';
+import '../../models/response_data.dart';
+import '../../widgets/text_form_field_v1.dart';
+import '../login.dart';
 
 class UserRegistCheck extends StatefulWidget {
   final UserType userType;

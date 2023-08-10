@@ -4,45 +4,59 @@ import 'package:test/app_core.dart';
 import 'package:test/models/response_data.dart';
 
 class Receipt with ChangeNotifier {
-  TextEditingController requestId = TextEditingController();
-  TextEditingController registDatetime = TextEditingController();
-  TextEditingController title = TextEditingController();
-  TextEditingController requestAmount = TextEditingController();
-
+  int requestId = -1;
+  String registDatetime = DateTime.now().toString();
+  String title = '';
+  int requestAmount = -1;
   String paymentDatetime = DateTime.now().toString();
-  TextEditingController paymentDatetimeYear = TextEditingController();
-  TextEditingController paymentDatetimeMonth = TextEditingController();
-  TextEditingController paymentDatetimeDay = TextEditingController();
-  TextEditingController paymentDatetimeHour = TextEditingController();
-  TextEditingController paymentDatetimeMinute = TextEditingController();
-
-  TextEditingController memo = TextEditingController();
-
+  String memo = '';
   int approvalRequestDepartmentId = -1;
   String approvalRequestDepartmentName = '';
-
+  int budgetTypeId = -1;
+  String budgetTypeName = '';
   List<XFile> fileList = [];
-  String bank = '';
-  TextEditingController bankAccountNumber = TextEditingController();
+  String bankName = '';
+  String bankAccountNumber = '';
   int submissionStatus = 0;
-  TextEditingController rejectMessage = TextEditingController();
-  TextEditingController approvalType = TextEditingController();
-  TextEditingController approvalDatetime = TextEditingController();
-  TextEditingController calculateStatus = TextEditingController();
-  TextEditingController calculateDatetime = TextEditingController();
+  String rejectMessage = '';
+  int approvalType = -1;
+  String approvalDatetime = DateTime.now().toString();
+  int calculateStatus = -1;
+  String calculateDatetime = DateTime.now().toString();
 
-  Future<bool> save() async {
+  void setData(Map<String, dynamic> json) {
+    requestId = AppCore.getJsonInt(json, 'requestId');
+    registDatetime= AppCore.getJsonString(json, 'registDatetime');
+    title = AppCore.getJsonString(json, 'title');
+    requestAmount = AppCore.getJsonInt(json, 'requestAmount');
+    paymentDatetime = AppCore.getJsonString(json, 'paymentDatetime');
+    memo = AppCore.getJsonString(json, 'memo');
+    approvalRequestDepartmentId = AppCore.getJsonInt(json, 'approvalRequestDepartmentId');
+    approvalRequestDepartmentName = AppCore.getJsonString(json, 'approvalRequestDepartmentName');
+    budgetTypeId = AppCore.getJsonInt(json, 'budgetTypeId');
+    budgetTypeName = AppCore.getJsonString(json, 'budgetTypeName');
+    // fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
+    bankName = AppCore.getJsonString(json, 'bankName');
+    bankAccountNumber = AppCore.getJsonString(json, 'backAccountNumber');
+    approvalType = AppCore.getJsonInt(json, 'approvalType');
+    approvalDatetime = AppCore.getJsonString(json, 'approvalDatetime');
+    calculateStatus = AppCore.getJsonInt(json, 'calculateStatus');
+    calculateDatetime = AppCore.getJsonString(json, 'calculateDatetime');
+  }
+
+  Future<bool> requestReceipt() async {
     String address = '/requestReceipt';
     Map<String, dynamic> body = {
-      'requestId': requestId.text,
-      'requestUserId': 'goddnsl',
-      'title': title.text,
-      'requestAmount': requestAmount.text,
-      'paymentDatetime': getPaymentDatetime(), 
-      'memo': memo.text, 
-      'approvalRequestDepartmentId': approvalRequestDepartmentId, 
+      'requestId': requestId,
+      'requestUserId': AppCore.instance.getUser().userId.text,
+      'title': title,
+      'requestAmount': requestAmount,
+      'paymentDatetime': paymentDatetime,
+      'memo': memo,
+      'approvalRequestDepartmentId': approvalRequestDepartmentId,
+      'budgetTypeId': budgetTypeId,
       'fileList': fileList,
-      'bank' : bank,
+      'bankName' : bankName,
       'bankAccountNumber': bankAccountNumber,
     };
 
@@ -61,29 +75,12 @@ class Receipt with ChangeNotifier {
     }
   }
 
-  void fromJson(Map<String, dynamic> json) {
-    requestId.text = json['requestId'].toString();
-    registDatetime.text = json['registDatatime'].toString();
-    title.text = json['title'].toString();
-    requestAmount.text = json['requestAmount'].toString();
-    paymentDatetime = json['paymentDatetime'].toString();
-    memo.text = json['memo'].toString();
-    approvalRequestDepartmentId = int.parse(json['approvalRequestDepartmentId']);
-    approvalRequestDepartmentName = json['approvalRequestDepartmentName'].toString();
-    // fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
-    bankAccountNumber.text = json['bankAccountNumber'].toString();
-    approvalType.text = json['approvalType'].toString();
-    approvalDatetime.text = json['approvalDatetime'].toString();
-    calculateStatus.text = json['calculateStatus'].toString();
-    calculateDatetime.text = json['calculateDatetime'].toString();
-  }
-
   Future<bool> changeSubmissionStatus() async {
     String address = '/changeSubmissionStatus';
     Map<String, dynamic> body = {
-      'requestId': requestId.text,
+      'requestId': requestId,
       'submissionStatus': submissionStatus,
-      'rejectMessage': rejectMessage.text,
+      'rejectMessage': rejectMessage,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -99,23 +96,5 @@ class Receipt with ChangeNotifier {
     else {
       return false;
     }
-  }
-
-  getPaymentDatetime() {
-    if (paymentDatetimeYear.text.isNotEmpty
-     || paymentDatetimeMonth.text.isNotEmpty
-     || paymentDatetimeDay.text.isNotEmpty
-     || paymentDatetimeHour.text.isNotEmpty
-     || paymentDatetimeMinute.text.isNotEmpty) {
-      paymentDatetime = '${paymentDatetimeYear.text.padLeft(4, '0')}-${paymentDatetimeMonth.text.padLeft(2, '0')}-${paymentDatetimeDay.text.padLeft(2, '0')} ${paymentDatetimeHour.text.padLeft(2, '0')}:${paymentDatetimeMinute.text.padLeft(2, '0')}';
-    }
-  }
-
-  setPaymentDatetime() {
-      paymentDatetimeYear.text = paymentDatetime.substring(0, 4);
-      paymentDatetimeMonth.text = paymentDatetime.substring(4, 2);
-      paymentDatetimeDay.text = paymentDatetime.substring(6, 2);
-      paymentDatetimeHour.text = paymentDatetime.substring(9, 2);
-      paymentDatetimeMinute.text = paymentDatetime.substring(12, 2);
   }
 }

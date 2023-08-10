@@ -78,7 +78,10 @@
 		<url-pattern>/positionRequestFinish</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/positionLeave</url-pattern>
-		
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getBudgetTypeList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/budgetTypeAdd</url-pattern>
 		
 	</servlet-mapping>
 

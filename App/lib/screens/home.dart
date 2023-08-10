@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test/screens/receipt_list.dart';
+import 'package:test/screens/receipt/receipt_list.dart';
 import 'package:test/screens/screen_frame.dart';
 
 import '../models/receipt.dart';
-import 'receipt_request.dart';
+import 'receipt/receipt_request.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

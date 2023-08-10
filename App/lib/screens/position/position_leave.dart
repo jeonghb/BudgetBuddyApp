@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import '../app_core.dart';
-import '../models/response_data.dart';
-import 'screen_frame.dart';
+import '../../app_core.dart';
+import '../../models/response_data.dart';
+import '../screen_frame.dart';
 
 class PositionLeave extends StatefulWidget {
   const PositionLeave({super.key});
@@ -224,10 +224,10 @@ class _PositionLeave extends State<PositionLeave> {
 
 Future<bool> leave(int selectDepartmentId, int selectPositionId) async {
   String address = '/positionLeave';
-  Map<String, String> body = {
+  Map<String, dynamic> body = {
     'userId': AppCore.instance.getUser().userId.text,
-    'departmentId': selectDepartmentId.toString(),
-    'positionId' : selectPositionId.toString(),
+    'departmentId': selectDepartmentId,
+    'positionId' : selectPositionId,
   };
 
   ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

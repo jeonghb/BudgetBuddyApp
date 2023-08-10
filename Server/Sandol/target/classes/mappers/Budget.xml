@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+
+    <insert id="budgetTypeAdd" parameterType="budgetTypeVO">
+    	<![CDATA[CALL budget_type_add(#{departmentId}, #{budgetTypeName})]]>
+    </insert>
+    <select id="getBudgetTypeList" resultType="budgetTypeVO">
+		<![CDATA[CALL get_budget_type_list(#{userId})]]>
+	</select>
+    
+</mapper>

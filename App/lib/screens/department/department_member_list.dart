@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'screen_frame.dart';
-import '../app_core.dart';
-import '../models/department_member.dart';
-import '../models/response_data.dart';
+import '../screen_frame.dart';
+import '../../app_core.dart';
+import '../../models/department_member.dart';
+import '../../models/response_data.dart';
 import 'department_member_manage.dart';
 
 class DepartmentMemberList extends StatefulWidget {
@@ -25,7 +25,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
   
   Future<void> getDepartmentMemberList() async {
     String address = '/getDepartmentMemberList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId.text,
     };
 

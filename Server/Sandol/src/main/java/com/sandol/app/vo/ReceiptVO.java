@@ -14,7 +14,8 @@ public class ReceiptVO {
 	private int approvalRequestDepartmentId;
 	private String approvalRequestDepartmentName;
 	private List<MultipartFile> fileList;
-	private String accountNumber;
+	private String bankName;
+	private String bankAccountNumber;
 	private int submissionStatus;
 	private String rejectMessage;
 
@@ -72,11 +73,17 @@ public class ReceiptVO {
 	public void setFileList(List<MultipartFile> fileList) {
 		this.fileList = fileList;
 	}
-	public String getAccountNumber() {
-		return accountNumber;
+	public String getBankName() {
+		return bankName;
 	}
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
+	public String getBankAccountNumber() {
+		return bankAccountNumber;
+	}
+	public void setBankAccountNumber(String bankAccountNumber) {
+		this.bankAccountNumber = bankAccountNumber;
 	}
 	public int getSubmissionStatus() {
 		return submissionStatus;

@@ -31,12 +31,12 @@ class PositionRequest {
 
   Future<bool> requestFinish() async {
     String address = '/positionRequestFinish';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'requestUserId': requestUserId,
-      'requestDepartmentId': requestDepartmentId.toString(),
-      'requestPositionId': requestPositionId.toString(),
+      'requestDepartmentId': requestDepartmentId,
+      'requestPositionId': requestPositionId,
       'approvalUserId': AppCore.instance.getUser().userId.text,
-      'approvalStatus': approvalStatus.toString(),
+      'approvalStatus': approvalStatus,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

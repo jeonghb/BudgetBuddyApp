@@ -6,7 +6,7 @@
 <mapper namespace="com.sandol.mapper.app">
 
     <insert id="requestReceipt" statementType="CALLABLE" parameterType="receiptVO">
-   		<![CDATA[CALL request_receipt(#{requestId}, #{requestUserId}, #{title}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId}, #{accountNumber})]]>
+   		<![CDATA[CALL request_receipt(#{requestId}, #{requestUserId}, #{title}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId}, #{bankName}, #{bankAccountNumber})]]>
     </insert>
     
     <select id="getRequestReceiptList" statementType="CALLABLE" resultType="receiptVO">

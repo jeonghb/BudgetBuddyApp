@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import '../app_core.dart';
-import '../models/Position.dart';
-import '../models/department.dart';
-import '../models/response_data.dart';
-import 'screen_frame.dart';
+import '../../app_core.dart';
+import '../../models/Position.dart';
+import '../../models/department.dart';
+import '../../models/response_data.dart';
+import '../screen_frame.dart';
 
 class PositionRequest extends StatefulWidget {
   const PositionRequest({super.key});
@@ -74,7 +74,7 @@ class _PositionRequest extends State<PositionRequest> {
 
   Future<void> getRequestPossibilityDepartmentPositionList() async {
     String address = '/getRequestPossibilityDepartmentPositionList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId.text,
     };
 

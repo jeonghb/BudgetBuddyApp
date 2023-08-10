@@ -18,6 +18,7 @@
    		<typeAlias alias="positionVO" type="com.sandol.app.vo.PositionVO"/>
    		<typeAlias alias="positionRequestVO" type="com.sandol.app.vo.PositionRequestVO"/>
    		<typeAlias alias="userPositionVO" type="com.sandol.app.vo.UserPositionVO"/>
+   		<typeAlias alias="budgetTypeVO" type="com.sandol.app.vo.BudgetTypeVO"/>
 	</typeAliases>
 	
 </configuration>

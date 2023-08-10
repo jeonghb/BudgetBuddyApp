@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../models/department_request.dart';
-import 'screen_frame.dart';
+import '../../models/department_request.dart';
+import '../screen_frame.dart';
 
 class DepartmentRequestManage extends StatefulWidget {
   final DepartmentRequest departmentRequest;

@@ -28,11 +28,11 @@ class DepartmentRequest {
 
   Future<bool> requestFinish() async {
     String address = '/departmentRequestFinish';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'requestUserId': requestUserId,
-      'requestDepartmentId': requestDepartmentId.toString(),
+      'requestDepartmentId': requestDepartmentId,
       'approvalUserId': AppCore.instance.getUser().userId.text,
-      'approvalStatus': approvalStatus.toString(),
+      'approvalStatus': approvalStatus,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

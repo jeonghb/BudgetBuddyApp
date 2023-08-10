@@ -3,9 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import 'package:test/models/response_data.dart';
-import '../models/position_request.dart';
+import '../../models/position_request.dart';
 import 'position_request_manage.dart';
-import 'screen_frame.dart';
+import '../screen_frame.dart';
 
 class PositionRequestList extends StatefulWidget {
   const PositionRequestList({super.key});
@@ -28,7 +28,7 @@ class _PositionRequestList extends State<PositionRequestList> {
 
   void getPositionRequestList() async {
     String address = '/getPositionRequestList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId.text,
     };
 

@@ -5,10 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
 import 'package:test/screens/login.dart';
 
-import '../models/response_data.dart';
-import '../models/user.dart';
-import '../widgets/text_form_field_v1.dart';
-import '../widgets/top_bar.dart';
+import '../../models/response_data.dart';
+import '../../models/user.dart';
+import '../../widgets/text_form_field_v1.dart';
+import '../../widgets/top_bar.dart';
 
 class UpdatePassword extends StatefulWidget {
   final User user;

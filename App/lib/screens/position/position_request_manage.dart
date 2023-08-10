@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../models/position_request.dart';
-import 'screen_frame.dart';
+import '../../models/position_request.dart';
+import '../screen_frame.dart';
 
 class PositionRequestManage extends StatefulWidget {
   final PositionRequest positionRequest;

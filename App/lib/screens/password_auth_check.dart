@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import 'package:test/screens/screen_frame.dart';
-import 'package:test/screens/update_password.dart';
-import 'package:test/screens/user_info_update.dart';
+import 'package:test/screens/user/update_password.dart';
+import 'package:test/screens/user/user_info_update.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
 class PasswordAuthCheck extends StatefulWidget {

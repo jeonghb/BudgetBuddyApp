@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import '../app_core.dart';
-import '../models/response_data.dart';
-import 'screen_frame.dart';
-import '../models/department.dart';
+import '../../app_core.dart';
+import '../../models/response_data.dart';
+import '../screen_frame.dart';
+import '../../models/department.dart';
 
 class DepartmentRequest extends StatefulWidget {
   const DepartmentRequest({super.key});
@@ -29,7 +29,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
 
   void getDepartmentList() async {
     String address = '/getRequestPositilityDepartmentList';
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId.text,
     };
 
@@ -54,8 +54,6 @@ class _DepartmentRequest extends State<DepartmentRequest> {
 
   @override
   Widget build(BuildContext context) {
-    int selectIndex = 0;
-
     return ScreenFrame(
       body: Padding(
         padding: EdgeInsets.all(30),
@@ -71,27 +69,6 @@ class _DepartmentRequest extends State<DepartmentRequest> {
             SizedBox(
               height: 30,
             ),
-            // ListView.builder(
-            //   physics: ScrollPhysics(),
-            //   shrinkWrap: true,
-            //   itemCount: departmentList.length,
-            //   itemBuilder: (BuildContext context, int index) {
-            //     final department = departmentList[index];
-
-            //     return GestureDetector(
-            //       onTap: () {
-            //         selectIndex = departmentList.indexWhere((element) => element == department);
-            //       },
-            //       child: Column(
-            //         children: [
-            //           ListTile(
-            //             leading: Text(department.departmentName),
-            //           )
-            //         ],
-            //       ),
-            //     );
-            //   },
-            // ),
             DropdownButton(
               isExpanded: true,
               value: selectDepartmentName,
