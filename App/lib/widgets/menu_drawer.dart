@@ -4,6 +4,7 @@ import 'package:test/screens/first_run.dart';
 import '../app_core.dart';
 import '../models/receipt.dart';
 import '../screens/budget/budget_type_manage.dart';
+import '../screens/budget/budget_year_setting.dart';
 import '../screens/my_page.dart';
 import '../screens/receipt/receipt_request.dart';
 
@@ -85,7 +86,7 @@ class _MenuDrawer extends State<MenuDrawer> {
           )
         ),
         onTap: () {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => budgetAdd(departmentId: AppCore.getInstance().getUser().departmentIdList)));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetYearSetting()));
         },
       ),
       ListTile(

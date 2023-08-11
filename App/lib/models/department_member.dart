@@ -11,7 +11,7 @@ class DepartmentMember {
   int userPositionId = -1;
   String userPositionName = '';
 
-  void fromJson(Map<String, dynamic> json) {
+  void setData(Map<String, dynamic> json) {
     userId = AppCore.getJsonString(json, 'userId');
     userName = AppCore.getJsonString(json, 'userName');
     userBirthday = AppCore.getJsonString(json, 'userBirthday');

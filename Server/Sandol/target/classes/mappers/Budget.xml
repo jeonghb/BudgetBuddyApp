@@ -11,5 +11,11 @@
     <select id="getBudgetTypeList" resultType="budgetTypeVO">
 		<![CDATA[CALL get_budget_type_list(#{userId})]]>
 	</select>
+	<select id="getBudgetYearList" resultType="budgetYearVO">
+		<![CDATA[CALL get_budget_year_list(#{userId})]]>
+	</select>
+	<insert id="setBudgetYearAmount" parameterType="budgetYearVO">
+    	<![CDATA[CALL set_budget_year_amount(#{departmentId}, #{year}, #{budgetAmount})]]>
+    </insert>
     
 </mapper>

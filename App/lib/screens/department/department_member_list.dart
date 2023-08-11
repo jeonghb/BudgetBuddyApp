@@ -34,9 +34,9 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       List<DepartmentMember> tempList = <DepartmentMember>[];
 
-      for (Map<String, dynamic> json in json.decode(responseData.body)) {
+      for (var json in jsonDecode(responseData.body)) {
         DepartmentMember departmentMember = DepartmentMember();
-        departmentMember.fromJson(json);
+        departmentMember.setData(json);
         tempList.add(departmentMember);
       }
 

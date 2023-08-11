@@ -19,8 +19,8 @@ class User with ChangeNotifier {
   TextEditingController userBirthdayMonth = TextEditingController();
   TextEditingController userBirthdayDay = TextEditingController();
   String userSex = 'male';
-  int bankId = 1;
-  String bankName = '기업은행';
+  int bankId = -1;
+  String bankName = '';
   TextEditingController bankAccountNumber = TextEditingController();
   List<Department> departmentList = <Department>[];
   // Image? image;
@@ -159,12 +159,16 @@ class User with ChangeNotifier {
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
 
     if (responseData.statusCode == 200) {
-      if (json.decode(responseData.body)['logInIsSuccess']) {
-        userName.text = json.decode(responseData.body)['userName'];
-        userEmail.text = json.decode(responseData.body)['userEmail'];
-        userPhoneNumber.text = json.decode(responseData.body)['userPhoneNumber'];
-        userBirthday = json.decode(responseData.body)['userBirthday'];
-        userSex = json.decode(responseData.body)['userSex'];
+      var json = jsonDecode(responseData.body);
+      if (AppCore.getJsonBool(json, 'logInIsSuccess')) {
+        userName.text = AppCore.getJsonString(json, 'userName');
+        userEmail.text = AppCore.getJsonString(json, 'userEmail');
+        userPhoneNumber.text = AppCore.getJsonString(json, 'userPhoneNumber');
+        userBirthday = AppCore.getJsonString(json, 'userBirthday');
+        userSex = AppCore.getJsonString(json, 'userSex');
+        bankId = AppCore.getJsonInt(json, 'bankId');
+        bankName = AppCore.getJsonString(json, 'bankName');
+        bankAccountNumber.text = AppCore.getJsonString(json, 'bankAccountNumber');
         isLoginSucess = true;
 
         // 부서, 직책 조회

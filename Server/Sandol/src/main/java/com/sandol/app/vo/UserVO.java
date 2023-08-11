@@ -12,6 +12,7 @@ public class UserVO {
 	private String userBirthday;
 	private String userSex;
 	private int bankId;
+	private String bankName;
 	private String bankAccountNumber;
 	private List<DepartmentVO> departmentList;
 	private boolean logInIsSuccess;
@@ -70,6 +71,12 @@ public class UserVO {
 	public void setBankId(int bankId) {
 		this.bankId = bankId;
 	}
+	public String getBankName() {
+		return bankName;
+	}
+	public void setBankName(String bankName) {
+		this.bankName = bankName;
+	}
 	public String getBankAccountNumber() {
 		return bankAccountNumber;
 	}
@@ -96,6 +103,7 @@ public class UserVO {
 		setUserBirthday(newVO.getUserBirthday());
 		setUserSex(newVO.getUserSex());
 		setBankId(newVO.getBankId());
+		setBankName(newVO.getBankName());
 		setBankAccountNumber(newVO.getBankAccountNumber());
 		setDepartmentList(newVO.getDepartmentList());
 	}
