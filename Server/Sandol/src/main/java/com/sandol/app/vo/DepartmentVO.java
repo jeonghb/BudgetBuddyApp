@@ -3,7 +3,7 @@ package com.sandol.app.vo;
 public class DepartmentVO {
 	private int departmentId;
 	private String departmentName;
-	private boolean activationStatus;
+	private boolean departmentActivationStatus;
 	
 	public int getDepartmentId() {
 		return departmentId;
@@ -17,10 +17,10 @@ public class DepartmentVO {
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
 	}
-	public boolean isActivationStatus() {
-		return activationStatus;
+	public boolean isDepartmentActivationStatus() {
+		return departmentActivationStatus;
 	}
-	public void setActivationStatus(boolean activationStatus) {
-		this.activationStatus = activationStatus;
+	public void setDepartmentActivationStatus(boolean departmentActivationStatus) {
+		this.departmentActivationStatus = departmentActivationStatus;
 	}
 }

@@ -75,4 +75,35 @@ public class PositionDAOImp implements PositionDAO {
 		
 		return true;
 	}
+	
+	@Override
+	public boolean positionAdd(PositionVO _positionVO) {
+		try {
+			tmp.insert("com.sandol.mapper.app.positionAdd", _positionVO);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public List<PositionVO> getPositionList() {
+		try {
+			return tmp.selectList("com.sandol.mapper.app.getPositionList");
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public boolean positionUpdate(PositionVO _positionVO) {
+		try {
+			tmp.update("com.sandol.mapper.app.positionUpdate", _positionVO);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
 }

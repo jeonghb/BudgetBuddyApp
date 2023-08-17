@@ -43,4 +43,19 @@ public class PositionServiceImp implements PositionService {
 	public boolean positionLeave(UserPositionVO _userPositionVO) {
 		return dao.positionLeave(_userPositionVO);
 	}
+	
+	@Override
+	public boolean positionAdd(PositionVO _positionVO) {
+		return dao.positionAdd(_positionVO);
+	}
+	
+	@Override
+	public List<PositionVO> getPositionList() {
+		return dao.getPositionList();
+	}
+	
+	@Override
+	public boolean positionUpdate(PositionVO _positionVO) {
+		return dao.positionUpdate(_positionVO);
+	}
 }

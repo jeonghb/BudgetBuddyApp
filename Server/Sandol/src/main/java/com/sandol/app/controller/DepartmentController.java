@@ -28,16 +28,22 @@ public class DepartmentController {
 		return departmentService.getDepartmentList();
 	}
 	
-	@RequestMapping(value = "/setDepartment", method = RequestMethod.POST)
+	@RequestMapping(value = "/departmentAdd", method = RequestMethod.POST)
 	@ResponseBody
-	public Boolean setDepartment(@RequestBody DepartmentVO departmentVO) {
-		return departmentService.setDepartment(departmentVO);
+	public Boolean departmentAdd(@RequestBody DepartmentVO _departmentVO) {
+		return departmentService.departmentAdd(_departmentVO);
+	}
+	
+	@RequestMapping(value = "/departmentUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean departmentUpdate(@RequestBody DepartmentVO _departmentVO) {
+		return departmentService.departmentUpdate(_departmentVO);
 	}
 	
 	@RequestMapping(value = "/departmentRequest", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean departmentRequest(@RequestBody UserDepartmentVO userDepartmentVO) {
-		return departmentService.departmentRequest(userDepartmentVO);
+	public boolean departmentRequest(@RequestBody UserDepartmentVO _userDepartmentVO) {
+		return departmentService.departmentRequest(_userDepartmentVO);
 	}
 	
 	@RequestMapping(value = "/getRequestPositilityDepartmentList", method = RequestMethod.POST)
@@ -54,8 +60,8 @@ public class DepartmentController {
 	
 	@RequestMapping(value = "/departmentRequestFinish", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean departmentRequestFinish(@RequestBody DepartmentRequestVO departmentRequestVO) {
-		return departmentService.departmentRequestFinish(departmentRequestVO);
+	public boolean departmentRequestFinish(@RequestBody DepartmentRequestVO _departmentRequestVO) {
+		return departmentService.departmentRequestFinish(_departmentRequestVO);
 	}
 	
 	@RequestMapping(value = "/getDepartmentMemberList", method = RequestMethod.POST)
@@ -66,7 +72,7 @@ public class DepartmentController {
 	
 	@RequestMapping(value = "/departmentLeave", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean departmentLeave(@RequestBody UserDepartmentVO userDepartmentVO) {
-		return departmentService.departmentLeave(userDepartmentVO);
+	public boolean departmentLeave(@RequestBody UserDepartmentVO _userDepartmentVO) {
+		return departmentService.departmentLeave(_userDepartmentVO);
 	}
 }

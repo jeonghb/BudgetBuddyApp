@@ -56,4 +56,22 @@ public class PositionController {
 	public boolean positionLeave(@RequestBody UserPositionVO _userPositionVO) {
 		return positionService.positionLeave(_userPositionVO);
 	}
+	
+	@RequestMapping(value = "/positionAdd", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean positionAdd(@RequestBody PositionVO _positionVO) {
+		return positionService.positionAdd(_positionVO);
+	}
+	
+	@RequestMapping(value = "/getPositionList", method = RequestMethod.GET)
+	@ResponseBody
+	public List<PositionVO> getPositionList() {
+		return positionService.getPositionList();
+	}
+	
+	@RequestMapping(value = "/positionUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean positionUpdate(@RequestBody PositionVO _positionVO) {
+		return positionService.positionUpdate(_positionVO);
+	}
 }

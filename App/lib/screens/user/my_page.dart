@@ -4,11 +4,11 @@ import 'package:test/screens/department/department_request.dart';
 import 'package:test/screens/password_auth_check.dart';
 import 'package:test/screens/position/position_request.dart';
 import 'package:test/screens/screen_frame.dart';
-import '../app_core.dart';
-import 'department/department_member_list.dart';
-import 'department/department_request_list.dart';
-import 'position/position_leave.dart';
-import 'position/position_request_list.dart';
+import '../../app_core.dart';
+import '../department/department_member_list.dart';
+import '../department/department_request_list.dart';
+import '../position/position_leave.dart';
+import '../position/position_request_list.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});

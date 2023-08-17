@@ -27,20 +27,40 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	}
 	
 	@Override
-	public boolean setDepartment(DepartmentVO departmentVO) {
+	public boolean departmentAdd(DepartmentVO _departmentVO) {
 		try {
-			tmp.insert("com.sandol.mapper.app.insertDepartment", departmentVO);
+			int rowCount = tmp.insert("com.sandol.mapper.app.departmentAdd", _departmentVO);
+			
+			if (rowCount > 0) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		} catch (NullPointerException e) {
 			return false;
 		}
-		
-		return true;
 	}
 	
 	@Override
-	public boolean departmentRequest(UserDepartmentVO userDepartmentVO) {
+	public boolean departmentUpdate(DepartmentVO _departmentVO) {
 		try {
-			tmp.insert("com.sandol.mapper.app.departmentRequest", userDepartmentVO);
+			int rowCount = tmp.update("com.sandol.mapper.app.departmentUpdate", _departmentVO);
+			
+			if (rowCount > 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (NullPointerException e) {
+			return false;
+		}
+	}
+	
+	@Override
+	public boolean departmentRequest(UserDepartmentVO _userDepartmentVO) {
+		try {
+			tmp.insert("com.sandol.mapper.app.departmentRequest", _userDepartmentVO);
 		} catch (NullPointerException e) {
 			return false;
 		}
@@ -67,10 +87,10 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	}
 	
 	@Override
-	public boolean departmentRequestFinish(DepartmentRequestVO departmentRequestVO) {
+	public boolean departmentRequestFinish(DepartmentRequestVO _departmentRequestVO) {
 		int returnCount = 0;
 		try {
-			returnCount = tmp.insert("com.sandol.mapper.app.departmentRequestFinish", departmentRequestVO);
+			returnCount = tmp.insert("com.sandol.mapper.app.departmentRequestFinish", _departmentRequestVO);
 		} catch (NullPointerException e) {
 			return false;
 		}
@@ -93,10 +113,10 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	}
 	
 	@Override
-	public boolean departmentLeave(UserDepartmentVO userDepartmentVO) {
+	public boolean departmentLeave(UserDepartmentVO _userDepartmentVO) {
 		int returnCount = 0;
 		try {
-			returnCount = tmp.insert("com.sandol.mapper.app.departmentLeave", userDepartmentVO);
+			returnCount = tmp.insert("com.sandol.mapper.app.departmentLeave", _userDepartmentVO);
 		} catch (NullPointerException e) {
 			return false;
 		}

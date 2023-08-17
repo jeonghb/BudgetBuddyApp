@@ -35,7 +35,9 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getDepartmentList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/setDepartment</url-pattern>
+		<url-pattern>/departmentAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentUpdate</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/requestReceipt</url-pattern>
 		<servlet-name>appServlet</servlet-name>
@@ -86,6 +88,12 @@
 		<url-pattern>/getBudgetYearList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/setBudgetYearAmount</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getPositionList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionUpdate</url-pattern>
 		
 	</servlet-mapping>
 

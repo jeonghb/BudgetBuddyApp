@@ -18,4 +18,10 @@ public interface PositionService {
 	public boolean positionRequestFinish(PositionRequestVO _positionRequestVO);
 	
 	public boolean positionLeave(UserPositionVO _userPositionVO);
+	
+	public boolean positionAdd(PositionVO _positionVO);
+	
+	public List<PositionVO> getPositionList();
+	
+	public boolean positionUpdate(PositionVO _positionVO);
 }

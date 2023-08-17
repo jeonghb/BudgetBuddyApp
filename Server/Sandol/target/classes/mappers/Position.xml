@@ -23,5 +23,14 @@
     <insert id="positionLeave" parameterType="userPositionVO">
     	<![CDATA[CALL position_leave(#{userId}, #{departmentId}, #{positionId})]]>
     </insert>
+    <insert id="positionAdd" parameterType="positionVO">
+    	<![CDATA[CALL position_add(#{departmentId}, #{positionName}, #{authFlag})]]>
+    </insert>
+    <select id="getPositionList" resultType="positionVO">
+    	<![CDATA[CALL get_position_list()]]>
+    </select>
+    <update id="positionUpdate" parameterType="positionVO">
+    	<![CDATA[CALL position_update(#{positionId}, #{positionName}, #{authFlag}, #{positionActivationStatus})]]>
+    </update>
     
 </mapper>

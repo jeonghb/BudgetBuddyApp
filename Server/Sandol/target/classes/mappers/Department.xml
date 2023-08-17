@@ -8,9 +8,12 @@
 	<select id="getDepartmentList" resultType="departmentVO">
 		<![CDATA[CALL get_department_list()]]>
 	</select>
-    <insert id="insertDepartment" parameterType="departmentVO">
-    	<![CDATA[CALL insert_department(#{departmentId}, #{departmentName}, #{activationStatus})]]>
+    <insert id="departmentAdd" parameterType="departmentVO">
+    	<![CDATA[CALL department_add(#{departmentName})]]>
     </insert>
+    <update id="departmentUpdate" parameterType="departmentVO">
+    	<![CDATA[CALL department_update(#{departmentId}, #{departmentName}, #{departmentActivationStatus})]]>
+    </update>
     <insert id="departmentRequest" parameterType="userDepartmentVO">
     	<![CDATA[CALL department_request(#{userId}, #{departmentId})]]>
     </insert>

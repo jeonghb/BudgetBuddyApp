@@ -1,5 +1,7 @@
 import 'package:test/app_core.dart';
 
+import 'response_data.dart';
+
 class Position {
   int departmentId = -1;
   String departmentName = '';
@@ -17,5 +19,29 @@ class Position {
     positionName = AppCore.getJsonString(json, 'positionName');
     authFlag = AppCore.getJsonInt(json, 'authFlag');
     positionActivationStatus = AppCore.getJsonBool(json, 'positionActivationStatus');
+  }
+
+  Future<bool> positionUpdate() async {
+    String address = '/positionUpdate';
+    Map<String, dynamic> body = {
+      'positionId': positionId,
+      'positionName': positionName,
+      'authFlag': authFlag,
+      'positionActivationStatus': positionActivationStatus,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      if (responseData.body == 'true') {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
   }
 }

@@ -24,13 +24,18 @@ public class DepartmentServiceImp implements DepartmentService {
 	}
 
 	@Override
-	public boolean setDepartment(DepartmentVO departmentVO) {
-		return dao.setDepartment(departmentVO);
+	public boolean departmentAdd(DepartmentVO _departmentVO) {
+		return dao.departmentAdd(_departmentVO);
 	}
 	
 	@Override
-	public boolean departmentRequest(UserDepartmentVO userDepartmentVO) {
-		return dao.departmentRequest(userDepartmentVO);
+	public boolean departmentUpdate(DepartmentVO _departmentVO) {
+		return dao.departmentUpdate(_departmentVO);
+	}
+	
+	@Override
+	public boolean departmentRequest(UserDepartmentVO _userDepartmentVO) {
+		return dao.departmentRequest(_userDepartmentVO);
 	}
 	
 	@Override
@@ -44,8 +49,8 @@ public class DepartmentServiceImp implements DepartmentService {
 	}
 	
 	@Override
-	public boolean departmentRequestFinish(DepartmentRequestVO departmentRequestVO) {
-		return dao.departmentRequestFinish(departmentRequestVO);
+	public boolean departmentRequestFinish(DepartmentRequestVO _departmentRequestVO) {
+		return dao.departmentRequestFinish(_departmentRequestVO);
 	}
 	
 	@Override
@@ -54,7 +59,7 @@ public class DepartmentServiceImp implements DepartmentService {
 	}
 	
 	@Override
-	public boolean departmentLeave(UserDepartmentVO userDepartmentVO) {
-		return dao.departmentLeave(userDepartmentVO);
+	public boolean departmentLeave(UserDepartmentVO _userDepartmentVO) {
+		return dao.departmentLeave(_userDepartmentVO);
 	}
 }

@@ -11,17 +11,19 @@ public interface DepartmentService {
 	
 	public List<DepartmentVO> getDepartmentList();
 	
-	public boolean setDepartment(DepartmentVO departmentVO);
+	public boolean departmentAdd(DepartmentVO _departmentVO);
 	
-	public boolean departmentRequest(UserDepartmentVO userDepartmentVO);
+	public boolean departmentUpdate(DepartmentVO _departmentVO);
+	
+	public boolean departmentRequest(UserDepartmentVO _userDepartmentVO);
 	
 	public List<DepartmentVO> getRequestPositilityDepartmentList(String _userId);
 	
 	public List<DepartmentRequestVO> getDepartmentRequestList(String _userId);
 	
-	public boolean departmentRequestFinish(DepartmentRequestVO departmentRequestVO);
+	public boolean departmentRequestFinish(DepartmentRequestVO _departmentRequestVO);
 	
 	public List<DepartmentMemberVO> getDepartmentMemberList(String _userId);
 	
-	public boolean departmentLeave(UserDepartmentVO userDepartmentVO);
+	public boolean departmentLeave(UserDepartmentVO _userDepartmentVO);
 }

@@ -3,9 +3,10 @@ import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
 import '../models/receipt.dart';
+import '../screens/auth/auth_manage.dart';
 import '../screens/budget/budget_type_manage.dart';
 import '../screens/budget/budget_year_setting.dart';
-import '../screens/my_page.dart';
+import '../screens/user/my_page.dart';
 import '../screens/receipt/receipt_request.dart';
 
 class MenuDrawer extends StatefulWidget {
@@ -199,7 +200,8 @@ class _MenuDrawer extends State<MenuDrawer> {
                 ),
                 TextButton(
                   onPressed: () {
-
+                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => AuthManage()));
                   },
                   style: TextButton.styleFrom(
                     shape: RoundedRectangleBorder(
