@@ -1,5 +1,6 @@
 import 'package:test/app_core.dart';
 
+import 'auth.dart';
 import 'response_data.dart';
 
 class Position {
@@ -8,7 +9,7 @@ class Position {
   bool departmentActivationStatus = false;
   int positionId = -1;
   String positionName = '';
-  int authFlag = 0;
+  List<Auth> authList = [];
   bool positionActivationStatus = false;
 
   void setData(var json) {
@@ -17,7 +18,7 @@ class Position {
     departmentActivationStatus = AppCore.getJsonBool(json, 'departmentActivationStatus');
     positionId = AppCore.getJsonInt(json, 'positionId');
     positionName = AppCore.getJsonString(json, 'positionName');
-    authFlag = AppCore.getJsonInt(json, 'authFlag');
+    authList = AppCore.getJsonList(json, 'authList', (authJson) => Auth.fromJson(authJson));
     positionActivationStatus = AppCore.getJsonBool(json, 'positionActivationStatus');
   }
 
@@ -26,7 +27,7 @@ class Position {
     Map<String, dynamic> body = {
       'positionId': positionId,
       'positionName': positionName,
-      'authFlag': authFlag,
+      'authList': authList,
       'positionActivationStatus': positionActivationStatus,
     };
 

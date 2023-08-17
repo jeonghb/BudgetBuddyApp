@@ -1,12 +1,14 @@
 package com.sandol.app.vo;
 
+import java.util.List;
+
 public class PositionVO {
 	private int departmentId;
 	private String departmentName;
 	private boolean departmentActivationStatus;
 	private int positionId;
 	private String positionName;
-	private int authFlag;
+	private List<PositionAuthVO> positionAuthList;
 	private boolean positionActivationStatus;
 	
 	public int getDepartmentId() {
@@ -39,11 +41,11 @@ public class PositionVO {
 	public void setPositionName(String positionName) {
 		this.positionName = positionName;
 	}
-	public int getAuthFlag() {
-		return authFlag;
+	public List<PositionAuthVO> getPositionAuthList() {
+		return positionAuthList;
 	}
-	public void setAuthFlag(int authFlag) {
-		this.authFlag = authFlag;
+	public void setPositionAuthList(List<PositionAuthVO> positionAuthList) {
+		this.positionAuthList = positionAuthList;
 	}
 	public boolean isPositionActivationStatus() {
 		return positionActivationStatus;

@@ -161,6 +161,14 @@ class AppCore extends ChangeNotifier {
     return returnValue == 'true' ? true : false;
   }
 
+  static List<T> getJsonList<T>(var json, String name, T Function(dynamic) mapper) {
+    final jsonArray = json[name] as List<dynamic>?;
+    if (jsonArray == null) {
+      return <T>[];
+    }
+    return jsonArray.map(mapper).toList();
+  }
+
   static int parseInt(String value) {
     String returnValue = value.isEmpty ? '-1' : value;
     return int.parse(returnValue);

@@ -20,6 +20,8 @@
    		<typeAlias alias="userPositionVO" type="com.sandol.app.vo.UserPositionVO"/>
    		<typeAlias alias="budgetTypeVO" type="com.sandol.app.vo.BudgetTypeVO"/>
    		<typeAlias alias="budgetYearVO" type="com.sandol.app.vo.BudgetYearVO"/>
+   		<typeAlias alias="authVO" type="com.sandol.app.vo.AuthVO"/>
+   		<typeAlias alias="positionAuthVO" type="com.sandol.app.vo.PositionAuthVO"/>
 	</typeAliases>
 	
 </configuration>
