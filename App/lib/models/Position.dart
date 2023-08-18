@@ -9,7 +9,7 @@ class Position {
   bool departmentActivationStatus = false;
   int positionId = -1;
   String positionName = '';
-  List<Auth> authList = [];
+  List<Auth> positionAuthList = [];
   bool positionActivationStatus = false;
 
   void setData(var json) {
@@ -18,7 +18,7 @@ class Position {
     departmentActivationStatus = AppCore.getJsonBool(json, 'departmentActivationStatus');
     positionId = AppCore.getJsonInt(json, 'positionId');
     positionName = AppCore.getJsonString(json, 'positionName');
-    authList = AppCore.getJsonList(json, 'authList', (authJson) => Auth.fromJson(authJson));
+    positionAuthList = AppCore.getJsonList(json, 'positionAuthList', (authJson) => Auth.fromJson(authJson));
     positionActivationStatus = AppCore.getJsonBool(json, 'positionActivationStatus');
   }
 
@@ -27,7 +27,11 @@ class Position {
     Map<String, dynamic> body = {
       'positionId': positionId,
       'positionName': positionName,
-      'authList': authList,
+      'positionAuthList': positionAuthList.map((e) => {
+        'authId' : e.authId,
+        'authName': e.authName,
+        'use': e.use,
+      }).toList(),
       'positionActivationStatus': positionActivationStatus,
     };
 

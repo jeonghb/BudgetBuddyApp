@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:test/models/Position.dart';
 import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
+import '../models/department.dart';
 import '../models/receipt.dart';
 import '../screens/auth/auth_manage.dart';
 import '../screens/budget/budget_type_manage.dart';
@@ -17,95 +19,134 @@ class MenuDrawer extends StatefulWidget {
 }
 
 class _MenuDrawer extends State<MenuDrawer> {
+  String userDepartmentPositionListText = '';
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (Department department in AppCore.instance.getUser().departmentList) {
+      for (Position position in department.positionList) {
+        userDepartmentPositionListText += '${department.departmentName}:${position.positionName} ';
+      }
+    }
+
+    userDepartmentPositionListText.substring(0, userDepartmentPositionListText.length - 1);
+  }
+
   @override
   Widget build(BuildContext context) {
-    List<ListTile> menuList = [
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('영수증 제출',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
+    List<ListTile> menuList = [];
+
+    if (AppCore.authCheck('영수증 제출')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.add_box_outlined),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('영수증 제출',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            ),
           ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
+          },
         ),
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.check),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('영수증 결재',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          )
-        ),
-        onTap: () {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: AppCore.instance.getUser().submissionStatusList)));
-        }
-      ),
-      ListTile(
-        leading: Icon(Icons.list),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('영수증 제출 내역',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
+      );
+    }
+    if (AppCore.authCheck('영수증 결재')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.check),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('영수증 결재',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
           ),
+          onTap: () {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: AppCore.instance.getUser().submissionStatusList)));
+          }
         ),
-        onTap: () {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: AppCore.instance.getUser().submissionStatusList)));
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.edit_document),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('월별 정산',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          )
+      );
+    }
+    if (AppCore.authCheck('영수증 제출 내역')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.list),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('영수증 제출 내역',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            ),
+          ),
+          onTap: () {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: AppCore.instance.getUser().submissionStatusList)));
+          },
         ),
-        onTap: () {
-          // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate(departmentId: AppCore.instance.getUser().departmentIdList)));
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text('예산 추가',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          )
+      );
+    }
+    if (AppCore.authCheck('월별 정산')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.edit_document),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('월별 정산',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate(departmentId: AppCore.instance.getUser().departmentIdList)));
+          },
         ),
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetYearSetting()));
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.add_box_outlined),
-        iconColor: Color.fromARGB(255, 90, 68, 223),
-        focusColor: Color.fromARGB(255, 90, 68, 223),
-        title: Text(
-          '예산 항목 관리',
-          style: TextStyle(
-            fontSize: 15,
-            color: Colors.black,
-          )
+      );
+    }
+    if (AppCore.authCheck('예산 추가')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.add_box_outlined),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('예산 추가',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetYearSetting()));
+          },
         ),
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeManage()));
-        },
-      )
-    ];
+      );
+    }
+    if (AppCore.authCheck('예산 항목 관리')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.add_box_outlined),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text(
+            '예산 항목 관리',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeManage()));
+          },
+        ),
+      );
+    }
 
     return Drawer(
       width: MediaQuery.of(context).size.width * 0.7,
@@ -147,8 +188,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                 ),
                 Expanded(
                   child: Text(
-                    '',
-                    // AppCore.instance.getUser().departmentId.toString(), // 이거 부서 + 직책 넣어야할듯
+                    userDepartmentPositionListText,
                     style: TextStyle(
                       backgroundColor: Colors.green[100],
                     ),

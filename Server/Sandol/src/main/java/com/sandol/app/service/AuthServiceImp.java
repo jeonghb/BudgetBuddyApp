@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.sandol.app.dao.AuthDAO;
 import com.sandol.app.vo.AuthVO;
+import com.sandol.app.vo.PositionAuthVO;
 
 @Service
 public class AuthServiceImp implements AuthService {
@@ -18,5 +19,10 @@ public class AuthServiceImp implements AuthService {
 	@Override
 	public List<AuthVO> getAuthList() {
 		return dao.getAuthList();
+	}
+	
+	@Override
+	public List<PositionAuthVO> getUserAuthList(String _userId) {
+		return dao.getUserAuthList(_userId);
 	}
 }

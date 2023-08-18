@@ -52,43 +52,45 @@ class _PositionList extends State<PositionList> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      body: Column(
-        children: [
-          Text(
-            '직책 목록',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
+      body: Expanded(
+        child: Column(
+          children: [
+            Text(
+              '직책 목록',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          ListView.builder(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: positionList.length,
-            itemBuilder: (BuildContext context, int index) {
-              final position = positionList[index];
+            ListView.builder(
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: positionList.length,
+              itemBuilder: (BuildContext context, int index) {
+                final position = positionList[index];
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PositionManage(position: position,)),).then((value) {
-                    if (value == true) {
-                      getPositionList();
-                    }
-                  });
-                },
-                child: Column (
-                  children: [
-                    ListTile(
-                      leading: Text('${position.departmentName},${position.positionName}'),
-                      
-                    ),
-                    Divider(),
-                  ]
-                ),
-              );
-            }
-          )
-        ],
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PositionManage(position: position,)),).then((value) {
+                      if (value == true) {
+                        getPositionList();
+                      }
+                    });
+                  },
+                  child: Column (
+                    children: [
+                      ListTile(
+                        leading: Text('${position.departmentName},${position.positionName}'),
+                        
+                      ),
+                      Divider(),
+                    ]
+                  ),
+                );
+              }
+            )
+          ],
+        ),
       ),
     );
   }

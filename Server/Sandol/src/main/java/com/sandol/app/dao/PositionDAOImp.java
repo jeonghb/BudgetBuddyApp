@@ -88,15 +88,12 @@ public class PositionDAOImp implements PositionDAO {
 	@Override
 	public boolean positionAdd(PositionVO _positionVO) {
 		try {
+			// 직책 추가하고
 			tmp.insert("com.sandol.mapper.app.positionAdd", _positionVO);
-			String arrString = "";
-			for (PositionAuthVO positionAuth : _positionVO.getPositionAuthList()) {
-				arrString += positionAuth.getPositionId() + "," + positionAuth.getAuthId() + "," + positionAuth.getUse() + ",";
+			for (PositionAuthVO positionAuthVO : _positionVO.getPositionAuthList()) {
+				// position_auth 테이블 저장
+				tmp.insert("com.sandol.mapper.app.positionAuthSave", positionAuthVO);
 			}
-			
-			arrString.substring(0, arrString.length() - 1);
-			
-			tmp.insert("com.sandol.mapper.app.positionAuthSave", arrString);
 		} catch (NullPointerException e) {
 			return false;
 		}
@@ -137,7 +134,13 @@ public class PositionDAOImp implements PositionDAO {
 	@Override
 	public boolean positionUpdate(PositionVO _positionVO) {
 		try {
+			// position 테이블 먼저 저장하고
 			tmp.update("com.sandol.mapper.app.positionUpdate", _positionVO);
+			
+			for (PositionAuthVO positionAuthVO : _positionVO.getPositionAuthList()) {
+				// position_auth 테이블 저장
+				tmp.insert("com.sandol.mapper.app.positionAuthSave", positionAuthVO);
+			}
 		} catch (NullPointerException e) {
 			return false;
 		}

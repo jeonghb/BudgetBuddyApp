@@ -12,7 +12,10 @@
 		<![CDATA[CALL get_position_auth_list()]]>
 	</select>
 	<insert id="positionAuthSave" parameterType="positionAuthVO">
-    	<![CDATA[CALL position_auth_save(#{arrString})]]>
+    	<![CDATA[CALL position_auth_save(#{positionId}, #{authId}, #{use})]]>
     </insert>
+	<select id="getUserAuthList" resultType="positionAuthVO">
+		<![CDATA[CALL get_user_auth_list(#{userId})]]>
+	</select>
       
 </mapper>

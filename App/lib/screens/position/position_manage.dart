@@ -40,8 +40,8 @@ class _PositionManage extends State<PositionManage> {
       {
         Auth auth = Auth.fromJson(json);
 
-        if (widget.position.authList.firstWhereOrNull((element) => element.authId == auth.authId) == null) {
-          widget.position.authList.add(auth);
+        if (widget.position.positionAuthList.firstWhereOrNull((element) => element.authId == auth.authId) == null) {
+          widget.position.positionAuthList.add(auth);
         }
       }
     }
@@ -141,47 +141,49 @@ class _PositionManage extends State<PositionManage> {
         children: [
           Expanded(
             flex: 4,
-            child: Column(
-              children: [
-                Text(
-                  '직책 정보',
-                ),
-                Text(
-                  '부서'
-                ),
-                Text(
-                  widget.position.departmentName,
-                ),
-                TextFormFieldV1(
-                  controller: positionName,
-                ),
-                Text(
-                  '권한 설정',
-                ),
-                ListView.builder(
-                  physics: ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: widget.position.authList.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    final auth = widget.position.authList[index];
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Text(
+                    '직책 정보',
+                  ),
+                  Text(
+                    '부서'
+                  ),
+                  Text(
+                    widget.position.departmentName,
+                  ),
+                  TextFormFieldV1(
+                    controller: positionName,
+                  ),
+                  Text(
+                    '권한 설정',
+                  ),
+                  ListView.builder(
+                    physics: ScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: widget.position.positionAuthList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final auth = widget.position.positionAuthList[index];
 
-                    return ListTile(
-                      title: Text(
-                        auth.authName,
-                      ),
-                      trailing: Checkbox(
-                        value: widget.position.authList.firstWhere((element) => element.authId == auth.authId).use,
-                        onChanged: (newValue) {
-                          setState(() {
-                            widget.position.authList.firstWhere((element) => element.authId == auth.authId).use = newValue!;
-                          });
-                        },
-                      ),
-                    );
-                  }
-                ),
-              ],
-            )
+                      return ListTile(
+                        title: Text(
+                          auth.authName,
+                        ),
+                        trailing: Checkbox(
+                          value: widget.position.positionAuthList.firstWhere((element) => element.authId == auth.authId).use,
+                          onChanged: (newValue) {
+                            setState(() {
+                              widget.position.positionAuthList.firstWhere((element) => element.authId == auth.authId).use = newValue!;
+                            });
+                          },
+                        ),
+                      );
+                    }
+                  ),
+                ],
+              )
+            ),
           ),
           Expanded(
             flex: 1,

@@ -173,6 +173,10 @@ class AppCore extends ChangeNotifier {
     String returnValue = value.isEmpty ? '-1' : value;
     return int.parse(returnValue);
   }
+
+  static bool authCheck(String authName) {
+    return user.getAuthList().any((element) => element.authName == authName);
+  }
 }
 
 enum ActionType {

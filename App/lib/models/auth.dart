@@ -1,6 +1,7 @@
 import 'package:test/app_core.dart';
 
 class Auth {
+  int positionId = -1;
   String authId = '';
   String authName = '';
   bool use = false;

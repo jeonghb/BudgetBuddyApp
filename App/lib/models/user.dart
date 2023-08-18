@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import 'package:test/models/response_data.dart';
 import 'Position.dart';
+import 'auth.dart';
 import 'department.dart';
 
 class User with ChangeNotifier {
@@ -194,6 +196,29 @@ class User with ChangeNotifier {
           }
         }
 
+        // 권한 조회
+        address = '/getUserAuthList';
+        body = {
+          'userId': userId.text
+        };
+
+        responseData = await AppCore.request(ServerType.POST, address, body);
+
+        if (responseData.statusCode == 200) {
+          List<Auth> authList = <Auth>[];
+          for (var jsonAuth in jsonDecode(responseData.body)) {
+            Auth auth = Auth.fromJson(jsonAuth);
+            auth.positionId = AppCore.getJsonInt(jsonAuth, 'positionId');
+            authList.add(auth);
+          }
+
+          for (Department department in departmentList) {
+            for (Position position in department.positionList) {
+              position.positionAuthList.addAll(authList.where((element) => element.positionId == position.positionId));
+            }
+          }
+        }
+
         return '0';
       }
       else {
@@ -235,5 +260,21 @@ class User with ChangeNotifier {
     }
     
     return false;
+  }
+
+  List<Auth> getAuthList() {
+    List<Auth> authList = <Auth>[];
+
+    for (Department department in departmentList) {
+      for (Position position in department.positionList) {
+        for (Auth auth in position.positionAuthList) {
+          if (auth.use && authList.firstWhereOrNull((element) => element.authId == auth.authId) == null) {
+            authList.add(auth);
+          }
+        }
+      }
+    }
+
+    return authList;
   }
 }

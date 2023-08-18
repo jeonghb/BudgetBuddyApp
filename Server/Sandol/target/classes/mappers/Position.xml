@@ -30,7 +30,7 @@
     	<![CDATA[CALL get_position_list()]]>
     </select>
     <update id="positionUpdate" parameterType="positionVO">
-    	<![CDATA[CALL position_update(#{positionId}, #{positionName}, #{authFlag}, #{positionActivationStatus})]]>
+    	<![CDATA[CALL position_update(#{positionId}, #{positionName}, #{positionActivationStatus})]]>
     </update>
     
 </mapper>
