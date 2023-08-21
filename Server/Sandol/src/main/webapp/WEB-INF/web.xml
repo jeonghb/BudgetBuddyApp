@@ -98,6 +98,8 @@
 		<url-pattern>/getAuthList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getUserAuthList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/budgetAdd</url-pattern>
 		
 	</servlet-mapping>
 

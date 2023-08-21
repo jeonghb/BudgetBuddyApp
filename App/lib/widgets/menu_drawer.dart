@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/models/Position.dart';
+import 'package:test/screens/budget/budget_add.dart';
+import 'package:test/screens/budget/budget_add_list.dart';
 import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
@@ -92,6 +94,42 @@ class _MenuDrawer extends State<MenuDrawer> {
         ),
       );
     }
+    if (AppCore.authCheck('예산 추가')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.check),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('예산 추가',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetAdd()));
+          }
+        )
+      );
+    }
+    if (AppCore.authCheck('예산 추가내역')) {
+      menuList.add(
+        ListTile(
+          leading: Icon(Icons.check),
+          iconColor: Color.fromARGB(255, 90, 68, 223),
+          focusColor: Color.fromARGB(255, 90, 68, 223),
+          title: Text('예산 추가내역',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetAddList()));
+          }
+        )
+      );
+    }
     if (AppCore.authCheck('월별 정산')) {
       menuList.add(
         ListTile(
@@ -110,13 +148,13 @@ class _MenuDrawer extends State<MenuDrawer> {
         ),
       );
     }
-    if (AppCore.authCheck('예산 추가')) {
+    if (AppCore.authCheck('연도별 예산 설정')) {
       menuList.add(
         ListTile(
           leading: Icon(Icons.add_box_outlined),
           iconColor: Color.fromARGB(255, 90, 68, 223),
           focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('예산 추가',
+          title: Text('연도별 예산 설정',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -238,6 +276,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                 SizedBox(
                   width: 10,
                 ),
+                AppCore.authCheck('authManage') ? 
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -269,8 +308,8 @@ class _MenuDrawer extends State<MenuDrawer> {
                         ),
                       ),
                     ],
-                  ) 
-                ),
+                  ),
+                ) : SizedBox(),
                 SizedBox(
                   width: 10,
                 ),

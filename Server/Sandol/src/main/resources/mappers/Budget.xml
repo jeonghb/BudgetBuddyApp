@@ -17,5 +17,8 @@
 	<insert id="setBudgetYearAmount" parameterType="budgetYearVO">
     	<![CDATA[CALL set_budget_year_amount(#{departmentId}, #{year}, #{budgetAmount})]]>
     </insert>
+	<insert id="budgetAdd" parameterType="budgetVO">
+    	<![CDATA[CALL budget_add(#{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
+    </insert>
     
 </mapper>

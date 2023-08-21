@@ -1,11 +1,11 @@
 package com.sandol.app.dao;
 
 import java.util.List;
-import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import com.sandol.app.vo.BudgetTypeVO;
+import com.sandol.app.vo.BudgetVO;
 import com.sandol.app.vo.BudgetYearVO;
 
 @Repository
@@ -47,6 +47,17 @@ public class BudgetDAOImp implements BudgetDAO {
 	public boolean setBudgetYearAmount(BudgetYearVO _budgetYearVO) {
 		try {
 			tmp.insert("com.sandol.mapper.app.setBudgetYearAmount", _budgetYearVO);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean budgetAdd(BudgetVO _budgetVO) {
+		try {
+			tmp.insert("com.sandol.mapper.app.budgetAdd", _budgetVO);
 		} catch (NullPointerException e) {
 			return false;
 		}

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sandol.app.service.BudgetService;
 import com.sandol.app.vo.BudgetTypeVO;
+import com.sandol.app.vo.BudgetVO;
 import com.sandol.app.vo.BudgetYearVO;
 
 @Controller
@@ -42,5 +43,11 @@ public class BudgetController {
 	@ResponseBody
 	public boolean setBudgetYearAmount(@RequestBody BudgetYearVO _budgetYearVO) {
 		return budgetService.setBudgetYearAmount(_budgetYearVO);
+	}
+	
+	@RequestMapping(value = "/budgetAdd", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean budgetAdd(@RequestBody BudgetVO _budgetVO) {
+		return budgetService.budgetAdd(_budgetVO);
 	}
 }
