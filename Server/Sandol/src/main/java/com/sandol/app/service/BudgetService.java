@@ -17,4 +17,10 @@ public interface BudgetService {
 	public boolean setBudgetYearAmount(BudgetYearVO _budgetYearVO);
 	
 	public boolean budgetAdd(BudgetVO _budgetVO);
+	
+	public List<BudgetVO> getBudgetList(String _userId);
+	
+	public boolean budgetUpdate(BudgetVO _budgetVO);
+	
+	public boolean budgetDelete(int _id);
 }

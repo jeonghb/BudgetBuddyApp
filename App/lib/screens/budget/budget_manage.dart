@@ -1,73 +1,44 @@
 import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:test/models/budget_type.dart';
-import 'package:test/widgets/text_form_field_v1.dart';
+import 'package:test/models/budget.dart';
 
 import '../../app_core.dart';
+import '../../models/budget_type.dart';
 import '../../models/response_data.dart';
+import '../../widgets/text_form_field_v1.dart';
 import '../screen_frame.dart';
 
-class BudgetAdd extends StatefulWidget {
-  const BudgetAdd({super.key});
+class BudgetManage extends StatefulWidget {
+  final Budget budget;
+
+  const BudgetManage({super.key, required this.budget});
 
   @override
-  State<BudgetAdd> createState() => _BudgetAdd();
+  State<BudgetManage> createState() => _BudgetManage();
 }
 
-class _BudgetAdd extends State<BudgetAdd> {
+class _BudgetManage extends State<BudgetManage> {
   List<BudgetType> budgetTypeList = <BudgetType>[];
-  int departmentId = -1;
-  String departmentName = '';
-  int budgetTypeId = -1;
-  String budgetTypeName = '';
-  TextEditingController budgetYear = TextEditingController();
-  TextEditingController budgetMonth = TextEditingController();
+  TextEditingController budgetAmount = TextEditingController();
   TextEditingController budgetTitle = TextEditingController();
   TextEditingController budgetMemo = TextEditingController();
-  TextEditingController budgetAmount = TextEditingController();
+  TextEditingController budgetYear = TextEditingController();
+  TextEditingController budgetMonth = TextEditingController();
 
   @override
   void initState() {
     super.initState();
 
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      // ignore: use_build_context_synchronously
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('예산 추가')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text("소속된 부서가 없습니다.",),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
-      return;
-    }
-
-    departmentId = AppCore.instance.getUser().departmentList[0].departmentId;
-    departmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    budgetAmount.text = widget.budget.budgetAmount.toString();
+    budgetTitle.text = widget.budget.budgetTitle;
+    budgetMemo.text = widget.budget.budgetMemo;
+    budgetYear.text = widget.budget.budgetDate.substring(0, 4);
+    budgetMonth.text = widget.budget.budgetDate.substring(6, 7);
 
     budgetTypeList.add(BudgetType());
     getBudgetTypeList();
-
-    budgetYear.text = DateTime.now().year.toString();
-    budgetMonth.text = DateTime.now().month.toString();
   }
 
   Future<void> getBudgetTypeList() async {
@@ -89,19 +60,17 @@ class _BudgetAdd extends State<BudgetAdd> {
         tempList.add(budgetType);
       }
 
-      budgetTypeList = tempList;
-      if (budgetTypeList.isNotEmpty) {
-        budgetTypeId = budgetTypeList[0].budgetTypeId;
-        budgetTypeName = budgetTypeList[0].budgetTypeName;
-      }
+      setState(() {
+        budgetTypeList = tempList;
+      });
     }
   }
 
   String setData() {
-    if (departmentId == -1) {
+    if (widget.budget.departmentId == -1) {
       return '부서가 선택되지 않았습니다.';
     }
-    else if (budgetTypeId == -1) {
+    else if (widget.budget.budgetTypeId == -1) {
       return '예산 구분이 선택되지 않았습니다.';
     }
     else if (budgetYear.text.isEmpty) {
@@ -111,39 +80,18 @@ class _BudgetAdd extends State<BudgetAdd> {
       return '예산 추가할 월이 입력되지 않았습니다.';
     }
     else if (budgetAmount.text.isEmpty) {
-      return '예산 금액이 입력되지 않았습니다.';
+      return '금액이 입력되지 않았습니다.';
     }
     else if (budgetTitle.text.isEmpty) {
       return '예산명이 입력되지 않았습니다.';
     }
 
+    widget.budget.budgetDate = '${budgetYear.text.padLeft(4, '0')}-${budgetMonth.text.padLeft(2, '0')}';
+    widget.budget.budgetAmount = int.parse(budgetAmount.text);
+    widget.budget.budgetTitle = budgetTitle.text;
+    widget.budget.budgetMemo = budgetMemo.text;
+
     return '';
-  }
-
-  Future<bool> budgetAdd() async {
-    String address = '/budgetAdd';
-    Map<String, dynamic> body = {
-      'departmentId': departmentId,
-      'budgetTypeId': budgetTypeId,
-      'budgetTitle': budgetTitle.text,
-      'budgetMemo': budgetMemo.text,
-      'budgetAmount': budgetAmount.text,
-      'budgetDate': '${budgetYear.text.toString().padLeft(4, '0')}-${budgetMonth.text.toString().padLeft(2, '0')}',
-    };
-
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
-
-    if (responseData.statusCode == 200) {
-      if (responseData.body == 'true') {
-        return true;
-      }
-      else {
-        return false;
-      }
-    }
-    else {
-      return false;
-    }
   }
 
   @override
@@ -153,7 +101,7 @@ class _BudgetAdd extends State<BudgetAdd> {
         child: Column(
           children: [
             Text(
-              '예산 추가',
+              '예산 추가 정보',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
@@ -167,7 +115,7 @@ class _BudgetAdd extends State<BudgetAdd> {
             ),
             DropdownButton(
               isExpanded: true,
-              value: departmentName,
+              value: widget.budget.departmentName,
               items: AppCore.instance.getUser().departmentList.map(
                 (value) { 
                   return DropdownMenuItem<String>(
@@ -178,8 +126,8 @@ class _BudgetAdd extends State<BudgetAdd> {
                 ).toList(),
               onChanged: (value) {
                 setState(() {
-                  departmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  departmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                  widget.budget.departmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  widget.budget.departmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                 });
               }
             ),
@@ -191,19 +139,19 @@ class _BudgetAdd extends State<BudgetAdd> {
             ),
             DropdownButton(
               isExpanded: true,
-              value: budgetTypeName,
-              items: budgetTypeList.map(
+              value: widget.budget.budgetTypeName,
+              items: budgetTypeList.firstWhereOrNull((element) => element.budgetTypeName == widget.budget.budgetTypeName) != null ? budgetTypeList.map(
                 (value) {
                   return DropdownMenuItem<String>(
                     value: value.budgetTypeName,
                     child: Text(value.budgetTypeName),
                     );
                   },
-                ).toList(),
+                ).toList() : [],
               onChanged: (value) {
                 setState(() {
-                  budgetTypeId = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeId;
-                  budgetTypeName = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeName;
+                  widget.budget.budgetTypeId = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeId;
+                  widget.budget.budgetTypeName = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeName;
                 });
               }
             ),
@@ -287,6 +235,15 @@ class _BudgetAdd extends State<BudgetAdd> {
                     controller: budgetMonth,
                     textInputAction: TextInputAction.next,
                     onEditingComplete: () {FocusScope.of(context).nextFocus();},
+                    onChanged: (value) {
+                      int? month = int.tryParse(value);
+                      if (month != null && (month < 1 || month > 12)) {
+                        budgetMonth.value = TextEditingValue(
+                          text: '12',
+                          selection: TextSelection.collapsed(offset: 2),
+                        );
+                      }
+                    },
                   ),
                 ),
               ],
@@ -295,25 +252,25 @@ class _BudgetAdd extends State<BudgetAdd> {
               onPressed: () async {
                 String validationMessage = setData();
                 if (validationMessage.isEmpty) {
-                  if (await budgetAdd()) {
+                  if (await widget.budget.budgetUpdate()) {
                     // ignore: use_build_context_synchronously
                     showDialog(
                       context: context, 
                       builder: (BuildContext context) {
                         return AlertDialog(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('예산 추가')]),
+                          title: Column(children: const <Widget>[Text('예산 수정')]),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text('추가 완료',),],
+                            children: const <Widget>[Text('수정 완료',),],
                           ),
                           actions: <Widget>[
                             TextButton(
                               child: Text('확인'), 
                               onPressed: () {
                                 Navigator.pop(context);
-                                Navigator.pop(context);
+                                Navigator.pop(context, true);
                               },
                             )
                           ],
@@ -328,11 +285,11 @@ class _BudgetAdd extends State<BudgetAdd> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('예산 추가')]),
+                          title: Column(children: const <Widget>[Text('예산 수정')]),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text('예산 추가 저장 실패',),],
+                            children: const <Widget>[Text('예산 수정 실패',),],
                           ),
                           actions: <Widget>[
                             TextButton(
@@ -354,7 +311,7 @@ class _BudgetAdd extends State<BudgetAdd> {
                     builder: (BuildContext context) {
                       return AlertDialog(
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 추가')]),
+                        title: Column(children: const <Widget>[Text('예산 수정')]),
                         content: Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -375,6 +332,64 @@ class _BudgetAdd extends State<BudgetAdd> {
               },
               child: Text(
                 '추가',
+              ),
+            ),
+            TextButton(
+              onPressed: () async {
+                if (await widget.budget.budgetDelete()) {
+                  // ignore: use_build_context_synchronously
+                  showDialog(
+                    context: context, 
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        title: Column(children: const <Widget>[Text('예산 삭제')]),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const <Widget>[Text('삭제 완료',),],
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('확인'), 
+                            onPressed: () {
+                              Navigator.pop(context);
+                              Navigator.pop(context, true);
+                            },
+                          )
+                        ],
+                      );
+                    }
+                  );
+                }
+                else {
+                  // ignore: use_build_context_synchronously
+                  showDialog(
+                    context: context, 
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        title: Column(children: const <Widget>[Text('예산 삭제')]),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const <Widget>[Text('예산 삭제 실패',),],
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('확인'), 
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          )
+                        ],
+                      );
+                    }
+                  );
+                }
+              },
+              child: Text(
+                '삭제',
               ),
             ),
           ],

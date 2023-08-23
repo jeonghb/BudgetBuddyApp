@@ -39,4 +39,19 @@ public class BudgetServiceImp implements BudgetService {
 	public boolean budgetAdd(BudgetVO _budgetVO) {
 		return dao.budgetAdd(_budgetVO);
 	}
+	
+	@Override
+	public List<BudgetVO> getBudgetList(String _userId) {
+		return dao.getBudgetList(_userId);
+	}
+	
+	@Override
+	public boolean budgetUpdate(BudgetVO _budgetVO) {
+		return dao.budgetUpdate(_budgetVO);
+	}
+	
+	@Override
+	public boolean budgetDelete(int _id) {
+		return dao.budgetDelete(_id);
+	}
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/models/Position.dart';
 import 'package:test/screens/budget/budget_add.dart';
-import 'package:test/screens/budget/budget_add_list.dart';
+import 'package:test/screens/budget/budget_list.dart';
 import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
@@ -125,7 +125,7 @@ class _MenuDrawer extends State<MenuDrawer> {
             )
           ),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetAddList()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetList()));
           }
         )
       );

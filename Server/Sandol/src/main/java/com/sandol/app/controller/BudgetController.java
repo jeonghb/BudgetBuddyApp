@@ -50,4 +50,22 @@ public class BudgetController {
 	public boolean budgetAdd(@RequestBody BudgetVO _budgetVO) {
 		return budgetService.budgetAdd(_budgetVO);
 	}
+	
+	@RequestMapping(value = "/getBudgetList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<BudgetVO> getBudgetList(@RequestBody Map<String, String> _userId) {
+		return budgetService.getBudgetList(_userId.get("userId"));
+	}
+	
+	@RequestMapping(value = "/budgetUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean budgetUpdate(@RequestBody BudgetVO _budgetVO) {
+		return budgetService.budgetUpdate(_budgetVO);
+	}
+	
+	@RequestMapping(value = "/budgetDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean budgetDelete(@RequestBody Map<String, Integer> _id) {
+		return budgetService.budgetDelete(_id.get("id"));
+	}
 }

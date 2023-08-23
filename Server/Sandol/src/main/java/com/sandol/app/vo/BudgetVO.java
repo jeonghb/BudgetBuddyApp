@@ -3,7 +3,9 @@ package com.sandol.app.vo;
 public class BudgetVO {
 	private int id;
 	private int departmentId;
+	private String departmentName;
 	private int budgetTypeId;
+	private String budgetTypeName;
 	private String budgetTitle;
 	private String budgetMemo;
 	private String budgetDate;
@@ -21,11 +23,23 @@ public class BudgetVO {
 	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;
 	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
 	public int getBudgetTypeId() {
 		return budgetTypeId;
 	}
 	public void setBudgetTypeId(int budgetTypeId) {
 		this.budgetTypeId = budgetTypeId;
+	}
+	public String getBudgetTypeName() {
+		return budgetTypeName;
+	}
+	public void setBudgetTypeName(String budgetTypeName) {
+		this.budgetTypeName = budgetTypeName;
 	}
 	public String getBudgetTitle() {
 		return budgetTitle;
