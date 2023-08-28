@@ -310,42 +310,6 @@ class _MenuDrawer extends State<MenuDrawer> {
                     ],
                   ),
                 ) : SizedBox(),
-                SizedBox(
-                  width: 10,
-                ),
-                TextButton(
-                  onPressed: () {
-
-                  },
-                  style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(color: Colors.grey),
-                    ),
-                    minimumSize: Size(50, double.infinity),
-                    padding: EdgeInsets.all(0),
-                  ),
-                  child: Row(
-                    children: const [
-                      Icon(
-                        Icons.settings,
-                        size: 13),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        '설정',
-                        style: TextStyle(
-                          fontSize: 9,
-                          color: Colors.black,
-                        )
-                      ),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  width: 10,
-                ),
               ],
             )
           ),

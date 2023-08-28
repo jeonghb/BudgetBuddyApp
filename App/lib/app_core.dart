@@ -106,7 +106,9 @@ class AppCore extends ChangeNotifier {
     List<Widget> newWidgets = <Widget>[];
     
     newWidgets.add(Text(message));
-    newWidgets.addAll(widgets!);
+    if (widgets != null) {
+      newWidgets.addAll(widgets);
+    }
 
     showDialog(
       context: context, 

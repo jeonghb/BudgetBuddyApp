@@ -23,6 +23,7 @@
    		<typeAlias alias="authVO" type="com.sandol.app.vo.AuthVO"/>
    		<typeAlias alias="positionAuthVO" type="com.sandol.app.vo.PositionAuthVO"/>
    		<typeAlias alias="budgetVO" type="com.sandol.app.vo.BudgetVO"/>
+   		<typeAlias alias="inquiryVO" type="com.sandol.app.vo.InquiryVO"/>
 	</typeAliases>
 	
 </configuration>

@@ -57,7 +57,9 @@ class _ReceiptList extends State<ReceiptList> {
   @override
   Widget build(BuildContext context){
     return GestureDetector(
-      onTap: () => { FocusScope.of(context).unfocus()},
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
       child: Scaffold(
         appBar: TopBar(type: BarType.login),
         endDrawer: MenuDrawer(),

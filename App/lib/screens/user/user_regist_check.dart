@@ -24,20 +24,22 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   bool female = false;
   late List<bool> isSelected = [male, female];
 
-  bool userRegistCheckValidationCheck() {
+  String userRegistCheckValidationCheck() {
     if (user.userBirthdayYear.text.trim().replaceAll('0', '').length != 4
       || user.userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
       || user.userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
-      return false;
+      return '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요';
     }
 
-    return true;
+    return '';
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => { FocusScope.of(context).unfocus()},
+      onTap: () { 
+        FocusScope.of(context).unfocus();
+      },
       child: Scaffold(
         appBar: TopBar(type: BarType.logout),
         backgroundColor: Colors.white,
@@ -235,8 +237,9 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                       ),),
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
-                        if (!userRegistCheckValidationCheck()) {
-                          AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요', ActionType.ok, () {
+                        String validationMessage = userRegistCheckValidationCheck();
+                        if (validationMessage.isNotEmpty) {
+                          AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', validationMessage, ActionType.ok, () {
                             Navigator.pop(context);
                           });
                           return;

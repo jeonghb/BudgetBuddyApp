@@ -17,12 +17,24 @@ class UserRegist extends StatefulWidget {
 
 class _UserRegist extends State<UserRegist> {
 
-  bool validationCheck() {
-    if (!widget.user.idRegexCheck() || !widget.user.passwordRegexCheck() || !widget.user.passwordSameCheck() || !widget.user.emailRegexCheck() || !widget.user.phoneNumberRegexCheck()) {
-      return false;
+  String validationCheck() {
+    if (!widget.user.idRegexCheck()) {
+      return '아이디를 확인해주세요.';
+    }
+    else if (!widget.user.passwordRegexCheck()) {
+      return '비밀번호를 확인해주세요';
+    }
+    else if (!widget.user.passwordSameCheck()) {
+      return '비밀번호를 확인해주세요.';
+    }
+    else if (!widget.user.emailRegexCheck()) {
+      return '이메일을 확인해주세요.';
+    }
+    else if (!widget.user.phoneNumberRegexCheck()) {
+      return '휴대폰번호를 확인해주세요.';
     }
 
-    return true;
+    return '';
   }
 
   @override
@@ -198,8 +210,9 @@ class _UserRegist extends State<UserRegist> {
                         color: Colors.white
                       ),),
                       onPressed: () {
-                        if (!validationCheck()) {
-                          AppCore.showMessage(context, '회원가입', '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.', ActionType.ok, () {
+                        String validationMessage = validationCheck();
+                        if (validationMessage.isNotEmpty) {
+                          AppCore.showMessage(context, '회원가입', validationMessage, ActionType.ok, () {
                             Navigator.pop(context);
                           });
                           return;

@@ -21,7 +21,7 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	public List<DepartmentVO> getDepartmentList() {
 		try {
 			return tmp.selectList("com.sandol.mapper.app.getDepartmentList");
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			return null;
 		}
 	}
