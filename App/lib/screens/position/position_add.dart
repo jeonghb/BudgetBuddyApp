@@ -128,80 +128,23 @@ class _PositionAdd extends State<PositionAdd> {
               if (validationMessage.isEmpty) {
                 if (await positionAdd()) {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('직책 추가')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text("직책 추가 완료",),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '직책 추가', '직책 추가 완료', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('직책 추가')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text("직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.",),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               }
               else {
                 // ignore: use_build_context_synchronously
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: const <Widget>[Text('직책 추가')]),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[Text(validationMessage,),],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('확인'), 
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    );
-                  },
-                );
+                AppCore.showMessage(context, '직책 추가', validationMessage, ActionType.ok, () {
+                  Navigator.pop(context);
+                });
               }
             },
             child: Text(

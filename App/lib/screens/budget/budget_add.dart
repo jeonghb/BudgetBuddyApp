@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:test/models/budget_type.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
@@ -33,30 +32,11 @@ class _BudgetAdd extends State<BudgetAdd> {
     super.initState();
 
     if (AppCore.instance.getUser().departmentList.isEmpty) {
-      // ignore: use_build_context_synchronously
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('예산 추가')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text("소속된 부서가 없습니다.",),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '예산 추가', '소속된 부서가 없습니다.', ActionType.ok, () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
+
       return;
     }
 
@@ -297,80 +277,23 @@ class _BudgetAdd extends State<BudgetAdd> {
                 if (validationMessage.isEmpty) {
                   if (await budgetAdd()) {
                     // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('예산 추가')]),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text('추가 완료',),],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('확인'), 
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      }
-                    );
+                    AppCore.showMessage(context, '예산 추가', '추가 완료', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('예산 추가')]),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text('예산 추가 저장 실패',),],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('확인'), 
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      }
-                    );
+                    AppCore.showMessage(context, '예산 추가', '예산 추가 저장 실패', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
                   }
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 추가')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[Text(validationMessage,),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '예산 추가', validationMessage, ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               },
               child: Text(

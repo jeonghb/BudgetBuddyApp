@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../app_core.dart';
-import 'Position.dart';
+import 'position.dart';
 import 'response_data.dart';
 
 class Department with ChangeNotifier {

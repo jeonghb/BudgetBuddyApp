@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/app_core.dart';
 import 'package:test/models/user.dart';
 import 'package:test/screens/user/user_regist.dart';
 import 'package:test/widgets/top_bar.dart';
@@ -235,28 +236,9 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
                         if (!userRegistCheckValidationCheck()) {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: widget.userType == UserType.newUser ? Text('회원가입') : Text('아이디 찾기'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text('정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.',),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                          AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                           return;
                         }
                         
@@ -264,117 +246,42 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         if (responseData.statusCode == 200 && user.userId.text.isEmpty) {
                           switch (widget.userType) {
                             case UserType.newUser:
+                              // ignore: use_build_context_synchronously
                               Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
                               break;
                             case UserType.findUser:
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('회원가입'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const <Widget>[Text('가입된 정보가 없습니다.\n회원가입을 진행하시겠습니까?',),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('취소'), 
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '회원가입', '가입된 정보가 없습니다.\n회원가입을 진행하시겠습니까?', ActionType.yesNo, () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
+                              });
                               break;
                           }
                         }
                         else if (responseData.statusCode == 200 && user.userId.text.isNotEmpty) {
                           switch (widget.userType) {
                             case UserType.newUser:
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('회원가입'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const <Widget>[Text("이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.",),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '회원가입', '이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.', ActionType.ok, () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                              });
                               break;
                             case UserType.findUser:
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Text('아이디 찾기'),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: <Widget>[Text("가입된 ID는 ${user.userId.text.substring(0, 4)}${Iterable.generate(user.userId.text.length - 4, (_) => '*').join()}입니다.",),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                          Navigator.pop(context);
-                                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                },
-                              );
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '아이디 찾기', '가입된 ID는 ${user.userId.text.substring(0, 4)}${Iterable.generate(user.userId.text.length - 4, (_) => '*').join()}입니다.', ActionType.ok, () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                              });
                               break;
                           }
                         }
                         else {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text(widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text("가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {Navigator.pop(context);},
-                                  )
-                                ],
-                              );
-                            }
-                          );
+                          // ignore: use_build_context_synchronously
+                          AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                         }
                       },
                     ),

@@ -658,80 +658,23 @@ class _ReceiptRequest extends State<ReceiptRequest> {
               onPressed: () async {
                 String validationMessage = setData();
                 if (validationMessage.isNotEmpty) {
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('영수증 제출')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[Text(validationMessage,),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '영수증 제출', validationMessage, ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                   return;
                 }
                 if (await widget.receipt.requestReceipt()) {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('영수증 제출')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text("제출 완료",),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '영수증 제출', '제출 완료', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('영수증 제출')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text("제출에 실패하였습니다.",),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '영수증 제출', '제출에 실패하였습니다.', ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               },
               child: Text(

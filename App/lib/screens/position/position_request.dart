@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import '../../app_core.dart';
-import '../../models/Position.dart';
+import '../../models/position.dart';
 import '../../models/department.dart';
 import '../../models/response_data.dart';
 import '../screen_frame.dart';
@@ -27,29 +27,10 @@ class _PositionRequest extends State<PositionRequest> {
     super.initState();
 
     if (AppCore.instance.getUser().departmentList.isEmpty) {
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('직책 신청')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text("직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.",),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
     }
     
     departmentList = AppCore.instance.getUser().departmentList;
@@ -94,6 +75,28 @@ class _PositionRequest extends State<PositionRequest> {
       setState(() {
         positionList.addAll(tempList);
       });
+    }
+  }
+
+  Future<bool> positionRequest(int selectDepartmentId, int selectPositiontId) async {
+    String address = '/positionRequest';
+    Map<String, dynamic> body = {
+      'requestUserId' : AppCore.instance.getUser().userId.text,
+      'requestPositionId' : selectPositiontId,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      if (responseData.body == 'true') {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
     }
   }
 
@@ -161,7 +164,7 @@ class _PositionRequest extends State<PositionRequest> {
           DropdownButton(
             isExpanded: true,
             value: selectPositionName,
-            items: positionList.where((position) => position.departmentId == selectDepartmentId).length > 0 ? positionList.where((position) => position.departmentId == selectDepartmentId).map(
+            items: positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? positionList.where((position) => position.departmentId == selectDepartmentId).map(
               (value) { 
                 return DropdownMenuItem<String>(
                   value: value.positionName,
@@ -186,54 +189,16 @@ class _PositionRequest extends State<PositionRequest> {
             onPressed: () async {
               if (await positionRequest(selectDepartmentId, selectPositionId)) {
                 // ignore: use_build_context_synchronously
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: const <Widget>[Text('직책 신청')]),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[Text("요청 완료",),],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('확인'), 
-                          onPressed: () {
-                            Navigator.pop(context);
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    );
-                  },
-                );
+                AppCore.showMessage(context, '직책 신청', '요청 완료', ActionType.ok, () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                });
               }
               else {
                 // ignore: use_build_context_synchronously
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: const <Widget>[Text('직책 신청')]),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[Text("요청에 실패했습니다.",),],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('확인'), 
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    );
-                  },
-                );
+                AppCore.showMessage(context, '직책 신청', '요청에 실패했습니다.', ActionType.ok, () {
+                  Navigator.pop(context);
+                });
               }
             },
             child: Text(
@@ -246,27 +211,5 @@ class _PositionRequest extends State<PositionRequest> {
         ]
       )
     );
-  }
-}
-
-Future<bool> positionRequest(int selectDepartmentId, int selectPositiontId) async {
-  String address = '/positionRequest';
-  Map<String, dynamic> body = {
-    'requestUserId' : AppCore.instance.getUser().userId.text,
-    'requestPositionId' : selectPositiontId,
-  };
-
-  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
-
-  if (responseData.statusCode == 200) {
-    if (responseData.body == 'true') {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-  else {
-    return false;
   }
 }

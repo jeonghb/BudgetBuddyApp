@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../../app_core.dart';
-import '../../models/Position.dart';
+import '../../models/position.dart';
 import '../../models/response_data.dart';
 import '../screen_frame.dart';
 import 'position_manage.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:test/models/Position.dart';
+import 'package:test/models/position.dart';
 import 'package:test/screens/budget/budget_add.dart';
 import 'package:test/screens/budget/budget_list.dart';
 import 'package:test/screens/first_run.dart';
@@ -375,37 +375,12 @@ class _MenuDrawer extends State<MenuDrawer> {
           ),
           TextButton(
             onPressed: () {
-              showDialog(
-                context: context, 
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    title: Column(children: const <Widget>[Text('로그아웃')]),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[Text("로그아웃 하시겠습니까?",),],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text('취소'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          AppCore.instance.logOut();
-                          
-                          Navigator.pop(context);
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
-                        },
-                        child: Text('확인'),
-                      )
-                    ],
-                  );
-                }
-              );
+              AppCore.showMessage(context, '로그아웃', '로그아웃 하시겠습니까?', ActionType.yesNo, () {
+                AppCore.instance.logOut();
+                
+                Navigator.pop(context);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
+              });
             },
             child: Container(
               alignment: Alignment.centerLeft,

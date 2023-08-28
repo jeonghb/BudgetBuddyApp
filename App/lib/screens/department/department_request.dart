@@ -52,6 +52,28 @@ class _DepartmentRequest extends State<DepartmentRequest> {
     }
   }
 
+  Future<bool> departmentRequest(int selectDepartmentId) async {
+    String address = '/departmentRequest';
+    Map<String, dynamic> body = {
+      'userId' : AppCore.instance.getUser().userId.text,
+      'departmentId' : selectDepartmentId,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      if (responseData.body.toString() == 'true') {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
@@ -94,54 +116,16 @@ class _DepartmentRequest extends State<DepartmentRequest> {
               onPressed: () async {
                 if (await departmentRequest(selectDepartmentId)) {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('부서 신청')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text("요청 완료",),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '부서 신청', '요청 완료', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('부서 신청')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text("요청에 실패했습니다.",),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '부서 신청', '요청에 실패했습니다.', ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               },
               child: Text(
@@ -155,27 +139,5 @@ class _DepartmentRequest extends State<DepartmentRequest> {
         )
       )
     );
-  }
-}
-
-Future<bool> departmentRequest(int selectDepartmentId) async {
-  String address = '/departmentRequest';
-  Map<String, dynamic> body = {
-    'userId' : AppCore.instance.getUser().userId.text,
-    'departmentId' : selectDepartmentId,
-  };
-
-  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
-
-  if (responseData.statusCode == 200) {
-    if (responseData.body.toString() == 'true') {
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-  else {
-    return false;
   }
 }

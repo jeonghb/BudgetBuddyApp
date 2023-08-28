@@ -254,80 +254,23 @@ class _BudgetManage extends State<BudgetManage> {
                 if (validationMessage.isEmpty) {
                   if (await widget.budget.budgetUpdate()) {
                     // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('예산 수정')]),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text('수정 완료',),],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('확인'), 
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pop(context, true);
-                              },
-                            )
-                          ],
-                        );
-                      }
-                    );
+                    AppCore.showMessage(context, '예산 수정', '수정 완료', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context, true);
+                    });
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('예산 수정')]),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text('예산 수정 실패',),],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('확인'), 
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      }
-                    );
+                    AppCore.showMessage(context, '예산 수정', '예산 수정 실패', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
                   }
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 수정')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[Text(validationMessage,),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '예산 수정', validationMessage, ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               },
               child: Text(
@@ -338,54 +281,16 @@ class _BudgetManage extends State<BudgetManage> {
               onPressed: () async {
                 if (await widget.budget.budgetDelete()) {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 삭제')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text('삭제 완료',),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context, true);
-                            },
-                          )
-                        ],
-                      );
-                    }
-                  );
+                  AppCore.showMessage(context, '예산 삭제', '삭제 완료', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context, true);
+                  });
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 삭제')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text('예산 삭제 실패',),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    }
-                  );
+                  AppCore.showMessage(context, '예산 삭제', '예산 삭제 실패', ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               },
               child: Text(

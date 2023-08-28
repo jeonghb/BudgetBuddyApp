@@ -28,29 +28,10 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
 
     if (AppCore.instance.getUser().departmentList.isEmpty) {
       // ignore: use_build_context_synchronously
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('예산 설정')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text('예산을 설정할 부서가 없습니다.',),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '예산 설정', '예산을 설정할 부서가 없습니다.', ActionType.ok, () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
     }
 
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
@@ -210,80 +191,23 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
               if (validationMessage.isEmpty) {
                 if (await setbudgetYearAmount()) {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 설정')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text('예산 설정 완료',),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '예산 설정', '예산 설정 완료', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('예산 설정')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: const <Widget>[Text('예산 설정을 실패하였습니다.',),],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '예산 설정', '예산 설정을 실패하였습니다.', ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
                 }
               }
               else {
                 // ignore: use_build_context_synchronously
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: const <Widget>[Text('예산 설정')]),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[Text(validationMessage,),],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('확인'), 
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
-                    );
-                  },
-                );
+                AppCore.showMessage(context, '예산 설정', validationMessage, ActionType.ok, () {
+                  Navigator.pop(context);
+                });
               }
             },
             child: Text(

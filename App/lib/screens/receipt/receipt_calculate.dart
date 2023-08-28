@@ -65,7 +65,7 @@ class _ReceiptCalculate extends State<ReceiptCalculate> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Container(
+                  SizedBox(
                     width: 80,
                     height: 40,
                     child: DropdownButton(

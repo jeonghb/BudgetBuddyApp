@@ -40,28 +40,9 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
       nextScreenPush();
     }
     else {
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('비밀번호 확인')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text('비밀번호가 일치하지 않습니다.',),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '비밀번호 확인', '비밀번호가 일치하지 않습니다.', ActionType.ok, () {
+        Navigator.pop(context);
+      });
     }
   }
 

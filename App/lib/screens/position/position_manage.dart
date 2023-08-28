@@ -4,7 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_core.dart';
-import '../../models/Position.dart';
+import '../../models/position.dart';
 import '../../models/auth.dart';
 import '../../models/response_data.dart';
 import '../../widgets/text_form_field_v1.dart';
@@ -49,29 +49,10 @@ class _PositionManage extends State<PositionManage> {
 
   void save(bool positionActivationStatus) async {
     if (widget.position.positionName.isEmpty) {
-      // ignore: use_build_context_synchronously
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('직책 정보 수정')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text('직책명이 입력되지 않았습니다.',),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '직책 정보 수정', '직책명이 입력되지 않았습니다.', ActionType.ok, () {
+        Navigator.pop(context);
+      });
+
       return;
     }
 
@@ -80,55 +61,18 @@ class _PositionManage extends State<PositionManage> {
 
     if (await widget.position.positionUpdate()) {
       // ignore: use_build_context_synchronously
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('직책 정보 수정')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text('직책 정보 저장 성공',),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '직책 정보 수정', '저장 완료', ActionType.ok, () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
     }
     else {
       // ignore: use_build_context_synchronously
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('직책 정보 수정')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text('저장 실패. 직책명이 해당 부서에서 사용되고 있는지 확인하세요.',),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '직책 정보 수정', '저장 실패. 직책명이 해당 부서에서 사용되고 있는지 확인하세요.', ActionType.ok, () {
+        Navigator.pop(context);
+      });
     }
+    
     return ;
   }
 

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/models/user.dart';
-import 'package:test/screens/find_password.dart';
+import 'package:test/screens/user/find_password.dart';
 import 'package:test/screens/home.dart';
 import 'package:test/screens/user/user_regist_check.dart';
 
@@ -36,50 +36,14 @@ class _LogInPage extends State<LogInPage> {
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false,);
       }
       else if (result == "1") {
-        showDialog(
-          context: context, 
-          builder: (BuildContext context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              title: Column(children: const <Widget>[Text('로그인')]),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[Text("잘못된 정보입니다.",),],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('확인'), 
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                )
-              ],
-            );
-          },
-        );
+        AppCore.showMessage(context, '로그인', '잘못된 정보입니다.', ActionType.ok, () {
+          Navigator.pop(context);
+        });
       }
       else {
-        showDialog(
-          context: context, 
-          builder: (BuildContext context) {
-            return AlertDialog(
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              title: Column(children: const <Widget>[Text('로그인')]),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const <Widget>[Text("로그인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text('확인'), 
-                  onPressed: () {Navigator.pop(context);},
-                )
-              ],
-            );
-          }
-        );
+        AppCore.showMessage(context, '로그인', '로그인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+          Navigator.pop(context);
+        });
       }
     });
   }

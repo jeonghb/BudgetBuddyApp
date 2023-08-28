@@ -125,55 +125,17 @@ class _UpdatePassword extends State<UpdatePassword> {
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
                         if (!validationCheck()) {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text('비밀번호 변경'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text('정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.',),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                          AppCore.showMessage(context, '비밀번호 변경', '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                           return;
                         }
 
                         ResponseData responseData = await widget.user.userUpdatePassword();
                         if (responseData.statusCode == 200 && responseData.body.isEmpty) {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text('비밀번호 변경'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text('일치하는 정보가 없습니다.',),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                          AppCore.showMessage(context, '비밀번호 변경', '일치하는 정보가 없습니다.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                         }
                         else if (responseData.statusCode == 200 && widget.user.userId.text.isNotEmpty) {
                           await showDialog(
@@ -203,26 +165,9 @@ class _UpdatePassword extends State<UpdatePassword> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()));
                         }
                         else {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text('비밀번호 변경'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text("비밀번호를 변경하는 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {Navigator.pop(context);},
-                                  )
-                                ],
-                              );
-                            }
-                          );
+                          AppCore.showMessage(context, '비밀번호 변경', '비밀번호를 변경하는 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                         }
                       },
                     ),

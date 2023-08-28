@@ -2,12 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/app_core.dart';
 import 'package:test/screens/user/update_password.dart';
 
-import '../models/response_data.dart';
-import '../models/user.dart';
-import '../widgets/text_form_field_v1.dart';
-import '../widgets/top_bar.dart';
+import '../../models/response_data.dart';
+import '../../models/user.dart';
+import '../../widgets/text_form_field_v1.dart';
+import '../../widgets/top_bar.dart';
 
 class FindPassword extends StatefulWidget {
   const FindPassword({super.key});
@@ -261,53 +262,17 @@ class _FindPassword extends State<FindPassword> {
                         FocusScope.of(context).unfocus();
                         ResponseData responseData = await user.userPasswordFind();
                         if (responseData.statusCode == 200 && responseData.body.toString() == 'false') {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Text('비밀번호 찾기'),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const <Widget>[Text('일치하는 정보가 없습니다.',),],
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('확인'), 
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                );
-                              },
-                            );
-                          }
+                          AppCore.showMessage(context, '비밀번호 찾기', '일치하는 정보가 없습니다.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
+                        }
                         else if (responseData.statusCode == 200 && responseData.body.toString() == 'true') {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword(user: user)),);
                         }
                         else {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Text('비밀번호 찾기'),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text("가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {Navigator.pop(context);},
-                                  )
-                                ],
-                              );
-                            }
-                          );
+                          AppCore.showMessage(context, '비밀번호 찾기', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                         }
                       },
                     ),

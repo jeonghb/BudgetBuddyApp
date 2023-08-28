@@ -20,29 +20,10 @@ class _DepartmentLeave extends State<DepartmentLeave> {
     super.initState();
 
     if (AppCore.instance.getUser().departmentList.isEmpty) {
-      showDialog(
-        context: context, 
-        builder: (BuildContext context) {
-          return AlertDialog(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            title: Column(children: const <Widget>[Text('부서 탈퇴')]),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const <Widget>[Text("탈퇴 가능한 부서가 없습니다.",),],
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: Text('확인'), 
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          );
-        },
-      );
+      AppCore.showMessage(context, '부서 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
+        Navigator.pop(context);
+        Navigator.pop(context);
+      });
     }
 
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
@@ -81,83 +62,22 @@ class _DepartmentLeave extends State<DepartmentLeave> {
           ),
           TextButton(
             onPressed: () {
-              showDialog(
-                context: context, 
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    title: Column(children: const <Widget>[Text('부서 탈퇴')]),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const <Widget>[Text('선택한 부서를 탈퇴하시겠습니까?'),],
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        }, 
-                        child: Text('취소')
-                      ),
-                      TextButton(
-                        child: Text('확인'), 
-                        onPressed: () {
-                          Navigator.pop(context);
-                          leave(selectDepartmentId).then((bool result) {
-                            if (result) {
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Column(children: const <Widget>[Text('재시작')]),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const <Widget>[Text("부서가 변경되어 다시 시작합니다.",),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {
-                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false);
-                                        },
-                                      )
-                                    ],
-                                  );
-                                }
-                              );
-                            }
-                            else {
-                              showDialog(
-                                context: context, 
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                    title: Column(children: const <Widget>[Text('부서 탈퇴')]),
-                                    content: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: const <Widget>[Text("탈퇴 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                    ),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        child: Text('확인'), 
-                                        onPressed: () {Navigator.pop(context);},
-                                      )
-                                    ],
-                                  );
-                                }
-                              );
-                            }
-                          });
-                          Navigator.pop(context);
-                        },
-                      )
-                    ],
-                  );
-                },
-              );
+              AppCore.showMessage(context, '부서 탈퇴', '선택한 부서를 탈퇴하시겠습니까?', ActionType.yesNo, () {
+                Navigator.pop(context);
+                leave(selectDepartmentId).then((bool result) {
+                  if (result) {
+                    AppCore.showMessage(context, '재시작', '부서가 변경되어 다시 시작합니다.', ActionType.ok, () {
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false);
+                    });
+                  }
+                  else {
+                    AppCore.showMessage(context, '부서 탈퇴', '탈퇴 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                  }
+                });
+                Navigator.pop(context);
+              });
             },
             child: Text(
               '부서 탈퇴',

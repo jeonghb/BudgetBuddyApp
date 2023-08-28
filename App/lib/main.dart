@@ -57,32 +57,9 @@ class _MyApp extends State<MyApp> {
                 return Initialize();
               }
               else if (snapshot.hasError) {
-                showDialog(
-                  context: context, 
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      title: Column(children: const <Widget>[Text('')]),
-                      content: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text(
-                            "실행 중 오류가 발생하였습니다",
-                          ),
-                        ],
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('확인'), 
-                          onPressed: () {
-                            Navigator.pop(context);
-                            },
-                        )
-                      ],
-                    );
-                  },
-                );
+                AppCore.showMessage(context, '', '실행 중 오류가 발생하였습니다.', ActionType.ok, () {
+                  Navigator.pop(context);
+                });
                 return Container();
               }
               else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/app_core.dart';
 import 'package:test/screens/first_run.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/top_bar.dart';
@@ -198,28 +199,9 @@ class _UserRegist extends State<UserRegist> {
                       ),),
                       onPressed: () {
                         if (!validationCheck()) {
-                          showDialog(
-                            context: context, 
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                title: Column(children: const <Widget>[Text('회원가입')]),
-                                content: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const <Widget>[Text("정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.",),],
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('확인'), 
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              );
-                            },
-                          );
+                          AppCore.showMessage(context, '회원가입', '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                           return;
                         }
                         widget.user.userRegist().then((String result) {
@@ -227,50 +209,14 @@ class _UserRegist extends State<UserRegist> {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);
                           }
                           else if (result == "1") {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: const <Widget>[Text('회원가입')]),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const <Widget>[Text("이미 사용중인 아이디입니다.",),],
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('확인'), 
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                );
-                              },
-                            );
+                            AppCore.showMessage(context, '회원가입', '이미 사용중인 아이디입니다.', ActionType.ok, () {
+                              Navigator.pop(context);
+                            });
                           }
                           else {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: const <Widget>[Text('회원가입')]),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const <Widget>[Text("가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('확인'), 
-                                      onPressed: () {Navigator.pop(context);},
-                                    )
-                                  ],
-                                );
-                              }
-                            );
+                            AppCore.showMessage(context, '회원가입', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                              Navigator.pop(context);
+                            });
                           }
                         });
                       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/screens/department/department_leave.dart';
 import 'package:test/screens/department/department_request.dart';
-import 'package:test/screens/password_auth_check.dart';
+import 'package:test/screens/user/password_auth_check.dart';
 import 'package:test/screens/position/position_request.dart';
 import 'package:test/screens/screen_frame.dart';
 import '../../app_core.dart';

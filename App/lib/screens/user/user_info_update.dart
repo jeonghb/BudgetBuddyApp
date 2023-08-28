@@ -131,54 +131,16 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
                 onPressed: () async {
                   if (await AppCore.instance.getUser().userUpdate() == 'true') { // 저장 성공 시
                     // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('개인정보 수정')]),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text("저장되었습니다.",),],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('확인'), 
-                              onPressed: () {
-                                Navigator.pop(context);
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      },
-                    );
+                    AppCore.showMessage(context, '개인정보 수정', '저장되었습니다.', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    showDialog(
-                      context: context, 
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                          title: Column(children: const <Widget>[Text('개인정보 수정')]),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: const <Widget>[Text("저장에 실패하였습니다.",),],
-                          ),
-                          actions: <Widget>[
-                            TextButton(
-                              child: Text('확인'), 
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                            )
-                          ],
-                        );
-                      },
-                    );
+                    AppCore.showMessage(context, '개인정보 수정', '저장에 실패하였습니다.', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
                   }
                 },
                 child: Text(

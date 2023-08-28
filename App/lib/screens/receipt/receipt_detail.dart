@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:test/app_core.dart';
 import 'package:test/screens/receipt/receipt_request.dart';
 import 'package:test/widgets/top_bar.dart';
 import '../../models/receipt.dart';
@@ -179,198 +180,74 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       children: <Widget>[
                         TextButton(
                           onPressed: () {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: const <Widget>[Text('반려')]),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text('반려 사유'),
-                                      TextFormField(
-                                        controller: rejectMessage,
-                                        maxLines: null,
-                                        decoration: InputDecoration(
-                                          hintText: '반려 사유를 입력하세요.',
-                                          contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      }, 
-                                      child: Text('취소')
-                                    ),
-                                    TextButton(
-                                      child: Text('확인'), 
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        receipt.submissionStatus = 0;
-                                        receipt.rejectMessage = rejectMessage.text;
-                                        receipt.changeSubmissionStatus().then((bool result) {
-                                          if (result) {
-                                            Navigator.pop(context);
-                                          }
-                                          else {
-                                            showDialog(
-                                              context: context, 
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                  title: Column(children: const <Widget>[Text('반려')]),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: const <Widget>[Text("반려 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                                  ),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      child: Text('확인'), 
-                                                      onPressed: () {Navigator.pop(context);},
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                            );
-                                          }
-                                        });
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                );
-                              },
-                            );
+                            List<Widget> widgets = <Widget>[
+                              Text('반려 사유'),
+                              TextFormField(
+                                controller: rejectMessage,
+                                maxLines: null,
+                                decoration: InputDecoration(
+                                  hintText: '반려 사유를 입력하세요.',
+                                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                ),
+                              )
+                            ];
+                            AppCore.showMessage(context, '반려', '', ActionType.yesNo, () {
+                              Navigator.pop(context);
+                              receipt.submissionStatus = 0;
+                              receipt.rejectMessage = rejectMessage.text;
+                              receipt.changeSubmissionStatus().then((bool result) {
+                                if (result) {
+                                  Navigator.pop(context);
+                                }
+                                else {
+                                  AppCore.showMessage(context, '반려', '반려 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                                    Navigator.pop(context);
+                                  });
+                                }
+                              });
+                              Navigator.pop(context);
+                            },
+                            widgets: widgets);
                           },
                           child: Text('반려')
                         ),
                         TextButton(
                           onPressed: () {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: const <Widget>[Text('결재')]),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const <Widget>[Text('결재하시겠습니까?')],
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      }, 
-                                      child: Text('취소')
-                                    ),
-                                    TextButton(
-                                      child: Text('확인'), 
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        receipt.submissionStatus = 2;
-                                        receipt.changeSubmissionStatus().then((bool result) {
-                                          if (result) {
-                                            Navigator.pop(context);
-                                          }
-                                          else {
-                                            showDialog(
-                                              context: context, 
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                  title: Column(children: const <Widget>[Text('결재')]),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: const <Widget>[Text("결재 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                                  ),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      child: Text('확인'), 
-                                                      onPressed: () {Navigator.pop(context);},
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                            );
-                                          }
-                                        });
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                );
-                              },
-                            );
+                            AppCore.showMessage(context, '결재', '결재하시겠습니까?', ActionType.yesNo, () {
+                              Navigator.pop(context);
+                              receipt.submissionStatus = 2;
+                              receipt.changeSubmissionStatus().then((bool result) {
+                                if (result) {
+                                  Navigator.pop(context);
+                                }
+                                else {
+                                  AppCore.showMessage(context, '결재', '결재 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                                    Navigator.pop(context);
+                                  });
+                                }
+                              });
+                              Navigator.pop(context);
+                            });
                           },
                           child: Text('결재')
                         ),
                         TextButton(
                           onPressed: () {
-                            showDialog(
-                              context: context, 
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                  title: Column(children: const <Widget>[Text('송금완료')]),
-                                  content: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: const <Widget>[Text('송금완료 처리하시겠습니까?')],
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      }, 
-                                      child: Text('취소')
-                                    ),
-                                    TextButton(
-                                      child: Text('확인'), 
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                        receipt.submissionStatus = 3;
-                                        receipt.changeSubmissionStatus().then((bool result) {
-                                          if (result) {
-                                            Navigator.pop(context);
-                                          }
-                                          else {
-                                            showDialog(
-                                              context: context, 
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                                  title: Column(children: const <Widget>[Text('송금')]),
-                                                  content: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                                    children: const <Widget>[Text("송금완료 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                                  ),
-                                                  actions: <Widget>[
-                                                    TextButton(
-                                                      child: Text('확인'), 
-                                                      onPressed: () {Navigator.pop(context);},
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                            );
-                                          }
-                                        });
-                                        Navigator.pop(context);
-                                      },
-                                    )
-                                  ],
-                                );
-                              },
-                            );
+                            AppCore.showMessage(context, '송금완료', '송금완료 처리하시겠습니까?', ActionType.yesNo, () {
+                              Navigator.pop(context);
+                              receipt.submissionStatus = 3;
+                              receipt.changeSubmissionStatus().then((bool result) {
+                                if (result) {
+                                  Navigator.pop(context);
+                                }
+                                else {
+                                  AppCore.showMessage(context, '송금완료', '송금완료 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                                    Navigator.pop(context);
+                                  });
+                                }
+                              });
+                              Navigator.pop(context);
+                            });
                           },
                           child: Text('송금완료')
                         ),

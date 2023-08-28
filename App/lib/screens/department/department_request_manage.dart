@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/app_core.dart';
 
 import '../../models/department_request.dart';
 import '../screen_frame.dart';
@@ -69,60 +70,18 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
             children: [
               TextButton(
                 onPressed: () {
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('부서 요청 거부')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[Text('${widget.departmentRequest.requestUserName}님을 거부하시겠습니까?')],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }, 
-                            child: Text('취소')
-                          ),
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              widget.departmentRequest.approvalStatus = 0;
-                              widget.departmentRequest.requestFinish().then((bool result) {
-                                if (!result) {
-                                  showDialog(
-                                    context: context, 
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                        title: Column(children: const <Widget>[Text('부서 신청 거부')]),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: const <Widget>[Text("거부 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text('확인'), 
-                                            onPressed: () {Navigator.pop(context);},
-                                          )
-                                        ],
-                                      );
-                                    }
-                                  );
-                                }
-                              });
-                              Navigator.pop(context, true);
-                            },
-                          )
-                        ],
-                      );
-                    },
-                  );
+                  AppCore.showMessage(context, '부서 요청 거부', '${widget.departmentRequest.requestUserName}님을 거부하시겠습니까?', ActionType.yesNo, () {
+                    Navigator.pop(context);
+                    widget.departmentRequest.approvalStatus = 0;
+                    widget.departmentRequest.requestFinish().then((bool result) {
+                      if (!result) {
+                        AppCore.showMessage(context, '부서 신청 거부', '거부 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                          Navigator.pop(context);
+                        });
+                      }
+                    });
+                    Navigator.pop(context, true);
+                  });
                 },
                 child: Text(
                   '거부'
@@ -130,60 +89,18 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
               ),
               TextButton(
                 onPressed: () {
-                  showDialog(
-                    context: context, 
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                        title: Column(children: const <Widget>[Text('부서 요청 승인')]),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[Text('${widget.departmentRequest.requestUserName}님을 승인하시겠습니까?')],
-                        ),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            }, 
-                            child: Text('취소')
-                          ),
-                          TextButton(
-                            child: Text('확인'), 
-                            onPressed: () {
-                              Navigator.pop(context);
-                              widget.departmentRequest.approvalStatus = 2;
-                              widget.departmentRequest.requestFinish().then((bool result) {
-                                if (!result) {
-                                  showDialog(
-                                    context: context, 
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                                        title: Column(children: const <Widget>[Text('부서 신청 승인')]),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          children: const <Widget>[Text("승인 처리 중 오류가 발생하였습니다. 다시 시도해주세요.",),],
-                                        ),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            child: Text('확인'), 
-                                            onPressed: () {Navigator.pop(context);},
-                                          )
-                                        ],
-                                      );
-                                    }
-                                  );
-                                }
-                              });
-                              Navigator.pop(context, true);
-                            },
-                          )
-                        ],
-                      );
-                    }
-                  );
+                  AppCore.showMessage(context, '부서 요청 승인', '${widget.departmentRequest.requestUserName}님을 승인하시겠습니까?', ActionType.yesNo, () {
+                    Navigator.pop(context);
+                    widget.departmentRequest.approvalStatus = 2;
+                    widget.departmentRequest.requestFinish().then((bool result) {
+                      if (!result) {
+                        AppCore.showMessage(context, '부서 신청 승인', '승인 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                          Navigator.pop(context);
+                        });
+                      }
+                    });
+                    Navigator.pop(context, true);
+                  });
                 },
                 child: Text(
                   '승인'

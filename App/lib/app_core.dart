@@ -102,7 +102,12 @@ class AppCore extends ChangeNotifier {
     isLoading = false;
   }
 
-  static void showMessage(BuildContext context, String title, String message, ActionType actionType) {
+  static void showMessage(BuildContext context, String title, String message, ActionType actionType, Function() functionOnPressed, {List<Widget>? widgets}) {
+    List<Widget> newWidgets = <Widget>[];
+    
+    newWidgets.add(Text(message));
+    newWidgets.addAll(widgets!);
+
     showDialog(
       context: context, 
       builder: (BuildContext context) {
@@ -112,14 +117,23 @@ class AppCore extends ChangeNotifier {
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[Text(message,),],
+            children: newWidgets,
           ),
-          actions: <Widget>[
+          actions: actionType == ActionType.ok ? <Widget>[
             TextButton(
-              child: Text('확인'), 
+              onPressed: functionOnPressed,
+              child: Text('확인'),
+            ),
+          ] : <Widget>[
+            TextButton(
               onPressed: () {
                 Navigator.pop(context);
-              },
+              }, 
+              child: Text('취소')
+            ),
+            TextButton(
+              onPressed: functionOnPressed,
+              child: Text('확인'),
             )
           ],
         );
