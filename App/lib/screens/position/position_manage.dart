@@ -8,6 +8,7 @@ import '../../models/position.dart';
 import '../../models/auth.dart';
 import '../../models/response_data.dart';
 import '../../widgets/text_form_field_v1.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class PositionManage extends StatefulWidget {
@@ -88,8 +89,8 @@ class _PositionManage extends State<PositionManage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Text(
-                    '직책 정보',
+                  TitleText(
+                    text: '직책 정보',
                   ),
                   Text(
                     '부서'

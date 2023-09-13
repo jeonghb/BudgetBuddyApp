@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
+import 'package:test/widgets/title_text.dart';
 
 import '../../models/response_data.dart';
 import '../screen_frame.dart';
@@ -58,8 +59,8 @@ class _InquiryRequest extends State<InquiryRequest> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '문의하기',
+            TitleText(
+              text: '문의하기',
             ),
             SizedBox(
               height: 10,

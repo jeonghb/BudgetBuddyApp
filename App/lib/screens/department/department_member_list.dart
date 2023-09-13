@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 import '../../app_core.dart';
 import '../../models/department_member.dart';
@@ -51,12 +52,8 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서원 목록',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '부서원 목록',
           ),
           ListView.builder(
             physics: ScrollPhysics(),

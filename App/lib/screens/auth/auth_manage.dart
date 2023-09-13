@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../app_core.dart';
+import '../../widgets/title_text.dart';
 import '../department/department_add.dart';
 import '../department/department_list.dart';
 import '../position/position_add.dart';
@@ -121,12 +122,8 @@ class _AuthManage extends State<AuthManage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              '권한 관리',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+            TitleText(
+              text: '권한 관리',
             ),
             SizedBox(
               height: 30,

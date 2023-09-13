@@ -5,15 +5,16 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-    <insert id="requestReceipt" statementType="CALLABLE" parameterType="receiptVO">
+    <insert id="requestReceipt" parameterType="receiptVO">
    		<![CDATA[CALL request_receipt(#{requestId}, #{requestUserId}, #{title}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId}, #{bankName}, #{bankAccountNumber})]]>
     </insert>
-    
-    <select id="getRequestReceiptList" statementType="CALLABLE" resultType="receiptVO">
-    	<![CDATA[CALL get_request_receipt_list(#{userId}, #{submissionStatus})]]>
+    <select id="getReceiptApprovalList" resultType="receiptVO">
+    	<![CDATA[CALL get_receipt_approval_list(#{userId})]]>
     </select>
-    
-    <update id="changeSubmissionStatus" statementType="CALLABLE" parameterType="receiptVO">
+    <select id="getReceiptRequestList" resultType="receiptVO">
+    	<![CDATA[CALL get_receipt_request_list(#{userId})]]>
+    </select>
+    <update id="changeSubmissionStatus" parameterType="receiptVO">
     	<![CDATA[CALL change_submission_status(#{requestId}, #{submissionStatus}, #{rejectMessage})]]>
     </update>
       

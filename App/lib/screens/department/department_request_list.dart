@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/department_request.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import 'department_request_manage.dart';
 import '../screen_frame.dart';
 
@@ -55,12 +56,8 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서 신청 목록',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '부서 신청 목록',
           ),
           ListView.builder(
             physics: ScrollPhysics(),

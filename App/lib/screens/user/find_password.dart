@@ -8,6 +8,7 @@ import 'package:test/screens/user/update_password.dart';
 import '../../models/response_data.dart';
 import '../../models/user.dart';
 import '../../widgets/text_form_field_v1.dart';
+import '../../widgets/title_text.dart';
 import '../../widgets/top_bar.dart';
 
 class FindPassword extends StatefulWidget {
@@ -46,11 +47,8 @@ class _FindPassword extends State<FindPassword> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('비밀번호 찾기',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30
-                    ),
+                  TitleText(
+                    text: '비밀번호 찾기',
                   ),
                   SizedBox(
                     height: 30,

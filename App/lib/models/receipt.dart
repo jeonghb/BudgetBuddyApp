@@ -5,6 +5,8 @@ import 'package:test/models/response_data.dart';
 
 class Receipt with ChangeNotifier {
   int requestId = -1;
+  String requestUserId = '';
+  String requestUserName = '';
   String registDatetime = DateTime.now().toString();
   String title = '';
   int requestAmount = -1;
@@ -26,6 +28,8 @@ class Receipt with ChangeNotifier {
 
   void setData(Map<String, dynamic> json) {
     requestId = AppCore.getJsonInt(json, 'requestId');
+    requestUserId = AppCore.getJsonString(json, 'requestUserId');
+    requestUserName = AppCore.getJsonString(json, 'requestUserName');
     registDatetime= AppCore.getJsonString(json, 'registDatetime');
     title = AppCore.getJsonString(json, 'title');
     requestAmount = AppCore.getJsonInt(json, 'requestAmount');
@@ -37,9 +41,11 @@ class Receipt with ChangeNotifier {
     budgetTypeName = AppCore.getJsonString(json, 'budgetTypeName');
     // fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
     bankName = AppCore.getJsonString(json, 'bankName');
-    bankAccountNumber = AppCore.getJsonString(json, 'backAccountNumber');
+    bankAccountNumber = AppCore.getJsonString(json, 'bankAccountNumber');
+    submissionStatus = AppCore.getJsonInt(json, 'submissionStatus');
     approvalType = AppCore.getJsonInt(json, 'approvalType');
     approvalDatetime = AppCore.getJsonString(json, 'approvalDatetime');
+    rejectMessage = AppCore.getJsonString(json, 'rejectMessage');
     calculateStatus = AppCore.getJsonInt(json, 'calculateStatus');
     calculateDatetime = AppCore.getJsonString(json, 'calculateDatetime');
   }

@@ -3,6 +3,7 @@ import 'package:test/app_core.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../models/budget_type.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class BudgetTypeAdd extends StatefulWidget {
@@ -38,12 +39,8 @@ class _BudgetTypeAdd extends State<BudgetTypeAdd> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '부서',
           ),
           SizedBox(
             height: 30,

@@ -7,12 +7,15 @@ import org.springframework.web.multipart.MultipartFile;
 public class ReceiptVO {
 	private int requestId;
 	private String requestUserId;
+	private String requestUserName;
 	private String title;
 	private int requestAmount;
 	private String paymentDatetime;
 	private String memo;
 	private int approvalRequestDepartmentId;
 	private String approvalRequestDepartmentName;
+	private int budgetTypeId;
+	private String budgetTypeName;
 	private List<MultipartFile> fileList;
 	private String bankName;
 	private String bankAccountNumber;
@@ -31,6 +34,12 @@ public class ReceiptVO {
 	public void setRequestUserId(String requestUserId) {
 		this.requestUserId = requestUserId;
 	}
+	public String getRequestUserName() {
+		return requestUserName;
+	}
+	public void setRequestUserName(String requestUserName) {
+		this.requestUserName = requestUserName;
+	}
 	public String getTitle() {
 		return title;
 	}
@@ -48,6 +57,18 @@ public class ReceiptVO {
 	}
 	public void setPaymentDatetime(String paymentDatetime) {
 		this.paymentDatetime = paymentDatetime;
+	}
+	public int getBudgetTypeId() {
+		return budgetTypeId;
+	}
+	public void setBudgetTypeId(int budgetTypeId) {
+		this.budgetTypeId = budgetTypeId;
+	}
+	public String getBudgetTypeName() {
+		return budgetTypeName;
+	}
+	public void setBudgetTypeName(String budgetTypeName) {
+		this.budgetTypeName = budgetTypeName;
 	}
 	public String getMemo() {
 		return memo;

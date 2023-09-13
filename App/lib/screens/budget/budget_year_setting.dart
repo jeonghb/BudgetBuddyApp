@@ -7,6 +7,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../models/budget_year.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class BudgetYearSetting extends StatefulWidget {
@@ -120,8 +121,8 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '예산 설정',
+          TitleText(
+            text: '예산 설정',
           ),
           SizedBox(
             height: 15,

@@ -3,20 +3,23 @@ import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:test/app_core.dart';
-import 'package:test/screens/screen_frame.dart';
-import 'package:test/widgets/text_form_field_v1.dart';
+import '../../app_core.dart';
+import '../../screens/screen_frame.dart';
+import '../../widgets/text_form_field_v1.dart';
 import '../../models/bank.dart';
 import '../../models/budget_type.dart';
 import '../../models/receipt.dart';
 import '../../models/department.dart';
-
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 
 class ReceiptRequest extends StatefulWidget {
   final Receipt receipt;
 
-  const ReceiptRequest({super.key, required this.receipt});
+  const ReceiptRequest({
+    super.key,
+    required this.receipt
+  });
 
   @override
   State<ReceiptRequest> createState() => _ReceiptRequest();
@@ -47,14 +50,31 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   void initState() {
     super.initState();
 
+    departmentList.add(Department());
+    bankList.add(Bank());
+
     if (widget.receipt.requestId != -1) {
       setWidgetData();
+
+      Department department = Department();
+      department.departmentId = approvalRequestDepartmentId;
+      department.departmentName = approvalRequestDepartmentName;
+      departmentList.add(department);
+
+      BudgetType budgetType = BudgetType();
+      budgetType.departmentId = approvalRequestDepartmentId;
+      budgetType.departmentName = approvalRequestDepartmentName;
+      budgetType.budgetTypeId = budgetTypeId;
+      budgetType.budgetTypeName = budgetTypeName;
+      budgetTypeList.add(budgetType);
+
+      Bank bank = Bank();
+      bank.bankName = bankName;
+      bankList.add(bank);
     }
-    
-    departmentList.add(Department());
+
     getDepartmentList();
     getBudgetTypeList();
-    bankList.add(Bank());
     getBankList();
   }
 
@@ -96,7 +116,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
 
       setState(() {
         departmentList = tempList;
-        if (departmentList.isNotEmpty) {
+        if (widget.receipt.requestId == -1 && departmentList.isNotEmpty) {
           widget.receipt.approvalRequestDepartmentId = departmentList[0].departmentId;
           widget.receipt.approvalRequestDepartmentName = departmentList[0].departmentName;
         }
@@ -238,11 +258,8 @@ class _ReceiptRequest extends State<ReceiptRequest> {
         child: ListView(
           scrollDirection: Axis.vertical,
           children: <Widget>[
-            Text(
-              '영수증을 제출해주세요',
-              style: TextStyle(
-                fontSize: 30,
-              ),
+            TitleText(
+              text: '영수증을 제출해주세요',
             ),
             SizedBox(
               height: 30,
@@ -667,7 +684,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                   // ignore: use_build_context_synchronously
                   AppCore.showMessage(context, '영수증 제출', '제출 완료', ActionType.ok, () {
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   });
                 }
                 else {

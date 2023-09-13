@@ -5,6 +5,7 @@ import '../../app_core.dart';
 import '../../models/position.dart';
 import '../../models/department.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class PositionRequest extends StatefulWidget {
@@ -105,12 +106,8 @@ class _PositionRequest extends State<PositionRequest> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '직책 신청',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '직책 신청',
           ),
           SizedBox(
             height: 20,
@@ -133,9 +130,9 @@ class _PositionRequest extends State<PositionRequest> {
                 return DropdownMenuItem<String>(
                   value: value.departmentName,
                   child: Text(value.departmentName),
-                  );
-                },
-              ).toList(),
+                );
+              },
+            ).toList(),
             onChanged: (value) {
               setState(() {
                 selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;

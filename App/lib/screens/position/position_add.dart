@@ -6,6 +6,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 import '../../app_core.dart';
 import '../../models/department.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class PositionAdd extends StatefulWidget {
@@ -92,8 +93,8 @@ class _PositionAdd extends State<PositionAdd> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '직책 추가',
+          TitleText(
+            text: '직책 추가',
           ),
           Text(
             '부서 선택',

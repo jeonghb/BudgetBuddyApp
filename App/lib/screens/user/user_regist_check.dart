@@ -6,6 +6,7 @@ import 'package:test/screens/user/user_regist.dart';
 import 'package:test/widgets/top_bar.dart';
 import '../../models/response_data.dart';
 import '../../widgets/text_form_field_v1.dart';
+import '../../widgets/title_text.dart';
 import '../login.dart';
 
 class UserRegistCheck extends StatefulWidget {
@@ -50,11 +51,8 @@ class _UserRegistCheck extends State<UserRegistCheck> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30
-                    ),
+                  TitleText(
+                    text: widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기',
                   ),
                   SizedBox(
                     height: 30,

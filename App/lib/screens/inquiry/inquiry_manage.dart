@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/widgets/title_text.dart';
 
 import '../../models/inquiry.dart';
 import '../screen_frame.dart';
@@ -17,6 +18,9 @@ class _InquiryManage extends State<InquiryManage> {
     return ScreenFrame(
       body: Column(
         children: [
+          TitleText(
+            text: '문의내용',
+          ),
           Text(
             '제목 : ${widget.inquiry.inquiryTitle}',
           ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 
 import '../../models/department_request.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class DepartmentRequestManage extends StatefulWidget {
@@ -19,12 +20,8 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서 신청 정보',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '부서 신청 정보',
           ),
           Row(
             children: [

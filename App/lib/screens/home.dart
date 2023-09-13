@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:test/screens/receipt/receipt_list.dart';
+import 'package:test/screens/receipt/receipt_approval_list.dart';
 import 'package:test/screens/screen_frame.dart';
 
 import '../models/receipt.dart';
 import 'receipt/receipt_request.dart';
+import 'receipt/receipt_request_list.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -159,7 +160,7 @@ class _Home extends State<Home> {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: 1)),);
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptApprovalList()),);
                                                 },
                                               ),
                                             ),
@@ -188,7 +189,7 @@ class _Home extends State<Home> {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: -1)),);
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
                                                 },
                                               ),
                                             ),

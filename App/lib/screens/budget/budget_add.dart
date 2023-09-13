@@ -6,6 +6,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class BudgetAdd extends StatefulWidget {
@@ -132,12 +133,8 @@ class _BudgetAdd extends State<BudgetAdd> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              '예산 추가',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+            TitleText(
+              text: '예산 추가',
             ),
             SizedBox(
               height: 20,

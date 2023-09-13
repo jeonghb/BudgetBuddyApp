@@ -1,8 +1,6 @@
 package com.sandol.app.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,20 +31,21 @@ public class ReceiptDAOImp implements ReceiptDAO {
 	}
 	
 	@Override
-	public List<ReceiptVO> getRequestReceiptList(Map<String, Object> _requestMap) {
-		List<ReceiptVO> receiptList;
-		
-		Map<String, Object> parameterMap = new HashMap<String, Object>();
-		parameterMap.put("userId", _requestMap.get("userId"));
-		parameterMap.put("submissionStatus", _requestMap.get("submissionStatus"));
-		
+	public List<ReceiptVO> getReceiptApprovalList(String _userId) {
 		try {
-			receiptList = tmp.selectList("com.sandol.mapper.app.getRequestReceiptList", parameterMap);
+			return tmp.selectList("com.sandol.mapper.app.getReceiptApprovalList", _userId);
 		} catch (NullPointerException e) {
 			return null;
 		}
-		
-		return receiptList;
+	}
+	
+	@Override
+	public List<ReceiptVO> getReceiptRequestList(String _userId) {
+		try {
+			return tmp.selectList("com.sandol.mapper.app.getReceiptRequestList", _userId);
+		} catch (NullPointerException e) {
+			return null;
+		}
 	}
 	
 	@Override

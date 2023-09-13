@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import '../../models/position_request.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class PositionRequestManage extends StatefulWidget {
@@ -18,12 +19,8 @@ class _PositionRequestManage extends State<PositionRequestManage> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '직책 신청 정보',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '직책 신청 정보',
           ),
           Row(
             children: [

@@ -5,6 +5,7 @@ import 'package:test/screens/first_run.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/top_bar.dart';
 import '../../models/user.dart';
+import '../../widgets/title_text.dart';
 
 class UserRegist extends StatefulWidget {
   final User user;
@@ -53,11 +54,8 @@ class _UserRegist extends State<UserRegist> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text('회원가입',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30
-                    ),
+                  TitleText(
+                    text: '회원가입',
                   ),
                   SizedBox(
                     height: 30,

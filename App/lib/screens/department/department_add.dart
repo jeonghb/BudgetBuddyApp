@@ -3,6 +3,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class DepartmentAdd extends StatefulWidget {
@@ -49,8 +50,8 @@ class _DepartmentAdd extends State<DepartmentAdd> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서 추가',
+          TitleText(
+            text: '부서 추가',
           ),
           TextFormFieldV1(
             controller: departmentName,

@@ -41,7 +41,9 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/requestReceipt</url-pattern>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/getReceiptList</url-pattern>
+		<url-pattern>/getReceiptApprovalList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getReceiptRequestList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/rejectReceipt</url-pattern>
 		<servlet-name>appServlet</servlet-name>

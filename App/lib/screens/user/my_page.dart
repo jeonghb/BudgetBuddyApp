@@ -6,6 +6,7 @@ import 'package:test/screens/user/password_auth_check.dart';
 import 'package:test/screens/position/position_request.dart';
 import 'package:test/screens/screen_frame.dart';
 import '../../app_core.dart';
+import '../../widgets/title_text.dart';
 import '../department/department_member_list.dart';
 import '../department/department_request_list.dart';
 import '../position/position_leave.dart';
@@ -229,12 +230,8 @@ class _MyPage extends State<MyPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              '마이페이지',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+            TitleText(
+              text: '마이페이지',
             ),
             SizedBox(
               height: 30,

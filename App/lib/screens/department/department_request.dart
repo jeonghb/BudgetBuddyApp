@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 import '../../models/department.dart';
 
@@ -81,12 +82,8 @@ class _DepartmentRequest extends State<DepartmentRequest> {
         padding: EdgeInsets.all(30),
         child: Column(
           children: [
-            Text(
-              '부서 신청',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+            TitleText(
+              text: '부서 신청',
             ),
             SizedBox(
               height: 30,

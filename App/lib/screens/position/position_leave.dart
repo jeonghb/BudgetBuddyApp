@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class PositionLeave extends StatefulWidget {
@@ -64,12 +65,8 @@ class _PositionLeave extends State<PositionLeave> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '직책 탈퇴',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '직책 탈퇴',
           ),
           SizedBox(
             height: 20,

@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:test/models/position.dart';
 import 'package:test/screens/budget/budget_add.dart';
 import 'package:test/screens/budget/budget_list.dart';
 import 'package:test/screens/first_run.dart';
 
 import '../app_core.dart';
 import '../models/department.dart';
+import '../models/position.dart';
 import '../models/receipt.dart';
 import '../screens/auth/auth_manage.dart';
 import '../screens/budget/budget_type_manage.dart';
 import '../screens/budget/budget_year_setting.dart';
+import '../screens/receipt/receipt_approval_list.dart';
+import '../screens/receipt/receipt_request_list.dart';
 import '../screens/user/my_page.dart';
 import '../screens/receipt/receipt_request.dart';
 
@@ -21,24 +23,14 @@ class MenuDrawer extends StatefulWidget {
 }
 
 class _MenuDrawer extends State<MenuDrawer> {
-  String userDepartmentPositionListText = '';
-
-  @override
-  void initState() {
-    super.initState();
-
-    for (Department department in AppCore.instance.getUser().departmentList) {
-      for (Position position in department.positionList) {
-        userDepartmentPositionListText += '${department.departmentName}:${position.positionName} ';
-      }
-    }
-
-    userDepartmentPositionListText.substring(0, userDepartmentPositionListText.length - 1);
-  }
-
   @override
   Widget build(BuildContext context) {
     List<ListTile> menuList = [];
+    List<Position> userPositionList = <Position>[];
+
+    for (Department department in AppCore.instance.getUser().departmentList) {
+      userPositionList.addAll(department.positionList);
+    }
 
     if (AppCore.authCheck('영수증 제출')) {
       menuList.add(
@@ -71,7 +63,7 @@ class _MenuDrawer extends State<MenuDrawer> {
             )
           ),
           onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: AppCore.instance.getUser().submissionStatusList)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptApprovalList()));
           }
         ),
       );
@@ -89,7 +81,7 @@ class _MenuDrawer extends State<MenuDrawer> {
             ),
           ),
           onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptList(submissionStatus: AppCore.instance.getUser().submissionStatusList)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()));
           },
         ),
       );
@@ -212,6 +204,7 @@ class _MenuDrawer extends State<MenuDrawer> {
             child: Row(
               children: [
                 Expanded(
+                  flex: 2,
                   child: Row(
                     children: [
                       Text(
@@ -225,11 +218,46 @@ class _MenuDrawer extends State<MenuDrawer> {
                   ) 
                 ),
                 Expanded(
-                  child: Text(
-                    userDepartmentPositionListText,
-                    style: TextStyle(
-                      backgroundColor: Colors.green[100],
-                    ),
+                  flex: 3,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: userPositionList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      String positionName = userPositionList[index].positionName;
+
+                      return Column(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: SizedBox(
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(4, 0, 0, 4),
+                              padding: EdgeInsets.fromLTRB(4, 2, 2, 4),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                color: Color.fromARGB(236, 214, 215, 252),
+                              ),
+                              child: Text(
+                                positionName.isNotEmpty ? positionName : '없음',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ],

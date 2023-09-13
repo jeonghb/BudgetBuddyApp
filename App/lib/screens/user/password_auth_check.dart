@@ -5,6 +5,8 @@ import 'package:test/screens/user/update_password.dart';
 import 'package:test/screens/user/user_info_update.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
+import '../../widgets/title_text.dart';
+
 class PasswordAuthCheck extends StatefulWidget {
   final ScreenType type;
   const PasswordAuthCheck({
@@ -53,7 +55,9 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
         padding: EdgeInsets.all(30),
         child: Column(
           children: [
-            Text('비밀번호 확인'),
+            TitleText(
+              text: '비밀번호 확인',
+            ),
             SizedBox(
               height: 20,
             ),

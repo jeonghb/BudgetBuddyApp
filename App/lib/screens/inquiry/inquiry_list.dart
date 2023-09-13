@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/inquiry.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 import 'inquiry_manage.dart';
 
@@ -55,12 +56,8 @@ class _InquiryList extends State<InquiryList> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '문의내역',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '문의내역',
           ),
           ListView.builder(
             physics: ScrollPhysics(),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../home.dart';
 import '../screen_frame.dart';
 
@@ -35,12 +36,8 @@ class _DepartmentLeave extends State<DepartmentLeave> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서 탈퇴',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '부서 탈퇴',
           ),
           DropdownButton(
             isExpanded: true,

@@ -45,10 +45,16 @@ public class ReceiptController {
 		}
 	}
 	
-	@RequestMapping(value = "/getReceiptList", method = RequestMethod.POST)
+	@RequestMapping(value = "/getReceiptApprovalList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<ReceiptVO> getRequestReceiptList(@RequestBody Map<String, Object> _requestMap) {
-		return receiptService.getRequestReceiptList(_requestMap);
+	public List<ReceiptVO> getReceiptApprovalList(@RequestBody Map<String, String> _userId) {
+		return receiptService.getReceiptApprovalList(_userId.get("userId"));
+	}
+	
+	@RequestMapping(value = "/getReceiptRequestList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<ReceiptVO> getReceiptRequestList(@RequestBody Map<String, String> _userId) {
+		return receiptService.getReceiptRequestList(_userId.get("userId"));
 	}
 	
 	@RequestMapping(value = "/changeSubmissionStatus", method = RequestMethod.POST)

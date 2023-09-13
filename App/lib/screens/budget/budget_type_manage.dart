@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/budget_type.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import 'budget_type_add.dart';
 import '../screen_frame.dart';
 
@@ -56,12 +57,8 @@ class _BudgetTypeManage extends State<BudgetTypeManage> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '예산 항목',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '예산 항목',
           ),
           Expanded(
             flex: 8,

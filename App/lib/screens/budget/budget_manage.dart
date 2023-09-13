@@ -8,6 +8,7 @@ import '../../app_core.dart';
 import '../../models/budget_type.dart';
 import '../../models/response_data.dart';
 import '../../widgets/text_form_field_v1.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class BudgetManage extends StatefulWidget {
@@ -100,12 +101,8 @@ class _BudgetManage extends State<BudgetManage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Text(
-              '예산 추가 정보',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
+            TitleText(
+              text: '예산 추가 정보',
             ),
             SizedBox(
               height: 20,

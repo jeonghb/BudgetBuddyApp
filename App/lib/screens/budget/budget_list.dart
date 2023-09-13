@@ -6,6 +6,7 @@ import 'package:test/screens/budget/budget_manage.dart';
 
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
 class BudgetList extends StatefulWidget {
@@ -54,8 +55,8 @@ class _BudgetAddList extends State<BudgetList> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '예산 추가 목록',
+          TitleText(
+            text: '예산 추가 목록',
           ),
           ListView.builder(
             physics: ScrollPhysics(),

@@ -3,6 +3,7 @@ import 'package:test/app_core.dart';
 import 'package:test/screens/screen_frame.dart';
 
 import '../../models/department_member.dart';
+import '../../widgets/title_text.dart';
 
 class DepartmentMemberManage extends StatefulWidget {
   final DepartmentMember departmentMember;
@@ -19,12 +20,8 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서원 정보',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold
-            ),
+          TitleText(
+            text: '부서원 정보',
           ),
           SizedBox(
             height: 30,

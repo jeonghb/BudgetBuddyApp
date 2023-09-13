@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/department.dart';
 import '../../models/response_data.dart';
+import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 import 'department_manage.dart';
 
@@ -54,12 +55,8 @@ class _DepartmentList extends State<DepartmentList> {
     return ScreenFrame(
       body: Column(
         children: [
-          Text(
-            '부서 목록',
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-            ),
+          TitleText(
+            text: '부서 목록',
           ),
           ListView.builder(
             physics: ScrollPhysics(),

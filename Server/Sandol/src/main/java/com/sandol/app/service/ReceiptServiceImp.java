@@ -1,7 +1,6 @@
 package com.sandol.app.service;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,8 +21,13 @@ public class ReceiptServiceImp implements ReceiptService {
 	}
 	
 	@Override
-	public List<ReceiptVO> getRequestReceiptList(Map<String, Object> _requestMap) {
-		return dao.getRequestReceiptList(_requestMap);
+	public List<ReceiptVO> getReceiptApprovalList(String _userId) {
+		return dao.getReceiptApprovalList(_userId);
+	}
+	
+	@Override
+	public List<ReceiptVO> getReceiptRequestList(String _userId) {
+		return dao.getReceiptRequestList(_userId);
 	}
 	
 	@Override
