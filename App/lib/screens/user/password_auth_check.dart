@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
 import 'package:test/screens/screen_frame.dart';
 import 'package:test/screens/user/update_password.dart';
 import 'package:test/screens/user/user_info_update.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
-
-import '../../widgets/title_text.dart';
 
 class PasswordAuthCheck extends StatefulWidget {
   final ScreenType type;
@@ -55,8 +54,12 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
         padding: EdgeInsets.all(30),
         child: Column(
           children: [
-            TitleText(
-              text: '비밀번호 확인',
+            Text(
+              '본인확인을 위해 \n비밀번호를 입력해주세요.',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+              ),
             ),
             SizedBox(
               height: 20,
@@ -72,13 +75,22 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
             SizedBox(
               height: 20,
             ),
-            TextButton(
-              onPressed: () {
-                auth();
-              },
-              child: Text(
-                '확인',
-              )
+            SizedBox(
+              width: double.infinity,
+              height: ScreenUtil().setHeight(120),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black,
+                ),
+                child: Text('다음',
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.white
+                ),),
+                onPressed: () async {
+                  auth();
+                },
+              ),
             ),
           ],
         ),
