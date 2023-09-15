@@ -69,4 +69,8 @@ lib/generated_plugin_registrant.dart
 
 # tomcat Server
 Server/.metadata/
-Server/Sandol/target/
+Server/Sandol/target/generated-sources
+Server/Sandol/target/generated-test-sources
+Server/Sandol/target/m2e-wtp
+Server/Sandol/target/maven-archiver
+Server/Sandol/target/sandol-1.0.0
