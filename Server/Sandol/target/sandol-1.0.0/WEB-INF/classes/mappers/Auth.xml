@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+
+	<select id="getAuthList" resultType="authVO">
+		<![CDATA[CALL get_auth_list()]]>
+	</select>
+	<select id="getPositionAuthList" resultType="positionAuthVO">
+		<![CDATA[CALL get_position_auth_list()]]>
+	</select>
+	<insert id="positionAuthSave" parameterType="positionAuthVO">
+    	<![CDATA[CALL position_auth_save(#{positionId}, #{authId}, #{use})]]>
+    </insert>
+	<select id="getUserAuthList" resultType="positionAuthVO">
+		<![CDATA[CALL get_user_auth_list(#{userId})]]>
+	</select>
+      
+</mapper>

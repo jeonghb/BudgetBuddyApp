@@ -28,6 +28,92 @@
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/userRegist</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userCheck</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getDepartmentList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/requestReceipt</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getReceiptApprovalList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getReceiptRequestList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/rejectReceipt</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/changeSubmissionStatus</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userPasswordFind</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userPasswordUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/userInfoUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getBankList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentRequest</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getLoginUserDepartmentPositionList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getRequestPositilityDepartmentList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getDepartmentRequestList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentRequestFinish</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getDepartmentMemberList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/departmentLeave</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getDepartmentPositionList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionRequest</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getRequestPossibilityDepartmentPositionList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getPositionRequestList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionRequestFinish</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionLeave</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getBudgetTypeList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/budgetTypeAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getBudgetYearList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/setBudgetYearAmount</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getPositionList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/positionUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getAuthList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getUserAuthList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/budgetAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getBudgetList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/budgetUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/budgetDelete</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/inquiryRequest</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getInquiryList</url-pattern>
+		
+		
 	</servlet-mapping>
 
 </web-app>

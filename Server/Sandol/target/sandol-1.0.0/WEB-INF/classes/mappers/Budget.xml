@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+
+    <insert id="budgetTypeAdd" parameterType="budgetTypeVO">
+    	<![CDATA[CALL budget_type_add(#{departmentId}, #{budgetTypeName})]]>
+    </insert>
+    <select id="getBudgetTypeList" resultType="budgetTypeVO">
+		<![CDATA[CALL get_budget_type_list(#{userId})]]>
+	</select>
+	<select id="getBudgetYearList" resultType="budgetYearVO">
+		<![CDATA[CALL get_budget_year_list(#{userId})]]>
+	</select>
+	<insert id="setBudgetYearAmount" parameterType="budgetYearVO">
+    	<![CDATA[CALL set_budget_year_amount(#{departmentId}, #{year}, #{budgetAmount})]]>
+    </insert>
+	<insert id="budgetAdd" parameterType="budgetVO">
+    	<![CDATA[CALL budget_add(#{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
+    </insert>
+	<select id="getBudgetList" resultType="budgetVO">
+		<![CDATA[CALL get_budget_list(#{userId})]]>
+	</select>
+    <update id="budgetUpdate" parameterType="budgetVO">
+    	<![CDATA[CALL budget_update(#{id}, #{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
+    </update>
+    <delete id="budgetDelete">
+    	<![CDATA[CALL budget_delete(#{id})]]>
+    </delete>
+    
+</mapper>

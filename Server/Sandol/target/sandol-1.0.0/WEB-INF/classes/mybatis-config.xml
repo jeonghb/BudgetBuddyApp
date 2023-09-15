@@ -2,9 +2,28 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-		
+	
+	<settings>
+		<setting name="callSettersOnNulls" value="true"/>
+	</settings>
 	<typeAliases>
-	   <typeAlias alias="userRegistVO" type="com.sandol.app.vo.UserRegistVO"/>
+		<typeAlias alias="userVO" type="com.sandol.app.vo.UserVO"/>
+		<typeAlias alias="departmentVO" type="com.sandol.app.vo.DepartmentVO"/>
+   		<typeAlias alias="receiptVO"	type="com.sandol.app.vo.ReceiptVO"/>
+   		<typeAlias alias="userDepartmentVO" type="com.sandol.app.vo.UserDepartmentVO"/>
+   		<typeAlias alias="bankVO" type="com.sandol.app.vo.BankVO"/>
+   		<typeAlias alias="userDepartmentPositionVO" type="com.sandol.app.vo.UserDepartmentPositionVO"/>
+   		<typeAlias alias="departmentRequestVO" type="com.sandol.app.vo.DepartmentRequestVO"/>
+   		<typeAlias alias="departmentMemberVO" type="com.sandol.app.vo.DepartmentMemberVO"/>
+   		<typeAlias alias="positionVO" type="com.sandol.app.vo.PositionVO"/>
+   		<typeAlias alias="positionRequestVO" type="com.sandol.app.vo.PositionRequestVO"/>
+   		<typeAlias alias="userPositionVO" type="com.sandol.app.vo.UserPositionVO"/>
+   		<typeAlias alias="budgetTypeVO" type="com.sandol.app.vo.BudgetTypeVO"/>
+   		<typeAlias alias="budgetYearVO" type="com.sandol.app.vo.BudgetYearVO"/>
+   		<typeAlias alias="authVO" type="com.sandol.app.vo.AuthVO"/>
+   		<typeAlias alias="positionAuthVO" type="com.sandol.app.vo.PositionAuthVO"/>
+   		<typeAlias alias="budgetVO" type="com.sandol.app.vo.BudgetVO"/>
+   		<typeAlias alias="inquiryVO" type="com.sandol.app.vo.InquiryVO"/>
 	</typeAliases>
 	
 </configuration>

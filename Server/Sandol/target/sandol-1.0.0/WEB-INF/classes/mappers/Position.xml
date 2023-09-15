@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+
+	<select id="getDepartmentPositionList" resultType="positionVO">
+		<![CDATA[CALL get_department_position_list(#{departmentId})]]>
+	</select>
+	<select id="getRequestPossibilityDepartmentPositionList" resultType="positionVO">
+		<![CDATA[CALL get_request_possibility_department_position_list(#{userId})]]>
+	</select>
+    <insert id="positionRequest" parameterType="positionRequestVO">
+    	<![CDATA[CALL position_request(#{requestUserId}, #{requestPositionId})]]>
+    </insert>
+	<select id="getPositionRequestList" resultType="positionRequestVO">
+		<![CDATA[CALL get_position_request_list(#{userId})]]>
+	</select>
+    <insert id="positionRequestFinish" parameterType="positionRequestVO">
+    	<![CDATA[CALL position_request_finish(#{requestUserId}, #{requestDepartmentId}, #{requestPositionId}, #{approvalUserId}, #{approvalStatus})]]>
+    </insert>
+    <insert id="positionLeave" parameterType="userPositionVO">
+    	<![CDATA[CALL position_leave(#{userId}, #{departmentId}, #{positionId})]]>
+    </insert>
+    <insert id="positionAdd" parameterType="positionVO">
+    	<![CDATA[CALL position_add(#{departmentId}, #{positionName}, #{authFlag})]]>
+    </insert>
+    <select id="getPositionList" resultType="positionVO">
+    	<![CDATA[CALL get_position_list()]]>
+    </select>
+    <update id="positionUpdate" parameterType="positionVO">
+    	<![CDATA[CALL position_update(#{positionId}, #{positionName}, #{positionActivationStatus})]]>
+    </update>
+    
+</mapper>
