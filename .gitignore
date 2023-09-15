@@ -69,3 +69,4 @@ lib/generated_plugin_registrant.dart
 
 # tomcat Server
 Server/.metadata/
+Server/Sandol/target/
