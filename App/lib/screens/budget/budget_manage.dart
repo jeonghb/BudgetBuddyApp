@@ -104,9 +104,6 @@ class _BudgetManage extends State<BudgetManage> {
             TitleText(
               text: '예산 추가 정보',
             ),
-            SizedBox(
-              height: 20,
-            ),
             Text(
               '부서',
             ),

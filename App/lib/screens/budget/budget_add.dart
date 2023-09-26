@@ -136,9 +136,6 @@ class _BudgetAdd extends State<BudgetAdd> {
             TitleText(
               text: '예산 추가',
             ),
-            SizedBox(
-              height: 20,
-            ),
             Text(
               '부서',
             ),

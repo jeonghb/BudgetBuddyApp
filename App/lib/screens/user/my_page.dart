@@ -41,9 +41,6 @@ class _MyPage extends State<MyPage> {
               TitleText(
                 text: '마이페이지',
               ),
-              SizedBox(
-                height: 30,
-              ),
               Container(
                 height: 80,
                 decoration: BoxDecoration(

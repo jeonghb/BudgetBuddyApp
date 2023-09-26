@@ -68,9 +68,6 @@ class _PositionLeave extends State<PositionLeave> {
           TitleText(
             text: '직책 탈퇴',
           ),
-          SizedBox(
-            height: 20,
-          ),
           Text(
             '부서'
           ),

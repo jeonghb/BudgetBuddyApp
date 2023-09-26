@@ -109,9 +109,6 @@ class _PositionRequest extends State<PositionRequest> {
           TitleText(
             text: '직책 신청',
           ),
-          SizedBox(
-            height: 20,
-          ),
           Text(
             '부서',
             style: TextStyle(

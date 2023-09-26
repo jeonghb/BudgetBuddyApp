@@ -47,9 +47,6 @@ class _UpdatePassword extends State<UpdatePassword> {
                   TitleText(
                     text: '비밀번호 변경',
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
                   Text('비밀번호',
                     style: TextStyle(
                       fontSize: 16,

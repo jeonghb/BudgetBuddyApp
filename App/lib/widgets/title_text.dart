@@ -15,12 +15,19 @@ class TitleText extends StatefulWidget {
 class _TitleText extends State<TitleText> {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      widget.text,
-      style: TextStyle(
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
-      ),
+    return Column(
+      children: [
+        Text(
+          widget.text,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        SizedBox(
+          height: 30,
+        ),
+      ],
     );
   }
 }

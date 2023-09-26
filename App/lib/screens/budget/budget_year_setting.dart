@@ -124,9 +124,6 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
           TitleText(
             text: '예산 설정',
           ),
-          SizedBox(
-            height: 15,
-          ),
           Text(
             '부서',
           ),

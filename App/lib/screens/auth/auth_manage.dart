@@ -125,9 +125,6 @@ class _AuthManage extends State<AuthManage> {
             TitleText(
               text: '권한 관리',
             ),
-            SizedBox(
-              height: 30,
-            ),
             Expanded(
               child: ListView.builder(
                 itemCount: menuList.length,

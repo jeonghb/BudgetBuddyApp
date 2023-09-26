@@ -79,11 +79,8 @@ class _ReceiptRequestList extends State<ReceiptRequestList> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: TitleText(
-                  text: '제출내역',
-                ),
+              TitleText(
+                text: '제출내역',
               ),
               Expanded(
                 flex: 1,

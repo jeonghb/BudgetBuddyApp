@@ -85,9 +85,6 @@ class _DepartmentRequest extends State<DepartmentRequest> {
             TitleText(
               text: '부서 신청',
             ),
-            SizedBox(
-              height: 30,
-            ),
             DropdownButton(
               isExpanded: true,
               value: selectDepartmentName,

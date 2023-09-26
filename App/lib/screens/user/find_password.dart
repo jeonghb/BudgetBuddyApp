@@ -50,9 +50,6 @@ class _FindPassword extends State<FindPassword> {
                   TitleText(
                     text: '비밀번호 찾기',
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
                   Text('아이디',
                     style: TextStyle(
                       fontSize: 16,

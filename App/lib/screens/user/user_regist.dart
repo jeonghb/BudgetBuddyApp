@@ -57,9 +57,6 @@ class _UserRegist extends State<UserRegist> {
                   TitleText(
                     text: '회원가입',
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
                   Text('아이디',
                     style: TextStyle(
                       fontSize: 16,

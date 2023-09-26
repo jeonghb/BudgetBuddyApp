@@ -62,9 +62,6 @@ class _InquiryRequest extends State<InquiryRequest> {
             TitleText(
               text: '문의하기',
             ),
-            SizedBox(
-              height: 10,
-            ),
             Text(
               '제목',
             ),

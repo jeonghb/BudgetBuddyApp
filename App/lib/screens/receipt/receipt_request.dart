@@ -261,9 +261,6 @@ class _ReceiptRequest extends State<ReceiptRequest> {
             TitleText(
               text: '영수증을 제출해주세요',
             ),
-            SizedBox(
-              height: 30,
-            ),
             Text('제목',
               style: TextStyle(
                 fontSize: 20

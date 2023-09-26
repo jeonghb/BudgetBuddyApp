@@ -98,9 +98,6 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
             TitleText(
               text: '부서원 목록',
             ),
-            SizedBox(
-              height: 30,
-            ),
             TextFormFieldV1(
               controller: searchText,
               onEditingComplete: () {
@@ -191,8 +188,9 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                   final departmentMember = departmentMemberFilterList[index];
 
                   return GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentMemberManage(departmentMember: departmentMember,)),);
+                    onTap: () async {
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentMemberManage(departmentMember: departmentMember,)),);
+                      getDepartmentMemberList();
                     },
                     child: Column(
                       children: [

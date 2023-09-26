@@ -54,9 +54,6 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                   TitleText(
                     text: widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기',
                   ),
-                  SizedBox(
-                    height: 30,
-                  ),
                   Text('이름',
                     style: TextStyle(
                       fontSize: 16,

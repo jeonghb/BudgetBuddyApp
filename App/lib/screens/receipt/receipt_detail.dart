@@ -60,9 +60,6 @@ class _ReceiptDetail extends State<ReceiptDetail> {
               TitleText(
                 text: '영수증 정보',
               ),
-              SizedBox(
-                height: 30,
-              ),
               Row(
                 children: [
                   Expanded(

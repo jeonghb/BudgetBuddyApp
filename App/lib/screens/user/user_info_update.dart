@@ -35,9 +35,6 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
             TitleText(
               text: '개인정보 수정',
             ),
-            SizedBox(
-              height: 30,
-            ),
             Text('이메일',
               style: TextStyle(
                 fontSize: 16,

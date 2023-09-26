@@ -42,9 +42,6 @@ class _BudgetTypeAdd extends State<BudgetTypeAdd> {
           TitleText(
             text: '부서',
           ),
-          SizedBox(
-            height: 30,
-          ),
           DropdownButton(
             isExpanded: true,
             value: selectDepartmentName,
