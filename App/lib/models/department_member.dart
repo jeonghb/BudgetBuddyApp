@@ -10,6 +10,7 @@ class DepartmentMember {
   String userDepartmentName = '';
   int userPositionId = -1;
   String userPositionName = '';
+  String userDepartmentRegistDatetime = DateTime.now().toString();
 
   void setData(Map<String, dynamic> json) {
     userId = AppCore.getJsonString(json, 'userId');
@@ -20,6 +21,7 @@ class DepartmentMember {
     userDepartmentName = AppCore.getJsonString(json, 'userDepartmentName');
     userPositionId = AppCore.getJsonInt(json, 'userPositionId');
     userPositionName = AppCore.getJsonString(json, 'userPositionName');
+    userDepartmentRegistDatetime = AppCore.getJsonString(json, 'userDepartmentRegistDatetime');
   }
 
   Future<bool> leave() async {

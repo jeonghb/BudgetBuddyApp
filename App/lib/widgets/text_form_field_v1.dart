@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 
 class TextFormFieldV1 extends StatefulWidget {
-  final autovalidateMode;
-  final keyboardType;
-  final controller;
-  final textInputAction;
+  final AutovalidateMode? autovalidateMode;
+  final TextInputType? keyboardType;
+  final TextEditingController? controller;
+  final TextInputAction? textInputAction;
   final validator;
-  final counterText;
-  final suffixIcon;
-  final maxLength;
+  final String? counterText;
+  final Widget? suffixIcon;
+  final int? maxLength;
   final onChanged;
-  final hintText;
-  final hintStyle;
-  final obscureText;
+  final String? hintText;
+  final TextStyle? hintStyle;
+  final bool? obscureText;
   final VoidCallback? onEditingComplete;
-  final prefixIcon;
-  final textAlign;
+  final Widget? prefixIcon;
+  final TextAlign? textAlign;
+  final bool? autofocus;
 
   TextFormFieldV1({
     Key? key,
@@ -34,6 +35,7 @@ class TextFormFieldV1 extends StatefulWidget {
     this.onEditingComplete,
     this.prefixIcon,
     this.textAlign = TextAlign.left,
+    this.autofocus = false,
      }) : super(key: key,);
 
   @override
@@ -58,7 +60,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
   }
 
   void _handleTextChanged() {
-    widget.onChanged?.call(widget.controller.text);
+    widget.onChanged?.call(widget.controller?.text);
   }
 
   @override
@@ -89,13 +91,13 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
         hintStyle: widget.hintStyle,
         counterText: widget.counterText,
         prefixIcon: widget.prefixIcon,
-        suffixIcon: widget.suffixIcon ?? IconButton(icon: Icon(Icons.clear), onPressed: () => widget.controller.clear(),),
+        suffixIcon: widget.suffixIcon ?? IconButton(icon: Icon(Icons.clear), onPressed: () => widget.controller?.clear(),),
         filled: true,
         fillColor: Colors.white,
       ),
-      textAlign: widget.textAlign,
+      textAlign: widget.textAlign ?? TextAlign.center,
       obscureText: widget.obscureText ?? false,
-      autofocus: true,
+      autofocus: widget.autofocus ?? false,
       autovalidateMode: widget.autovalidateMode,
       keyboardType: widget.keyboardType,
       controller: widget.controller,

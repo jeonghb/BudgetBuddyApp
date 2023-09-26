@@ -9,6 +9,7 @@ public class DepartmentMemberVO {
 	private String userDepartmentName;
 	private int userPositionId;
 	private String userPositionName;
+	private String userDepartmentRegistDatetime;
 	
 	public String getUserId() {
 		return userId;
@@ -57,5 +58,11 @@ public class DepartmentMemberVO {
 	}
 	public void setUserPositionName(String userPositionName) {
 		this.userPositionName = userPositionName;
+	}
+	public String getUserDepartmentRegistDatetime() {
+		return userDepartmentRegistDatetime;
+	}
+	public void setUserDepartmentRegistDatetime(String userDepartmentRegistDatetime) {
+		this.userDepartmentRegistDatetime = userDepartmentRegistDatetime;
 	}
 }

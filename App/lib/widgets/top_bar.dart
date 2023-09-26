@@ -70,21 +70,19 @@ class _TopBar extends State<TopBar> {
       );
     }
 
-    return Scaffold(
-      body: AppBar(
-        backgroundColor: Colors.white,
-        centerTitle: true,
-        title: Text('SANDOL',
-          style: TextStyle(
-            color: Color.fromARGB(255, 90, 68, 223),
-            fontWeight: FontWeight.bold
-          ),
+    return AppBar(
+      backgroundColor: Colors.white,
+      centerTitle: true,
+      title: Text('SANDOL',
+        style: TextStyle(
+          color: Color.fromARGB(255, 90, 68, 223),
+          fontWeight: FontWeight.w900
         ),
-        leading: leadingIcon,
-        actions: [
-          actionIcon
-        ],
       ),
+      leading: leadingIcon,
+      actions: [
+        actionIcon
+      ],
     );
   }
 }

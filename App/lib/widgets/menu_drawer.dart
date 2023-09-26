@@ -235,8 +235,8 @@ class _MenuDrawer extends State<MenuDrawer> {
                           Expanded(
                             flex: 3,
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(4, 0, 0, 4),
-                              padding: EdgeInsets.fromLTRB(4, 2, 2, 4),
+                              margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
+                              padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: Color.fromARGB(236, 214, 215, 252),
