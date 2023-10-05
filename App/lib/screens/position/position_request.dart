@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app_core.dart';
 import '../../models/position.dart';
 import '../../models/department.dart';
@@ -104,106 +105,119 @@ class _PositionRequest extends State<PositionRequest> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      body: Column(
-        children: [
-          TitleText(
-            text: '직책 신청',
-          ),
-          Text(
-            '부서',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleText(
+              text: '직책 신청',
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          DropdownButton(
-            isExpanded: true,
-            value: selectDepartmentName,
-            items: departmentList.map(
-              (value) { 
-                return DropdownMenuItem<String>(
-                  value: value.departmentName,
-                  child: Text(value.departmentName),
-                );
-              },
-            ).toList(),
-            onChanged: (value) {
-              setState(() {
-                selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
-                var result = positionList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId);
-                if (result != null) {
-                  selectPositionId = result.positionId;
-                  selectPositionName = result.positionName;
-                }
-              });
-            }
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            '직책',
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+            Text(
+              '부서',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          DropdownButton(
-            isExpanded: true,
-            value: selectPositionName,
-            items: positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? positionList.where((position) => position.departmentId == selectDepartmentId).map(
-              (value) { 
-                return DropdownMenuItem<String>(
-                  value: value.positionName,
-                  child: Text(value.positionName),
+            SizedBox(
+              height: 20,
+            ),
+            DropdownButton(
+              isExpanded: true,
+              value: selectDepartmentName,
+              items: departmentList.map(
+                (value) { 
+                  return DropdownMenuItem<String>(
+                    value: value.departmentName,
+                    child: Text(value.departmentName),
                   );
                 },
-              ).toList() : [],
-            onChanged: (value) {
-              setState(() {
-                  selectPositionId = positionList.firstWhere((element) => element.positionName == value).positionId;
-                  selectPositionName = positionList.firstWhere((element) => element.positionName == value).positionName;
-              });
-            }
-          ),
-          SizedBox(
-            height: 30,
-          ),
-          TextButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
+              ).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                  var result = positionList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId);
+                  if (result != null) {
+                    selectPositionId = result.positionId;
+                    selectPositionName = result.positionName;
+                  }
+                });
+              }
             ),
-            onPressed: () async {
-              if (await positionRequest(selectDepartmentId, selectPositionId)) {
-                // ignore: use_build_context_synchronously
-                AppCore.showMessage(context, '직책 신청', '요청 완료', ActionType.ok, () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                });
-              }
-              else {
-                // ignore: use_build_context_synchronously
-                AppCore.showMessage(context, '직책 신청', '요청에 실패했습니다.', ActionType.ok, () {
-                  Navigator.pop(context);
-                });
-              }
-            },
-            child: Text(
-              '신청',
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              '직책',
               style: TextStyle(
-                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
-            )
-          ),
-        ]
-      )
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            DropdownButton(
+              isExpanded: true,
+              value: selectPositionName,
+              items: positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? positionList.where((position) => position.departmentId == selectDepartmentId).map(
+                (value) { 
+                  return DropdownMenuItem<String>(
+                    value: value.positionName,
+                    child: Text(value.positionName),
+                    );
+                  },
+                ).toList() : [],
+              onChanged: (value) {
+                setState(() {
+                    selectPositionId = positionList.firstWhere((element) => element.positionName == value).positionId;
+                    selectPositionName = positionList.firstWhere((element) => element.positionName == value).positionName;
+                });
+              }
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: ScreenUtil().setHeight(130),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )
+                ),
+                onPressed: () async {
+                  if (await positionRequest(selectDepartmentId, selectPositionId)) {
+                  // ignore: use_build_context_synchronously
+                  AppCore.showMessage(context, '직책 신청', '요청 완료', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
+                }
+                else {
+                  // ignore: use_build_context_synchronously
+                  AppCore.showMessage(context, '직책 신청', '요청에 실패했습니다.', ActionType.ok, () {
+                    Navigator.pop(context);
+                  });
+                }
+                },
+                child: Text(
+                  '신청',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ]
+        )
+      ),
     );
   }
 }
