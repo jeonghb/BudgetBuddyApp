@@ -1,6 +1,7 @@
 package com.sandol.app.vo;
 
 public class DepartmentRequestVO {
+	private int id;
 	private String requestUserId;
 	private String requestUserName;
 	private String requestUserBirthday;
@@ -12,6 +13,12 @@ public class DepartmentRequestVO {
 	private String approvalUserName;
 	private int approvalStatus;
 	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getRequestUserId() {
 		return requestUserId;
 	}

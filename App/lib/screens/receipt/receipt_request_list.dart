@@ -83,7 +83,6 @@ class _ReceiptRequestList extends State<ReceiptRequestList> {
                 text: '제출내역',
               ),
               Expanded(
-                flex: 1,
                 child: Row(
                   children: [
                     Expanded(
