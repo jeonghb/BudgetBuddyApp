@@ -18,7 +18,7 @@
 		<![CDATA[CALL get_position_request_list(#{userId})]]>
 	</select>
     <insert id="positionRequestFinish" parameterType="positionRequestVO">
-    	<![CDATA[CALL position_request_finish(#{requestUserId}, #{requestDepartmentId}, #{requestPositionId}, #{approvalUserId}, #{approvalStatus})]]>
+    	<![CDATA[CALL position_request_finish(#{id}, #{requestUserId}, #{requestDepartmentId}, #{requestPositionId}, #{approvalUserId}, #{approvalStatus})]]>
     </insert>
     <insert id="positionLeave" parameterType="userPositionVO">
     	<![CDATA[CALL position_leave(#{userId}, #{departmentId}, #{positionId})]]>
