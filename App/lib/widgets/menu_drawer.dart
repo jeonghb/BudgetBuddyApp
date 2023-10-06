@@ -35,10 +35,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('영수증 제출')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('영수증 제출',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  영수증 제출',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -53,10 +52,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('영수증 결재')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.check),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('영수증 결재',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  영수증 결재',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -71,10 +69,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('영수증 제출 내역')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.list),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('영수증 제출 내역',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  영수증 제출 내역',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -89,10 +86,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('예산 추가')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.check),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('예산 추가',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  예산 추가',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -107,10 +103,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('예산 추가내역')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.check),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('예산 추가내역',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  예산 추가내역',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -125,10 +120,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('월별 정산')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.edit_document),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('월별 정산',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  월별 정산',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -143,10 +137,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('연도별 예산 설정')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text('연도별 예산 설정',
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  연도별 예산 설정',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -161,11 +154,9 @@ class _MenuDrawer extends State<MenuDrawer> {
     if (AppCore.authCheck('예산 항목 관리')) {
       menuList.add(
         ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
+          visualDensity: VisualDensity(vertical: -4),
           title: Text(
-            '예산 항목 관리',
+            '·  예산 항목 관리',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -235,8 +226,8 @@ class _MenuDrawer extends State<MenuDrawer> {
                           Expanded(
                             flex: 3,
                             child: Container(
-                              margin: EdgeInsets.fromLTRB(4, 0, 4, 0),
-                              padding: EdgeInsets.fromLTRB(8, 2, 8, 2),
+                              margin: EdgeInsets.fromLTRB(2, 0, 2, 10),
+                              padding: EdgeInsets.fromLTRB(8, 0, 8, 2),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.all(Radius.circular(20)),
                                 color: Color.fromARGB(236, 214, 215, 252),
@@ -356,7 +347,18 @@ class _MenuDrawer extends State<MenuDrawer> {
             child: ListView.builder(
               itemCount: menuList.length,
               itemBuilder: (context, index) {
-                return menuList[index];
+                return Column(
+                  children: [
+                    SizedBox(
+                      height: 38,
+                      child: menuList[index],
+                    ),
+                    Divider(
+                      color: Colors.grey[200],
+                      thickness: 2,
+                    )
+                  ],
+                );
               }
             )
           ),

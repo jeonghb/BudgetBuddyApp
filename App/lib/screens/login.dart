@@ -105,7 +105,7 @@ class _LogInPage extends State<LogInPage> {
                         hintStyle: TextStyle(
                           fontSize: 18,
                           color: Color.fromARGB(255, 90, 68, 223)
-                          ),
+                        ),
                         prefixIcon: Image.asset('assets/images/ID1.png'),
                         keyboardType: TextInputType.name,
                         controller: user.userId,

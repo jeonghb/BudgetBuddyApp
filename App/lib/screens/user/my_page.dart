@@ -8,6 +8,7 @@ import '../../app_core.dart';
 import '../../models/department.dart';
 import '../../models/position.dart';
 import '../../widgets/title_text.dart';
+import '../notification_settings.dart';
 import '../department/department_member_list.dart';
 import '../department/department_request_list.dart';
 import '../inquiry/inquiry_home.dart';
@@ -310,7 +311,7 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
-                  // Navigator.push(context, MaterialPageRoute(builder: (context) => PositionLeave()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationSettings()));
                 },
               ),
               ListTile(

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 import 'screen_frame.dart';
 
-class AlarmList extends StatefulWidget {
+class NotificationSettings extends StatefulWidget {
   
-  const AlarmList({super.key});
+  const NotificationSettings({super.key});
 
   @override
-  State<AlarmList> createState() => _AlarmList();
+  State<NotificationSettings> createState() => _NotificationSettings();
 }
 
-class _AlarmList extends State<AlarmList> {
+class _NotificationSettings extends State<NotificationSettings> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(

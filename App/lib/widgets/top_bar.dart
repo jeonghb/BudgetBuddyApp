@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/alarm_list.dart';
+import '../screens/notification_list.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final BarType type;
@@ -50,7 +50,7 @@ class _TopBar extends State<TopBar> {
     if (widget.alarm) {
       leadingIcon = IconButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AlarmList()),);
+          Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationList()),);
         },
         icon: Icon(
           Icons.notifications_none,
