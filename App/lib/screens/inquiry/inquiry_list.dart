@@ -7,7 +7,7 @@ import '../../models/inquiry.dart';
 import '../../models/response_data.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
-import 'inquiry_manage.dart';
+import 'inquiry_detail.dart';
 
 class InquiryList extends StatefulWidget {
   const InquiryList({super.key});
@@ -18,6 +18,8 @@ class InquiryList extends StatefulWidget {
 
 class _InquiryList extends State<InquiryList> {
   List<Inquiry> inquiryList = <Inquiry>[];
+  List<Inquiry> inquiryFilterList = <Inquiry>[];
+  FilterType filterType = FilterType.complete;
 
   @override
   void initState() {
@@ -45,49 +47,188 @@ class _InquiryList extends State<InquiryList> {
         tempList.add(inquiry);
       }
 
-      setState(() {
-        inquiryList = tempList;
-      });
+      inquiryList = tempList;
+      filterInquiryList();
+    }
+  }
+
+  void filterInquiryList() {
+    switch (filterType) {
+      case FilterType.all:
+        setState(() {
+          inquiryFilterList = inquiryList;
+        });
+      break;
+      case FilterType.complete:
+        setState(() {
+          inquiryFilterList = inquiryList.where((element) => element.inquiryAnswer.isNotEmpty).toList();
+        });
+      break;
+      case FilterType.wait:
+        setState(() {
+          inquiryFilterList = inquiryList.where((element) => element.inquiryAnswer.isEmpty).toList();
+        });
+      break;
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      body: Column(
-        children: [
-          TitleText(
-            text: '문의내역',
-          ),
-          ListView.builder(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: inquiryList.length,
-            itemBuilder: (BuildContext context, int index) {
-              final inquiry = inquiryList[index];
-
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => InquiryManage(inquiry: inquiry,)),).then((value) {
-                    if (value == true) {
-                      getInquiryList();
-                    }
-                  });
-                },
-                child: Column (
-                  children: [
-                    ListTile(
-                      leading: Text(inquiry.inquiryTitle),
-                      
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          children: [
+            TitleText(
+              text: '나의 문의',
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            SizedBox(
+              height: 35,
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        filterType = FilterType.all;
+                        filterInquiryList();
+                      },
+                      child: Text(
+                        '전체',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: filterType == FilterType.all ? Colors.black : Colors.grey[300],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                    Divider(),
-                  ]
-                ),
-              );
-            }
-          )
-        ],
+                  ),
+                  Text(
+                    '|'
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        filterType = FilterType.complete;
+                        filterInquiryList();
+                      },
+                      child: Text(
+                        '완료',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: filterType == FilterType.complete ? Colors.black : Colors.grey[300],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Text(
+                    '|'
+                  ),
+                  Expanded(
+                    child: TextButton(
+                      onPressed: () {
+                        filterType = FilterType.wait;
+                        filterInquiryList();
+                      },
+                      child: Text(
+                        '대기',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: filterType == FilterType.wait ? Colors.black : Colors.grey[300],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Expanded(
+              flex: 7,
+              child: ListView.builder(
+                physics: ScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: inquiryFilterList.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final inquiry = inquiryFilterList[index];
+
+                  return GestureDetector(
+                    onTap: () async {
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => InquiryDetail(inquiry: inquiry,)),);
+                      getInquiryList();
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          width: MediaQuery.sizeOf(context).width,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            color: Color.fromARGB(31, 0, 0, 0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    inquiry.inquiryTitle,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        inquiry.inquiryAnswer.isNotEmpty ? '답변완료' : '답변대기',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: inquiry.inquiryAnswer.isNotEmpty ? Colors.blue : Colors.black,
+                                        ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      Text(
+                                        ' | '
+                                      ),
+                                      Text(
+                                         inquiry.inquiryDatetime.substring(0, 10),
+                                      ),
+                                    ]
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        )
+                      ],
+                    )
+                  );
+                }
+              )
+            ),
+          ],
+        ),
       ),
     );
   }
+}
+
+enum FilterType {
+  all,
+  complete,
+  wait,
 }

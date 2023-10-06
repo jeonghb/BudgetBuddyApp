@@ -7,6 +7,7 @@ public class InquiryVO {
 	private String inquiryMemo;
 	private String inquiryDatetime;
 	private String inquiryAnswer;
+	private String answerDatetime;
 	
 	public String getInquiryUserId() {
 		return inquiryUserId;
@@ -43,5 +44,11 @@ public class InquiryVO {
 	}
 	public void setInquiryAnswer(String inquiryAnswer) {
 		this.inquiryAnswer = inquiryAnswer;
+	}
+	public String getAnswerDatetime() {
+		return answerDatetime;
+	}
+	public void setAnswerDatetime(String answerDatetime) {
+		this.answerDatetime = answerDatetime;
 	}
 }

@@ -17,6 +17,7 @@ class TextFormFieldV1 extends StatefulWidget {
   final Widget? prefixIcon;
   final TextAlign? textAlign;
   final bool? autofocus;
+  final int? maxLines;
 
   TextFormFieldV1({
     Key? key,
@@ -36,6 +37,7 @@ class TextFormFieldV1 extends StatefulWidget {
     this.prefixIcon,
     this.textAlign = TextAlign.left,
     this.autofocus = false,
+    this.maxLines = 1,
      }) : super(key: key,);
 
   @override
@@ -106,6 +108,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
       maxLength: widget.maxLength,
       onChanged: widget.onChanged,
       onEditingComplete: widget.onEditingComplete,
+      maxLines: widget.maxLines,
     );
   }
 }

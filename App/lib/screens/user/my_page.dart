@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test/screens/department/department_leave.dart';
 import 'package:test/screens/department/department_request.dart';
-import 'package:test/screens/inquiry/inquiry_request.dart';
 import 'package:test/screens/user/password_auth_check.dart';
 import 'package:test/screens/position/position_request.dart';
 import 'package:test/screens/screen_frame.dart';
@@ -11,9 +10,9 @@ import '../../models/position.dart';
 import '../../widgets/title_text.dart';
 import '../department/department_member_list.dart';
 import '../department/department_request_list.dart';
+import '../inquiry/inquiry_home.dart';
 import '../position/position_leave.dart';
 import '../position/position_request_list.dart';
-import '../inquiry/inquiry_list.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -317,27 +316,14 @@ class _MyPage extends State<MyPage> {
               ListTile(
                 trailing: Icon(Icons.keyboard_arrow_right),
                 iconColor: Colors.black,
-                title: Text('문의하기',
+                title: Text('1:1 문의',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.black,
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => InquiryRequest()));
-                },
-              ),
-              ListTile(
-                trailing: Icon(Icons.keyboard_arrow_right),
-                iconColor: Colors.black,
-                title: Text('문의내역',
-                  style: TextStyle(
-                    fontSize: 15,
-                    color: Colors.black,
-                  ),
-                ),
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => InquiryList()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => InquiryHome()));
                 },
               ),
             ]
