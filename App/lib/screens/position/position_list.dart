@@ -53,8 +53,10 @@ class _PositionList extends State<PositionList> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      body: Expanded(
+      body: Padding(
+        padding: EdgeInsets.all(30),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
               text: '직책 목록',

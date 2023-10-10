@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
 
 import '../../models/department.dart';
@@ -52,31 +53,79 @@ class _DepartmentManage extends State<DepartmentManage> {
     departmentName.text = widget.department.departmentName;
 
     return ScreenFrame(
-      body: Column(
-        children: [
-          TitleText(
-            text: '부서 정보',
-          ),
-          TextFormFieldV1(
-            controller: departmentName,
-          ),
-          TextButton(
-            onPressed: () async {
-              save(widget.department.activationStatus);
-            },
-            child: Text(
-              '저장',
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleText(
+              text: '부서 정보',
             ),
-          ),
-          TextButton(
-            onPressed: () async {
-              save(!widget.department.activationStatus);
-            },
-            child: Text(
-              widget.department.activationStatus ? '미사용' : '사용',
+            TextFormFieldV1(
+              controller: departmentName,
             ),
-          ),
-        ]
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: ScreenUtil().setHeight(130),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Colors.black,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )
+                      ),
+                      onPressed: () async {
+                        save(!widget.department.activationStatus);
+                      },
+                      child: Text(
+                        widget.department.activationStatus ? '미사용' : '사용',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 10,
+                ),
+                Expanded(
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: ScreenUtil().setHeight(130),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        )
+                      ),
+                      onPressed: () async {
+                        save(widget.department.activationStatus);
+                      },
+                      child: Text(
+                        '저장',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ]
+        ),
       ),
     );
   }

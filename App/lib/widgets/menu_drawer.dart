@@ -295,7 +295,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                 SizedBox(
                   width: 10,
                 ),
-                AppCore.authCheck('authManage') ? 
+                AppCore.authCheck('권한 관리') ? 
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context);
@@ -356,7 +356,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                     Divider(
                       color: Colors.grey[200],
                       thickness: 2,
-                    )
+                    ),
                   ],
                 );
               }

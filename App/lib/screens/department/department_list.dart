@@ -53,39 +53,41 @@ class _DepartmentList extends State<DepartmentList> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      body: Column(
-        children: [
-          TitleText(
-            text: '부서 목록',
-          ),
-          ListView.builder(
-            physics: ScrollPhysics(),
-            shrinkWrap: true,
-            itemCount: departmentList.length,
-            itemBuilder: (BuildContext context, int index) {
-              final department = departmentList[index];
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleText(
+              text: '부서 목록',
+            ),
+            ListView.builder(
+              physics: ScrollPhysics(),
+              shrinkWrap: true,
+              itemCount: departmentList.length,
+              itemBuilder: (BuildContext context, int index) {
+                final department = departmentList[index];
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentManage(department: department,)),).then((value) {
-                    if (value == true) {
-                      getDepartmentList();
-                    }
-                  });
-                },
-                child: Column (
-                  children: [
-                    ListTile(
-                      leading: Text(department.departmentName),
-                      
-                    ),
-                    Divider(),
-                  ]
-                ),
-              );
-            }
-          )
-        ]
+                return GestureDetector(
+                  onTap: () async {
+                    await Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentManage(department: department,)),);
+                    
+                    getDepartmentList();
+                  },
+                  child: Column (
+                    children: [
+                      ListTile(
+                        leading: Text(department.departmentName),
+                        
+                      ),
+                      Divider(),
+                    ]
+                  ),
+                );
+              }
+            )
+          ]
+        ),
       ),
     );
   }

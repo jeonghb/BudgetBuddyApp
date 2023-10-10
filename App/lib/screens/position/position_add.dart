@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../app_core.dart';
@@ -91,68 +92,110 @@ class _PositionAdd extends State<PositionAdd> {
   Widget build(BuildContext context) {
 
     return ScreenFrame(
-      body: Column(
-        children: [
-          TitleText(
-            text: '직책 추가',
-          ),
-          Text(
-            '부서 선택',
-          ),
-          DropdownButton(
-            isExpanded: true,
-            value: selectDepartmentName,
-            items: departmentList.map(
-              (value) { 
-                return DropdownMenuItem<String>(
-                  value: value.departmentName,
-                  child: Text(value.departmentName),
-                  );
-                },
-              ).toList(),
-            onChanged: (value) {
-              setState(() {
-                selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
-              });
-            }
-          ),
-          Text(
-            '직책명'
-          ),
-          TextFormFieldV1(
-            controller: positionName,
-          ),
-          TextButton(
-            onPressed: () async {
-              String validationMessage = setData();
-              if (validationMessage.isEmpty) {
-                if (await positionAdd()) {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '직책 추가', '직책 추가 완료', ActionType.ok, () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  });
-                }
-                else {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
-                    Navigator.pop(context);
-                  });
-                }
-              }
-              else {
-                // ignore: use_build_context_synchronously
-                AppCore.showMessage(context, '직책 추가', validationMessage, ActionType.ok, () {
-                  Navigator.pop(context);
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleText(
+              text: '직책 추가',
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              '부서 선택',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            DropdownButton(
+              isExpanded: true,
+              value: selectDepartmentName,
+              items: departmentList.map(
+                (value) { 
+                  return DropdownMenuItem<String>(
+                    value: value.departmentName,
+                    child: Text(value.departmentName),
+                    );
+                  },
+                ).toList(),
+              onChanged: (value) {
+                setState(() {
+                  selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                 });
               }
-            },
-            child: Text(
-              '추가',
             ),
-          ),
-        ],
+            SizedBox(
+              height: 30,
+            ),
+            Text(
+              '직책명',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextFormFieldV1(
+              controller: positionName,
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: ScreenUtil().setHeight(130),
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )
+                ),
+                onPressed: () async {
+                  String validationMessage = setData();
+                  if (validationMessage.isEmpty) {
+                    if (await positionAdd()) {
+                      // ignore: use_build_context_synchronously
+                      AppCore.showMessage(context, '직책 추가', '직책 추가 완료', ActionType.ok, () {
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      });
+                    }
+                    else {
+                      // ignore: use_build_context_synchronously
+                      AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
+                        Navigator.pop(context);
+                      });
+                    }
+                  }
+                  else {
+                    // ignore: use_build_context_synchronously
+                    AppCore.showMessage(context, '직책 추가', validationMessage, ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                  }
+                },
+                child: Text(
+                  '추가',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

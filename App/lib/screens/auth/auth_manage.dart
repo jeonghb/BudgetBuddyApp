@@ -18,122 +18,93 @@ class AuthManage extends StatefulWidget {
 class _AuthManage extends State<AuthManage> {
   @override
   Widget build(BuildContext context) {
-    List<ExpansionTile> menuList = [];
-    List<ListTile> listTileList = <ListTile>[];
-    if (AppCore.authCheck('부서 추가')) {
-      listTileList.add(
-        ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text(
-            '부서 추가',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.black,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentAdd()),);
-          },
-        ),
-      );
-    }
-    if (AppCore.authCheck('부서 수정')) {
-      listTileList.add(
-        ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text(
-            '부서 수정',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.black,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentList()),);
-          },
-        ),
-      );
-    }
-    if (listTileList.isNotEmpty) {
-      menuList.add(
-        ExpansionTile(
-          title: Text(
-            '부서 관리',
-          ),
-          children: listTileList,
-        )
-      );
-    }
-    listTileList = <ListTile>[];
-    if (AppCore.authCheck('직책 추가')) {
-      listTileList.add(
-        ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text(
-            '직책 추가',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.black,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PositionAdd()),);
-          },
-        ),
-      );
-    }
-    if (AppCore.authCheck('직책 수정')) {
-      listTileList.add(
-        ListTile(
-          leading: Icon(Icons.add_box_outlined),
-          iconColor: Color.fromARGB(255, 90, 68, 223),
-          focusColor: Color.fromARGB(255, 90, 68, 223),
-          title: Text(
-            '직책 수정',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.black,
-            ),
-          ),
-          onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => PositionList()),);
-          },
-        ),
-      );
-    }
-    if (listTileList.isNotEmpty) {
-      menuList.add(
-        ExpansionTile(
-          title: Text(
-            '직책 관리',
-          ),
-          children: listTileList,
-        )
-      );
-    }
 
     return ScreenFrame(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            TitleText(
-              text: '권한 관리',
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: menuList.length,
-                itemBuilder: (context, index) {
-                  return menuList[index];
-                }
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(
+                text: '권한 관리',
               ),
-            ),
-          ],
+              Text(
+                '부서 관리',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 90, 68, 223),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              AppCore.authCheck('부서 추가') ?
+              ListTile(
+                trailing: Icon(Icons.keyboard_arrow_right),
+                iconColor: Colors.black,
+                title: Text(
+                  '부서 추가',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentAdd()),);
+                },
+              ) : SizedBox(),
+              AppCore.authCheck('부서 수정') ?
+              ListTile(
+                trailing: Icon(Icons.keyboard_arrow_right),
+                iconColor: Colors.black,
+                title: Text(
+                  '부서 수정',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentList()),);
+                },
+              ) : SizedBox(),
+              Text(
+                '직책 관리',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 90, 68, 223),
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              AppCore.authCheck('직책 추가') ?
+              ListTile(
+                trailing: Icon(Icons.keyboard_arrow_right),
+                iconColor: Colors.black,
+                title: Text(
+                  '직책 추가',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PositionAdd()),);
+                },
+              ) : SizedBox(),
+              AppCore.authCheck('직책 수정') ?
+              ListTile(
+                trailing: Icon(Icons.keyboard_arrow_right),
+                iconColor: Colors.black,
+                title: Text(
+                  '직책 수정',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PositionList()),);
+                },
+              ) : SizedBox(),
+            ],
+          ),
         ),
       ),
     );

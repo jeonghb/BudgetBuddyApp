@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:test/app_core.dart';
 import 'package:test/screens/receipt/receipt_detail.dart';
@@ -271,11 +272,27 @@ class _ReceiptList extends State<ReceiptApprovalList> {
               ),
               Expanded(
                 flex: 1,
-                child: TextButton(
-                  onPressed:() {
-                  },
-                  child: Text(
-                    '엑셀 저장',
+                child: SizedBox(
+                  width: double.infinity,
+                  height: ScreenUtil().setHeight(130),
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      )
+                    ),
+                    onPressed: () async {
+                      
+                    },
+                    child: Text(
+                      '엑셀저장',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               ),
