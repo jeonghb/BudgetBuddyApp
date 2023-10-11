@@ -123,6 +123,12 @@ class _Home extends State<Home> {
                                             Expanded(
                                               flex: 4,
                                               child: TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
+                                                },
+                                                style: ButtonStyle(
+                                                  overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                                                ),
                                                 child: Text(
                                                   '영수증 제출',
                                                   style: TextStyle(
@@ -130,9 +136,6 @@ class _Home extends State<Home> {
                                                     fontSize: 20,
                                                   ),
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
-                                                },
                                               ),
                                             ),
                                             Expanded(
@@ -152,6 +155,12 @@ class _Home extends State<Home> {
                                             Expanded(
                                               flex: 4,
                                               child: TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptApprovalList()),);
+                                                },
+                                                style: ButtonStyle(
+                                                  overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                                                ),
                                                 child: Text(
                                                   '영수증 결재',
                                                   style: TextStyle(
@@ -159,9 +168,6 @@ class _Home extends State<Home> {
                                                     fontSize: 20,
                                                   ),
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptApprovalList()),);
-                                                },
                                               ),
                                             ),
                                             Expanded(
@@ -181,6 +187,12 @@ class _Home extends State<Home> {
                                             Expanded(
                                               flex: 4,
                                               child: TextButton(
+                                                onPressed: () {
+                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
+                                                },
+                                                style: ButtonStyle(
+                                                  overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                                                ),
                                                 child: Text(
                                                   '영수증 제출내역',
                                                   style: TextStyle(
@@ -188,9 +200,6 @@ class _Home extends State<Home> {
                                                     fontSize: 20,
                                                   ),
                                                 ),
-                                                onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
-                                                },
                                               ),
                                             ),
                                             Expanded(

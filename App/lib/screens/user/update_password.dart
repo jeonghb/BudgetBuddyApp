@@ -146,11 +146,14 @@ class _UpdatePassword extends State<UpdatePassword> {
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text('확인'), 
                                     onPressed: () {
                                       AppCore.instance.logOut();
                                       Navigator.pop(context);
                                     },
+                                    style: ButtonStyle(
+                                      overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                                    ),
+                                    child: Text('확인'), 
                                   )
                                 ],
                               );

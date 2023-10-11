@@ -95,6 +95,9 @@ class _InquiryList extends State<InquiryList> {
                         filterType = FilterType.all;
                         filterInquiryList();
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       child: Text(
                         '전체',
                         style: TextStyle(
@@ -114,6 +117,9 @@ class _InquiryList extends State<InquiryList> {
                         filterType = FilterType.complete;
                         filterInquiryList();
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       child: Text(
                         '완료',
                         style: TextStyle(
@@ -133,6 +139,9 @@ class _InquiryList extends State<InquiryList> {
                         filterType = FilterType.wait;
                         filterInquiryList();
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       child: Text(
                         '대기',
                         style: TextStyle(

@@ -15,8 +15,8 @@ class AppCore extends ChangeNotifier {
   static User user = User();
   static bool isLoading = false;
 
-  void setUser(User _user) {
-    user = _user;
+  void setUser(User user) {
+    user = user;
   }
 
   User getUser() {
@@ -124,6 +124,9 @@ class AppCore extends ChangeNotifier {
           actions: actionType == ActionType.ok ? <Widget>[
             TextButton(
               onPressed: functionOnPressed,
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+              ),
               child: Text('확인'),
             ),
           ] : <Widget>[
@@ -131,10 +134,16 @@ class AppCore extends ChangeNotifier {
               onPressed: () {
                 Navigator.pop(context);
               }, 
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+              ),
               child: Text('취소')
             ),
             TextButton(
               onPressed: functionOnPressed,
+              style: ButtonStyle(
+                overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+              ),
               child: Text('확인'),
             )
           ],

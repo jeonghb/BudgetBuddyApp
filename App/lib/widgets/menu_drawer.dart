@@ -376,6 +376,9 @@ class _MenuDrawer extends State<MenuDrawer> {
                 Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
               });
             },
+            style: ButtonStyle(
+              overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+            ),
             child: Container(
               alignment: Alignment.centerLeft,
               child: Row(

@@ -166,15 +166,18 @@ class _LogInPage extends State<LogInPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           TextButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck(userType: UserType.findUser,)),
+                              );
+                            },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                            ),
                             child: Text('아이디 찾기',
                               style: TextStyle(
                                 color: Colors.black
                               ),
                             ),
-                            onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck(userType: UserType.findUser,)),
-                              );
-                            },
                           ),
                           SizedBox(
                             width: 10,
@@ -184,15 +187,18 @@ class _LogInPage extends State<LogInPage> {
                             width: 10,
                           ),
                           TextButton(
-                            child: Text('비밀번호 찾기',
-                              style: TextStyle(
-                                color: Colors.black
-                              ),
-                            ),
                             onPressed: () {
                               Navigator.push(context, MaterialPageRoute(builder: (context) => FindPassword()),
                               );
                             },
+                            style: ButtonStyle(
+                              overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                            ),
+                            child: Text('비밀번호 찾기',
+                              style: TextStyle(
+                                color: Colors.black,
+                              ),
+                            ),
                           ),
                         ],
                       )

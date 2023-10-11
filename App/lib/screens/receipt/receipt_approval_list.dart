@@ -94,6 +94,9 @@ class _ReceiptList extends State<ReceiptApprovalList> {
                           selectSubmissionStatus = 1;
                           refreshFilterReceiptList();
                         },
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                        ),
                         child: Text(
                           '미확인 ${receiptList.where((element) => element.submissionStatus == 1 && (selectDepartmentId != -1 ? element.approvalRequestDepartmentId == selectDepartmentId : true)).length}',
                           style: TextStyle(
@@ -112,6 +115,9 @@ class _ReceiptList extends State<ReceiptApprovalList> {
                           selectSubmissionStatus = 2;
                           refreshFilterReceiptList();
                         },
+                        style: ButtonStyle(
+                          overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                        ),
                         child: Text(
                           '확인 ${receiptList.where((element) => element.submissionStatus > 1 && (selectDepartmentId != -1 ? element.approvalRequestDepartmentId == selectDepartmentId : true)).length}',
                           style: TextStyle(

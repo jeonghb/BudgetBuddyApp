@@ -129,6 +129,9 @@ class _PositionRequestList extends State<PositionRequestList> {
                           filterPositionRequestList();
                         });
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       child: Text(
                         '미확인 ${positionRequestList.where((element) => element.approvalStatus == 1).length}',
                         style: TextStyle(
@@ -146,6 +149,9 @@ class _PositionRequestList extends State<PositionRequestList> {
                         selectApprovalStatus = 2;
                         filterPositionRequestList();
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       child: Text(
                         '확인 ${positionRequestList.where((element) => element.approvalStatus > 1).length}',
                         style: TextStyle(
@@ -174,6 +180,9 @@ class _PositionRequestList extends State<PositionRequestList> {
                       onPressed: () {
                         allCheck(true);
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       icon: Icon(
                         Icons.check,
                         size: 14,
@@ -196,6 +205,9 @@ class _PositionRequestList extends State<PositionRequestList> {
                       onPressed: () {
                         allCheck(false);
                       },
+                      style: ButtonStyle(
+                        overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                      ),
                       icon: Icon(
                         Icons.refresh,
                         size: 14,

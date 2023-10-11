@@ -199,6 +199,7 @@ class _FindPassword extends State<FindPassword> {
                               BorderSide(width: 1, color:  user.userSex == 'male' ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                             ),
                             minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
+                            overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
                           ),
                           onPressed: () => {
                             FocusScope.of(context).unfocus(),
@@ -225,6 +226,7 @@ class _FindPassword extends State<FindPassword> {
                               BorderSide(width: 1, color:  user.userSex == 'female' ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                             ),
                             minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
+                            overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
                           ),
                           onPressed: () => {
                             FocusScope.of(context).unfocus(),

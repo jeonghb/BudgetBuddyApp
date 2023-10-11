@@ -653,6 +653,9 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                     bankName = AppCore.instance.getUser().bankName;
                     bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber.text;
                   },
+                  style: ButtonStyle(
+                    overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                  ),
                   child: Text('내 계좌')
                 ),
               ],
