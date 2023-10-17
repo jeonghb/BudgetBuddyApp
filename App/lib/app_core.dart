@@ -15,8 +15,8 @@ class AppCore extends ChangeNotifier {
   static User user = User();
   static bool isLoading = false;
 
-  void setUser(User user) {
-    user = user;
+  void setUser(User newUser) {
+    user = newUser;
   }
 
   User getUser() {

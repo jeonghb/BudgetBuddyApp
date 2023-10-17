@@ -27,6 +27,7 @@ class User with ChangeNotifier {
   List<Department> departmentList = <Department>[];
   // Image? image;
   bool isLoginSucess = false;
+  bool isManager = false;
   
   static RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
   static RegExp passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}');
@@ -172,6 +173,7 @@ class User with ChangeNotifier {
         bankName = AppCore.getJsonString(json, 'bankName');
         bankAccountNumber.text = AppCore.getJsonString(json, 'bankAccountNumber');
         isLoginSucess = true;
+        isManager = AppCore.getJsonBool(json, 'isManager');
 
         // 부서, 직책 조회
         address = '/getLoginUserDepartmentPositionList';

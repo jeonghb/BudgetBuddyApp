@@ -1,11 +1,18 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:test/app_core.dart';
 import 'package:test/screens/receipt/receipt_approval_list.dart';
 import 'package:test/screens/screen_frame.dart';
+import 'package:test/widgets/title_text.dart';
 
+import '../models/news.dart';
 import '../models/receipt.dart';
+import '../models/response_data.dart';
 import 'receipt/receipt_request.dart';
 import 'receipt/receipt_request_list.dart';
+import 'news/news_detail.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,12 +23,41 @@ class Home extends StatefulWidget {
 
 class _Home extends State<Home> {
   DateTime? curruentBackPressTime;
+  List<News> newsList = <News>[];
+
+  void initstate() {
+    super.initState();
+
+    getNewsTopList();
+  }
+
+  Future<void> getNewsTopList() async {
+    String address = '/getNewsTopList';
+    Map<String, dynamic> body = {
+      'departmentIdList': AppCore.instance.getUser().departmentList.map((e) => e.departmentId),
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200) {
+      List<News> tempList = <News>[];
+
+      for (var json in jsonDecode(responseData.body)) {
+        News news = News();
+        news.setData(json);
+
+        tempList.add(news);
+      }
+
+      setState(() {
+        newsList = tempList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      isAppBar: true,
-      isDrawer: true,
       isAlarm: true,
       body: WillPopScope(
         onWillPop: () async {
@@ -34,6 +70,7 @@ class _Home extends State<Home> {
           return true;
         },
         child : Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Container(
@@ -230,11 +267,66 @@ class _Home extends State<Home> {
               ),
             ),
             Expanded(
-              child: Container(
-                width: MediaQuery.sizeOf(context).width,
-                color: Colors.white,
+              child: Padding(
+                padding: EdgeInsets.all(30),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TitleText(
+                      text: '소식',
+                    ),
+                    ListView.builder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: newsList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final news = newsList[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(id: news.id)),).then((value) {
+                              getNewsTopList();
+                            });
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                width: MediaQuery.sizeOf(context).width,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                                  color: Color.fromARGB(31, 0, 0, 0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Text(
+                                            news.title
+                                          ),
+                                          Text(
+                                            news.regDatetime,
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              )
+                            ]
+                          )
+                        );
+                      }
+                    ),
+                  ],
+                ),
               ),
-            ),
+            )
           ],
         )
       ),

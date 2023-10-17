@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:test/screens/budget/budget_add.dart';
 import 'package:test/screens/budget/budget_list.dart';
 import 'package:test/screens/first_run.dart';
+import 'package:test/screens/news/news_add.dart';
 
 import '../app_core.dart';
 import '../models/department.dart';
@@ -10,6 +11,7 @@ import '../models/receipt.dart';
 import '../screens/auth/auth_manage.dart';
 import '../screens/budget/budget_type_manage.dart';
 import '../screens/budget/budget_year_setting.dart';
+import '../screens/news/news_list.dart';
 import '../screens/receipt/receipt_approval_list.dart';
 import '../screens/receipt/receipt_request_list.dart';
 import '../screens/user/my_page.dart';
@@ -66,12 +68,12 @@ class _MenuDrawer extends State<MenuDrawer> {
         ),
       );
     }
-    if (AppCore.authCheck('영수증 제출 내역')) {
+    if (AppCore.authCheck('영수증 제출내역')) {
       menuList.add(
         ListTile(
           visualDensity: VisualDensity(vertical: -4),
           title: Text(
-            '·  영수증 제출 내역',
+            '·  영수증 제출내역',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,
@@ -164,6 +166,40 @@ class _MenuDrawer extends State<MenuDrawer> {
           ),
           onTap: () {
             Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeManage()));
+          },
+        ),
+      );
+    }
+    if (AppCore.authCheck('소식 추가')) {
+      menuList.add(
+        ListTile(
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  소식 추가',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => NewsAdd()));
+          },
+        ),
+      );
+    }
+    if (AppCore.authCheck('소식 목록')) {
+      menuList.add(
+        ListTile(
+          visualDensity: VisualDensity(vertical: -4),
+          title: Text(
+            '·  소식 목록',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.black,
+            )
+          ),
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => NewsList()));
           },
         ),
       );

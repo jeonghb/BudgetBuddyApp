@@ -112,6 +112,16 @@
 		<url-pattern>/inquiryRequest</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getInquiryList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/newsAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/newsEdit</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/newsDelete</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getNewsData</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getNewsTopList</url-pattern>
 		
 		
 	</servlet-mapping>

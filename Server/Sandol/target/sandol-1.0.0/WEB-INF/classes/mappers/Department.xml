@@ -24,7 +24,7 @@
 		<![CDATA[CALL get_department_request_list(#{userId})]]>
 	</select>
 	<insert id="departmentRequestFinish" parameterType="departmentRequestVO">
-    	<![CDATA[CALL department_request_finish(#{requestUserId}, #{requestDepartmentId}, #{approvalUserId}, #{approvalStatus})]]>
+    	<![CDATA[CALL department_request_finish(#{id}, #{requestUserId}, #{requestDepartmentId}, #{approvalUserId}, #{approvalStatus})]]>
     </insert>
 	<select id="getDepartmentMemberList" resultType="departmentMemberVO">
 		<![CDATA[CALL get_department_member_list(#{userId})]]>
