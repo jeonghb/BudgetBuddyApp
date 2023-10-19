@@ -21,19 +21,19 @@ public class NewsController {
 	
 	@RequestMapping(value = "/newsAdd", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean newsAdd(NewsVO _newsVO) {
+	public boolean newsAdd(@RequestBody NewsVO _newsVO) {
 		return newsService.newsAdd(_newsVO);
 	}
 	
 	@RequestMapping(value = "/newsEdit", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean newsEdit(NewsVO _newsVO) {
+	public boolean newsEdit(@RequestBody NewsVO _newsVO) {
 		return newsService.newsEdit(_newsVO);
 	}
 	
 	@RequestMapping(value = "/newsDelete", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean newsDelete(NewsVO _newsVO) {
+	public boolean newsDelete(@RequestBody NewsVO _newsVO) {
 		return newsService.newsDelete(_newsVO);
 	}
 	
@@ -46,6 +46,12 @@ public class NewsController {
 	@RequestMapping(value = "/getNewsTopList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<NewsVO> getNewsTopList(@RequestBody Map<String, List<Integer>> _departmentIdMap) {
-		return newsService.getNewsTopList(_departmentIdMap.get("departmentId"));
+		return newsService.getNewsTopList(_departmentIdMap.get("departmentIdList"));
+	}
+	
+	@RequestMapping(value = "/getNewsList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<NewsVO> getNewsList(@RequestBody Map<String, List<Integer>> _departmentIdMap) {
+		return newsService.getNewsList(_departmentIdMap.get("departmentIdList"));
 	}
 }

@@ -67,4 +67,17 @@ public class NewsDAOImp implements NewsDAO {
 		
 		return newsList.stream().limit(3).collect(Collectors.toList());
 	}
+	
+	@Override
+	public List<NewsVO> getNewsList(List<Integer> _departmentIdList) {
+		List<NewsVO> newsList = new ArrayList<NewsVO>();
+		
+		for (int departmentId : _departmentIdList) {
+			newsList.addAll(tmp.selectList("com.sandol.mapper.app.getNewsList", departmentId));
+		}
+		
+		Collections.sort(newsList, (a, b) -> b.getRegDatetime().compareTo(a.getRegDatetime()));
+		
+		return newsList.stream().limit(3).collect(Collectors.toList());
+	}
 }

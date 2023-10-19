@@ -13,6 +13,7 @@ public class NewsVO {
 	private String delUserId;
 	private String delUserName;
 	private String delDatetime;
+	private int use;
 	
 	public int getId() {
 		return id;
@@ -85,5 +86,11 @@ public class NewsVO {
 	}
 	public void setDelDatetime(String delDatetime) {
 		this.delDatetime = delDatetime;
+	}
+	public int getUse() {
+		return use;
+	}
+	public void setUse(int use) {
+		this.use = use;
 	}
 }

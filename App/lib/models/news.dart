@@ -37,7 +37,7 @@ class News {
       'departmentId': departmentId,
       'title': title,
       'content': content,
-      'regUserId': AppCore.instance.getUser().userId,
+      'regUserId': AppCore.instance.getUser().userId.text,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

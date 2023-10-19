@@ -170,12 +170,12 @@ class _MenuDrawer extends State<MenuDrawer> {
         ),
       );
     }
-    if (AppCore.authCheck('소식 추가')) {
+    if (AppCore.authCheck('소식 등록')) {
       menuList.add(
         ListTile(
           visualDensity: VisualDensity(vertical: -4),
           title: Text(
-            '·  소식 추가',
+            '·  소식 등록',
             style: TextStyle(
               fontSize: 15,
               color: Colors.black,

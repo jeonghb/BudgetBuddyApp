@@ -25,7 +25,8 @@ class _Home extends State<Home> {
   DateTime? curruentBackPressTime;
   List<News> newsList = <News>[];
 
-  void initstate() {
+  @override
+  void initState() {
     super.initState();
 
     getNewsTopList();
@@ -34,7 +35,7 @@ class _Home extends State<Home> {
   Future<void> getNewsTopList() async {
     String address = '/getNewsTopList';
     Map<String, dynamic> body = {
-      'departmentIdList': AppCore.instance.getUser().departmentList.map((e) => e.departmentId),
+      'departmentIdList': AppCore.instance.getUser().departmentList.map((e) => e.departmentId).toList(),
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -292,7 +293,7 @@ class _Home extends State<Home> {
                             children: [
                               Container(
                                 width: MediaQuery.sizeOf(context).width,
-                                height: 80,
+                                height: 55,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.all(Radius.circular(10)),
                                   color: Color.fromARGB(31, 0, 0, 0),
@@ -300,23 +301,47 @@ class _Home extends State<Home> {
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                                   child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Text(
-                                            news.title
-                                          ),
-                                          Text(
-                                            news.regDatetime,
-                                          ),
-                                        ],
-                                      )
+                                      Expanded(
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                news.title,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                            ),
+                                            Text(
+                                              news.regDatetime.substring(0, 10),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            news.content,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                            ),
+                                          )
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
                               SizedBox(
-                                height: 20,
+                                height: 10,
                               )
                             ]
                           )

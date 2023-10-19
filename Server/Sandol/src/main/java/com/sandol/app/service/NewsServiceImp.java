@@ -39,4 +39,9 @@ public class NewsServiceImp implements NewsService {
 	public List<NewsVO> getNewsTopList(List<Integer> _departmentIdList) {
 		return dao.getNewsTopList(_departmentIdList);
 	}
+	
+	@Override
+	public List<NewsVO> getNewsList(List<Integer> _departmentIdList) {
+		return dao.getNewsList(_departmentIdList);
+	}
 }

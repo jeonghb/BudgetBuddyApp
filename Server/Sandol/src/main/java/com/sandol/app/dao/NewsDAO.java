@@ -15,4 +15,6 @@ public interface NewsDAO {
 	public NewsVO getNewsData(int _id);
 	
 	public List<NewsVO> getNewsTopList(List<Integer> _departmentIdList);
+	
+	public List<NewsVO> getNewsList(List<Integer> _departmentIdList);
 }

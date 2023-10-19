@@ -122,7 +122,10 @@
 		<url-pattern>/getNewsData</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getNewsTopList</url-pattern>
-		
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getNewsList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/reportAdd</url-pattern>
 		
 	</servlet-mapping>
 
