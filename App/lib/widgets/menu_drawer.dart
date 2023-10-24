@@ -13,6 +13,7 @@ import '../screens/budget/budget_type_manage.dart';
 import '../screens/budget/budget_year_setting.dart';
 import '../screens/news/news_list.dart';
 import '../screens/receipt/receipt_approval_list.dart';
+import '../screens/receipt/receipt_calculate1.dart';
 import '../screens/receipt/receipt_request_list.dart';
 import '../screens/user/my_page.dart';
 import '../screens/receipt/receipt_request.dart';
@@ -131,7 +132,7 @@ class _MenuDrawer extends State<MenuDrawer> {
             )
           ),
           onTap: () {
-            // Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate(departmentId: AppCore.instance.getUser().departmentIdList)));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate1()));
           },
         ),
       );

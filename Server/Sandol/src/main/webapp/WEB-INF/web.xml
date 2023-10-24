@@ -126,6 +126,14 @@
 		<url-pattern>/getNewsList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/reportAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getMonthCalculateStatus</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getMonthCalculateData</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/monthCalculateAdd</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/monthCalculateUpdate</url-pattern>
 		
 	</servlet-mapping>
 

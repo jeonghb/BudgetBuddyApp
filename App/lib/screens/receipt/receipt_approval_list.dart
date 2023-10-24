@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:test/app_core.dart';
 import 'package:test/screens/receipt/receipt_detail.dart';
@@ -69,6 +68,31 @@ class _ReceiptList extends State<ReceiptApprovalList> {
     setState(() {
       filterReceiptList.sort((a, b) => a.paymentDatetime.compareTo(b.paymentDatetime));
     });
+  }
+  
+  Future<List<Receipt>> getReceiptApprovalList() async {
+
+    String address = '/getReceiptApprovalList';
+    Map<String, dynamic> body = {
+      'userId': AppCore.instance.getUser().userId.text,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
+      List<Receipt> tempList = [];
+      
+      for (Map<String, dynamic> json in jsonDecode(responseData.body)) {
+        Receipt receipt = Receipt();
+        receipt.setData(json);
+        
+        tempList.add(receipt);
+      }
+
+      return tempList;
+    }
+
+    return [];
   }
 
   @override
@@ -276,61 +300,10 @@ class _ReceiptList extends State<ReceiptApprovalList> {
                   }
                 )
               ),
-              Expanded(
-                flex: 1,
-                child: SizedBox(
-                  width: double.infinity,
-                  height: ScreenUtil().setHeight(130),
-                  child: TextButton(
-                    style: TextButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 90, 68, 223),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      )
-                    ),
-                    onPressed: () async {
-                      
-                    },
-                    child: Text(
-                      '엑셀저장',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ]
           )
         )
       )
     );
   }
-}
-  
-Future<List<Receipt>> getReceiptApprovalList() async {
-
-  String address = '/getReceiptApprovalList';
-  Map<String, dynamic> body = {
-    'userId': AppCore.instance.getUser().userId.text,
-  };
-
-  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
-
-  if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
-    List<Receipt> tempList = [];
-    
-    for (Map<String, dynamic> json in jsonDecode(responseData.body)) {
-      Receipt receipt = Receipt();
-      receipt.setData(json);
-      
-      tempList.add(receipt);
-    }
-
-    return tempList;
-  }
-
-  return [];
 }

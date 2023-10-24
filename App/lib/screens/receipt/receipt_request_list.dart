@@ -46,6 +46,38 @@ class _ReceiptRequestList extends State<ReceiptRequestList> {
     });
     refreshFilterReceiptList();
   }
+  
+  Future<List<Receipt>> getReceiptRequestList(List<Department> departmentList) async {
+    String address = '/getReceiptRequestList';
+    Map<String, dynamic> body = {
+      'userId': AppCore.instance.getUser().userId.text,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+
+    if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
+      List<Receipt> tempList = [];
+      
+      for (Map<String, dynamic> json in jsonDecode(responseData.body)) {
+        Receipt receipt = Receipt();
+        receipt.setData(json);
+
+        if (departmentList.firstWhereOrNull((element) => element.departmentId == receipt.approvalRequestDepartmentId) == null) {
+          Department department = Department();
+          department.departmentId = receipt.approvalRequestDepartmentId;
+          department.departmentName = receipt.approvalRequestDepartmentName;
+
+          departmentList.add(department);
+        }
+        
+        tempList.add(receipt);
+      }
+
+      return tempList;
+    }
+
+    return [];
+  }
 
   void refreshFilterReceiptList() {
     if (selectDepartmentId == -1) {
@@ -286,36 +318,4 @@ class _ReceiptRequestList extends State<ReceiptRequestList> {
       )
     );
   }
-}
-  
-Future<List<Receipt>> getReceiptRequestList(List<Department> departmentList) async {
-  String address = '/getReceiptRequestList';
-  Map<String, dynamic> body = {
-    'userId': AppCore.instance.getUser().userId.text,
-  };
-
-  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
-
-  if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
-    List<Receipt> tempList = [];
-    
-    for (Map<String, dynamic> json in jsonDecode(responseData.body)) {
-      Receipt receipt = Receipt();
-      receipt.setData(json);
-
-      if (departmentList.firstWhereOrNull((element) => element.departmentId == receipt.approvalRequestDepartmentId) == null) {
-        Department department = Department();
-        department.departmentId = receipt.approvalRequestDepartmentId;
-        department.departmentName = receipt.approvalRequestDepartmentName;
-
-        departmentList.add(department);
-      }
-      
-      tempList.add(receipt);
-    }
-
-    return tempList;
-  }
-
-  return [];
 }

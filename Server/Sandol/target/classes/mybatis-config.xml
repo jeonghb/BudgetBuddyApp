@@ -26,6 +26,7 @@
    		<typeAlias alias="inquiryVO" type="com.sandol.app.vo.InquiryVO"/>
    		<typeAlias alias="newsVO" type="com.sandol.app.vo.NewsVO"/>
    		<typeAlias alias="reportVO" type="com.sandol.app.vo.ReportVO"/>
+   		<typeAlias alias="monthCalculateVO" type="com.sandol.app.vo.MonthCalculateVO"/>
 	</typeAliases>
 	
 </configuration>

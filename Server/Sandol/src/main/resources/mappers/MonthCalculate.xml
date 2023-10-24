@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+	
+	<select id="getMonthCalculateStatus" resultType="Integer" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_month_calculate_status(#{departmentId}, #{yearMonth})]]>
+	</select>
+	<select id="getBudgetYearAmount" resultType="Integer" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_budget_year_amount(#{departmentId}, #{yearMonth})]]>
+	</select>
+	<select id="getYearAccumulateAmount" resultType="Integer" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_year_accumulate_amount(#{departmentId}, #{yearMonth})]]>
+	</select>
+	<select id="getReceiptMonthAmount" resultType="Integer" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_receipt_month_amount(#{departmentId}, #{yearMonth})]]>
+	</select>
+	<insert id="monthCalculateAdd" parameterType="monthCalculateVO">
+		<![CDATA[CALL month_calculate_add(#{departmentId}, #{yearMonth}, #{monthAmount}, #{regUserId})]]>
+	</insert>
+	<update id="monthCalculateUpdate" parameterType="monthCalculateVO">
+		<![CDATA[CALL month_calculate_update(#{departmentId}, #{yearMonth}, #{monthAmount}, #{modUserId})]]>
+	</update>
+    
+</mapper>

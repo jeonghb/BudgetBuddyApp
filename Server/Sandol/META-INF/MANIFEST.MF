@@ -7,3 +7,5 @@ Export-Package: com.sandol.app.controller,
  com.sandol.app.dao,
  com.sandol.app.service,
  com.sandol.app.vo
+Automatic-Module-Name: Sandol
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
