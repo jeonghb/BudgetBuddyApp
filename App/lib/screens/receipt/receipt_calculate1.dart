@@ -48,8 +48,8 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
       context: context,
       initialDate: selectDate,
       firstDate: DateTime(2023),
-      lastDate: DateTime(2050),)
-    );
+      lastDate: DateTime(2050),
+    ));
     
     if (picked != null && '${picked.year}-${picked.month}' != '${selectDate.year}-${selectDate.month}') {
       setState(() {

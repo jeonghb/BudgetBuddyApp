@@ -165,6 +165,20 @@ class _NewsDetail extends State<NewsDetail> {
             Divider(
               color: Colors.black,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  news.regUserName,
+                ),
+                Text(
+                  news.regDatetime.substring(0, 16),
+                ),
+              ],
+            ),
+            Divider(
+              color: Colors.black,
+            ),
             Text(
               news.content,
             ),

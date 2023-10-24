@@ -65,6 +65,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TitleText(
               text: '월별 정산',

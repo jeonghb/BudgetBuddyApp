@@ -96,31 +96,57 @@ class _NewsList extends State<NewsList> {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        news.title,
-                                        style: TextStyle(
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.bold,
+                                      Flexible(
+                                        child: Text(
+                                          news.title,
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                          ),
                                         ),
                                       ),
-                                      Text(
-                                        news.regDatetime.substring(0, 10),
+                                      Container(
+                                        margin: EdgeInsets.fromLTRB(2, 0, 2, 0),
+                                        padding: EdgeInsets.fromLTRB(8, 0, 8, 0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                                          color: Color.fromARGB(236, 214, 215, 252),
+                                        ),
+                                        child: Text(
+                                          news.departmentName,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Expanded(
-                                  child: Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      news.content.contains('\n') ?
-                                      '${news.content.split('\n').first}...' :
-                                      news.content,
-                                      style: TextStyle(
-                                        fontSize: 14,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Flexible(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            news.content,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                              fontSize: 10,
+                                            ),
+                                          )
+                                        ),
                                       ),
-                                    )
-                                  ),
+                                      Text(
+                                        news.regDatetime.substring(0, 10),
+                                      )
+                                    ],
+                                  )
                                 ),
                               ],
                             ),
