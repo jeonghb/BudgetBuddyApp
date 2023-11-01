@@ -14,8 +14,11 @@
 	<select id="getYearAccumulateAmount" resultType="Integer" parameterType="monthCalculateVO">
 		<![CDATA[CALL get_year_accumulate_amount(#{departmentId}, #{yearMonth})]]>
 	</select>
-	<select id="getReceiptMonthAmount" resultType="Integer" parameterType="monthCalculateVO">
-		<![CDATA[CALL get_receipt_month_amount(#{departmentId}, #{yearMonth})]]>
+	<select id="getMonthBudgetAmount" resultType="Integer" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_month_budget_amount(#{departmentId}, #{yearMonth})]]>
+	</select>
+	<select id="getMonthReceiptAmount" resultType="Integer" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_month_receipt_amount(#{departmentId}, #{yearMonth})]]>
 	</select>
 	<insert id="monthCalculateAdd" parameterType="monthCalculateVO">
 		<![CDATA[CALL month_calculate_add(#{departmentId}, #{yearMonth}, #{monthAmount}, #{regUserId})]]>

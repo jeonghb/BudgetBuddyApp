@@ -27,8 +27,10 @@ public class MonthCalculateDAOImp implements MonthCalculateDAO {
 		_monthCalculateVO.setYearBudgetAmount(tmp.selectOne("com.sandol.mapper.app.getBudgetYearAmount", _monthCalculateVO));
 		// 조회 연도 누적 사용금액 프로시저 호출
 		_monthCalculateVO.setYearAccumulateAmount(tmp.selectOne("com.sandol.mapper.app.getYearAccumulateAmount", _monthCalculateVO));
+		// 조회 월 추가된 예산 총 금액
+		_monthCalculateVO.setMonthBudgetAmount(tmp.selectOne("com.sandol.mapper.app.getMonthBudgetAmount", _monthCalculateVO));
 		// 조회 월 결재된 영수증 전체 사용금액 조회
-		_monthCalculateVO.setMonthAmount(tmp.selectOne("com.sandol.mapper.app.getReceiptMonthAmount", _monthCalculateVO));
+		_monthCalculateVO.setMonthReceiptAmount(tmp.selectOne("com.sandol.mapper.app.getMonthReceiptAmount", _monthCalculateVO));
 		
 		return _monthCalculateVO;
 	}

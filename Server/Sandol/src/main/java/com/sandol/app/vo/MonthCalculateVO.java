@@ -2,10 +2,12 @@ package com.sandol.app.vo;
 
 public class MonthCalculateVO {
 	private int departmentId;
+	private String departmentName;
 	private String yearMonth;
 	private int yearBudgetAmount;
 	private int yearAccumulateAmount;
-	private int monthAmount;
+	private int monthBudgetAmount;
+	private int monthReceiptAmount;
 	private String regUserId;
 	private String regUserName;
 	private String modUserId;
@@ -17,6 +19,12 @@ public class MonthCalculateVO {
 	}
 	public void setDepartmentId(int departmentId) {
 		this.departmentId = departmentId;
+	}
+	public String getDepartmentName() {
+		return departmentName;
+	}
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
 	}
 	public String getYearMonth() {
 		return yearMonth;
@@ -36,11 +44,17 @@ public class MonthCalculateVO {
 	public void setYearAccumulateAmount(int yearAccumulateAmount) {
 		this.yearAccumulateAmount = yearAccumulateAmount;
 	}
-	public int getMonthAmount() {
-		return monthAmount;
+	public int getMonthBudgetAmount() {
+		return monthBudgetAmount;
 	}
-	public void setMonthAmount(int monthAmount) {
-		this.monthAmount = monthAmount;
+	public void setMonthBudgetAmount(int monthBudgetAmount) {
+		this.monthBudgetAmount = monthBudgetAmount;
+	}
+	public int getMonthReceiptAmount() {
+		return monthReceiptAmount;
+	}
+	public void setMonthReceiptAmount(int monthReceiptAmount) {
+		this.monthReceiptAmount = monthReceiptAmount;
 	}
 	public String getRegUserId() {
 		return regUserId;

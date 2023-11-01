@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class TextFormFieldV1 extends StatefulWidget {
   final AutovalidateMode? autovalidateMode;
@@ -109,6 +110,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
       onChanged: widget.onChanged,
       onEditingComplete: widget.onEditingComplete,
       maxLines: widget.maxLines,
+      maxLengthEnforcement: MaxLengthEnforcement.none,
     );
   }
 }
