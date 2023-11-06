@@ -32,7 +32,7 @@ class _InquiryRequest extends State<InquiryRequest> {
   Future<bool> inquiryRequest() async {
     String address = '/inquiryRequest';
     Map<String, dynamic> body = {
-      'inquiryUserId': AppCore.instance.getUser().userId.text,
+      'inquiryUserId': AppCore.instance.getUser().userId,
       'inquiryTitle': inquiryTitle.text,
       'inquiryMemo': inquiryMemo.text,
     };

@@ -55,7 +55,7 @@ class Report {
       'type': getType(),
       'typeId': typeId,
       'content': content,
-      'reportUserId': AppCore.instance.getUser().userId.text,
+      'reportUserId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

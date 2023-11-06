@@ -58,7 +58,7 @@ class _PositionRequest extends State<PositionRequest> {
   Future<void> getRequestPossibilityDepartmentPositionList() async {
     String address = '/getRequestPossibilityDepartmentPositionList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -83,7 +83,7 @@ class _PositionRequest extends State<PositionRequest> {
   Future<bool> positionRequest(int selectDepartmentId, int selectPositiontId) async {
     String address = '/positionRequest';
     Map<String, dynamic> body = {
-      'requestUserId' : AppCore.instance.getUser().userId.text,
+      'requestUserId' : AppCore.instance.getUser().userId,
       'requestPositionId' : selectPositiontId,
     };
 

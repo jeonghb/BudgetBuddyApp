@@ -9,7 +9,6 @@ import '../../widgets/title_text.dart';
 
 class UserRegist extends StatefulWidget {
   final User user;
-  
   UserRegist({super.key, required this.user});
 
   @override
@@ -17,6 +16,19 @@ class UserRegist extends StatefulWidget {
 }
 
 class _UserRegist extends State<UserRegist> {
+  TextEditingController userId = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
+  TextEditingController userPasswordCheck = TextEditingController();
+  TextEditingController userEmail = TextEditingController();
+  TextEditingController userPhoneNumber = TextEditingController();
+
+  void setData() {
+    widget.user.userId = userId.text;
+    widget.user.userPassword = userPassword.text;
+    widget.user.userPasswordCheck = userPasswordCheck.text;
+    widget.user.userEmail = userEmail.text;
+    widget.user.userPhoneNumber = userPhoneNumber.text;
+  }
 
   String validationCheck() {
     if (!widget.user.idRegexCheck()) {
@@ -73,7 +85,7 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: widget.user.userId,
+                    controller: userId,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return widget.user.idCheck();},
                     onEditingComplete: () {
@@ -101,7 +113,7 @@ class _UserRegist extends State<UserRegist> {
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
-                    controller: widget.user.userPassword,
+                    controller: userPassword,
                     textInputAction: TextInputAction.next,
                     validator: (value) { 
                       return widget.user.passwordCheck();
@@ -133,7 +145,7 @@ class _UserRegist extends State<UserRegist> {
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return widget.user.passwordEqualCheck();},
-                    controller: widget.user.userPasswordCheck,
+                    controller: userPasswordCheck,
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                       FocusScope.of(context).nextFocus();
@@ -158,7 +170,7 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.emailAddress,
-                    controller: widget.user.userEmail,
+                    controller: userEmail,
                     textInputAction: TextInputAction.next,
                     validator: (value) { return widget.user.emailCheck();},
                     onEditingComplete: () {
@@ -185,7 +197,7 @@ class _UserRegist extends State<UserRegist> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.phone,
-                    controller: widget.user.userPhoneNumber,
+                    controller: userPhoneNumber,
                     textInputAction: TextInputAction.done,
                     validator: (value) { return widget.user.phoneNumberCheck();},
                   ),
@@ -205,6 +217,7 @@ class _UserRegist extends State<UserRegist> {
                         color: Colors.white
                       ),),
                       onPressed: () {
+                        setData();
                         String validationMessage = validationCheck();
                         if (validationMessage.isNotEmpty) {
                           AppCore.showMessage(context, '회원가입', validationMessage, ActionType.ok, () {

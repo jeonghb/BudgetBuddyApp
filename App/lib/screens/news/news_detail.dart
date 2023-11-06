@@ -126,7 +126,7 @@ class _NewsDetail extends State<NewsDetail> {
                     },
                     itemBuilder: (BuildContext context) {
                       // 작성자 본인일 경우
-                      if (news.regUserId == AppCore.instance.getUser().userId.text.toString()) {
+                      if (news.regUserId == AppCore.instance.getUser().userId) {
                         return ['수정', '삭제'].map((String choice) {
                           return PopupMenuItem<String>(
                             value: choice,

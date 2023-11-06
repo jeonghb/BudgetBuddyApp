@@ -12,22 +12,41 @@ import '../../widgets/title_text.dart';
 import '../../widgets/top_bar.dart';
 
 class UpdatePassword extends StatefulWidget {
-  final User user;
-
-  const UpdatePassword({super.key, required this.user});
+  const UpdatePassword({super.key});
 
   @override
   State<StatefulWidget> createState() => _UpdatePassword();
 }
 
 class _UpdatePassword extends State<UpdatePassword> {
+  User user = User();
+  TextEditingController userPassword = TextEditingController();
+  TextEditingController userPasswordCheck = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    user.userId = AppCore.instance.getUser().userId;
+  }
 
   bool validationCheck() {
-    if (!widget.user.passwordRegexCheck() || !widget.user.passwordSameCheck()) {
+    if (!user.passwordRegexCheck() || !user.passwordSameCheck()) {
       return false;
     }
 
     return true;
+  }
+
+  Future<ResponseData> userUpdatePassword() async {
+    setData();
+
+    return await user.userUpdatePassword();
+  }
+
+  void setData() {
+    user.userPassword = userPassword.text;
+    user.userPasswordCheck = userPasswordCheck.text;
   }
 
   @override
@@ -64,10 +83,10 @@ class _UpdatePassword extends State<UpdatePassword> {
                     obscureText: true,
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
-                    controller: widget.user.userPassword,
+                    controller: userPassword,
                     textInputAction: TextInputAction.next,
                     validator: (value) { 
-                      return widget.user.passwordCheck();
+                      return user.passwordCheck();
                     },
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
@@ -95,8 +114,7 @@ class _UpdatePassword extends State<UpdatePassword> {
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return widget.user.passwordEqualCheck();},
-                    controller: widget.user.userPasswordCheck,
+                    controller: userPasswordCheck,
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                       FocusScope.of(context).nextFocus();
@@ -126,13 +144,13 @@ class _UpdatePassword extends State<UpdatePassword> {
                           return;
                         }
 
-                        ResponseData responseData = await widget.user.userUpdatePassword();
+                        ResponseData responseData = await userUpdatePassword();
                         if (responseData.statusCode == 200 && responseData.body.isEmpty) {
                           AppCore.showMessage(context, '비밀번호 변경', '일치하는 정보가 없습니다.', ActionType.ok, () {
                             Navigator.pop(context);
                           });
                         }
-                        else if (responseData.statusCode == 200 && widget.user.userId.text.isNotEmpty) {
+                        else if (responseData.statusCode == 200 && AppCore.instance.getUser().userId.isNotEmpty) {
                           await showDialog(
                             context: context, 
                             builder: (BuildContext context) {
@@ -147,8 +165,8 @@ class _UpdatePassword extends State<UpdatePassword> {
                                 actions: <Widget>[
                                   TextButton(
                                     onPressed: () {
-                                      AppCore.instance.logOut();
                                       Navigator.pop(context);
+                                      AppCore.instance.logOut();
                                     },
                                     style: ButtonStyle(
                                       overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),

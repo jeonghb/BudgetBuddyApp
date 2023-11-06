@@ -30,7 +30,7 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
   void getDepartmentRequestList() async {
     String address = '/getDepartmentRequestList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

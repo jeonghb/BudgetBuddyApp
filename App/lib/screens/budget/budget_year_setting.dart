@@ -44,7 +44,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
   Future<void> getBudgetYearList() async {
     String address = '/getBudgetYearList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

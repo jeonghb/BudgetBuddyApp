@@ -236,7 +236,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                   child: Row(
                     children: [
                       Text(
-                        '  ${AppCore.instance.getUser().userName.text}',
+                        '  ${AppCore.instance.getUser().userName}',
                         style: TextStyle(
                           fontSize: 30,
                           fontWeight: FontWeight.bold,

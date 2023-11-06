@@ -20,19 +20,42 @@ class UserRegistCheck extends StatefulWidget {
 
 class _UserRegistCheck extends State<UserRegistCheck> {
   User user = User();
+  TextEditingController userName = TextEditingController();
+  TextEditingController userBirthdayYear = TextEditingController();
+  TextEditingController userBirthdayMonth = TextEditingController();
+  TextEditingController userBirthdayDay = TextEditingController();
+  
   String birthday = '';
   bool male = true;
   bool female = false;
   late List<bool> isSelected = [male, female];
 
+  @override
+  void initState() {
+    super.initState();
+
+    user.userId = AppCore.instance.getUser().userId;
+  }
+
   String userRegistCheckValidationCheck() {
-    if (user.userBirthdayYear.text.trim().replaceAll('0', '').length != 4
-      || user.userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
-      || user.userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
+    if (userBirthdayYear.text.trim().replaceAll('0', '').length != 4
+      || userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
+      || userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
       return '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요';
     }
 
     return '';
+  }
+
+  Future<ResponseData> isUserCheck() async {
+    return await user.isUserCheck();
+  }
+
+  void setData() {
+    user.userName = userName.text;
+    user.userBirthdayYear = userBirthdayYear.text;
+    user.userBirthdayMonth = userBirthdayMonth.text;
+    user.userBirthdayDay = userBirthdayDay.text;
   }
 
   @override
@@ -66,9 +89,8 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                   TextFormFieldV1(
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: user.userName,
+                    controller: userName,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return user.nameCheck();},
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                       FocusScope.of(context).nextFocus();
@@ -106,7 +128,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           ),
                           maxLength: 4,
                           keyboardType: TextInputType.number,
-                          controller: user.userBirthdayYear,
+                          controller: userBirthdayYear,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
@@ -132,7 +154,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           ),
                           maxLength: 2,
                           keyboardType: TextInputType.number,
-                          controller: user.userBirthdayMonth,
+                          controller: userBirthdayMonth,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
@@ -158,7 +180,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           ),
                           maxLength: 2,
                           keyboardType: TextInputType.number,
-                          controller: user.userBirthdayDay,
+                          controller: userBirthdayDay,
                           textInputAction: TextInputAction.done,
                           onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
@@ -180,8 +202,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           ),
                           onPressed: () => {
                             FocusScope.of(context).unfocus(),
-                            user.userSex = 'male',
-                            setState(() => user.userSex)
+                            setState(() => user.userSex = 'male')
                           },
                           child: Text('남',
                             style: TextStyle(
@@ -207,8 +228,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           ),
                           onPressed: () => {
                             FocusScope.of(context).unfocus(),
-                            user.userSex = 'female',
-                            setState(() => user.userSex)
+                            setState(() => user.userSex = 'female')
                           },
                           child: Text('여',
                             style: TextStyle(
@@ -242,8 +262,10 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           return;
                         }
                         
-                        ResponseData responseData = await user.isUserCheck();
-                        if (responseData.statusCode == 200 && user.userId.text.isEmpty) {
+                        setData();
+
+                        ResponseData responseData = await isUserCheck();
+                        if (responseData.statusCode == 200 && user.userId.isEmpty) {
                           switch (widget.userType) {
                             case UserType.newUser:
                               // ignore: use_build_context_synchronously
@@ -257,7 +279,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                               break;
                           }
                         }
-                        else if (responseData.statusCode == 200 && user.userId.text.isNotEmpty) {
+                        else if (responseData.statusCode == 200 && user.userId.isNotEmpty) {
                           switch (widget.userType) {
                             case UserType.newUser:
                               // ignore: use_build_context_synchronously
@@ -269,7 +291,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                               break;
                             case UserType.findUser:
                               // ignore: use_build_context_synchronously
-                              AppCore.showMessage(context, '아이디 찾기', '가입된 ID는 ${user.userId.text.substring(0, 4)}${Iterable.generate(user.userId.text.length - 4, (_) => '*').join()}입니다.', ActionType.ok, () {
+                              AppCore.showMessage(context, '아이디 찾기', '가입된 ID는 ${user.userId.substring(0, 4)}${Iterable.generate(user.userId.length - 4, (_) => '*').join()}입니다.', ActionType.ok, () {
                                 Navigator.pop(context);
                                 Navigator.pop(context);
                                 Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);

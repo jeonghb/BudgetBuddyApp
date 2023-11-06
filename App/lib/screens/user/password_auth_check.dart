@@ -29,7 +29,7 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
         Navigator.push(context, MaterialPageRoute(builder: (context) => UserInfoUpdate()));
       break;
       case ScreenType.passwordUpdate:
-        Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword(user: AppCore.instance.getUser())));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword()));
       break;
       default:
       break;

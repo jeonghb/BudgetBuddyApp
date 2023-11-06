@@ -54,7 +54,7 @@ class Receipt with ChangeNotifier {
     String address = '/requestReceipt';
     Map<String, dynamic> body = {
       'requestId': requestId,
-      'requestUserId': AppCore.instance.getUser().userId.text,
+      'requestUserId': AppCore.instance.getUser().userId,
       'title': title,
       'requestAmount': requestAmount,
       'paymentDatetime': paymentDatetime,

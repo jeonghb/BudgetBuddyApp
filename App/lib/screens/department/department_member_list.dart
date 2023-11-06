@@ -31,7 +31,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
   Future<void> getDepartmentMemberList() async {
     String address = '/getDepartmentMemberList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

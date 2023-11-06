@@ -51,7 +51,7 @@ class Calculate {
       'yearMonth': yearMonth,
       'monthBudgetAmount': monthBudgetAmount,
       'monthReceiptAmount': monthReceiptAmount,
-      (isDBData ? 'modUserId' : 'regUserId') : AppCore.instance.getUser().userId.text,
+      (isDBData ? 'modUserId' : 'regUserId') : AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

@@ -20,17 +20,32 @@ class FindPassword extends StatefulWidget {
 
 class _FindPassword extends State<FindPassword> {
   User user = User();
+  TextEditingController userId = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
+  TextEditingController userPasswordCheck = TextEditingController();
+  TextEditingController userName = TextEditingController();
+  TextEditingController userEmail = TextEditingController();
+  TextEditingController userPhoneNumber = TextEditingController();
+  TextEditingController userBirthdayYear = TextEditingController();
+  TextEditingController userBirthdayMonth = TextEditingController();
+  TextEditingController userBirthdayDay = TextEditingController();
+  TextEditingController userSex = TextEditingController();
 
-  bool validationCheck() {
-    if (!user.idRegexCheck()
-      || !user.nameRegexCheck()
-      || user.userBirthdayYear.text.trim().replaceAll('0', '').length != 4
-      || user.userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
-      || user.userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
-      return false;
-    }
+  void setData() {
+    user.userId = userId.text;
+    user.userPassword = userPassword.text;
+    user.userPasswordCheck = userPasswordCheck.text;
+    user.userName = userName.text;
+    user.userEmail = userEmail.text;
+    user.userPhoneNumber = userPhoneNumber.text;
+    user.userBirthdayYear = userBirthdayYear.text;
+    user.userBirthdayMonth = userBirthdayMonth.text;
+    user.userBirthdayDay = userBirthdayDay.text;
+    user.userSex = userSex.text;
+  }
 
-    return true;
+  Future<ResponseData> userPasswordFind() async {
+    return await user.userPasswordFind();
   }
 
   @override
@@ -66,9 +81,8 @@ class _FindPassword extends State<FindPassword> {
                     ),
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: user.userId,
+                    controller: userId,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return user.idCheck();},
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                       FocusScope.of(context).nextFocus();
@@ -89,9 +103,8 @@ class _FindPassword extends State<FindPassword> {
                   TextFormFieldV1(
                     autovalidateMode: AutovalidateMode.always,
                     keyboardType: TextInputType.name,
-                    controller: user.userName,
+                    controller: userName,
                     textInputAction: TextInputAction.next,
-                    validator: (value) { return user.nameCheck();},
                     onEditingComplete: () {
                       FocusScope.of(context).nextFocus();
                       FocusScope.of(context).nextFocus();
@@ -129,7 +142,7 @@ class _FindPassword extends State<FindPassword> {
                           ),
                           maxLength: 4,
                           keyboardType: TextInputType.number,
-                          controller: user.userBirthdayYear,
+                          controller: userBirthdayYear,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
@@ -155,7 +168,7 @@ class _FindPassword extends State<FindPassword> {
                           ),
                           maxLength: 2,
                           keyboardType: TextInputType.number,
-                          controller: user.userBirthdayMonth,
+                          controller: userBirthdayMonth,
                           textInputAction: TextInputAction.next,
                           onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
@@ -181,7 +194,7 @@ class _FindPassword extends State<FindPassword> {
                           ),
                           maxLength: 2,
                           keyboardType: TextInputType.number,
-                          controller: user.userBirthdayDay,
+                          controller: userBirthdayDay,
                           textInputAction: TextInputAction.done,
                           onEditingComplete: () {FocusScope.of(context).nextFocus();},
                         ),
@@ -196,15 +209,15 @@ class _FindPassword extends State<FindPassword> {
                         child: TextButton(
                           style: ButtonStyle(
                             side: MaterialStateProperty.all<BorderSide>(
-                              BorderSide(width: 1, color:  user.userSex == 'male' ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
+                              BorderSide(width: 1, color: userSex.text == 'male' ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                             ),
                             minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
                             overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
                           ),
                           onPressed: () => {
                             FocusScope.of(context).unfocus(),
-                            user.userSex = 'male',
-                            setState(() => user.userSex)
+                            userSex.text = 'male',
+                            setState(() => userSex)
                           },
                           child: Text('남',
                             style: TextStyle(
@@ -223,15 +236,15 @@ class _FindPassword extends State<FindPassword> {
                         child: TextButton(
                           style: ButtonStyle(
                             side: MaterialStateProperty.all<BorderSide>(
-                              BorderSide(width: 1, color:  user.userSex == 'female' ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
+                              BorderSide(width: 1, color:  userSex.text == 'female' ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                             ),
                             minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 50)),
                             overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
                           ),
                           onPressed: () => {
                             FocusScope.of(context).unfocus(),
-                            user.userSex = 'female',
-                            setState(() => user.userSex)
+                            userSex.text = 'female',
+                            setState(() => userSex)
                           },
                           child: Text('여',
                             style: TextStyle(
@@ -257,14 +270,17 @@ class _FindPassword extends State<FindPassword> {
                       ),),
                       onPressed: () async {
                         FocusScope.of(context).unfocus();
-                        ResponseData responseData = await user.userPasswordFind();
+
+                        setData();
+
+                        ResponseData responseData = await userPasswordFind();
                         if (responseData.statusCode == 200 && responseData.body.toString() == 'false') {
                           AppCore.showMessage(context, '비밀번호 찾기', '일치하는 정보가 없습니다.', ActionType.ok, () {
                             Navigator.pop(context);
                           });
                         }
                         else if (responseData.statusCode == 200 && responseData.body.toString() == 'true') {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword(user: user)),);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword()),);
                         }
                         else {
                           AppCore.showMessage(context, '비밀번호 찾기', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {

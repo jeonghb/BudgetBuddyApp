@@ -73,7 +73,7 @@ class _TopBar extends State<TopBar> {
     return AppBar(
       backgroundColor: Colors.white,
       centerTitle: true,
-      title: Text('SANDOL',
+      title: Text('BudgetBuddy',
         style: TextStyle(
           color: Color.fromARGB(255, 90, 68, 223),
           fontWeight: FontWeight.w900

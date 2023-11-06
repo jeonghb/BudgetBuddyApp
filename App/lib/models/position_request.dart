@@ -39,7 +39,7 @@ class PositionRequest {
       'requestUserId': requestUserId,
       'requestDepartmentId': requestDepartmentId,
       'requestPositionId': requestPositionId,
-      'approvalUserId': AppCore.instance.getUser().userId.text,
+      'approvalUserId': AppCore.instance.getUser().userId,
       'approvalStatus': approvalStatus,
     };
 

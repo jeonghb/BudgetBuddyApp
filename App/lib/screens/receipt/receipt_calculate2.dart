@@ -272,7 +272,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
                       return;
                     }
 
-                    AppCore.showMessage(context, '엑셀 전송', '메일로 정산 데이터를 엑셀로 전송합니다.\n메일주소 : ${AppCore.instance.getUser().userEmail.text}', ActionType.yesNo, () async {
+                    AppCore.showMessage(context, '엑셀 전송', '메일로 정산 데이터를 엑셀로 전송합니다.\n메일주소 : ${AppCore.instance.getUser().userEmail}', ActionType.yesNo, () async {
                       Navigator.pop(context);
                       
                       Mail mail = Mail();

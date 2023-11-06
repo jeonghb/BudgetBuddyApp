@@ -21,15 +21,20 @@ class LogInPage extends StatefulWidget {
 }
 
 class _LogInPage extends State<LogInPage> {
-  User user = User();
+  TextEditingController userId = TextEditingController();
+  TextEditingController userPassword = TextEditingController();
 
   void login() {
+    User user = User();
+    user.userId = userId.text;
+    user.userPassword = userPassword.text;
+    
     user.userLogin(true).then((String result) async {
       if (result == "0") {
         SharedPreferences preferences = await SharedPreferences.getInstance();
         preferences.setBool('autoLogin', true);
-        preferences.setString('userId', user.userId.text);
-        preferences.setString('userPassword', sha512.convert(utf8.encode(user.userPassword.text)).toString());
+        preferences.setString('userId', user.userId);
+        preferences.setString('userPassword', sha512.convert(utf8.encode(user.userPassword)).toString());
 
         AppCore.instance.setUser(user);
 
@@ -71,7 +76,7 @@ class _LogInPage extends State<LogInPage> {
                         decoration: BoxDecoration(
                           shape: BoxShape.circle
                         ),
-                        child: Text('\n\nSANDOL',
+                        child: Text('\n\nBudgetBuddy',
                           style: TextStyle(
                             fontSize: 50,
                             color: Colors.white,
@@ -108,7 +113,7 @@ class _LogInPage extends State<LogInPage> {
                         ),
                         prefixIcon: Image.asset('assets/images/ID1.png'),
                         keyboardType: TextInputType.name,
-                        controller: user.userId,
+                        controller: userId,
                         textInputAction: TextInputAction.next,
                         onEditingComplete: () {
                           FocusScope.of(context).nextFocus();
@@ -127,7 +132,7 @@ class _LogInPage extends State<LogInPage> {
                         prefixIcon: Image.asset('assets/images/PW1.png'),
                         obscureText: true,
                         keyboardType: TextInputType.visiblePassword,
-                        controller: user.userPassword,
+                        controller: userPassword,
                         textInputAction: TextInputAction.done,
                         onEditingComplete: () {
                           FocusScope.of(context).unfocus();
@@ -141,6 +146,9 @@ class _LogInPage extends State<LogInPage> {
                         width: double.infinity,
                         height: ScreenUtil().setHeight(130),
                         child: TextButton(
+                          onPressed: () {
+                            login();
+                          },
                           style: TextButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 90, 68, 223),
                             shape: RoundedRectangleBorder(
@@ -154,9 +162,6 @@ class _LogInPage extends State<LogInPage> {
                               color: Colors.white,
                             ),
                           ),
-                          onPressed: () {
-                            login();
-                          },
                         ),
                       ),
                       SizedBox(

@@ -127,7 +127,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   void getBudgetTypeList() async {
     String address = '/getBudgetTypeList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -651,7 +651,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                 TextButton(
                   onPressed: () {
                     bankName = AppCore.instance.getUser().bankName;
-                    bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber.text;
+                    bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber;
                   },
                   style: ButtonStyle(
                     overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),

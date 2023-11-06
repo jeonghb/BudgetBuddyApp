@@ -29,7 +29,7 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
 
       return;
     }
-    else if (AppCore.instance.getUser().userEmail.text.isEmpty) {
+    else if (AppCore.instance.getUser().userEmail.isEmpty) {
       AppCore.showMessage(context, '월별 정산', '이메일 정보가 없습니다.', ActionType.ok, () {
         Navigator.pop(context);
         Navigator.pop(context);

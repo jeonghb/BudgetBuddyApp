@@ -31,7 +31,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
   void getDepartmentList() async {
     String address = '/getRequestPositilityDepartmentList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
@@ -56,7 +56,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
   Future<bool> departmentRequest(int selectDepartmentId) async {
     String address = '/departmentRequest';
     Map<String, dynamic> body = {
-      'userId' : AppCore.instance.getUser().userId.text,
+      'userId' : AppCore.instance.getUser().userId,
       'departmentId' : selectDepartmentId,
     };
 

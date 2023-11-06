@@ -20,7 +20,7 @@ class FirstRun extends StatelessWidget {
               child: Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'SANDOL',
+                  'BudgetBuddy',
                   style: TextStyle(
                     fontSize: 50,
                     color: Colors.white,

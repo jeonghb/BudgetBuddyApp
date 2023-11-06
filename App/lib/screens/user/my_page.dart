@@ -56,7 +56,7 @@ class _MyPage extends State<MyPage> {
                       child: Row(
                         children: [
                           Text(
-                            AppCore.instance.getUser().userName.text,
+                            AppCore.instance.getUser().userName,
                             style: TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold

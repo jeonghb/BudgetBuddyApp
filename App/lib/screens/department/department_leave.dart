@@ -111,7 +111,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
 Future<bool> leave(int selectDepartmentId) async {
   String address = '/departmentLeave';
   Map<String, dynamic> body = {
-    'userId': AppCore.instance.getUser().userId.text,
+    'userId': AppCore.instance.getUser().userId,
     'departmentId': selectDepartmentId,
   };
 

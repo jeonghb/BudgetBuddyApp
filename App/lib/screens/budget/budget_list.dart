@@ -29,7 +29,7 @@ class _BudgetAddList extends State<BudgetList> {
   Future<void> getBudgetList() async {
     String address = '/getBudgetList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

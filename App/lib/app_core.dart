@@ -27,8 +27,8 @@ class AppCore extends ChangeNotifier {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     if (preferences.getBool('autoLogin') != null && preferences.getBool('autoLogin')!) {
       User localUserInfo = User();
-      localUserInfo.userId.text = preferences.getString('userId')!;
-      localUserInfo.userPassword.text = preferences.getString('userPassword')!;
+      localUserInfo.userId = preferences.getString('userId')!;
+      localUserInfo.userPassword = preferences.getString('userPassword')!;
 
       String result = await localUserInfo.userLogin(false);
       if (result == "0") {

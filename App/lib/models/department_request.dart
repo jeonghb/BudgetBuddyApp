@@ -35,7 +35,7 @@ class DepartmentRequest {
       'id': id,
       'requestUserId': requestUserId,
       'requestDepartmentId': requestDepartmentId,
-      'approvalUserId': AppCore.instance.getUser().userId.text,
+      'approvalUserId': AppCore.instance.getUser().userId,
       'approvalStatus': approvalStatus,
     };
 

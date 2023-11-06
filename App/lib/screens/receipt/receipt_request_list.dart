@@ -50,7 +50,7 @@ class _ReceiptRequestList extends State<ReceiptRequestList> {
   Future<List<Receipt>> getReceiptRequestList(List<Department> departmentList) async {
     String address = '/getReceiptRequestList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);

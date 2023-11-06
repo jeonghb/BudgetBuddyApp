@@ -31,7 +31,7 @@ class _PositionRequestList extends State<PositionRequestList> {
   void getPositionRequestList() async {
     String address = '/getPositionRequestList';
     Map<String, dynamic> body = {
-      'userId': AppCore.instance.getUser().userId.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
