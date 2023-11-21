@@ -66,7 +66,7 @@ class _PositionManage extends State<PositionManage> {
       // ignore: use_build_context_synchronously
       AppCore.showMessage(context, '직책 정보 수정', '저장 완료', ActionType.ok, () {
         Navigator.pop(context);
-        Navigator.pop(context);
+        Navigator.pop(context, true);
       });
     }
     else {

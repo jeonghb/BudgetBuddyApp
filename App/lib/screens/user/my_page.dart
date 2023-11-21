@@ -226,6 +226,12 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
+                  if (AppCore.instance.getUser().departmentList.isEmpty) {
+                    AppCore.showMessage(context, '부서 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                  }
+                  
                   Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentLeave()));
                 },
               ),
@@ -255,6 +261,13 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
+                  if (AppCore.instance.getUser().departmentList.isEmpty) {
+                    AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
+                  }
+                  
                   Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequest()));
                 },
               ),
@@ -282,6 +295,13 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
+                  if (AppCore.instance.getUser().departmentList.isEmpty) {
+                    AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
+                  }
+
                   Navigator.push(context, MaterialPageRoute(builder: (context) => PositionLeave()));
                 },
               ),

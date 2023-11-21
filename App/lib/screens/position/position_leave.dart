@@ -22,13 +22,6 @@ class _PositionLeave extends State<PositionLeave> {
   void initState() {
     super.initState();
 
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
-
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
     selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
 
@@ -163,7 +156,6 @@ class _PositionLeave extends State<PositionLeave> {
                           });
                         }
                       }),
-                      Navigator.pop(context),
                     });
                   }
                 },

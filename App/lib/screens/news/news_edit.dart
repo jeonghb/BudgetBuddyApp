@@ -31,13 +31,6 @@ class _NewsEdit extends State<NewsEdit> {
   void initState() {
     super.initState();
 
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '소식 등록', '소속된 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
-
     selectDepartmentId = widget.news.departmentId;
     selectDepartmentName = widget.news.departmentName;
     title.text = widget.news.title;
@@ -162,7 +155,7 @@ class _NewsEdit extends State<NewsEdit> {
                       Navigator.pop(context);
                       if (await newsDataEdit()) {
                         // ignore: use_build_context_synchronously  
-                        Navigator.pop(context);
+                        Navigator.pop(context, true);
                       }
                       else {
                         // ignore: use_build_context_synchronously

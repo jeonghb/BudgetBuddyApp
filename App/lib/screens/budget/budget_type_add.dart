@@ -23,13 +23,6 @@ class _BudgetTypeAdd extends State<BudgetTypeAdd> {
   void initState() {
     super.initState();
 
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '예산 항목 추가', '설정 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
-
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
     selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
   }
@@ -72,7 +65,7 @@ class _BudgetTypeAdd extends State<BudgetTypeAdd> {
                   // ignore: use_build_context_synchronously
                   AppCore.showMessage(context, '예산 항목 추가', '추가 완료', ActionType.ok, () {
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.pop(context, true);
                   });
                 }
                 else {

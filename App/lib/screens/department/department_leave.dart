@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
+import 'package:test/initialize.dart';
 import '../../models/response_data.dart';
 import '../../widgets/title_text.dart';
-import '../home.dart';
 import '../screen_frame.dart';
 
 class DepartmentLeave extends StatefulWidget {
@@ -20,13 +20,6 @@ class _DepartmentLeave extends State<DepartmentLeave> {
   @override
   void initState() {
     super.initState();
-
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '부서 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
 
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
     selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
@@ -80,7 +73,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
                     leave(selectDepartmentId).then((bool result) {
                       if (result) {
                         AppCore.showMessage(context, '재시작', '부서가 변경되어 다시 시작합니다.', ActionType.ok, () async {
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false);
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Initialize()), (route) => false);
                         });
                       }
                       else {

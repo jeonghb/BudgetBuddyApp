@@ -27,13 +27,6 @@ class _PositionRequest extends State<PositionRequest> {
   @override
   void initState() {
     super.initState();
-
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
     
     departmentList = AppCore.instance.getUser().departmentList;
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;

@@ -25,6 +25,7 @@ class User {
   String bankName = '';
   String bankAccountNumber = '';
   List<Group> groupList = <Group>[];
+  int selectGroupId = -1;
   List<Department> departmentList = <Department>[];
   // Image? image;
   bool isLoginSucess = false;
@@ -193,6 +194,23 @@ class User {
         bankAccountNumber = AppCore.getJsonString(json, 'bankAccountNumber');
         isLoginSucess = true;
         isManager = AppCore.getJsonBool(json, 'isManager');
+
+        // 그룹 조회
+        address = '/getLoginUserGroupList';
+        body = {
+          'userId': userId,
+        };
+
+        responseData = await AppCore.request(ServerType.POST, address, body);
+
+        if (responseData.statusCode == 200) {
+          for (var jsonGroup in jsonDecode(responseData.body)) {
+            Group group = Group();
+            group.setData(jsonGroup);
+
+            groupList.add(group);
+          }
+        }
 
         // 부서, 직책 조회
         address = '/getLoginUserDepartmentPositionList';

@@ -85,8 +85,10 @@ class _PositionRequestManage extends State<PositionRequestManage> {
                           Navigator.pop(context);
                         });
                       }
+                      else {
+                        Navigator.pop(context, true);
+                      }
                     });
-                    Navigator.pop(context, true);
                   });
                 },
                 child: Text(
@@ -104,8 +106,10 @@ class _PositionRequestManage extends State<PositionRequestManage> {
                           Navigator.pop(context);
                         });
                       }
+                      else{
+                        Navigator.pop(context, true);
+                      }
                     });
-                    Navigator.pop(context, true);
                   });
                 },
                 child: Text(

@@ -8,6 +8,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 import '../../models/budget_year.dart';
 import '../../models/response_data.dart';
 import '../../widgets/title_text.dart';
+import '../home.dart';
 import '../screen_frame.dart';
 
 class BudgetYearSetting extends StatefulWidget {
@@ -26,14 +27,6 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
   @override
   void initState() {
     super.initState();
-
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      // ignore: use_build_context_synchronously
-      AppCore.showMessage(context, '예산 설정', '예산을 설정할 부서가 없습니다.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
 
     selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
     selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
@@ -191,7 +184,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
                   // ignore: use_build_context_synchronously
                   AppCore.showMessage(context, '예산 설정', '예산 설정 완료', ActionType.ok, () {
                     Navigator.pop(context);
-                    Navigator.pop(context);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
                   });
                 }
                 else {

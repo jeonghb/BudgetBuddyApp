@@ -73,9 +73,16 @@ class _NewsDetail extends State<NewsDetail> {
                     onSelected: (String choice) async {
                       switch (choice) {
                         case '수정':
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => NewsEdit(news: news))).then((value) {
-                            getNewsData();
-                          });
+                          if (AppCore.instance.getUser().departmentList.isEmpty) {
+                            AppCore.showMessage(context, '소식 수정', '소속된 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+                              Navigator.pop(context);
+                            });
+                          }
+                          else {
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => NewsEdit(news: news))).then((value) {
+                              getNewsData();
+                            });
+                          }
                         break;
                         case '삭제':
                           AppCore.showMessage(context, '소식 삭제', '소식을 삭제하시겠습니까?', ActionType.yesNo, () {
@@ -85,7 +92,7 @@ class _NewsDetail extends State<NewsDetail> {
                                 Navigator.pop(context);
                               });
                             }
-                            Navigator.pop(context);
+                            Navigator.pop(context, true);
                           });
                         break;
                         case '신고':

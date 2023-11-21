@@ -79,7 +79,18 @@ class _BudgetTypeManage extends State<BudgetTypeManage> {
                 '추가하기',
               ),
               onPressed: () {
-                Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeAdd()),);
+                if (AppCore.instance.getUser().departmentList.isEmpty) {
+                  AppCore.showMessage(context, '예산 항목 추가', '설정 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  });
+                }
+                
+                Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeAdd()),).then((value) {
+                  if (value == true) {
+                    getBudgetTypeList();
+                  }
+                });
               },
             ),
           ),

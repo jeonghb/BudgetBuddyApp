@@ -8,6 +8,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 import '../../app_core.dart';
 import '../../models/response_data.dart';
 import '../../widgets/title_text.dart';
+import '../home.dart';
 import '../screen_frame.dart';
 
 class BudgetAdd extends StatefulWidget {
@@ -32,15 +33,6 @@ class _BudgetAdd extends State<BudgetAdd> {
   @override
   void initState() {
     super.initState();
-
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '예산 추가', '소속된 부서가 없습니다.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-
-      return;
-    }
 
     departmentId = AppCore.instance.getUser().departmentList[0].departmentId;
     departmentName = AppCore.instance.getUser().departmentList[0].departmentName;
@@ -345,8 +337,8 @@ class _BudgetAdd extends State<BudgetAdd> {
                       if (await budgetAdd()) {
                         // ignore: use_build_context_synchronously
                         AppCore.showMessage(context, '예산 추가', '추가 완료', ActionType.ok, () {
-                          Navigator.pop(context);
-                          Navigator.pop(context);
+                          Navigator.popUntil(context, ModalRoute.withName('/'));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
                         });
                       }
                       else {

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.sandol.mapper.app">
+
+	<insert id="groupAdd" parameterType="map">
+    	<![CDATA[CALL group_add(#{groupName}, #{groupIntroduceMemo})]]>
+	</insert>
+	<select id="getGroupByName" resultType="groupVO">
+		<![CDATA[CALL get_group_by_name(#{groupName})]]>
+	</select>
+	<insert id="userGroupAdd" parameterType="map">
+    	<![CDATA[CALL user_group_add(#{userId}, #{groupId})]]>
+	</insert>
+	<select id="getLoginUserGroupList" resultType="groupVO">
+    	<![CDATA[CALL get_login_user_group_list(#{userId})]]>
+	</select>
+	<select id="getGroupList" resultType="groupVO">
+   		<![CDATA[CALL get_group_list(#{searchText})]]>
+	</select>
+</mapper>

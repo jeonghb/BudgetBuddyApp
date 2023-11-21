@@ -19,7 +19,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
   List<DepartmentMember> departmentMemberList = <DepartmentMember>[];
   List<DepartmentMember> departmentMemberFilterList = <DepartmentMember>[];
   TextEditingController searchText = TextEditingController();
-  SortType sortType = SortType.alphabet_asc;
+  SortType sortType = SortType.alphabetAsc;
 
   @override
   void initState() {
@@ -64,22 +64,22 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
     });
 
     switch (updateSortType) {
-      case SortType.alphabet_asc:
+      case SortType.alphabetAsc:
         setState(() {
           departmentMemberFilterList.sort(((a, b) => a.userName.compareTo(b.userName)));
         });
       break;
-      case SortType.alphabet_desc:
+      case SortType.alphabetDesc:
         setState(() {
           departmentMemberFilterList.sort(((a, b) => b.userName.compareTo(a.userName)));
         });
       break;
-      case SortType.regist_asc:
+      case SortType.registAsc:
         setState(() {
           departmentMemberFilterList.sort(((a, b) => a.userDepartmentRegistDatetime.compareTo(b.userDepartmentRegistDatetime)));
         });
       break;
-      case SortType.regist_desc:
+      case SortType.registDesc:
         setState(() {
           departmentMemberFilterList.sort(((a, b) => b.userDepartmentRegistDatetime.compareTo(a.userDepartmentRegistDatetime)));
         });
@@ -120,11 +120,11 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      if (sortType == SortType.alphabet_asc) {
-                        sortDepartmentMemeberList(SortType.alphabet_desc);
+                      if (sortType == SortType.alphabetAsc) {
+                        sortDepartmentMemeberList(SortType.alphabetDesc);
                       }
                       else {
-                        sortDepartmentMemeberList(SortType.alphabet_asc);
+                        sortDepartmentMemeberList(SortType.alphabetAsc);
                       }
                     },
                     style: TextButton.styleFrom(
@@ -132,13 +132,13 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)
                       ),
-                      backgroundColor: sortType == SortType.alphabet_asc || sortType == SortType.alphabet_desc ? Colors.black : Colors.grey[300],
+                      backgroundColor: sortType == SortType.alphabetAsc || sortType == SortType.alphabetDesc ? Colors.black : Colors.grey[300],
                     ),
                     child: Text(
                       '가나다순',
                       style: TextStyle(
                         fontSize: 14,
-                        color: sortType == SortType.alphabet_asc || sortType == SortType.alphabet_desc ? Colors.white : Colors.black,
+                        color: sortType == SortType.alphabetAsc || sortType == SortType.alphabetDesc ? Colors.white : Colors.black,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -150,11 +150,11 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                 Expanded(
                   child: TextButton(
                     onPressed: () {
-                      if (sortType == SortType.regist_asc) {
-                        sortDepartmentMemeberList(SortType.regist_desc);
+                      if (sortType == SortType.registAsc) {
+                        sortDepartmentMemeberList(SortType.registDesc);
                       }
                       else {
-                        sortDepartmentMemeberList(SortType.regist_asc);
+                        sortDepartmentMemeberList(SortType.registAsc);
                       }
                     },
                     style: TextButton.styleFrom(
@@ -162,13 +162,13 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20)
                       ),
-                      backgroundColor: sortType == SortType.regist_asc || sortType == SortType.regist_desc ? Colors.black : Colors.grey[300],
+                      backgroundColor: sortType == SortType.registAsc || sortType == SortType.registDesc ? Colors.black : Colors.grey[300],
                     ),
                     child: Text(
                       '등록순',
                       style: TextStyle(
                         fontSize: 14,
-                        color: sortType == SortType.regist_asc || sortType == SortType.regist_desc ? Colors.white : Colors.black,
+                        color: sortType == SortType.registAsc || sortType == SortType.registDesc ? Colors.white : Colors.black,
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -261,8 +261,8 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
 }
 
 enum SortType {
-  alphabet_asc,
-  alphabet_desc,
-  regist_asc,
-  regist_desc
+  alphabetAsc,
+  alphabetDesc,
+  registAsc,
+  registDesc
 }

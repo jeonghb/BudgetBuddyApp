@@ -21,23 +21,6 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
 
   @override
   void initState() {
-    if (selectDepartmentId == -1) {
-      AppCore.showMessage(context, '월별 정산', '소속된 부서가 없습니다.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-
-      return;
-    }
-    else if (AppCore.instance.getUser().userEmail.isEmpty) {
-      AppCore.showMessage(context, '월별 정산', '이메일 정보가 없습니다.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-
-      return;
-    }
-
     super.initState();
 
     getMonthCalculateStatus();

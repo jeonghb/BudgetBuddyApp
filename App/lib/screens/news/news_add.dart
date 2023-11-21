@@ -6,6 +6,7 @@ import 'package:test/widgets/title_text.dart';
 
 import '../../models/department.dart';
 import '../../models/news.dart';
+import '../home.dart';
 import '../screen_frame.dart';
 
 class NewsAdd extends StatefulWidget {
@@ -25,13 +26,6 @@ class _NewsAdd extends State<NewsAdd> {
   @override
   void initState() {
     super.initState();
-
-    if (AppCore.instance.getUser().departmentList.isEmpty) {
-      AppCore.showMessage(context, '소식 등록', '소속된 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
-        Navigator.pop(context);
-        Navigator.pop(context);
-      });
-    }
 
     departmentList = AppCore.instance.getUser().departmentList;
     selectDepartmentId = departmentList[0].departmentId;
@@ -156,7 +150,9 @@ class _NewsAdd extends State<NewsAdd> {
                       Navigator.pop(context);
                       if (await newsDataAdd()) {
                         // ignore: use_build_context_synchronously  
-                        Navigator.pop(context);
+                        Navigator.popUntil(context, ModalRoute.withName('/'));
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
                       }
                       else {
                         // ignore: use_build_context_synchronously

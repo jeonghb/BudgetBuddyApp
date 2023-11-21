@@ -15,7 +15,8 @@ import 'receipt/receipt_request_list.dart';
 import 'news/news_detail.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  final int groupId;
+  const Home({super.key, required this.groupId});
 
   @override
   State<Home> createState() => _Home();

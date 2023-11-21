@@ -5,9 +5,9 @@ import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:test/initialize.dart';
 import 'package:test/models/user.dart';
 import 'package:test/screens/user/find_password.dart';
-import 'package:test/screens/home.dart';
 import 'package:test/screens/user/user_regist_check.dart';
 
 import '../app_core.dart';
@@ -38,7 +38,7 @@ class _LogInPage extends State<LogInPage> {
 
         AppCore.instance.setUser(user);
 
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false,);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Initialize()), (route) => false,);
       }
       else if (result == "1") {
         AppCore.showMessage(context, '로그인', '잘못된 정보입니다.', ActionType.ok, () {
@@ -63,7 +63,7 @@ class _LogInPage extends State<LogInPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              if (AppCore.isLoading) CircularProgressIndicator(),
+              // if (AppCore.isLoading) CircularProgressIndicator(),
               Positioned(
                 top: 0,
                 child: ClipPath(

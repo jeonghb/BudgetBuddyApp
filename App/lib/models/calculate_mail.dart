@@ -1,4 +1,4 @@
-import 'Calculate.dart';
+import 'calculate.dart';
 import 'receipt.dart';
 
 class CalculateMail {

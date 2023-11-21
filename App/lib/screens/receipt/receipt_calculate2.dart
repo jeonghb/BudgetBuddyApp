@@ -6,10 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:test/widgets/title_text.dart';
 
 import '../../app_core.dart';
-import '../../models/Calculate.dart';
+import '../../models/calculate.dart';
 import '../../models/mail.dart';
 import '../../models/response_data.dart';
-import '../home.dart';
 import '../screen_frame.dart';
 
 class ReceiptCalculate2 extends StatefulWidget {
@@ -230,7 +229,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
                         // ignore: use_build_context_synchronously
                         AppCore.showMessage(context, '월 정산', '정산 처리 완료!', ActionType.ok, () {
                           Navigator.pop(context);
-                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home()), (route) => false);
+                          Navigator.pop(context);
                         });
                       }
                       else {

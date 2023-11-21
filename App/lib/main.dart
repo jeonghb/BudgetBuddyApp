@@ -38,7 +38,7 @@ class _MyApp extends State<MyApp> {
           theme: ThemeData(
             primaryColor: Color.fromARGB(255, 90, 68, 223),
           ),
-          home:  Initialize(),
+          home: Initialize(),
         );
       }
     );

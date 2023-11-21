@@ -54,7 +54,7 @@ class AppCore extends ChangeNotifier {
     ResponseData responseData = ResponseData();
 
     try {
-      Uri uri = Uri.parse(AppCore.baseUrl + address);
+      Uri uri = Uri.parse(AppCore.localUrl + address);
 
       loadingServerRequest();
 
@@ -67,13 +67,13 @@ class AppCore extends ChangeNotifier {
             uri,
             headers: {"Content-Type": "application/json"},
             body: json.encode(body),
-          ).timeout(const Duration(seconds: 5));
+          ).timeout(const Duration(seconds: 3));
         break;
         case ServerType.GET:
           response = await http.get(
             uri,
             headers: {"Content-Type": "application/json"},
-          ).timeout(const Duration(seconds: 5));
+          ).timeout(const Duration(seconds: 3));
         break;
       }
 
@@ -115,7 +115,7 @@ class AppCore extends ChangeNotifier {
       builder: (BuildContext context) {
         return AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          title: Column(children: <Widget>[Text(title)]),
+          // title: Column(children: <Widget>[Text(title)]),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -125,9 +125,15 @@ class AppCore extends ChangeNotifier {
             TextButton(
               onPressed: functionOnPressed,
               style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
                 overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
               ),
-              child: Text('확인'),
+              child: Text(
+                '확인',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ),
           ] : <Widget>[
             TextButton(
@@ -135,16 +141,28 @@ class AppCore extends ChangeNotifier {
                 Navigator.pop(context);
               }, 
               style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.red),
                 overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
               ),
-              child: Text('취소')
+              child: Text(
+                '취소',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             ),
             TextButton(
               onPressed: functionOnPressed,
               style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
                 overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
               ),
-              child: Text('확인'),
+              child: Text(
+                '확인',
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
             )
           ],
         );
