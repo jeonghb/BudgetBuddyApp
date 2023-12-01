@@ -33,7 +33,7 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<DepartmentRequest> tempList = <DepartmentRequest>[];

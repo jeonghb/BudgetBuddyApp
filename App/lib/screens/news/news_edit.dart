@@ -5,6 +5,7 @@ import 'package:test/widgets/title_text.dart';
 import '../../app_core.dart';
 import '../../models/department.dart';
 import '../../models/news.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/text_form_field_v1.dart';
 import '../screen_frame.dart';
 
@@ -73,7 +74,7 @@ class _NewsEdit extends State<NewsEdit> {
                     SizedBox(
                       height: 15,
                     ),
-                    DropdownButton(
+                    DropdownButtonV1(
                       isExpanded: true,
                       value: selectDepartmentName,
                       items: departmentList.isNotEmpty ? departmentList.map(

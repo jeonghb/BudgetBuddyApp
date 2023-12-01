@@ -6,6 +6,7 @@ import '../../app_core.dart';
 import '../../models/position.dart';
 import '../../models/department.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
@@ -54,7 +55,7 @@ class _PositionRequest extends State<PositionRequest> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Position> tempList = <Position>[];
@@ -80,7 +81,7 @@ class _PositionRequest extends State<PositionRequest> {
       'requestPositionId' : selectPositiontId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {
@@ -116,7 +117,7 @@ class _PositionRequest extends State<PositionRequest> {
             SizedBox(
               height: 20,
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
               items: departmentList.map(
@@ -152,7 +153,7 @@ class _PositionRequest extends State<PositionRequest> {
             SizedBox(
               height: 20,
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectPositionName,
               items: positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? positionList.where((position) => position.departmentId == selectDepartmentId).map(

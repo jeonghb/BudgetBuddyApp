@@ -26,7 +26,7 @@ class _GroupList extends State<GroupList> {
       'searchText': searchText.text,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       List<Group> tempList = <Group>[];

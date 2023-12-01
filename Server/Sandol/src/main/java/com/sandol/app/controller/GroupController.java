@@ -37,4 +37,15 @@ public class GroupController {
 		return groupService.getGroupList(_searchText.get("searchText"));
 	}
 	
+	@RequestMapping(value = "/groupManagerChange", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean groupManagerChange(@RequestBody Map<String, String> _changeUser) {
+		return groupService.groupManagerChange(_changeUser);
+	}
+	
+	@RequestMapping(value = "/groupExit", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean groupExit(@RequestBody Map<String, String> _user) {
+		return groupService.groupExit(_user);
+	}
 }

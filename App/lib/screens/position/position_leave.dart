@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
@@ -39,7 +40,7 @@ class _PositionLeave extends State<PositionLeave> {
       'positionId' : selectPositionId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {
@@ -71,7 +72,7 @@ class _PositionLeave extends State<PositionLeave> {
             SizedBox(
               height: 20,
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
               items: AppCore.instance.getUser().departmentList.map(
@@ -106,7 +107,7 @@ class _PositionLeave extends State<PositionLeave> {
             SizedBox(
               height: 20,
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectPositionName,
               items: AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList.where((element) => element.departmentId == selectDepartmentId).map(

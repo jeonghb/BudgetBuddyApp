@@ -125,7 +125,7 @@ class User {
       'userSex': userSex,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       userId = responseData.body.toString();
@@ -146,7 +146,7 @@ class User {
       'userSex': userSex,
     };
     
-    ResponseData response = await AppCore.request(ServerType.POST, address, body);
+    ResponseData response = await AppCore.request(ServerType.POST, address, body, null);
 
     return response.body;
   }
@@ -161,7 +161,7 @@ class User {
       'bankAccountNumber' : bankAccountNumber,
     };
     
-    ResponseData response = await AppCore.request(ServerType.POST, address, body);
+    ResponseData response = await AppCore.request(ServerType.POST, address, body, null);
 
     if (response.body == 'true') {
       AppCore.instance.setUser(this);
@@ -179,7 +179,7 @@ class User {
       'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword)).toString() : userPassword
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       var json = jsonDecode(responseData.body);
@@ -201,7 +201,7 @@ class User {
           'userId': userId,
         };
 
-        responseData = await AppCore.request(ServerType.POST, address, body);
+        responseData = await AppCore.request(ServerType.POST, address, body, null);
 
         if (responseData.statusCode == 200) {
           for (var jsonGroup in jsonDecode(responseData.body)) {
@@ -218,7 +218,7 @@ class User {
           'userId': userId,
         };
 
-        responseData = await AppCore.request(ServerType.POST, address, body);
+        responseData = await AppCore.request(ServerType.POST, address, body, null);
 
         if (responseData.statusCode == 200) {
           for (var jsonDepartment in jsonDecode(responseData.body)) {
@@ -241,7 +241,7 @@ class User {
           'userId': userId
         };
 
-        responseData = await AppCore.request(ServerType.POST, address, body);
+        responseData = await AppCore.request(ServerType.POST, address, body, null);
 
         if (responseData.statusCode == 200) {
           List<Auth> authList = <Auth>[];
@@ -280,7 +280,7 @@ class User {
       'userSex': userSex,
     };
 
-    return await AppCore.request(ServerType.POST, address, body);
+    return await AppCore.request(ServerType.POST, address, body, null);
   }
 
   Future<ResponseData> userUpdatePassword() async {
@@ -290,7 +290,7 @@ class User {
       'userPassword': sha512.convert(utf8.encode(userPassword)).toString(),
     };
 
-    return await AppCore.request(ServerType.POST, address, body);
+    return await AppCore.request(ServerType.POST, address, body, null);
   }
 
   bool passwordAuthCheck(String password) {

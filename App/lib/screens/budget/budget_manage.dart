@@ -7,6 +7,7 @@ import 'package:test/models/budget.dart';
 import '../../app_core.dart';
 import '../../models/budget_type.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/text_form_field_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
@@ -48,7 +49,7 @@ class _BudgetManage extends State<BudgetManage> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<BudgetType> tempList = <BudgetType>[];
@@ -107,7 +108,7 @@ class _BudgetManage extends State<BudgetManage> {
             Text(
               '부서',
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: widget.budget.departmentName,
               items: AppCore.instance.getUser().departmentList.map(
@@ -131,7 +132,7 @@ class _BudgetManage extends State<BudgetManage> {
             Text(
               '예산 구분',
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: widget.budget.budgetTypeName,
               items: budgetTypeList.firstWhereOrNull((element) => element.budgetTypeName == widget.budget.budgetTypeName) != null ? budgetTypeList.map(

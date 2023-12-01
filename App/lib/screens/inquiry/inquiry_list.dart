@@ -34,7 +34,7 @@ class _InquiryList extends State<InquiryList> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Inquiry> tempList = <Inquiry>[];

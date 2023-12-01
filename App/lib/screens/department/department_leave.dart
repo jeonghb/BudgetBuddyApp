@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
 import 'package:test/initialize.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
@@ -36,7 +37,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
             TitleText(
               text: '부서 탈퇴',
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
               items: AppCore.instance.getUser().departmentList.map(
@@ -108,7 +109,7 @@ Future<bool> leave(int selectDepartmentId) async {
     'departmentId': selectDepartmentId,
   };
 
-  ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+  ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
   if (responseData.statusCode == 200) {
     if (responseData.body == 'true') {

@@ -45,7 +45,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
       'yearMonth': '${widget.selectDate.year}-${widget.selectDate.month.toString().padLeft(2, '0')}',
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       var json = jsonDecode(responseData.body);

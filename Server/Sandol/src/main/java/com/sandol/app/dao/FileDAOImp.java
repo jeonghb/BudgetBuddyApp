@@ -15,6 +15,9 @@ public class FileDAOImp implements FileDAO {
 	@Override
 	public boolean saveFile(FileVO fileVO) {
 		try {
+			if (fileVO != null) {
+				
+			}
 			
 		}catch (NullPointerException e) {
 			return false;

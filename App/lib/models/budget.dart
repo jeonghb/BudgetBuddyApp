@@ -37,7 +37,7 @@ class Budget {
       'budgetDate': budgetDate,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {
@@ -58,7 +58,7 @@ class Budget {
       'id': id,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {

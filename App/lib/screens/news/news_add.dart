@@ -6,6 +6,7 @@ import 'package:test/widgets/title_text.dart';
 
 import '../../models/department.dart';
 import '../../models/news.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../home.dart';
 import '../screen_frame.dart';
 
@@ -68,7 +69,7 @@ class _NewsAdd extends State<NewsAdd> {
                     SizedBox(
                       height: 15,
                     ),
-                    DropdownButton(
+                    DropdownButtonV1(
                       isExpanded: true,
                       value: selectDepartmentName,
                       items: departmentList.isNotEmpty ? departmentList.map(

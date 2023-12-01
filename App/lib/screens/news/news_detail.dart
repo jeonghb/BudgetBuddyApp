@@ -37,7 +37,7 @@ class _NewsDetail extends State<NewsDetail> {
       'id': widget.id,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       var json = jsonDecode(responseData.body);

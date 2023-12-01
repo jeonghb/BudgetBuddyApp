@@ -29,7 +29,7 @@ class Group {
       'groupIntroduceMemo': groupIntroduceMemo,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       var json = jsonDecode(responseData.body);

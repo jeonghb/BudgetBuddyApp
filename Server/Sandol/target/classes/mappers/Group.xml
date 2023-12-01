@@ -20,4 +20,10 @@
 	<select id="getGroupList" resultType="groupVO">
    		<![CDATA[CALL get_group_list(#{searchText})]]>
 	</select>
+	<update id="groupManagerChange" parameterType="map">
+		<![CDATA[CALL group_manager_change(#{groupId}, #{userId})]]>
+	</update>
+	<delete id="groupExit" parameterType="map">
+		<![CDATA[CALL group_exit({#user_id}, #{group_id})]]>
+	</delete>
 </mapper>

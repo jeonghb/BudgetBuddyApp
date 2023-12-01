@@ -7,6 +7,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../models/budget_year.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../home.dart';
 import '../screen_frame.dart';
@@ -40,7 +41,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<BudgetYear> dbList = <BudgetYear>[];
@@ -94,7 +95,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
       'budgetAmount': budgetYearList.firstWhere((element) => element.departmentId == selectDepartmentId && element.year == selectYear).budgetAmount.text,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body.toString() == 'true') {
@@ -123,7 +124,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
           SizedBox(
             height: 15,
           ),
-          DropdownButton(
+          DropdownButtonV1(
             // isExpanded: true,
             value: selectDepartmentName,
             items: AppCore.instance.getUser().departmentList.map(
@@ -144,7 +145,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
           SizedBox(
             height: 15,
           ),
-          DropdownButton(
+          DropdownButtonV1(
             // isExpanded: true,
             value: selectYear.toString(),
             items: budgetYearList.where((element) => element.departmentId == selectDepartmentId).map(

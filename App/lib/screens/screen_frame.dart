@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test/app_core.dart';
 
 import '../widgets/menu_drawer.dart';
 import '../widgets/top_bar.dart';
@@ -32,10 +33,23 @@ class _ScreenFrame extends State<ScreenFrame> {
       endDrawer: widget.isDrawer ? MenuDrawer() : null,
       backgroundColor: widget.backgroundColor,
       resizeToAvoidBottomInset: true,
-      body: GestureDetector(
-        onTap: () => { FocusScope.of(context).unfocus()},
-        child: widget.body,
-      ),
+      body : Stack(
+        children: [
+          GestureDetector(
+            onTap: () => { FocusScope.of(context).unfocus()},
+            child: widget.body,
+          ),
+          if (AppCore.isLoading)
+          Positioned.fill(
+            child: Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+          ),
+        ],
+      )
     );
   }
 }

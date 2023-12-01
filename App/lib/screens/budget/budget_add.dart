@@ -7,6 +7,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../home.dart';
 import '../screen_frame.dart';
@@ -50,7 +51,7 @@ class _BudgetAdd extends State<BudgetAdd> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<BudgetType> tempList = <BudgetType>[];
@@ -107,7 +108,7 @@ class _BudgetAdd extends State<BudgetAdd> {
       'budgetDate': '${budgetYear.text.toString().padLeft(4, '0')}-${budgetMonth.text.toString().padLeft(2, '0')}',
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {
@@ -144,7 +145,7 @@ class _BudgetAdd extends State<BudgetAdd> {
               SizedBox(
                 height: 10,
               ),
-              DropdownButton(
+              DropdownButtonV1(
                 isExpanded: true,
                 value: departmentName,
                 items: AppCore.instance.getUser().departmentList.map(
@@ -175,7 +176,7 @@ class _BudgetAdd extends State<BudgetAdd> {
               SizedBox(
                 height: 10,
               ),
-              DropdownButton(
+              DropdownButtonV1(
                 isExpanded: true,
                 value: budgetTypeName,
                 items: budgetTypeList.map(

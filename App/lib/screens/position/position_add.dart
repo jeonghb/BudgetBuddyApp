@@ -7,6 +7,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 import '../../app_core.dart';
 import '../../models/department.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
@@ -35,7 +36,7 @@ class _PositionAdd extends State<PositionAdd> {
     Map<String, dynamic> body = {
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Department> tempList = <Department>[];
@@ -73,7 +74,7 @@ class _PositionAdd extends State<PositionAdd> {
       'authFlag': 0,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body.toString() == 'true') {
@@ -113,7 +114,7 @@ class _PositionAdd extends State<PositionAdd> {
             SizedBox(
               height: 10,
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
               items: departmentList.map(

@@ -31,7 +31,7 @@ class _DepartmentList extends State<DepartmentList> {
     Map<String, dynamic> body = {
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Department> tempList = <Department>[];

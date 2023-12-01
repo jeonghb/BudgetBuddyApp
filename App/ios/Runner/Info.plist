@@ -48,6 +48,10 @@
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UIStatusBarHidden</key>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Our app needs access to your photo gallery</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Our app needs access to your camera</string>
 		<false/>
 	</dict>
 </plist>

@@ -1,6 +1,7 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -28,5 +29,15 @@ public class GroupServiceImp implements GroupService {
 	@Override
 	public List<GroupVO> getGroupList(String _searchText) {
 		return dao.getGroupList(_searchText);
+	}
+	
+	@Override
+	public boolean groupManagerChange(Map<String, String> _changeUser) {
+		return dao.groupManagerChange(_changeUser);
+	}
+	
+	@Override
+	public boolean groupExit(Map<String, String> _user) {
+		return dao.groupExit(_user);
 	}
 }

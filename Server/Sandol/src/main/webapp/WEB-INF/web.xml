@@ -140,6 +140,14 @@
 		<url-pattern>/getLoginUserGroupList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getGroupList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getGroupUserList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/groupManagerChange</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/groupExit</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/groupDelete</url-pattern>
 		
 	</servlet-mapping>
 

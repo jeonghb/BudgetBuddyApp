@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 import '../../models/user.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/text_form_field_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
@@ -105,7 +106,7 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
             SizedBox(
               height: 5,
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: user.bankName,
               items: bankList.map(

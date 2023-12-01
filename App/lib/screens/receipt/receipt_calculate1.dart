@@ -50,7 +50,7 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
       'yearMonth': '${selectDate.year}-${selectDate.month.toString().padLeft(2, '0')}',
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       setState(() {

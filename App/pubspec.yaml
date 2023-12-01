@@ -54,6 +54,11 @@ dependencies:
   path_provider: ^2.1.1
   path: ^1.8.3
   share: ^2.0.4
+  multi_image_picker: ^4.8.01
+  permission_handler: ^11.0.1
+  http_parser: ^4.0.2
+  firebase_auth: ^4.14.1
+  dropdown_button2: ^2.3.9
 
 dev_dependencies:
   flutter_test:

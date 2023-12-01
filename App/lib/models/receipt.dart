@@ -39,7 +39,7 @@ class Receipt with ChangeNotifier {
     approvalRequestDepartmentName = AppCore.getJsonString(json, 'approvalRequestDepartmentName');
     budgetTypeId = AppCore.getJsonInt(json, 'budgetTypeId');
     budgetTypeName = AppCore.getJsonString(json, 'budgetTypeName');
-    // fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
+    fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
     bankName = AppCore.getJsonString(json, 'bankName');
     bankAccountNumber = AppCore.getJsonString(json, 'bankAccountNumber');
     submissionStatus = AppCore.getJsonInt(json, 'submissionStatus');
@@ -61,12 +61,11 @@ class Receipt with ChangeNotifier {
       'memo': memo,
       'approvalRequestDepartmentId': approvalRequestDepartmentId,
       'budgetTypeId': budgetTypeId,
-      'fileList': fileList,
-      'bankName' : bankName,
+      'bankName': bankName,
       'bankAccountNumber': bankAccountNumber,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.FILE, address, body, fileList);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {
@@ -81,6 +80,21 @@ class Receipt with ChangeNotifier {
     }
   }
 
+  // Future<FormData> fileListToServerData() async {
+  //   FormData formData = FormData();
+
+  //   for (XFile file in fileList) {
+  //   // 이미지 파일을 바이너리 데이터로 변환
+  //   List<int> bytes = await file.readAsBytes();
+  //   formData.files.add(
+  //     MapEntry(
+  //       "images",
+  //       MultipartFile.fromBytes(bytes),
+  //     ),
+  //   );
+  // }
+  // }
+
   Future<bool> changeSubmissionStatus() async {
     String address = '/changeSubmissionStatus';
     Map<String, dynamic> body = {
@@ -89,7 +103,7 @@ class Receipt with ChangeNotifier {
       'rejectMessage': rejectMessage,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body == 'true') {

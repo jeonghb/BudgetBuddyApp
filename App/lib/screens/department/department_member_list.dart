@@ -34,7 +34,7 @@ class _DepartmentMemberList extends State<DepartmentMemberList> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       List<DepartmentMember> tempList = <DepartmentMember>[];

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import '../../app_core.dart';
 import '../../models/response_data.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 import '../../models/department.dart';
@@ -34,7 +35,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Department> tempList = <Department>[];
@@ -60,7 +61,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
       'departmentId' : selectDepartmentId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       if (responseData.body.toString() == 'true') {
@@ -85,7 +86,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
             TitleText(
               text: '부서 신청',
             ),
-            DropdownButton(
+            DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
               items: departmentList.map(

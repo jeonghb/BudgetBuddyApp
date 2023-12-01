@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../app_core.dart';
 import '../../screens/screen_frame.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/text_form_field_v1.dart';
 import '../../models/bank.dart';
 import '../../models/budget_type.dart';
@@ -101,7 +103,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     Map<String, dynamic> body = {
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Department> tempList = <Department>[];
@@ -130,7 +132,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
       'userId': AppCore.instance.getUser().userId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<BudgetType> tempList = <BudgetType>[];
@@ -153,7 +155,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     Map<String, dynamic> body = {
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Bank> tempList = <Bank>[];
@@ -173,9 +175,16 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   }
 
   Future<void> addImage() async {
-    List<XFile>? pickedFiles = await ImagePicker().pickMultiImage();
+    // List<Asset> resultList = await MultiImagePicker.pickImages(maxImages: 5, enableCamera: true);
 
-    fileList = pickedFiles;
+    // setState(() {
+    //   // fileList = resultList.map((e) => e.)
+    // });
+    List<XFile> tmpList = await ImagePicker().pickMultiImage();
+
+    setState(() {
+      fileList.addAll(tmpList);
+    });
   }
 
   void showImage(BuildContext context, File file) {
@@ -192,11 +201,13 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     );
   }
 
-  void removeImage(Receipt receipt, XFile file) {
-    receipt.fileList.remove(file);
+  void removeImage( XFile file) {
+    setState(() {
+      fileList.remove(file);
+    });
   }
 
-  String setData() {
+  Future<String> setData() async {
     if (title.text.isEmpty) {
       return '제목이 입력되지 않았습니다.';
     }
@@ -255,454 +266,463 @@ class _ReceiptRequest extends State<ReceiptRequest> {
       isAlarm: false,
       body: Padding(
         padding: EdgeInsets.all(30),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            TitleText(
-              text: '영수증을 제출해주세요',
-            ),
-            Text('제목',
-              style: TextStyle(
-                fontSize: 20
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              TitleText(
+                text: '영수증을 제출해주세요',
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormFieldV1(
-              keyboardType: TextInputType.text,
-              controller: title,
-              textInputAction: TextInputAction.next,
-              onEditingComplete: () {
-                FocusScope.of(context).nextFocus();
-                FocusScope.of(context).nextFocus();
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('결제금액',
-              style: TextStyle(
-                fontSize: 20
+              Text('제목',
+                style: TextStyle(
+                  fontSize: 20
+                ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormFieldV1(
-                    textAlign: TextAlign.right,
-                    keyboardType: TextInputType.number,
-                    controller: requestAmount,
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () {
-                      FocusScope.of(context).nextFocus();
-                      FocusScope.of(context).nextFocus();
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                SizedBox(
-                  width: 40,
-                  child: Text(
-                    '원',
-                    style: TextStyle(
-                      fontSize: 20,
-                    ),
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('메모',
-              style: TextStyle(
-                fontSize: 20
+              SizedBox(
+                height: 10,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormFieldV1(
-              keyboardType: TextInputType.name,
-              controller: memo,
-              textInputAction: TextInputAction.next,
-              onEditingComplete: () {
-                FocusScope.of(context).nextFocus();
-                FocusScope.of(context).nextFocus();
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('결제일시',
-              style: TextStyle(
-                fontSize: 20
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: <Widget>[
-                Flexible(
-                  flex: 4,
-                  child: TextFormFieldV1(
-                    textAlign: TextAlign.center,
-                    counterText: '',
-                    suffixIcon: Container(
-                      width: 50,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      child: Text(
-                        '년',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                    maxLength: 4,
-                    keyboardType: TextInputType.number,
-                    controller: paymentDatetimeYear,
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () {FocusScope.of(context).nextFocus();},
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  flex: 3,
-                  child: TextFormFieldV1(
-                    textAlign: TextAlign.center,
-                    counterText: '',
-                    suffixIcon: Container(
-                      width: 50,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      child: Text(
-                        '월',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                    maxLength: 2,
-                    keyboardType: TextInputType.number,
-                    controller: paymentDatetimeMonth,
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () {FocusScope.of(context).nextFocus();},
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Flexible(
-                  flex: 3,
-                  child: TextFormFieldV1(
-                    textAlign: TextAlign.center,
-                    counterText: '',
-                    suffixIcon: Container(
-                      width: 50,
-                      alignment: Alignment.centerRight,
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      child: Text(
-                        '일',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ),
-                    maxLength: 2,
-                    keyboardType: TextInputType.number,
-                    controller: paymentDatetimeDay,
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () {FocusScope.of(context).nextFocus();},
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormFieldV1(
-                    textAlign: TextAlign.center,
-                    counterText: '',
-                    hintText: '00',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    maxLength: 2,
-                    keyboardType: TextInputType.number,
-                    controller: paymentDatetimeHour,
-                    textInputAction: TextInputAction.next,
-                    onEditingComplete: () {
-                      FocusScope.of(context).nextFocus();
-                      FocusScope.of(context).nextFocus();
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                SizedBox(
-                  width: 5,
-                  child: Text(
-                    ':',
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: TextFormFieldV1(
-                    textAlign: TextAlign.center,
-                    counterText: '',
-                    hintText: '00',
-                    hintStyle: TextStyle(
-                      color: Colors.grey,
-                    ),
-                    maxLength: 2,
-                    keyboardType: TextInputType.number,
-                    controller: paymentDatetimeMinute,
-                    textInputAction: TextInputAction.done,
-                    onEditingComplete: () {
-                      FocusScope.of(context).unfocus();
-                    },
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('신청부서',
-              style: TextStyle(
-                fontSize: 20
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            DropdownButton(
-              isExpanded: true,
-              value: approvalRequestDepartmentName,
-              items: departmentList.isNotEmpty ? departmentList.map(
-                (value) { 
-                  return DropdownMenuItem<String>(
-                    value: value.departmentName,
-                    child: Text(value.departmentName),
-                    );
-                  },
-                ).toList() : [],
-              onChanged: (value) {
-                setState(() {
-                  approvalRequestDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  approvalRequestDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
-                  if (budgetTypeList.firstWhereOrNull((element) => element.departmentName == value) != null) {
-                    budgetTypeId = budgetTypeList.firstWhere((element) => element.departmentName == value).budgetTypeId;
-                    budgetTypeName = budgetTypeList.firstWhere((element) => element.departmentName == value).budgetTypeName;
-                  }
-                  else {
-                    budgetTypeId = -1;
-                    budgetTypeName = '';
-                  }
-                });
-              }
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text('구분',
-              style: TextStyle(
-                fontSize: 20
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            DropdownButton(
-              isExpanded: true,
-              value: budgetTypeName,
-              items: approvalRequestDepartmentId != -1 && budgetTypeList.firstWhereOrNull((element) => element.departmentId == approvalRequestDepartmentId) != null ? budgetTypeList.map(
-                (value) {
-                  return DropdownMenuItem<String>(
-                    value: value.budgetTypeName,
-                    child: Text(value.budgetTypeName),
-                    );
-                  },
-                ).toList() : [],
-              onChanged: (value) {
-                setState(() {
-                  budgetTypeId = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeId;
-                  budgetTypeName = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeName;
-                });
-              }
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            SizedBox(
-              width: 300,
-              height: 100,
-              child: GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                padding: EdgeInsets.all(8),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 8,
-                  crossAxisSpacing: 8,
-                ),
-                itemCount: fileList.length + 1,
-                itemBuilder: (BuildContext context, int index) {
-                  final file =  fileList.isNotEmpty ? fileList[index] : null;
-
-                  if (index == fileList.length) {
-                    return GestureDetector(
-                      onTap: () {
-                        addImage();
-                      },
-                      child: Container(
-                        color: Colors.grey,
-                        child: Icon(Icons.add),
-                      ),
-                    );
-                  }
-                  else {
-                    return Stack(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (file != null) {
-                              showImage(context, File(file.path));
-                            }
-                          },
-                          child: Image.file(
-                            File(fileList[index].path),
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: GestureDetector(
-                            onTap: () {
-                              if (file != null) {
-                                removeImage(widget.receipt, file);
-                              }
-                            },
-                            child: Icon(
-                              Icons.close,
-                              color: Colors.red,
-                            ),
-                          ),
-                        )
-                      ]
-                    );
-                  }
+              TextFormFieldV1(
+                keyboardType: TextInputType.text,
+                controller: title,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                  FocusScope.of(context).nextFocus();
                 },
               ),
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            DropdownButton(
-              isExpanded: true,
-              value: bankName,
-              items: bankList.map(
-                (value) {
-                  return DropdownMenuItem<String>(
-                    value: value.bankName,
-                    child: Text(value.bankName),
-                    );
-                  },
-                ).toList(),
-              onChanged: (value) {
-                setState(() {
-                  bankName = bankList.firstWhere((element) => element.bankName == value).bankName;
-                });
-              }
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text('계좌번호',
-                  style: TextStyle(
-                    fontSize: 20
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    bankName = AppCore.instance.getUser().bankName;
-                    bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber;
-                  },
-                  style: ButtonStyle(
-                    overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
-                  ),
-                  child: Text('내 계좌')
-                ),
-              ],
-            ),
-            TextFormFieldV1(
-              keyboardType: TextInputType.number,
-              controller: bankAccountNumber,
-              textInputAction: TextInputAction.next,
-            ),
-            SizedBox(
-              height: 12,
-            ),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
+              SizedBox(
+                height: 10,
               ),
-              onPressed: () async {
-                String validationMessage = setData();
-                if (validationMessage.isNotEmpty) {
-                  AppCore.showMessage(context, '영수증 제출', validationMessage, ActionType.ok, () {
-                    Navigator.pop(context);
-                  });
-                  return;
-                }
-                if (await widget.receipt.requestReceipt()) {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '영수증 제출', '제출 완료', ActionType.ok, () {
-                    Navigator.pop(context);
-                    Navigator.pop(context, true);
-                  });
-                }
-                else {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '영수증 제출', '제출에 실패하였습니다.', ActionType.ok, () {
-                    Navigator.pop(context);
-                  });
-                }
-              },
-              child: Text(
-                '제출하기',
+              Text('결제금액',
                 style: TextStyle(
-                  color: Colors.white,
+                  fontSize: 20
                 ),
-              )
-            ),
-          ],
-        )
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormFieldV1(
+                      textAlign: TextAlign.right,
+                      keyboardType: TextInputType.number,
+                      controller: requestAmount,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () {
+                        FocusScope.of(context).nextFocus();
+                        FocusScope.of(context).nextFocus();
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  SizedBox(
+                    width: 40,
+                    child: Text(
+                      '원',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text('메모',
+                style: TextStyle(
+                  fontSize: 20
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormFieldV1(
+                keyboardType: TextInputType.name,
+                controller: memo,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                  FocusScope.of(context).nextFocus();
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text('결제일시',
+                style: TextStyle(
+                  fontSize: 20
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: <Widget>[
+                  Flexible(
+                    flex: 4,
+                    child: TextFormFieldV1(
+                      textAlign: TextAlign.center,
+                      counterText: '',
+                      suffixIcon: Container(
+                        width: 50,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Text(
+                          '년',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                      maxLength: 4,
+                      keyboardType: TextInputType.number,
+                      controller: paymentDatetimeYear,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () {FocusScope.of(context).nextFocus();},
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: TextFormFieldV1(
+                      textAlign: TextAlign.center,
+                      counterText: '',
+                      suffixIcon: Container(
+                        width: 50,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Text(
+                          '월',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                      maxLength: 2,
+                      keyboardType: TextInputType.number,
+                      controller: paymentDatetimeMonth,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () {FocusScope.of(context).nextFocus();},
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Flexible(
+                    flex: 3,
+                    child: TextFormFieldV1(
+                      textAlign: TextAlign.center,
+                      counterText: '',
+                      suffixIcon: Container(
+                        width: 50,
+                        alignment: Alignment.centerRight,
+                        padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                        child: Text(
+                          '일',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 25,
+                          ),
+                        ),
+                      ),
+                      maxLength: 2,
+                      keyboardType: TextInputType.number,
+                      controller: paymentDatetimeDay,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () {FocusScope.of(context).nextFocus();},
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextFormFieldV1(
+                      textAlign: TextAlign.center,
+                      counterText: '',
+                      hintText: '00',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                      ),
+                      maxLength: 2,
+                      keyboardType: TextInputType.number,
+                      controller: paymentDatetimeHour,
+                      textInputAction: TextInputAction.next,
+                      onEditingComplete: () {
+                        FocusScope.of(context).nextFocus();
+                        FocusScope.of(context).nextFocus();
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  SizedBox(
+                    width: 5,
+                    child: Text(
+                      ':',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: TextFormFieldV1(
+                      textAlign: TextAlign.center,
+                      counterText: '',
+                      hintText: '00',
+                      hintStyle: TextStyle(
+                        color: Colors.grey,
+                      ),
+                      maxLength: 2,
+                      keyboardType: TextInputType.number,
+                      controller: paymentDatetimeMinute,
+                      textInputAction: TextInputAction.done,
+                      onEditingComplete: () {
+                        FocusScope.of(context).unfocus();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text('신청부서',
+                style: TextStyle(
+                  fontSize: 20
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              DropdownButtonV1(
+                isExpanded: true,
+                value: approvalRequestDepartmentName,
+                items: departmentList.isNotEmpty ? departmentList.map(
+                  (value) { 
+                    return DropdownMenuItem<String>(
+                      value: value.departmentName,
+                      child: Text(value.departmentName),
+                      );
+                    },
+                  ).toList() : [],
+                onChanged: (value) {
+                  setState(() {
+                    approvalRequestDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                    approvalRequestDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                    if (budgetTypeList.firstWhereOrNull((element) => element.departmentName == value) != null) {
+                      budgetTypeId = budgetTypeList.firstWhere((element) => element.departmentName == value).budgetTypeId;
+                      budgetTypeName = budgetTypeList.firstWhere((element) => element.departmentName == value).budgetTypeName;
+                    }
+                    else {
+                      budgetTypeId = -1;
+                      budgetTypeName = '';
+                    }
+                  });
+                }
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text('구분',
+                style: TextStyle(
+                  fontSize: 20
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              DropdownButtonV1(
+                isExpanded: true,
+                value: budgetTypeName,
+                items: approvalRequestDepartmentId != -1 && budgetTypeList.firstWhereOrNull((element) => element.departmentId == approvalRequestDepartmentId) != null ? budgetTypeList.map(
+                  (value) {
+                    return DropdownMenuItem<String>(
+                      value: value.budgetTypeName,
+                      child: Text(value.budgetTypeName),
+                      );
+                    },
+                  ).toList() : [],
+                onChanged: (value) {
+                  setState(() {
+                    budgetTypeId = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeId;
+                    budgetTypeName = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeName;
+                  });
+                }
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: 300,
+                height: 100,
+                child: GridView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  padding: EdgeInsets.all(8),
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 8,
+                    crossAxisSpacing: 8,
+                  ),
+                  itemCount: fileList.length + 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == fileList.length) {
+                      return GestureDetector(
+                        onTap: () {
+                          addImage();
+                        },
+                        child: Container(
+                          color: Colors.grey[200],
+                          child: Icon(Icons.add),
+                        ),
+                      );
+                    }
+                    else {
+                      final file = fileList.isNotEmpty ? fileList[index] : null;
+                      return Stack(
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if (file != null) {
+                                showImage(context, File(file.path));
+                              }
+                            },
+                            child: Image.file(
+                              File(fileList[index].path),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: GestureDetector(
+                              onTap: () {
+                                if (file != null) {
+                                  removeImage(file);
+                                }
+                              },
+                              child: Icon(
+                                Icons.close,
+                                color: Colors.red,
+                              ),
+                            ),
+                          )
+                        ]
+                      );
+                    }
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text('계좌번호',
+                    style: TextStyle(
+                      fontSize: 20
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        bankName = AppCore.instance.getUser().bankName;
+                      });
+                      bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber;
+                    },
+                    style: ButtonStyle(
+                      overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                    ),
+                    child: Text('내 계좌')
+                  ),
+                ],
+              ),
+              DropdownButtonV1(
+                isExpanded: true,
+                value: bankName,
+                items: bankList.map(
+                  (value) {
+                    return DropdownMenuItem<String>(
+                      value: value.bankName,
+                      child: Text(value.bankName),
+                      );
+                    },
+                  ).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    bankName = bankList.firstWhere((element) => element.bankName == value).bankName;
+                  });
+                }
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              TextFormFieldV1(
+                keyboardType: TextInputType.number,
+                controller: bankAccountNumber,
+                textInputAction: TextInputAction.next,
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: ScreenUtil().setHeight(130),
+                child: TextButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
+                  ),
+                  onPressed: () async {
+                    String validationMessage = await setData();
+                    if (validationMessage.isNotEmpty) {
+                      // ignore: use_build_context_synchronously
+                      AppCore.showMessage(context, '영수증 제출', validationMessage, ActionType.ok, () {
+                        Navigator.pop(context);
+                      });
+                      return;
+                    }
+
+                    if (await widget.receipt.requestReceipt()) {
+                      // ignore: use_build_context_synchronously
+                      AppCore.showMessage(context, '영수증 제출', '제출 완료', ActionType.ok, () {
+                        Navigator.pop(context);
+                        Navigator.pop(context, true);
+                      });
+                    }
+                    else {
+                      // ignore: use_build_context_synchronously
+                      AppCore.showMessage(context, '영수증 제출', '제출에 실패하였습니다.', ActionType.ok, () {
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                  child: Text(
+                    '제출하기',
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  )
+                ),
+              ),
+            ],
+          )
+        ),
       ),
     );
   }

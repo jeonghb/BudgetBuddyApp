@@ -3,6 +3,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'models/response_data.dart';
@@ -50,7 +51,7 @@ class AppCore extends ChangeNotifier {
     setUser(initializeUser);
   }
 
-  static Future<ResponseData> request(ServerType serverType, String address, dynamic body) async {
+  static Future<ResponseData> request(ServerType serverType, String address, dynamic body, List<XFile>? fileList) async {
     ResponseData responseData = ResponseData();
 
     try {
@@ -74,6 +75,20 @@ class AppCore extends ChangeNotifier {
             uri,
             headers: {"Content-Type": "application/json"},
           ).timeout(const Duration(seconds: 3));
+        break;
+        case ServerType.FILE:
+          http.MultipartRequest request = http.MultipartRequest(
+            'POST',
+            uri,
+          );
+
+          request.fields.addAll(body);
+
+          for (XFile file in fileList!) {
+            request.files.add(await http.MultipartFile.fromPath('fileList', file.path));
+          }
+
+          response = await http.Response.fromStream(await request.send()).timeout(const Duration(seconds: 3));
         break;
       }
 
@@ -131,7 +146,7 @@ class AppCore extends ChangeNotifier {
               child: Text(
                 '확인',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -147,7 +162,7 @@ class AppCore extends ChangeNotifier {
               child: Text(
                 '취소',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -160,7 +175,7 @@ class AppCore extends ChangeNotifier {
               child: Text(
                 '확인',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                 ),
               ),
             )
@@ -177,7 +192,7 @@ class AppCore extends ChangeNotifier {
     Map<String, dynamic> body = {
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
 
     if (responseData.statusCode == 200)
     {
@@ -235,4 +250,5 @@ enum ActionType {
 enum ServerType {
   GET,
   POST,
+  FILE,
 }

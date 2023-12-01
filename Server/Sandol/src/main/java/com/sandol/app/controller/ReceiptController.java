@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sandol.app.service.ReceiptService;
 import com.sandol.app.service.FileService;
@@ -26,11 +28,14 @@ public class ReceiptController {
 	
 	@RequestMapping(value = "/requestReceipt", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean requestBill(@RequestBody ReceiptVO _receiptVO) {
-		if (receiptService.requestReceipt(_receiptVO)) {
-			for (int i = 0; i < _receiptVO.getFileList().size();) {
+	public boolean requestReceipt(@RequestParam("fileList") List<MultipartFile> fileList, @RequestParam Map<String, Object> _receiptMap) {
+		ReceiptVO receiptVO = new ReceiptVO();
+		receiptVO.setData(_receiptMap);
+		
+		if (receiptService.requestReceipt(receiptVO)) {
+			for (int i = 0; i < receiptVO.getFileList().size();) {
 				FileVO fileVO = new FileVO();
-				fileVO.setData(_receiptVO, i);
+				fileVO.setData(receiptVO, i);
 				
 				if (fileService.saveFile(fileVO)) {
 					return true;

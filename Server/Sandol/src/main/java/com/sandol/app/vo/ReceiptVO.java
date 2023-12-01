@@ -1,6 +1,7 @@
 package com.sandol.app.vo;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -117,5 +118,22 @@ public class ReceiptVO {
 	}
 	public void setRejectMessage(String rejectMessage) {
 		this.rejectMessage = rejectMessage;
+	}
+	
+	public void setData(Map<String, Object> dataMap) {
+		this.requestId = dataMap.containsKey("requestId") ? (int)(dataMap.get("requestId")) : 0;
+		this.requestUserId = dataMap.containsKey("requestUserId") ? dataMap.get("requestUserId").toString() : "";
+		this.requestUserName = dataMap.containsKey("requestUserName") ? dataMap.get("requestUserName").toString() : "";
+		this.title = dataMap.containsKey("title") ? dataMap.get("title").toString() : "";
+		this.requestAmount = dataMap.containsKey("requestAmount") ? (int)dataMap.get("requestAmount") : 0;
+		this.paymentDatetime = dataMap.containsKey("paymentDatetime") ? dataMap.get("paymentDatetime").toString() : "";
+		this.memo = dataMap.containsKey("memo") ? dataMap.get("memo").toString() : "";
+		this.approvalRequestDepartmentId = dataMap.containsKey("approvalRequestDepartmentId") ? (int)(dataMap.get("approvalRequestDepartmentId")) : 0;
+		this.approvalRequestDepartmentName = dataMap.containsKey("approvalRequestDepartmentName") ? dataMap.get("approvalRequestDepartmentName").toString() : "";
+		this.budgetTypeId = dataMap.containsKey("budgetTypeId") ? (int)(dataMap.get("budgetTypeId")) : 0;
+		this.budgetTypeName = dataMap.containsKey("budgetTypeName") ? dataMap.get("budgetTypeName").toString() : "";
+		this.bankName = dataMap.containsKey("bankName") ? dataMap.get("bankName").toString() : "";
+		this.bankAccountNumber = dataMap.containsKey("bankAccountNumber") ? dataMap.get("bankAccountNumber").toString() : "";
+		this.submissionStatus = dataMap.containsKey("submissionStatus") ? (int)(dataMap.get("submissionStatus")) : 0;
 	}
 }

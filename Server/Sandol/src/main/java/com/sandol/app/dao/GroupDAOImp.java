@@ -1,6 +1,7 @@
 package com.sandol.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,27 @@ public class GroupDAOImp implements GroupDAO {
 		} catch (NullPointerException e) {
 			return null;
 		}
+	}
+	
+	@Override
+	public boolean groupManagerChange(Map<String, String> _changeUser) {
+		try {
+			tmp.update("com.sandol.mapper.app.groupManagerChange", _changeUser);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean groupExit(Map<String, String> _user) {
+		try {
+			tmp.delete("com.sandol.mapper.app.groupExit", _user);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
 	}
 }

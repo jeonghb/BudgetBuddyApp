@@ -34,7 +34,7 @@ class _NewsList extends State<NewsList> {
       'departmentIdList': AppCore.instance.getUser().departmentList.map((e) => e.departmentId).toList(),
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.POST, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<News> tempList = <News>[];

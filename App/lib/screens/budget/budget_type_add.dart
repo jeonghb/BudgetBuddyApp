@@ -3,6 +3,7 @@ import 'package:test/app_core.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
 import '../../models/budget_type.dart';
+import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
 import '../screen_frame.dart';
 
@@ -35,7 +36,7 @@ class _BudgetTypeAdd extends State<BudgetTypeAdd> {
           TitleText(
             text: '부서',
           ),
-          DropdownButton(
+          DropdownButtonV1(
             isExpanded: true,
             value: selectDepartmentName,
             items: AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList.map(

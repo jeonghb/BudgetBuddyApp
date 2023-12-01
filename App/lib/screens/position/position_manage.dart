@@ -36,7 +36,7 @@ class _PositionManage extends State<PositionManage> {
     Map<String, dynamic> body = {
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body);
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
 
     if (responseData.statusCode == 200) {
       for (var json in jsonDecode(responseData.body))
