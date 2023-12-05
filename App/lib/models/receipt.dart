@@ -16,6 +16,7 @@ class Receipt with ChangeNotifier {
   String approvalRequestDepartmentName = '';
   int budgetTypeId = -1;
   String budgetTypeName = '';
+  String fileNameList = '';
   List<XFile> fileList = [];
   String bankName = '';
   String bankAccountNumber = '';
@@ -39,7 +40,7 @@ class Receipt with ChangeNotifier {
     approvalRequestDepartmentName = AppCore.getJsonString(json, 'approvalRequestDepartmentName');
     budgetTypeId = AppCore.getJsonInt(json, 'budgetTypeId');
     budgetTypeName = AppCore.getJsonString(json, 'budgetTypeName');
-    fileList = json['fileList'].map((fileJson) { return XFile(fileJson['path']); }).toList();
+    fileNameList = AppCore.getJsonString(json, 'fileNameList');
     bankName = AppCore.getJsonString(json, 'bankName');
     bankAccountNumber = AppCore.getJsonString(json, 'bankAccountNumber');
     submissionStatus = AppCore.getJsonInt(json, 'submissionStatus');
@@ -52,15 +53,15 @@ class Receipt with ChangeNotifier {
 
   Future<bool> requestReceipt() async {
     String address = '/requestReceipt';
-    Map<String, dynamic> body = {
-      'requestId': requestId,
+    Map<String, String> body = {
+      'requestId': requestId.toString(),
       'requestUserId': AppCore.instance.getUser().userId,
       'title': title,
-      'requestAmount': requestAmount,
+      'requestAmount': requestAmount.toString(),
       'paymentDatetime': paymentDatetime,
       'memo': memo,
-      'approvalRequestDepartmentId': approvalRequestDepartmentId,
-      'budgetTypeId': budgetTypeId,
+      'approvalRequestDepartmentId': approvalRequestDepartmentId.toString(),
+      'budgetTypeId': budgetTypeId.toString(),
       'bankName': bankName,
       'bankAccountNumber': bankAccountNumber,
     };
@@ -79,21 +80,6 @@ class Receipt with ChangeNotifier {
       return false;
     }
   }
-
-  // Future<FormData> fileListToServerData() async {
-  //   FormData formData = FormData();
-
-  //   for (XFile file in fileList) {
-  //   // 이미지 파일을 바이너리 데이터로 변환
-  //   List<int> bytes = await file.readAsBytes();
-  //   formData.files.add(
-  //     MapEntry(
-  //       "images",
-  //       MultipartFile.fromBytes(bytes),
-  //     ),
-  //   );
-  // }
-  // }
 
   Future<bool> changeSubmissionStatus() async {
     String address = '/changeSubmissionStatus';

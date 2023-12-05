@@ -148,6 +148,8 @@
 		<url-pattern>/groupExit</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/groupDelete</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/groupRegist</url-pattern>
 		
 	</servlet-mapping>
 

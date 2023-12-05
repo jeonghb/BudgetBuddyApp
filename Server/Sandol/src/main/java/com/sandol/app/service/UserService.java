@@ -7,7 +7,7 @@ import com.sandol.app.vo.UserVO;
 
 public interface UserService {
 	
-	public boolean getUserCheck(UserVO _userVO);
+	public String getUserCheck(UserVO _userVO);
 	
 	public boolean getUserInfo(String _id);
 	

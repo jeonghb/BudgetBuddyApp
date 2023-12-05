@@ -63,7 +63,10 @@ class _GroupList extends State<GroupList> {
                 icon: Icon(Icons.search),
                 onPressed: () => getGroupList(),
               ),
-              onEditingComplete: () => getGroupList(),
+              onEditingComplete: () {
+                FocusScope.of(context).unfocus();
+                getGroupList(); 
+              },
               textInputAction: TextInputAction.done,
             ),
             Expanded(
@@ -112,11 +115,12 @@ class _GroupList extends State<GroupList> {
                                             children: [
                                               Icon(
                                                 Icons.person,
+                                                size: 14,
                                               ),
                                               Text(
-                                                group.groupUserCount.toString(),
+                                                '  ${group.groupUserCount.toString()}',
                                                 style: TextStyle(
-                                                  fontSize: 14,
+                                                  fontSize: 12,
                                                   color: Colors.black,
                                                 ),
                                                 textAlign: TextAlign.center,
@@ -129,12 +133,15 @@ class _GroupList extends State<GroupList> {
                                   ),
                                 ),
                                 Expanded(
-                                  child: Text(
-                                    group.groupIntroduceMemo,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: TextStyle(
-                                      fontSize: 10,
+                                  child: Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      group.groupIntroduceMemo,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: TextStyle(
+                                        fontSize: 10,
+                                      ),
                                     ),
                                   ),
                                 ),

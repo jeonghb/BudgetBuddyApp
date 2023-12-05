@@ -6,7 +6,7 @@ class TextFormFieldV1 extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextEditingController? controller;
   final TextInputAction? textInputAction;
-  final validator;
+  final String? Function(String?)? validator;
   final String? counterText;
   final Widget? suffixIcon;
   final int? maxLength;
@@ -105,7 +105,7 @@ class _TextFormFieldV1 extends State<TextFormFieldV1> {
       keyboardType: widget.keyboardType,
       controller: widget.controller,
       textInputAction: widget.textInputAction,
-      validator: (value) { return widget.validator!(value);},
+      validator: widget.validator,
       maxLength: widget.maxLength,
       onChanged: widget.onChanged,
       onEditingComplete: widget.onEditingComplete,

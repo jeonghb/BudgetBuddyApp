@@ -37,6 +37,12 @@ public class GroupController {
 		return groupService.getGroupList(_searchText.get("searchText"));
 	}
 	
+	@RequestMapping(value = "/groupRegist", method = RequestMethod.POST)
+	@ResponseBody
+	public GroupVO groupRegist(@RequestBody Map<String, String> _userData) {
+		return groupService.groupRegist(_userData);
+	}
+	
 	@RequestMapping(value = "/groupManagerChange", method = RequestMethod.POST)
 	@ResponseBody
 	public boolean groupManagerChange(@RequestBody Map<String, String> _changeUser) {

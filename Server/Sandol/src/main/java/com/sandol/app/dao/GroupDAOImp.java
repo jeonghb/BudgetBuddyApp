@@ -67,6 +67,19 @@ public class GroupDAOImp implements GroupDAO {
 	}
 	
 	@Override
+	public GroupVO groupRegist(Map<String, String> _userData) {
+		try {
+			if (tmp.insert("com.sandol.mapper.app.groupRegist", _userData) == 0) {
+				return null;
+			}
+			
+			return tmp.selectOne("com.sandol.mapper.app.getGroup", _userData);
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	
+	@Override
 	public boolean groupManagerChange(Map<String, String> _changeUser) {
 		try {
 			tmp.update("com.sandol.mapper.app.groupManagerChange", _changeUser);

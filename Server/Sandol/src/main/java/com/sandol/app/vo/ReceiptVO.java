@@ -1,9 +1,6 @@
 package com.sandol.app.vo;
 
-import java.util.List;
 import java.util.Map;
-
-import org.springframework.web.multipart.MultipartFile;
 
 public class ReceiptVO {
 	private int requestId;
@@ -17,7 +14,7 @@ public class ReceiptVO {
 	private String approvalRequestDepartmentName;
 	private int budgetTypeId;
 	private String budgetTypeName;
-	private List<MultipartFile> fileList;
+	private String fileNameList;
 	private String bankName;
 	private String bankAccountNumber;
 	private int submissionStatus;
@@ -89,11 +86,11 @@ public class ReceiptVO {
 	public void setApprovalRequestDepartmentName(String approvalRequestDepartmentName) {
 		this.approvalRequestDepartmentName = approvalRequestDepartmentName;
 	}
-	public List<MultipartFile> getFileList() {
-		return fileList;
+	public String getFileNameList() {
+		return fileNameList;
 	}
-	public void setFileList(List<MultipartFile> fileList) {
-		this.fileList = fileList;
+	public void setFileNameList(String fileNameList) {
+		this.fileNameList = fileNameList;
 	}
 	public String getBankName() {
 		return bankName;
@@ -120,20 +117,20 @@ public class ReceiptVO {
 		this.rejectMessage = rejectMessage;
 	}
 	
-	public void setData(Map<String, Object> dataMap) {
-		this.requestId = dataMap.containsKey("requestId") ? (int)(dataMap.get("requestId")) : 0;
-		this.requestUserId = dataMap.containsKey("requestUserId") ? dataMap.get("requestUserId").toString() : "";
-		this.requestUserName = dataMap.containsKey("requestUserName") ? dataMap.get("requestUserName").toString() : "";
-		this.title = dataMap.containsKey("title") ? dataMap.get("title").toString() : "";
-		this.requestAmount = dataMap.containsKey("requestAmount") ? (int)dataMap.get("requestAmount") : 0;
-		this.paymentDatetime = dataMap.containsKey("paymentDatetime") ? dataMap.get("paymentDatetime").toString() : "";
-		this.memo = dataMap.containsKey("memo") ? dataMap.get("memo").toString() : "";
-		this.approvalRequestDepartmentId = dataMap.containsKey("approvalRequestDepartmentId") ? (int)(dataMap.get("approvalRequestDepartmentId")) : 0;
-		this.approvalRequestDepartmentName = dataMap.containsKey("approvalRequestDepartmentName") ? dataMap.get("approvalRequestDepartmentName").toString() : "";
-		this.budgetTypeId = dataMap.containsKey("budgetTypeId") ? (int)(dataMap.get("budgetTypeId")) : 0;
-		this.budgetTypeName = dataMap.containsKey("budgetTypeName") ? dataMap.get("budgetTypeName").toString() : "";
-		this.bankName = dataMap.containsKey("bankName") ? dataMap.get("bankName").toString() : "";
-		this.bankAccountNumber = dataMap.containsKey("bankAccountNumber") ? dataMap.get("bankAccountNumber").toString() : "";
-		this.submissionStatus = dataMap.containsKey("submissionStatus") ? (int)(dataMap.get("submissionStatus")) : 0;
+	public void setData(Map<String, String> dataMap) {
+		this.requestId = dataMap.containsKey("requestId") ? Integer.parseInt(dataMap.get("requestId")) : 0;
+		this.requestUserId = dataMap.containsKey("requestUserId") ? dataMap.get("requestUserId") : "";
+		this.requestUserName = dataMap.containsKey("requestUserName") ? dataMap.get("requestUserName") : "";
+		this.title = dataMap.containsKey("title") ? dataMap.get("title") : "";
+		this.requestAmount = dataMap.containsKey("requestAmount") ? Integer.parseInt(dataMap.get("requestAmount")) : 0;
+		this.paymentDatetime = dataMap.containsKey("paymentDatetime") ? dataMap.get("paymentDatetime") : "";
+		this.memo = dataMap.containsKey("memo") ? dataMap.get("memo") : "";
+		this.approvalRequestDepartmentId = dataMap.containsKey("approvalRequestDepartmentId") ? Integer.parseInt(dataMap.get("approvalRequestDepartmentId")) : 0;
+		this.approvalRequestDepartmentName = dataMap.containsKey("approvalRequestDepartmentName") ? dataMap.get("approvalRequestDepartmentName") : "";
+		this.budgetTypeId = dataMap.containsKey("budgetTypeId") ? Integer.parseInt(dataMap.get("budgetTypeId")) : 0;
+		this.budgetTypeName = dataMap.containsKey("budgetTypeName") ? dataMap.get("budgetTypeName") : "";
+		this.bankName = dataMap.containsKey("bankName") ? dataMap.get("bankName") : "";
+		this.bankAccountNumber = dataMap.containsKey("bankAccountNumber") ? dataMap.get("bankAccountNumber") : "";
+		this.submissionStatus = dataMap.containsKey("submissionStatus") ? Integer.parseInt(dataMap.get("submissionStatus")) : 0;
 	}
 }

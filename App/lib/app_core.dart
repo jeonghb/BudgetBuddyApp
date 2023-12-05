@@ -88,7 +88,7 @@ class AppCore extends ChangeNotifier {
             request.files.add(await http.MultipartFile.fromPath('fileList', file.path));
           }
 
-          response = await http.Response.fromStream(await request.send()).timeout(const Duration(seconds: 3));
+          response = await http.Response.fromStream(await request.send()).timeout(const Duration(seconds: 10));
         break;
       }
 

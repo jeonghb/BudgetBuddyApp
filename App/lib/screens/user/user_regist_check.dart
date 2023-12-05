@@ -47,10 +47,6 @@ class _UserRegistCheck extends State<UserRegistCheck> {
     return '';
   }
 
-  Future<ResponseData> isUserCheck() async {
-    return await user.isUserCheck();
-  }
-
   void setData() {
     user.userName = userName.text;
     user.userBirthdayYear = userBirthdayYear.text;
@@ -264,7 +260,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         
                         setData();
 
-                        ResponseData responseData = await isUserCheck();
+                        ResponseData responseData = await user.isUserCheck();
                         if (responseData.statusCode == 200 && user.userId.isEmpty) {
                           switch (widget.userType) {
                             case UserType.newUser:

@@ -30,10 +30,4 @@ public class FileVO {
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
-
-	public void setData(ReceiptVO billVO, int _seq) {
-//		setRelationKey(billVO.getRequestId());
-//		setSeq(_seq);
-//		setFileName(billVO.getFileList()[_seq].);
-	}
 }

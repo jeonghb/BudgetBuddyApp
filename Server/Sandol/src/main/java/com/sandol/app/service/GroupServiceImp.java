@@ -32,6 +32,11 @@ public class GroupServiceImp implements GroupService {
 	}
 	
 	@Override
+	public GroupVO groupRegist(Map<String, String> _userData) {
+		return dao.groupRegist(_userData);
+	}
+	
+	@Override
 	public boolean groupManagerChange(Map<String, String> _changeUser) {
 		return dao.groupManagerChange(_changeUser);
 	}

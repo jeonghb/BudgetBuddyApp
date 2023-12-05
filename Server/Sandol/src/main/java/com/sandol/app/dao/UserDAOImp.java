@@ -16,12 +16,11 @@ public class UserDAOImp implements UserDAO {
 	SqlSessionTemplate tmp;
 	
 	@Override
-	public boolean getUserCheck(UserVO _userVO) {
+	public String getUserCheck(UserVO _userVO) {
 		try {
-			int count = tmp.selectOne("com.sandol.mapper.app.userCheck", _userVO);
-			return count == 0 ? true : false;
+			return tmp.selectOne("com.sandol.mapper.app.userCheck", _userVO);
 		} catch (NullPointerException e) {
-			return false;
+			return "";
 		}
 	}
 	

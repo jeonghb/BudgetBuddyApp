@@ -1,8 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import '../../app_core.dart';
+import '../../models/response_data.dart';
 import 'receipt_request.dart';
 import '../../widgets/receipt_data.dart';
 import '../../widgets/title_text.dart';
@@ -39,8 +43,45 @@ class _ReceiptDetail extends State<ReceiptDetail> {
   void initState() {
     super.initState();
 
+    getFileList();
+
     // 현재 상태값 다음으로 변경할 수 있도록 세팅(단 송금(3) 보다 클 수 없음)
     selectApprovalId = widget.receipt.submissionStatus + 1 > 3 ? widget.receipt.submissionStatus : widget.receipt.submissionStatus + 1;
+  }
+
+  void getFileList() async {
+    String address = '/getFileList';
+    Map<String, dynamic> body = {
+      'fileNameList': widget.receipt.fileNameList,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
+
+    if (responseData.statusCode == 200) {
+      List<XFile> tempList = <XFile>[];
+
+      for (Map<String, dynamic> fileData in jsonDecode(responseData.body))
+      {
+          if (fileData.containsKey('bytes') && fileData.containsKey('name')) {
+          var bytes = base64Decode(fileData['bytes']);
+          var fileName = fileData['name'];
+
+          // Save the bytes to a file
+          Directory tempDir = await getTemporaryDirectory();
+          File file = File('${tempDir.path}/$fileName');
+          await file.writeAsBytes(bytes);
+
+          // Create XFile from the file path
+          var xFile = XFile(file.path);
+
+          tempList.add(xFile);
+        }
+      }
+
+      setState(() {
+        widget.receipt.fileList = tempList;
+      });
+    }
   }
 
   void showImage(int index) {

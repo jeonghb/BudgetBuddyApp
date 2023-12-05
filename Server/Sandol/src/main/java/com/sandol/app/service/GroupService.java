@@ -13,6 +13,8 @@ public interface GroupService {
 	
 	public List<GroupVO> getGroupList(String _searchText);
 	
+	public GroupVO groupRegist(Map<String, String> _userData);
+	
 	public boolean groupManagerChange(Map<String, String> _changeUser);
 	
 	public boolean groupExit(Map<String, String> _user);

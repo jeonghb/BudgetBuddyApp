@@ -41,7 +41,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean userCheck(@RequestBody UserVO _userVO) {
+	public String userCheck(@RequestBody UserVO _userVO) {
 		return userService.getUserCheck(_userVO);
 	}
 	

@@ -175,11 +175,6 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   }
 
   Future<void> addImage() async {
-    // List<Asset> resultList = await MultiImagePicker.pickImages(maxImages: 5, enableCamera: true);
-
-    // setState(() {
-    //   // fileList = resultList.map((e) => e.)
-    // });
     List<XFile> tmpList = await ImagePicker().pickMultiImage();
 
     setState(() {
@@ -539,7 +534,8 @@ class _ReceiptRequest extends State<ReceiptRequest> {
               SizedBox(
                 height: 10,
               ),
-              Text('구분',
+              Text(
+                '구분',
                 style: TextStyle(
                   fontSize: 20
                 ),
@@ -564,6 +560,15 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                     budgetTypeName = budgetTypeList.firstWhere((element) => element.budgetTypeName == value).budgetTypeName;
                   });
                 }
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                '영수증 첨부',
+                style: TextStyle(
+                  fontSize: 20
+                ),
               ),
               SizedBox(
                 height: 10,

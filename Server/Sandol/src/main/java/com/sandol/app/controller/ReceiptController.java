@@ -1,5 +1,6 @@
 package com.sandol.app.controller;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -13,9 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sandol.app.service.ReceiptService;
+import com.sandol.app.core.FileManager;
 import com.sandol.app.service.FileService;
 import com.sandol.app.vo.ReceiptVO;
-import com.sandol.app.vo.FileVO;
 
 @Controller
 public class ReceiptController {
@@ -28,26 +29,28 @@ public class ReceiptController {
 	
 	@RequestMapping(value = "/requestReceipt", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean requestReceipt(@RequestParam("fileList") List<MultipartFile> fileList, @RequestParam Map<String, Object> _receiptMap) {
+	public boolean requestReceipt(@RequestParam("fileList") List<MultipartFile> fileList, @RequestParam Map<String, String> _receiptMap) throws IOException {
 		ReceiptVO receiptVO = new ReceiptVO();
 		receiptVO.setData(_receiptMap);
-		
-		if (receiptService.requestReceipt(receiptVO)) {
-			for (int i = 0; i < receiptVO.getFileList().size();) {
-				FileVO fileVO = new FileVO();
-				fileVO.setData(receiptVO, i);
-				
-				if (fileService.saveFile(fileVO)) {
-					return true;
-				}
-				else return false;
+
+		String fileNameList = "";
+		if (fileList.size() > 0) {
+			try {
+				FileManager.getInstance();
+				fileNameList = FileManager.saveFiles(fileList);	
+			} catch (ExceptionInInitializerError e) {
+				e.printStackTrace();
 			}
 			
-			return true;
 		}
-		else {
+		
+		receiptVO.setFileNameList(fileNameList);
+		
+		if (!receiptService.requestReceipt(receiptVO)) {
 			return false;
 		}
+		
+		return true;
 	}
 	
 	@RequestMapping(value = "/getReceiptApprovalList", method = RequestMethod.POST)
