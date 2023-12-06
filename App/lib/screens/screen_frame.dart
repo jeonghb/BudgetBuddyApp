@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/app_core.dart';
 
+import '../widgets/bottom_bar.dart';
 import '../widgets/menu_drawer.dart';
 import '../widgets/top_bar.dart';
 
@@ -10,6 +11,7 @@ class ScreenFrame extends StatefulWidget {
   final bool isDrawer;
   final Color backgroundColor;
   final bool isAlarm;
+  final bool bottomBar;
   
   const ScreenFrame({
     super.key,
@@ -18,6 +20,7 @@ class ScreenFrame extends StatefulWidget {
     required this.body,
     this.backgroundColor = Colors.white,
     this.isAlarm = false,
+    this.bottomBar = true,
   });
 
   @override
@@ -25,7 +28,6 @@ class ScreenFrame extends StatefulWidget {
 }
 
 class _ScreenFrame extends State<ScreenFrame> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +35,7 @@ class _ScreenFrame extends State<ScreenFrame> {
       endDrawer: widget.isDrawer ? MenuDrawer() : null,
       backgroundColor: widget.backgroundColor,
       resizeToAvoidBottomInset: true,
+      bottomNavigationBar: widget.bottomBar ? BottomBar() : null,
       body : Stack(
         children: [
           GestureDetector(

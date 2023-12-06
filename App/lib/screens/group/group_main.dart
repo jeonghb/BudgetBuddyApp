@@ -28,7 +28,7 @@ class _GroupMain extends State<GroupMain> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              '아직 소속된 그룹이 없어요!',
+              AppCore.instance.getUser().selectGroupId == -1 ? '아직 소속된 그룹이 없어요!' : '그룹관리',
               style: TextStyle(
                 fontSize: 20,
               )
