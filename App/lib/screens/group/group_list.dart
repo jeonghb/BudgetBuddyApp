@@ -21,6 +21,8 @@ class _GroupList extends State<GroupList> {
   TextEditingController searchText = TextEditingController();
 
   Future<void> getGroupList() async {
+    if (searchText.text.isEmpty) return;
+    
     String address = '/getGroupList';
     Map<String, dynamic> body = {
       'searchText': searchText.text,

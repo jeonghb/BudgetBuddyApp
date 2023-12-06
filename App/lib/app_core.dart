@@ -10,7 +10,7 @@ import 'models/response_data.dart';
 import 'models/user.dart';
 
 class AppCore extends ChangeNotifier {
-  static String baseUrl = "http://211.197.27.23:8081";
+  static String baseUrl = "http://218.146.68.250:8081";
   static String localUrl = "http://192.168.0.2:8081";
   static AppCore instance = AppCore();
   static User user = User();
@@ -55,7 +55,7 @@ class AppCore extends ChangeNotifier {
     ResponseData responseData = ResponseData();
 
     try {
-      Uri uri = Uri.parse(AppCore.localUrl + address);
+      Uri uri = Uri.parse(AppCore.baseUrl + address);
 
       loadingServerRequest();
 

@@ -35,7 +35,7 @@ class _TopBar extends State<TopBar> {
       case BarType.logout:
         actionIcon = IconButton(
           onPressed: () {
-            Navigator.popUntil(context, ModalRoute.withName('/'));
+            Navigator.popUntil(context, (route) { return route.isFirst; });
           },
           icon: Icon(
             Icons.close,
@@ -90,4 +90,5 @@ class _TopBar extends State<TopBar> {
 enum BarType {
   login,
   logout,
+  invisible,
 }

@@ -6,14 +6,14 @@ import '../widgets/top_bar.dart';
 
 class ScreenFrame extends StatefulWidget {
   final Widget body;
-  final bool isAppBar;
+  final BarType appBarType;
   final bool isDrawer;
   final Color backgroundColor;
   final bool isAlarm;
   
   const ScreenFrame({
     super.key,
-    this.isAppBar = true,
+    this.appBarType = BarType.logout,
     this.isDrawer = true,
     required this.body,
     this.backgroundColor = Colors.white,
@@ -29,7 +29,7 @@ class _ScreenFrame extends State<ScreenFrame> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.isAppBar ? TopBar(type: BarType.login, alarm: widget.isAlarm,) : null,
+      appBar: widget.appBarType == BarType.invisible ? null : TopBar(type: widget.appBarType, alarm: widget.isAlarm,),
       endDrawer: widget.isDrawer ? MenuDrawer() : null,
       backgroundColor: widget.backgroundColor,
       resizeToAvoidBottomInset: true,

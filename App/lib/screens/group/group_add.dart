@@ -4,6 +4,7 @@ import 'package:test/app_core.dart';
 import 'package:test/screens/screen_frame.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/title_text.dart';
+import 'package:test/widgets/top_bar.dart';
 
 import '../../models/group.dart';
 import '../home.dart';
@@ -29,7 +30,7 @@ class _GroupAdd extends State<GroupAdd> {
   Widget build(BuildContext context) {
     return ScreenFrame(
       isAlarm: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
-      isAppBar: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
+      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.logout : BarType.invisible,
       isDrawer: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
       body: Padding(
         padding: EdgeInsets.all(30),
@@ -52,6 +53,11 @@ class _GroupAdd extends State<GroupAdd> {
               ),
               TextFormFieldV1(
                 controller: groupName,
+                textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                  FocusScope.of(context).nextFocus();
+                },
               ),
               SizedBox(
                 height: 10,

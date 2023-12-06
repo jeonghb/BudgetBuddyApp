@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:test/widgets/top_bar.dart';
 import '../../app_core.dart';
 import '../../screens/screen_frame.dart';
 import '../../widgets/dropdown_button_v1.dart';
@@ -256,7 +257,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      isAppBar: true,
+      appBarType: BarType.logout,
       isDrawer: true,
       isAlarm: false,
       body: Padding(

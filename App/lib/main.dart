@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'app_core.dart';
 import 'initialize.dart';
-import 'models/user.dart';
 
 void main() async {
   runApp(MyApp());
@@ -16,16 +14,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyApp extends State<MyApp> {
-  late Future<User> isInitialized;
-
-  @override
-  void initState() {
-    super.initState();
-
-    setState(() {
-      isInitialized = AppCore.instance.getUserDB();
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

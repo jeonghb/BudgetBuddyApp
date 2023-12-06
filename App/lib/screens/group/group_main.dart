@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../app_core.dart';
+import '../../widgets/top_bar.dart';
 import '../screen_frame.dart';
 import 'group_add.dart';
 import 'group_list.dart';
@@ -17,7 +19,7 @@ class _GroupMain extends State<GroupMain> {
   Widget build(BuildContext context) {
     return ScreenFrame(
       isAlarm: false,
-      isAppBar: false,
+      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.logout : BarType.invisible,
       isDrawer: false,
       // backgroundColor: Color.fromARGB(255, 90, 68, 223),
       body: Padding(

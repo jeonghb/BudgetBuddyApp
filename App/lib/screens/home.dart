@@ -6,6 +6,7 @@ import 'package:test/app_core.dart';
 import 'package:test/screens/receipt/receipt_approval_list.dart';
 import 'package:test/screens/screen_frame.dart';
 import 'package:test/widgets/title_text.dart';
+import 'package:test/widgets/top_bar.dart';
 
 import '../models/news.dart';
 import '../models/receipt.dart';
@@ -61,6 +62,7 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     return ScreenFrame(
       isAlarm: true,
+      appBarType: BarType.login,
       body: WillPopScope(
         onWillPop: () async {
           DateTime now = DateTime.now();

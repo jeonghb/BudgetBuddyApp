@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/screens/screen_frame.dart';
+import 'package:test/widgets/top_bar.dart';
 
 import '../../app_core.dart';
 import '../../models/group.dart';
@@ -50,51 +51,60 @@ class _GroupIntroduce extends State<GroupIntroduce> {
   Widget build(BuildContext context) {
     return ScreenFrame(
       isAlarm: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
-      isAppBar: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
+      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.logout : BarType.logout,
       isDrawer: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 100,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.group.groupName,
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                Icon(
-                  Icons.person,
-                  size: 14,
-                ),
-                Text(
-                  '  ${widget.group.groupUserCount.toString()}',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Divider(),
-            SizedBox(
-              height: 20,
-            ),
             Expanded(
-              child: Text(
-                widget.group.groupIntroduceMemo,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: 100,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            widget.group.groupName,
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.person,
+                          size: 14,
+                        ),
+                        Text(
+                          '  ${widget.group.groupUserCount.toString()}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Divider(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      widget.group.groupIntroduceMemo,
+                    ),
+                  ]
+                ),
               ),
+            ),
+            SizedBox(
+              height: 10,
             ),
             SizedBox(
               width: double.infinity,
