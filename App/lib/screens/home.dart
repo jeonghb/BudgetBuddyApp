@@ -61,8 +61,7 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      isAlarm: true,
-      appBarType: BarType.login,
+      appBarType: BarType.main,
       body: WillPopScope(
         onWillPop: () async {
           DateTime now = DateTime.now();

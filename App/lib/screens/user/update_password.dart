@@ -54,7 +54,7 @@ class _UpdatePassword extends State<UpdatePassword> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(type: BarType.logout),
+        appBar: TopBar(type: BarType.exit),
         backgroundColor: Colors.white,
         body: Center(
           child: Padding(

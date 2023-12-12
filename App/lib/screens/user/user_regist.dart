@@ -55,7 +55,7 @@ class _UserRegist extends State<UserRegist> {
     return GestureDetector(
       onTap: () => { FocusScope.of(context).unfocus()},
       child: Scaffold(
-        appBar: TopBar(type: BarType.logout),
+        appBar: TopBar(type: BarType.exit),
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         body: SingleChildScrollView(

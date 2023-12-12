@@ -257,9 +257,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      appBarType: BarType.logout,
-      isDrawer: true,
-      isAlarm: false,
+      appBarType: BarType.exit,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: SingleChildScrollView(

@@ -50,9 +50,7 @@ class _GroupIntroduce extends State<GroupIntroduce> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      isAlarm: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
-      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.logout : BarType.logout,
-      isDrawer: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
+      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.exit : BarType.exit,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(

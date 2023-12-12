@@ -7,7 +7,6 @@ import 'package:test/widgets/title_text.dart';
 import 'package:test/widgets/top_bar.dart';
 
 import '../../models/group.dart';
-import '../home.dart';
 
 class GroupAdd extends StatefulWidget {
   const GroupAdd({super.key});
@@ -29,9 +28,7 @@ class _GroupAdd extends State<GroupAdd> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      isAlarm: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
-      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.logout : BarType.invisible,
-      isDrawer: AppCore.instance.getUser().selectGroupId != -1 ? true : false,
+      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.exit : BarType.invisible,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: SingleChildScrollView(
@@ -98,7 +95,15 @@ class _GroupAdd extends State<GroupAdd> {
 
                     if (await group.groupAdd()) {
                       // ignore: use_build_context_synchronously
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().groupList[0].groupId)), (route) => false,);
+                      AppCore.showMessage(context, '그룹 생성', '그룹 생성이 완료되었습니다. 관리자가 승인 확인을 기다려주세요.', ActionType.ok, () {
+                        Navigator.pop(context);
+                      });
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.pop(context);
+                      
+                      // ignore: use_build_context_synchronously
+                      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().groupList[0].groupId)), (route) => false,);
                     }
                     else {
                       // ignore: use_build_context_synchronously

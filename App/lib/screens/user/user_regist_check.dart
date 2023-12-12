@@ -58,9 +58,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      isAlarm: false,
-      appBarType: BarType.logout,
-      isDrawer: false,
+      appBarType: BarType.exit,
       body: Center(
         child: Padding(
           padding: EdgeInsets.all(20),

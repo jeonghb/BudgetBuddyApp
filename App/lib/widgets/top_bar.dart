@@ -3,9 +3,8 @@ import '../screens/notification_list.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final BarType type;
-  final bool alarm;
 
-  const TopBar({super.key, required this.type, this.alarm = false});
+  const TopBar({super.key, required this.type});
 
   @override
   State<TopBar> createState() => _TopBar();
@@ -21,7 +20,7 @@ class _TopBar extends State<TopBar> {
     Widget leadingIcon;
 
     switch (widget.type) {
-      case BarType.login:
+      case BarType.main:
         actionIcon = IconButton(
           onPressed: () {
             Scaffold.of(context).openEndDrawer();
@@ -31,8 +30,17 @@ class _TopBar extends State<TopBar> {
             color: Colors.black
           ),
         );
+        leadingIcon = IconButton(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationList()),);
+          },
+          icon: Icon(
+            Icons.notifications_none,
+            color: Colors.black,
+          )
+        );
         break;
-      case BarType.logout:
+      case BarType.exit:
         actionIcon = IconButton(
           onPressed: () {
             Navigator.popUntil(context, (route) { return route.isFirst; });
@@ -42,32 +50,19 @@ class _TopBar extends State<TopBar> {
             color: Colors.black
           ),
         );
+        leadingIcon = IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back,
+            color: Colors.black
+          ),
+        );
         break;
       default:
         actionIcon = Container();
-    }
-
-    if (widget.alarm) {
-      leadingIcon = IconButton(
-        onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationList()),);
-        },
-        icon: Icon(
-          Icons.notifications_none,
-          color: Colors.black,
-        )
-      );
-    }
-    else {
-      leadingIcon = IconButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        icon: Icon(
-          Icons.arrow_back,
-          color: Colors.black
-        ),
-      );
+        leadingIcon = Container();
     }
 
     return AppBar(
@@ -88,7 +83,7 @@ class _TopBar extends State<TopBar> {
 }
 
 enum BarType {
-  login,
-  logout,
+  main,
+  exit,
   invisible,
 }
