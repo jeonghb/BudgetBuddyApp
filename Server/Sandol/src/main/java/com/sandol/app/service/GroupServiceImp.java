@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.sandol.app.dao.GroupDAO;
+import com.sandol.app.vo.GroupMemberVO;
 import com.sandol.app.vo.GroupVO;
 
 @Service
@@ -42,7 +43,22 @@ public class GroupServiceImp implements GroupService {
 	}
 	
 	@Override
-	public boolean groupExit(Map<String, String> _user) {
-		return dao.groupExit(_user);
+	public boolean groupExit(GroupVO _group) {
+		return dao.groupExit(_group);
+	}
+	
+	@Override
+	public boolean groupDelete(GroupVO _group) {
+		return dao.groupDelete(_group);
+	}
+	
+	@Override
+	public List<GroupMemberVO> getGroupMemberList(Map<String, Object> _searchText) {
+		return dao.getGroupMemberList(_searchText);
+	}
+	
+	@Override
+	public boolean groupManagerUpdate(Map<String, Object> _data) {
+		return dao.groupManagerUpdate(_data);
 	}
 }

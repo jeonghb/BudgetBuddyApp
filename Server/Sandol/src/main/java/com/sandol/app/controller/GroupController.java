@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sandol.app.service.GroupService;
+import com.sandol.app.vo.GroupMemberVO;
 import com.sandol.app.vo.GroupVO;
 
 @Controller
@@ -51,7 +52,25 @@ public class GroupController {
 	
 	@RequestMapping(value = "/groupExit", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean groupExit(@RequestBody Map<String, String> _user) {
-		return groupService.groupExit(_user);
+	public boolean groupExit(@RequestBody GroupVO _group) {
+		return groupService.groupExit(_group);
+	}
+	
+	@RequestMapping(value = "/groupDelete", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean groupDelete(@RequestBody GroupVO _group) {
+		return groupService.groupDelete(_group);
+	}
+	
+	@RequestMapping(value = "/getGroupMemberList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<GroupMemberVO> getGroupMemberList(@RequestBody Map<String, Object> _searchText) {
+		return groupService.getGroupMemberList(_searchText);
+	}
+	
+	@RequestMapping(value = "/groupManagerUpdate", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean groupManagerUpdate(@RequestBody Map<String, Object> _data) {
+		return groupService.groupManagerUpdate(_data);
 	}
 }

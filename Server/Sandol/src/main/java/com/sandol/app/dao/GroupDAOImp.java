@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.sandol.app.vo.GroupMemberVO;
 import com.sandol.app.vo.GroupVO;
 
 @Repository
@@ -91,9 +92,47 @@ public class GroupDAOImp implements GroupDAO {
 	}
 	
 	@Override
-	public boolean groupExit(Map<String, String> _user) {
+	public boolean groupExit(GroupVO _group) {
 		try {
-			tmp.delete("com.sandol.mapper.app.groupExit", _user);
+			int isMaster = tmp.selectOne("com.sandol.mapper.app.groupMasterCheck", _group); 
+			
+			if (isMaster == 1) return false;
+			
+			tmp.delete("com.sandol.mapper.app.groupExit", _group);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean groupDelete(GroupVO _group) {
+		try {
+			int isMaster = tmp.selectOne("com.sandol.mapper.app.groupMasterCheck", _group); 
+			if (isMaster != 1) return false;
+			
+			tmp.delete("com.sandol.mapper.app.groupDelete", _group);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public List<GroupMemberVO> getGroupMemberList(Map<String, Object> _searchText) {
+		try {
+			return tmp.selectList("com.sandol.mapper.app.getGroupMemberList", _searchText);
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public boolean groupManagerUpdate(Map<String, Object> _data) {
+		try {
+			if (tmp.update("com.sandol.mapper.app.groupManagerUpdate", _data) != 2) return false;
 		} catch (NullPointerException e) {
 			return false;
 		}

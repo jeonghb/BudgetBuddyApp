@@ -150,6 +150,10 @@
 		<url-pattern>/groupDelete</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/groupRegist</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getGroupMemberList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/groupManagerUpdate</url-pattern>
 		
 	</servlet-mapping>
 

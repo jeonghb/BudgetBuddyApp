@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
 import '../../models/user.dart';
 import '../../widgets/dropdown_button_v1.dart';
@@ -24,6 +25,11 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
   void initState() {
     super.initState();
 
+    setState(() {
+      bankAccountNumber.text = user.bankAccountNumber;
+      userEmail.text = user.userEmail;
+      userPhoneNumber.text = user.userPhoneNumber;
+    });
     loadBankList();
   }
 
@@ -50,15 +56,15 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
     return ScreenFrame(
       body: Padding(
         padding: EdgeInsets.all(30),
-        child: ListView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TitleText(
               text: '개인정보 수정',
             ),
             Text('이메일',
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold
+                fontSize: 20,
               ),
             ),
             SizedBox(
@@ -80,8 +86,7 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
             ),
             Text('휴대폰번호',
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold
+                fontSize: 20,
               ),
             ),
             SizedBox(
@@ -99,12 +104,11 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
             ),
             Text('계좌번호',
               style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.bold
+                fontSize: 20,
               ),
             ),
             SizedBox(
-              height: 5,
+              height: 10,
             ),
             DropdownButtonV1(
               isExpanded: true,
@@ -137,7 +141,8 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
               height: 10,
             ),
             SizedBox(
-              height: 60,
+              width: double.infinity,
+              height: ScreenUtil().setHeight(130),
               child: TextButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
@@ -164,7 +169,7 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
                   style: TextStyle(
                     color: Colors.white,
                   ),
-                )
+                ),
               ),
             ),
           ],

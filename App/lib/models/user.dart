@@ -29,7 +29,6 @@ class User {
   List<Department> departmentList = <Department>[];
   // Image? image;
   bool isLoginSucess = false;
-  bool isManager = false;
 
   RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
   RegExp passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}');
@@ -193,7 +192,6 @@ class User {
         bankName = AppCore.getJsonString(json, 'bankName');
         bankAccountNumber = AppCore.getJsonString(json, 'bankAccountNumber');
         isLoginSucess = true;
-        isManager = AppCore.getJsonBool(json, 'isManager');
 
         // 그룹 조회
         address = '/getLoginUserGroupList';

@@ -38,6 +38,7 @@ class _MyGroupList extends State<MyGroupList> {
                   return GestureDetector(
                     onTap: () async {
                       AppCore.instance.getUser().selectGroupId = group.groupId;
+                      Navigator.pop(context, true);
                     },
                     child: Column(
                       children: [

@@ -144,7 +144,7 @@ class _NewsDetail extends State<NewsDetail> {
                         }).toList();
                       }
                       // 관리자일 경우
-                      else if (AppCore.instance.getUser().isManager) {
+                      else if (AppCore.instance.getUser().groupList.firstWhere((group) => group.groupId == AppCore.instance.getUser().selectGroupId).isManager) {
                         return ['삭제'].map((String choice) {
                           return PopupMenuItem<String>(
                             value: choice,

@@ -52,7 +52,7 @@ class _TopBar extends State<TopBar> {
         );
         leadingIcon = IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, false);
           },
           icon: Icon(
             Icons.arrow_back,
