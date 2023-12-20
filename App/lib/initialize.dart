@@ -27,11 +27,10 @@ class _Initialize extends State<Initialize> {
     await AppCore.instance.getUserDB();
 
     Future.delayed(Duration(seconds: 3), () {
-      Navigator.popUntil(context, ModalRoute.withName('/'));
       if (AppCore.instance.getUser().isLoginSucess) {
         if (AppCore.instance.getUser().groupList.isNotEmpty) {
-          AppCore.instance.getUser().selectGroupId = AppCore.instance.getUser().groupList[0].groupId;
-          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
+          AppCore.instance.getUser().selectGroup = AppCore.instance.getUser().groupList[0];
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId), settings: RouteSettings(name: '/Home'),), (route) => false);
         }
         else {
           Navigator.push(context, MaterialPageRoute(builder: (context) => GroupMain()),);

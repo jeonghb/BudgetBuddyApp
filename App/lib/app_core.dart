@@ -238,7 +238,7 @@ class AppCore extends ChangeNotifier {
   }
 
   static bool authCheck(String authName) {
-    return user.getAuthList().any((element) => element.authName == authName);
+    return user.selectGroup.getAuthList().any((element) => element.authName == authName);
   }
 }
 

@@ -32,7 +32,7 @@ class _GroupMemberList extends State<GroupMemberList> {
   Future<void> getGroupMemberList() async {
     String address = '/getGroupMemberList';
     Map<String, dynamic> body = {
-      'groupId': AppCore.instance.getUser().selectGroupId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
       'searchText': searchText.text,
     };
 

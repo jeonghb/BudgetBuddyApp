@@ -37,7 +37,7 @@ class _MyGroupList extends State<MyGroupList> {
 
                   return GestureDetector(
                     onTap: () async {
-                      AppCore.instance.getUser().selectGroupId = group.groupId;
+                      AppCore.instance.getUser().selectGroup = group;
                       Navigator.pop(context, true);
                     },
                     child: Column(
@@ -63,7 +63,7 @@ class _MyGroupList extends State<MyGroupList> {
                                   Expanded(
                                     child: Container(
                                       alignment: Alignment.center,
-                                      child: group.groupId == AppCore.instance.getUser().selectGroupId ? Icon(
+                                      child: group.groupId == AppCore.instance.getUser().selectGroup.groupId ? Icon(
                                         Icons.check_circle,
                                         color: Color.fromARGB(255, 90, 68, 223),
                                       ) : null,

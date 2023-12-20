@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
 import '../app_core.dart';
 import 'position.dart';
 import 'response_data.dart';
 
-class Department with ChangeNotifier {
+class Department {
   int departmentId = -1;
   String departmentName = '';
   bool activationStatus = true;

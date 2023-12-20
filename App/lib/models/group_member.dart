@@ -22,7 +22,7 @@ class GroupMember {
   Future<bool> groupManagerUpdate() async {
     String address = '/groupManagerUpdate';
     Map<String, dynamic> body = {
-      'groupId': AppCore.instance.getUser().selectGroupId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
       'newManagerUserId': userId,
     };
 

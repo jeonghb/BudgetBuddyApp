@@ -27,7 +27,7 @@ class _MyPage extends State<MyPage> {
   Widget build(BuildContext context) {
     List<Position> userPositionList = <Position>[];
 
-    for (Department department in AppCore.instance.getUser().departmentList) {
+    for (Department department in AppCore.instance.getUser().selectGroup.departmentList) {
       userPositionList.addAll(department.positionList);
     }
 
@@ -226,7 +226,7 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
-                  if (AppCore.instance.getUser().departmentList.isEmpty) {
+                  if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
                     AppCore.showMessage(context, '부서 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
                       Navigator.pop(context);
                     });
@@ -261,7 +261,7 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
-                  if (AppCore.instance.getUser().departmentList.isEmpty) {
+                  if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
                     AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
                       Navigator.pop(context);
                       Navigator.pop(context);
@@ -295,7 +295,7 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
-                  if (AppCore.instance.getUser().departmentList.isEmpty) {
+                  if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
                     AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
                       Navigator.pop(context);
                       Navigator.pop(context);

@@ -29,8 +29,8 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
   void initState() {
     super.initState();
 
-    selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
-    selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
 
     getBudgetYearList();
   }
@@ -56,7 +56,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
       List<BudgetYear> tempList = <BudgetYear>[];
       
       for (int year = 2023; year <= DateTime.now().year + 1; year++) {
-        for (int departmentId in AppCore.instance.getUser().departmentList.map((e) => e.departmentId,)) {
+        for (int departmentId in AppCore.instance.getUser().selectGroup.departmentList.map((e) => e.departmentId,)) {
           BudgetYear temp = BudgetYear();
           temp.departmentId = departmentId;
           temp.year = year;
@@ -127,7 +127,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
           DropdownButtonV1(
             // isExpanded: true,
             value: selectDepartmentName,
-            items: AppCore.instance.getUser().departmentList.map(
+            items: AppCore.instance.getUser().selectGroup.departmentList.map(
               (value) { 
                 return DropdownMenuItem<String>(
                   value: value.departmentName,
@@ -137,8 +137,8 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
               ).toList(),
             onChanged: (value) {
               setState(() {
-                selectDepartmentId = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentName == value).departmentId;
-                selectDepartmentName = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentName == value).departmentName;
+                selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentId;
+                selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentName;
               });
             }
           ),
@@ -185,7 +185,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
                   // ignore: use_build_context_synchronously
                   AppCore.showMessage(context, '예산 설정', '예산 설정 완료', ActionType.ok, () {
                     Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId)),);
                   });
                 }
                 else {

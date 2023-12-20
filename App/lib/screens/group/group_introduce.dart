@@ -35,7 +35,7 @@ class _GroupIntroduce extends State<GroupIntroduce> {
         group.setData(jsonDecode(responseData.body));
         
         AppCore.instance.getUser().groupList.add(group);
-        AppCore.instance.getUser().selectGroupId = group.groupId;
+        AppCore.instance.getUser().selectGroup = group;
         return true;
       }
       else {
@@ -50,7 +50,7 @@ class _GroupIntroduce extends State<GroupIntroduce> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.exit : BarType.exit,
+      appBarType: AppCore.instance.getUser().selectGroup.groupId != -1 ? BarType.exit : BarType.exit,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(

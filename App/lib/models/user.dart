@@ -1,13 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:test/app_core.dart';
 import 'package:test/models/response_data.dart';
 import 'group.dart';
-import 'position.dart';
-import 'auth.dart';
-import 'department.dart';
 
 class User {
   String userId = '';
@@ -25,8 +21,7 @@ class User {
   String bankName = '';
   String bankAccountNumber = '';
   List<Group> groupList = <Group>[];
-  int selectGroupId = -1;
-  List<Department> departmentList = <Department>[];
+  Group selectGroup = Group();
   // Image? image;
   bool isLoginSucess = false;
 
@@ -206,53 +201,9 @@ class User {
             Group group = Group();
             group.setData(jsonGroup);
 
+            group.getLoginUserDepartmentPositionList(userId);
+
             groupList.add(group);
-          }
-        }
-
-        // 부서, 직책 조회
-        address = '/getLoginUserDepartmentPositionList';
-        body = {
-          'userId': userId,
-        };
-
-        responseData = await AppCore.request(ServerType.POST, address, body, null);
-
-        if (responseData.statusCode == 200) {
-          for (var jsonDepartment in jsonDecode(responseData.body)) {
-            Department department = Department();
-            department.setData(jsonDepartment);
-
-            if (departmentList.where((element) => element.departmentId == department.departmentId).isEmpty) {
-              departmentList.add(department);
-            }
-
-            Position position = Position();
-            position.setData(jsonDepartment);
-            departmentList.firstWhere((element) => element.departmentId == department.departmentId).positionList.add(position);
-          }
-        }
-
-        // 권한 조회
-        address = '/getUserAuthList';
-        body = {
-          'userId': userId
-        };
-
-        responseData = await AppCore.request(ServerType.POST, address, body, null);
-
-        if (responseData.statusCode == 200) {
-          List<Auth> authList = <Auth>[];
-          for (var jsonAuth in jsonDecode(responseData.body)) {
-            Auth auth = Auth.fromJson(jsonAuth);
-            auth.positionId = AppCore.getJsonInt(jsonAuth, 'positionId');
-            authList.add(auth);
-          }
-
-          for (Department department in departmentList) {
-            for (Position position in department.positionList) {
-              position.positionAuthList.addAll(authList.where((element) => element.positionId == position.positionId));
-            }
           }
         }
 
@@ -297,21 +248,5 @@ class User {
     }
     
     return false;
-  }
-
-  List<Auth> getAuthList() {
-    List<Auth> authList = <Auth>[];
-
-    for (Department department in departmentList) {
-      for (Position position in department.positionList) {
-        for (Auth auth in position.positionAuthList) {
-          if (auth.use && authList.firstWhereOrNull((element) => element.authId == auth.authId) == null) {
-            authList.add(auth);
-          }
-        }
-      }
-    }
-
-    return authList;
   }
 }

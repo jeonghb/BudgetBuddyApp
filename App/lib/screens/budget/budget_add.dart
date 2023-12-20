@@ -9,7 +9,6 @@ import '../../app_core.dart';
 import '../../models/response_data.dart';
 import '../../widgets/dropdown_button_v1.dart';
 import '../../widgets/title_text.dart';
-import '../home.dart';
 import '../screen_frame.dart';
 
 class BudgetAdd extends StatefulWidget {
@@ -35,8 +34,8 @@ class _BudgetAdd extends State<BudgetAdd> {
   void initState() {
     super.initState();
 
-    departmentId = AppCore.instance.getUser().departmentList[0].departmentId;
-    departmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    departmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
+    departmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
 
     budgetTypeList.add(BudgetType());
     getBudgetTypeList();
@@ -148,7 +147,7 @@ class _BudgetAdd extends State<BudgetAdd> {
               DropdownButtonV1(
                 isExpanded: true,
                 value: departmentName,
-                items: AppCore.instance.getUser().departmentList.map(
+                items: AppCore.instance.getUser().selectGroup.departmentList.map(
                   (value) { 
                     return DropdownMenuItem<String>(
                       value: value.departmentName,
@@ -158,8 +157,8 @@ class _BudgetAdd extends State<BudgetAdd> {
                   ).toList(),
                 onChanged: (value) {
                   setState(() {
-                    departmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                    departmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                    departmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                    departmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                   });
                 }
               ),
@@ -338,8 +337,8 @@ class _BudgetAdd extends State<BudgetAdd> {
                       if (await budgetAdd()) {
                         // ignore: use_build_context_synchronously
                         AppCore.showMessage(context, '예산 추가', '추가 완료', ActionType.ok, () {
-                          Navigator.popUntil(context, ModalRoute.withName('/'));
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                         });
                       }
                       else {

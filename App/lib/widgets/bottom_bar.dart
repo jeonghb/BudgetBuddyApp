@@ -19,7 +19,6 @@ class BottomBar extends StatefulWidget {
 }
 
 class _BottomBar extends State<BottomBar> {
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,6 +35,8 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
+                    Navigator.popUntil(context, (route) => route.settings.name == '/Home');
+                    
                     Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
                   },
                   child: Column(
@@ -66,7 +67,7 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)), (route) => false,);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId)), (route) => false,);
                   },
                   child: Column(
                     children: [
@@ -85,10 +86,27 @@ class _BottomBar extends State<BottomBar> {
                   },
                   child: Column(
                     children: [
-                      Image.asset('assets/images/bottomNavigationBarHome.png'), // 이미지 변경 필요
+                      Container(
+                        width: double.infinity,
+                        height: 20,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Color.fromARGB(255, 90, 68, 223),
+                        ),
+                        child: Center(
+                          child: Text(
+                            AppCore.instance.getUser().selectGroup.groupName.substring(0, 1),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                       Text(
                         '그룹관리',
-                      )
+                      ),
                     ],
                   ),
                 )

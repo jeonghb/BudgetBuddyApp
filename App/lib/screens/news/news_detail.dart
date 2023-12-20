@@ -73,7 +73,7 @@ class _NewsDetail extends State<NewsDetail> {
                     onSelected: (String choice) async {
                       switch (choice) {
                         case '수정':
-                          if (AppCore.instance.getUser().departmentList.isEmpty) {
+                          if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
                             AppCore.showMessage(context, '소식 수정', '소속된 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
                               Navigator.pop(context);
                             });
@@ -144,7 +144,7 @@ class _NewsDetail extends State<NewsDetail> {
                         }).toList();
                       }
                       // 관리자일 경우
-                      else if (AppCore.instance.getUser().groupList.firstWhere((group) => group.groupId == AppCore.instance.getUser().selectGroupId).isManager) {
+                      else if (AppCore.instance.getUser().selectGroup.isManager) {
                         return ['삭제'].map((String choice) {
                           return PopupMenuItem<String>(
                             value: choice,

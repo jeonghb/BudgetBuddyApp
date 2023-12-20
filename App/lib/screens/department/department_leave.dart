@@ -22,8 +22,8 @@ class _DepartmentLeave extends State<DepartmentLeave> {
   void initState() {
     super.initState();
 
-    selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
-    selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
   }
 
   @override
@@ -40,7 +40,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
             DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
-              items: AppCore.instance.getUser().departmentList.map(
+              items: AppCore.instance.getUser().selectGroup.departmentList.map(
                 (value) { 
                   return DropdownMenuItem<String>(
                     value: value.departmentName,
@@ -50,8 +50,8 @@ class _DepartmentLeave extends State<DepartmentLeave> {
                 ).toList(),
               onChanged: (value) {
                 setState(() {
-                  selectDepartmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  selectDepartmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                  selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                 });
               }
             ),

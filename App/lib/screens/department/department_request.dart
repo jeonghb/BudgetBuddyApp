@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../app_core.dart';
 import '../../models/response_data.dart';
 import '../../widgets/dropdown_button_v1.dart';
@@ -104,31 +105,45 @@ class _DepartmentRequest extends State<DepartmentRequest> {
                 });
               }
             ),
-            TextButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
-              ),
-              onPressed: () async {
-                if (await departmentRequest(selectDepartmentId)) {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '부서 신청', '요청 완료', ActionType.ok, () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                  });
-                }
-                else {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '부서 신청', '요청에 실패했습니다.', ActionType.ok, () {
-                    Navigator.pop(context);
-                  });
-                }
-              },
-              child: Text(
-                '신청',
-                style: TextStyle(
-                  color: Colors.white,
+            SizedBox(
+              height: 20,
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: ScreenUtil().setHeight(130),
+              child: TextButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 90, 68, 223)),
                 ),
-              )
+                onPressed: () async {
+                  if (selectDepartmentId == -1) {
+                    AppCore.showMessage(context, '부서 신청', '신청할 부서를 선택하세요.', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                    
+                    return;
+                  }
+                  else if (await departmentRequest(selectDepartmentId)) {
+                    // ignore: use_build_context_synchronously
+                    AppCore.showMessage(context, '부서 신청', '요청 완료', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
+                  }
+                  else {
+                    // ignore: use_build_context_synchronously
+                    AppCore.showMessage(context, '부서 신청', '요청에 실패했습니다.', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                  }
+                },
+                child: Text(
+                  '신청',
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                )
+              ),
             ),
           ],
         )

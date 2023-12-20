@@ -111,7 +111,7 @@ class _BudgetManage extends State<BudgetManage> {
             DropdownButtonV1(
               isExpanded: true,
               value: widget.budget.departmentName,
-              items: AppCore.instance.getUser().departmentList.map(
+              items: AppCore.instance.getUser().selectGroup.departmentList.map(
                 (value) { 
                   return DropdownMenuItem<String>(
                     value: value.departmentName,
@@ -121,8 +121,8 @@ class _BudgetManage extends State<BudgetManage> {
                 ).toList(),
               onChanged: (value) {
                 setState(() {
-                  widget.budget.departmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  widget.budget.departmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                  widget.budget.departmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  widget.budget.departmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                 });
               }
             ),

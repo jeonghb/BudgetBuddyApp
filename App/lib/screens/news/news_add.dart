@@ -7,7 +7,6 @@ import 'package:test/widgets/title_text.dart';
 import '../../models/department.dart';
 import '../../models/news.dart';
 import '../../widgets/dropdown_button_v1.dart';
-import '../home.dart';
 import '../screen_frame.dart';
 
 class NewsAdd extends StatefulWidget {
@@ -28,7 +27,11 @@ class _NewsAdd extends State<NewsAdd> {
   void initState() {
     super.initState();
 
-    departmentList = AppCore.instance.getUser().departmentList;
+    Department defaultDepartment = Department();
+    defaultDepartment.departmentName = '전체공지';
+
+    departmentList.add(defaultDepartment);
+    departmentList = AppCore.instance.getUser().selectGroup.departmentList;
     selectDepartmentId = departmentList[0].departmentId;
     selectDepartmentName = departmentList[0].departmentName;
   }
@@ -150,10 +153,10 @@ class _NewsAdd extends State<NewsAdd> {
                     AppCore.showMessage(context, '소식 등록', '소식을 등록하시겠습니까?', ActionType.yesNo, () async {
                       Navigator.pop(context);
                       if (await newsDataAdd()) {
-                        // ignore: use_build_context_synchronously  
-                        Navigator.popUntil(context, ModalRoute.withName('/'));
                         // ignore: use_build_context_synchronously
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroupId)),);
+                        Navigator.pop(context);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
                       }
                       else {
                         // ignore: use_build_context_synchronously

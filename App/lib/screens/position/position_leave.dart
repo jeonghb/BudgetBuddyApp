@@ -14,7 +14,7 @@ class PositionLeave extends StatefulWidget {
 }
 
 class _PositionLeave extends State<PositionLeave> {
-  int selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
+  int selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
   String selectDepartmentName = '';
   int selectPositionId = -1;
   String selectPositionName = '';
@@ -23,12 +23,12 @@ class _PositionLeave extends State<PositionLeave> {
   void initState() {
     super.initState();
 
-    selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
-    selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
 
-    if (AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.isNotEmpty) {
-      selectPositionId = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.departmentId == selectDepartmentId).positionId;
-      selectPositionName = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.departmentId == selectDepartmentId).positionName;
+    if (AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.isNotEmpty) {
+      selectPositionId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.departmentId == selectDepartmentId).positionId;
+      selectPositionName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.departmentId == selectDepartmentId).positionName;
     }
   }
 
@@ -75,7 +75,7 @@ class _PositionLeave extends State<PositionLeave> {
             DropdownButtonV1(
               isExpanded: true,
               value: selectDepartmentName,
-              items: AppCore.instance.getUser().departmentList.map(
+              items: AppCore.instance.getUser().selectGroup.departmentList.map(
                 (value) { 
                   return DropdownMenuItem<String>(
                     value: value.departmentName,
@@ -85,11 +85,11 @@ class _PositionLeave extends State<PositionLeave> {
                 ).toList(),
               onChanged: (value) {
                 setState(() {
-                  selectDepartmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  selectDepartmentName = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentName == value).departmentName;
-                  if (AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.isNotEmpty) {
-                    selectPositionId = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList[0].positionId;
-                    selectPositionName = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList[0].positionName;
+                  selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentName;
+                  if (AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.isNotEmpty) {
+                    selectPositionId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList[0].positionId;
+                    selectPositionName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList[0].positionName;
                   }
                   else {
                     selectPositionId = -1;
@@ -110,7 +110,7 @@ class _PositionLeave extends State<PositionLeave> {
             DropdownButtonV1(
               isExpanded: true,
               value: selectPositionName,
-              items: AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList.where((element) => element.departmentId == selectDepartmentId).map(
+              items: AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.where((position) => position.departmentId == selectDepartmentId).isNotEmpty ? AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentId == selectDepartmentId).positionList.where((element) => element.departmentId == selectDepartmentId).map(
                 (value) {
                   return DropdownMenuItem<String>(
                     value: value.positionName,
@@ -120,8 +120,8 @@ class _PositionLeave extends State<PositionLeave> {
                 ).toList() : [],
               onChanged: (value) {
                 setState(() {
-                    selectPositionId = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionId;
-                    selectPositionName = AppCore.instance.getUser().departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionName;
+                    selectPositionId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionId;
+                    selectPositionName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentId == selectDepartmentId).positionList.firstWhere((element) => element.positionName == value).positionName;
                 });
               }
             ),

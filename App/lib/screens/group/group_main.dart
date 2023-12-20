@@ -26,7 +26,7 @@ class _GroupMain extends State<GroupMain> {
     super.initState();
 
     setState(() {
-      selectGroup = AppCore.instance.getUser().groupList.firstWhere((group) => group.groupId == AppCore.instance.getUser().selectGroupId);
+      selectGroup = AppCore.instance.getUser().selectGroup;
     });
   }
 
@@ -59,7 +59,7 @@ class _GroupMain extends State<GroupMain> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => MyGroupList())).then((value) {
                             if (value) {
                               setState(() {
-                                selectGroup = AppCore.instance.getUser().groupList.firstWhere((group) => group.groupId == AppCore.instance.getUser().selectGroupId);
+                                selectGroup = AppCore.instance.getUser().selectGroup;
                               });
                             }
                           });
@@ -99,7 +99,7 @@ class _GroupMain extends State<GroupMain> {
 
                           Navigator.push(context, MaterialPageRoute(builder: (context) => GroupMemberList())).then((value) {
                             setState(() {
-                              selectGroup = AppCore.instance.getUser().groupList.firstWhere((group) => group.groupId == AppCore.instance.getUser().selectGroupId);
+                              selectGroup = AppCore.instance.getUser().selectGroup;
                             });
                           });
                         },

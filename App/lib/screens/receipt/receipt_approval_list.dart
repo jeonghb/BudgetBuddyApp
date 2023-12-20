@@ -34,7 +34,7 @@ class _ReceiptList extends State<ReceiptApprovalList> {
     Department allDepartment = Department();
     allDepartment.departmentName = '신청부서';
     departmentList.add(allDepartment);
-    departmentList.addAll(AppCore.instance.getUser().departmentList);
+    departmentList.addAll(AppCore.instance.getUser().selectGroup.departmentList);
 
     setReceiptList();
   }

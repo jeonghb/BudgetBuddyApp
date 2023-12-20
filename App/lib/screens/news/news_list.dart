@@ -31,7 +31,7 @@ class _NewsList extends State<NewsList> {
   void getNewsList() async {
     String address = '/getNewsList';
     Map<String, dynamic> body = {
-      'departmentIdList': AppCore.instance.getUser().departmentList.map((e) => e.departmentId).toList(),
+      'departmentIdList': AppCore.instance.getUser().selectGroup.departmentList.map((e) => e.departmentId).toList(),
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);

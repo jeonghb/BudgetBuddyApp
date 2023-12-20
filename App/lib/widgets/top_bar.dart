@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../screens/notification_list.dart';
 
 class TopBar extends StatefulWidget implements PreferredSizeWidget {
   final BarType type;
@@ -32,7 +31,7 @@ class _TopBar extends State<TopBar> {
         );
         leadingIcon = IconButton(
           onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationList()),);
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationList()),);
           },
           icon: Icon(
             Icons.notifications_none,
@@ -43,7 +42,7 @@ class _TopBar extends State<TopBar> {
       case BarType.exit:
         actionIcon = IconButton(
           onPressed: () {
-            Navigator.popUntil(context, (route) { return route.isFirst; });
+            Navigator.popUntil(context, (route) => route.settings.name == '/Home');
           },
           icon: Icon(
             Icons.close,

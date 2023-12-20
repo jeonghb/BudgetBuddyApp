@@ -36,7 +36,7 @@ class _NewsEdit extends State<NewsEdit> {
     selectDepartmentName = widget.news.departmentName;
     title.text = widget.news.title;
     content.text = widget.news.content;
-    departmentList = AppCore.instance.getUser().departmentList;
+    departmentList = AppCore.instance.getUser().selectGroup.departmentList;
   }
 
   Future<bool> newsDataEdit() {

@@ -14,8 +14,8 @@ class ReceiptCalculate1 extends StatefulWidget {
 }
 
 class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
-  int selectDepartmentId = AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList[0].departmentId : -1;
-  String selectDepartmentName = AppCore.instance.getUser().departmentList.isNotEmpty ? AppCore.instance.getUser().departmentList[0].departmentName : '';
+  int selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.isNotEmpty ? AppCore.instance.getUser().selectGroup.departmentList[0].departmentId : -1;
+  String selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.isNotEmpty ? AppCore.instance.getUser().selectGroup.departmentList[0].departmentName : '';
   DateTime selectDate = DateTime.now();
   bool selectMonthIsDBData = false;
 
@@ -83,7 +83,7 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
             DropdownButtonFormField(
               isExpanded: true,
               value: selectDepartmentName,
-              items: AppCore.instance.getUser().departmentList.map(
+              items: AppCore.instance.getUser().selectGroup.departmentList.map(
                 (value) { 
                   return DropdownMenuItem<String>(
                     value: value.departmentName,
@@ -93,8 +93,8 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
                 ).toList(),
               onChanged: (value) {
                 setState(() {
-                  selectDepartmentId = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  selectDepartmentName = AppCore.instance.getUser().departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                  selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                  selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                 });
               },
               decoration: InputDecoration(

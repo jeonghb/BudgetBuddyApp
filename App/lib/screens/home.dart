@@ -37,7 +37,7 @@ class _Home extends State<Home> {
   Future<void> getNewsTopList() async {
     String address = '/getNewsTopList';
     Map<String, dynamic> body = {
-      'departmentIdList': AppCore.instance.getUser().departmentList.map((e) => e.departmentId).toList(),
+      'departmentIdList': AppCore.instance.getUser().selectGroup.departmentList.map((e) => e.departmentId).toList(),
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);

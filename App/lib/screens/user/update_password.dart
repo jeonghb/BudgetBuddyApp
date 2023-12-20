@@ -177,8 +177,7 @@ class _UpdatePassword extends State<UpdatePassword> {
                               );
                             }
                           );
-                          Navigator.popUntil(context, ModalRoute.withName('/'));
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()));
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage()), (route) => false);
                         }
                         else {
                           AppCore.showMessage(context, '비밀번호 변경', '비밀번호를 변경하는 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {

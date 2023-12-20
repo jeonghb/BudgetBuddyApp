@@ -29,9 +29,9 @@ class _PositionRequest extends State<PositionRequest> {
   void initState() {
     super.initState();
     
-    departmentList = AppCore.instance.getUser().departmentList;
-    selectDepartmentId = AppCore.instance.getUser().departmentList[0].departmentId;
-    selectDepartmentName = AppCore.instance.getUser().departmentList[0].departmentName;
+    departmentList = AppCore.instance.getUser().selectGroup.departmentList;
+    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
     positionList.add(Position());
     selectPositionId = positionList[0].positionId;
     selectPositionName = positionList[0].positionName;

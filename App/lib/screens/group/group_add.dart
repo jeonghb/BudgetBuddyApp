@@ -28,7 +28,7 @@ class _GroupAdd extends State<GroupAdd> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      appBarType: AppCore.instance.getUser().selectGroupId != -1 ? BarType.exit : BarType.invisible,
+      appBarType: AppCore.instance.getUser().selectGroup.groupId != -1 ? BarType.exit : BarType.invisible,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: SingleChildScrollView(
