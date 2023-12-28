@@ -27,12 +27,12 @@ class User {
 
   RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
   RegExp passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}');
-  RegExp nameRegExp = RegExp(r'[가-힣]');
+  RegExp nameRegExp = RegExp(r'^[가-힣]+$');
   RegExp emailRegExp = RegExp(r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
   RegExp phoneNumberRegExp = RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$');
 
-  String? idCheck() {
-    return userId == '' || userId.length < 5 || idRegexCheck() ? '5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : null;
+  String idCheck() {
+    return userId.isEmpty || userId.length < 5 || idRegexCheck() ? 'ID는 5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : '';
   }
 
   bool idRegexCheck() {
@@ -59,24 +59,24 @@ class User {
     return phoneNumberRegExp.hasMatch(userPhoneNumber);
   }
 
-  String? passwordCheck() {
-    return userPassword == '' || !passwordRegexCheck() ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : null;
+  String passwordCheck() {
+    return userPassword.isEmpty || !passwordRegexCheck() ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : '';
   }
 
-  String? passwordEqualCheck() {
-    return userPasswordCheck == '' ? '비밀번호를 입력해주세요.' : userPasswordCheck != userPassword ? '입력한 비밀번호와 일치하지 않습니다.' : null;
+  String passwordEqualCheck() {
+    return userPasswordCheck.isEmpty ? '비밀번호를 입력해주세요.' : !passwordSameCheck() ? '입력한 비밀번호와 일치하지 않습니다.' : '';
   }
 
-  String? nameCheck() {
-    return userName == '' || userName.length < 2 || !nameRegexCheck() ? '정상적인 이름 형식이 아닙니다.' : null;
+  String nameCheck() {
+    return userName.isEmpty || userName.length < 2 || !nameRegexCheck() ? '정상적인 이름 형식이 아닙니다.' : '';
   }
 
-  String? emailCheck() {
-    return userEmail == '' || !emailRegexCheck() ? '정상적인 이메일 형식이 아닙니다.' : null;
+  String emailCheck() {
+    return userEmail.isEmpty || !emailRegexCheck() ? '정상적인 이메일 형식이 아닙니다.' : '';
   }
 
-  String? phoneNumberCheck() {
-    return userPhoneNumber == '' || !phoneNumberRegexCheck() ? '정상적인 휴대폰번호 형식이 아닙니다.' : null;
+  String phoneNumberCheck() {
+    return userPhoneNumber.isEmpty || !phoneNumberRegexCheck() ? '정상적인 휴대폰번호 형식이 아닙니다.' : '';
   }
 
   bool validationCheck() {
@@ -136,7 +136,7 @@ class User {
       'userName': userName,
       'userEmail': userEmail,
       'userPhoneNumber': userPhoneNumber,
-      'userBirthday': userBirthday,
+      'userBirthday': getUserBirthday(),
       'userSex': userSex,
     };
     

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:test/models/group.dart';
+import 'package:test/screens/screen_frame.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/title_text.dart';
 
@@ -47,7 +48,7 @@ class _GroupList extends State<GroupList> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return ScreenFrame(
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(

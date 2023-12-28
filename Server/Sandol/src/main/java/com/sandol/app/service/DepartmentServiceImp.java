@@ -1,6 +1,7 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -24,8 +25,8 @@ public class DepartmentServiceImp implements DepartmentService {
 	}
 
 	@Override
-	public boolean departmentAdd(DepartmentVO _departmentVO) {
-		return dao.departmentAdd(_departmentVO);
+	public boolean departmentAdd(Map<String, Object> _department) {
+		return dao.departmentAdd(_department);
 	}
 	
 	@Override

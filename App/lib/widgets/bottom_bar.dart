@@ -35,15 +35,20 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Navigator.popUntil(context, (route) => route.settings.name == '/Home');
+                    if (AppCore.authCheck('영수증 제출')) {
+                      Navigator.popUntil(context, (route) => route.settings.name == '/Home');
                     
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
+                    }
                   },
                   child: Column(
                     children: [
                       Image.asset('assets/images/bottomNavigationBarReceiptRequest.png'),
                       Text(
                         '영수증 제출',
+                        style: TextStyle(
+                          color: AppCore.authCheck('영수증 제출') ? Colors.black : Colors.grey,
+                        ),
                       )
                     ],
                   ),
@@ -52,13 +57,20 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
+                    if (AppCore.authCheck('영수증 제출')) {
+                      Navigator.popUntil(context, (route) => route.settings.name == '/Home');
+
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
+                    }
                   },
                   child: Column(
                     children: [
                       Image.asset('assets/images/bottomNavigationBarReceiptRequestList.png'),
                       Text(
                         '제출내역',
+                        style: TextStyle(
+                          color: AppCore.authCheck('영수증 제출') ? Colors.black : Colors.grey,
+                        ),
                       )
                     ],
                   ),
@@ -67,7 +79,7 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId)), (route) => false,);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId), settings: RouteSettings(name: '/Home'),), (route) => false);
                   },
                   child: Column(
                     children: [
@@ -82,7 +94,7 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => GroupMain()),);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => GroupMain(), settings: RouteSettings(name: '/GroupMain'),), (route) => false);
                   },
                   child: Column(
                     children: [
@@ -95,7 +107,7 @@ class _BottomBar extends State<BottomBar> {
                         ),
                         child: Center(
                           child: Text(
-                            AppCore.instance.getUser().selectGroup.groupName.substring(0, 1),
+                            AppCore.instance.getUser().selectGroup.groupName.isNotEmpty ? AppCore.instance.getUser().selectGroup.groupName.substring(0, 1) : '',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 12,
@@ -114,6 +126,8 @@ class _BottomBar extends State<BottomBar> {
               Expanded(
                 child: InkWell(
                   onTap: () {
+                    Navigator.popUntil(context, (route) => route.settings.name == '/Home');
+                    
                     Navigator.push(context, MaterialPageRoute(builder: (context) => MyPage()));
                   },
                   child: Column(

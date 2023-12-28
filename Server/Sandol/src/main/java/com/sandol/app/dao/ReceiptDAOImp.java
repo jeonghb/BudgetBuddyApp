@@ -1,6 +1,7 @@
 package com.sandol.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,9 @@ public class ReceiptDAOImp implements ReceiptDAO {
 	}
 	
 	@Override
-	public List<ReceiptVO> getReceiptApprovalList(String _userId) {
+	public List<ReceiptVO> getReceiptApprovalList(Map<String, Object> _user) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getReceiptApprovalList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getReceiptApprovalList", _user);
 		} catch (NullPointerException e) {
 			return null;
 		}

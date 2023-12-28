@@ -31,6 +31,13 @@ class _FindPassword extends State<FindPassword> {
   TextEditingController userBirthdayDay = TextEditingController();
   TextEditingController userSex = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+
+    userSex.text = 'male';
+  }
+
   void setData() {
     user.userId = userId.text;
     user.userPassword = userPassword.text;

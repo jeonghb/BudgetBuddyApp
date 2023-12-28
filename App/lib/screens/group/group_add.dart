@@ -4,7 +4,6 @@ import 'package:test/app_core.dart';
 import 'package:test/screens/screen_frame.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/title_text.dart';
-import 'package:test/widgets/top_bar.dart';
 
 import '../../models/group.dart';
 
@@ -28,7 +27,6 @@ class _GroupAdd extends State<GroupAdd> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      appBarType: AppCore.instance.getUser().selectGroup.groupId != -1 ? BarType.exit : BarType.invisible,
       body: Padding(
         padding: EdgeInsets.all(30),
         child: SingleChildScrollView(
@@ -97,10 +95,9 @@ class _GroupAdd extends State<GroupAdd> {
                       // ignore: use_build_context_synchronously
                       AppCore.showMessage(context, '그룹 생성', '그룹 생성이 완료되었습니다. 관리자가 승인 확인을 기다려주세요.', ActionType.ok, () {
                         Navigator.pop(context);
+                        // ignore: use_build_context_synchronously
+                        Navigator.pop(context);
                       });
-
-                      // ignore: use_build_context_synchronously
-                      Navigator.pop(context);
                       
                       // ignore: use_build_context_synchronously
                       // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().groupList[0].groupId)), (route) => false,);

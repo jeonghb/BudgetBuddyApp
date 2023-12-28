@@ -1,6 +1,7 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -22,7 +23,7 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public boolean getUserInfo(String _id) {
+	public int getUserInfo(String _id) {
 		return dao.getUserInfo(_id);
 	}
 
@@ -52,7 +53,7 @@ public class UserServiceImp implements UserService {
 	}
 	
 	@Override
-	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(String _userId) {
-		return dao.getLoginUserDepartmentPositionList(_userId);
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(Map<String, Object> _user) {
+		return dao.getLoginUserDepartmentPositionList(_user);
 	}
 }

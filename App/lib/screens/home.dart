@@ -67,7 +67,9 @@ class _Home extends State<Home> {
           DateTime now = DateTime.now();
           if (curruentBackPressTime == null || now.difference(curruentBackPressTime!) > Duration(seconds: 2)) {
             curruentBackPressTime = now;
-            Fluttertoast.showToast(msg: "뒤로가기 버튼을 한번 더 누르면 종료됩니다");
+            Fluttertoast.showToast(
+              msg: "뒤로가기 버튼을 한번 더 누르면 종료됩니다",
+            );
             return false;
           }
           return true;
@@ -158,13 +160,17 @@ class _Home extends State<Home> {
                                         child: Row(
                                           children: [
                                             Expanded(
-                                              child: Image.asset('assets/images/receiptRequest.png'),
+                                              child: Image.asset(
+                                                'assets/images/receiptRequest.png',
+                                              ),
                                             ),
                                             Expanded(
                                               flex: 4,
                                               child: TextButton(
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
+                                                  if (AppCore.authCheck('영수증 제출')) {
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: Receipt(),)),);
+                                                  }
                                                 },
                                                 style: ButtonStyle(
                                                   overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
@@ -172,7 +178,7 @@ class _Home extends State<Home> {
                                                 child: Text(
                                                   '영수증 제출',
                                                   style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: AppCore.authCheck('영수증 제출') ? Colors.black : Colors.grey,
                                                     fontSize: 20,
                                                   ),
                                                 ),
@@ -181,7 +187,8 @@ class _Home extends State<Home> {
                                             Expanded(
                                               child: Icon(
                                                 Icons.arrow_circle_right_outlined,
-                                                color: Color.fromARGB(255, 90, 68, 223)),
+                                                color: AppCore.authCheck('영수증 제출') ? Color.fromARGB(255, 90, 68, 223) : Colors.grey,
+                                              ),
                                             ),
                                           ]
                                         ),
@@ -196,7 +203,9 @@ class _Home extends State<Home> {
                                               flex: 4,
                                               child: TextButton(
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptApprovalList()),);
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptApprovalList()),);
+                                                  if (AppCore.authCheck('영수증 결재')) {
+                                                  }
                                                 },
                                                 style: ButtonStyle(
                                                   overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
@@ -204,7 +213,7 @@ class _Home extends State<Home> {
                                                 child: Text(
                                                   '영수증 결재',
                                                   style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: AppCore.authCheck('영수증 결재') ? Colors.black : Colors.grey,
                                                     fontSize: 20,
                                                   ),
                                                 ),
@@ -213,7 +222,7 @@ class _Home extends State<Home> {
                                             Expanded(
                                               child: Icon(
                                                 Icons.arrow_circle_right_outlined,
-                                                color: Color.fromARGB(255, 90, 68, 223)),
+                                                color: AppCore.authCheck('영수증 결재') ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                                             ),
                                           ]
                                         ),
@@ -228,7 +237,9 @@ class _Home extends State<Home> {
                                               flex: 4,
                                               child: TextButton(
                                                 onPressed: () {
-                                                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
+                                                  if (AppCore.authCheck('영수증 제출')) {
+                                                    Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequestList()),);
+                                                  }
                                                 },
                                                 style: ButtonStyle(
                                                   overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
@@ -236,7 +247,7 @@ class _Home extends State<Home> {
                                                 child: Text(
                                                   '영수증 제출내역',
                                                   style: TextStyle(
-                                                    color: Colors.black,
+                                                    color: AppCore.authCheck('영수증 제출') ? Colors.black : Colors.grey,
                                                     fontSize: 20,
                                                   ),
                                                 ),
@@ -245,7 +256,7 @@ class _Home extends State<Home> {
                                             Expanded(
                                               child: Icon(
                                                 Icons.arrow_circle_right_outlined,
-                                                color: Color.fromARGB(255, 90, 68, 223)),
+                                                color: AppCore.authCheck('영수증 제출') ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                                             ),
                                           ]
                                         ),

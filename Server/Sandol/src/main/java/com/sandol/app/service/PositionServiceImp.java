@@ -15,11 +15,6 @@ public class PositionServiceImp implements PositionService {
 	PositionDAO dao;
 	
 	@Override
-	public List<PositionVO> getDepartmentPositionList(int _departmentId) {
-		return dao.getDepartmentPositionList(_departmentId);
-	}
-	
-	@Override
 	public List<PositionVO> getRequestPossibilityDepartmentPositionList(String _userId) {
 		return dao.getRequestPossibilityDepartmentPositionList(_userId);
 	}

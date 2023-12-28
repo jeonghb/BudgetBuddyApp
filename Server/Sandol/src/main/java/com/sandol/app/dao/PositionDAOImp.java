@@ -18,16 +18,6 @@ public class PositionDAOImp implements PositionDAO {
 	@Autowired
 	SqlSessionTemplate tmp;
 	
-	// 특정 부서의 직책List 조회
-	@Override
-	public List<PositionVO> getDepartmentPositionList(int _departmentId) {
-		try {
-			return tmp.selectList("com.sandol.mapper.app.getDepartmentPositionList", _departmentId);
-		} catch (NullPointerException e) {
-			return null;
-		}
-	}
-	
 	// 특정 유저가 신청 가능한 직책 List 조회
 	@Override
 	public List<PositionVO> getRequestPossibilityDepartmentPositionList(String _userId) {

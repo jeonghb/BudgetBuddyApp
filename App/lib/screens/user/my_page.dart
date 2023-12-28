@@ -331,7 +331,7 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationSettings()));
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationSettings()));
                 },
               ),
               ListTile(

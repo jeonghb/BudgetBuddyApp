@@ -55,8 +55,8 @@ public class ReceiptController {
 	
 	@RequestMapping(value = "/getReceiptApprovalList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<ReceiptVO> getReceiptApprovalList(@RequestBody Map<String, String> _userId) {
-		return receiptService.getReceiptApprovalList(_userId.get("userId"));
+	public List<ReceiptVO> getReceiptApprovalList(@RequestBody Map<String, Object> _user) {
+		return receiptService.getReceiptApprovalList(_user);
 	}
 	
 	@RequestMapping(value = "/getReceiptRequestList", method = RequestMethod.POST)

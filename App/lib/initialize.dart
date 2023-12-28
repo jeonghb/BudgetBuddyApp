@@ -33,11 +33,11 @@ class _Initialize extends State<Initialize> {
           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId), settings: RouteSettings(name: '/Home'),), (route) => false);
         }
         else {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => GroupMain()),);
+          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => GroupMain(), settings: RouteSettings(name: '/GroupMain'),), (route) => false);
         }
       }
       else {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun(), settings: RouteSettings(name: '/FirstRun'),), (route) => false,);
       }
     });
   }

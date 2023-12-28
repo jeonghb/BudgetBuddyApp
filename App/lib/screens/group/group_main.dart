@@ -203,11 +203,13 @@ class _GroupMain extends State<GroupMain> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(color: Color.fromARGB(255, 90, 68, 223)),
+                        border: Border.all(color: selectGroup.groupId != -1 ? Color.fromARGB(255, 90, 68, 223) : Colors.grey),
                       ),
                       height: 100,
                       child: InkWell(
                         onTap: () {
+                          if (selectGroup.groupId == -1) return;
+
                           if (selectGroup.groupMaster) {
                             AppCore.showMessage(context, '그룹 탈퇴', '그룹관리자는 그룹을 탈퇴할 수 없습니다.', ActionType.ok, () {
                               Navigator.pop(context);
@@ -242,7 +244,7 @@ class _GroupMain extends State<GroupMain> {
                           children: [
                             Image.asset(
                               'assets/images/groupRegist.png',
-                              color: Color.fromARGB(255, 90, 68, 223),
+                              color: selectGroup.groupId != -1 ? Color.fromARGB(255, 90, 68, 223) : Colors.grey,
                             ),
                             SizedBox(
                               height: 10,

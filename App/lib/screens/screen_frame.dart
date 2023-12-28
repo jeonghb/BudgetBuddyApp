@@ -31,7 +31,7 @@ class _ScreenFrame extends State<ScreenFrame> {
       endDrawer: widget.appBarType == BarType.main ? MenuDrawer() : null,
       backgroundColor: widget.backgroundColor,
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: widget.bottomBar ? BottomBar() : null,
+      bottomNavigationBar: widget.bottomBar && AppCore.instance.getUser().groupList.isNotEmpty ? BottomBar() : null,
       body : Stack(
         children: [
           GestureDetector(

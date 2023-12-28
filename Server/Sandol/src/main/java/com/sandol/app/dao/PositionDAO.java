@@ -8,8 +8,6 @@ import com.sandol.app.vo.UserPositionVO;
 
 public interface PositionDAO {
 	
-	public List<PositionVO> getDepartmentPositionList(int _departmentId);
-	
 	public List<PositionVO> getRequestPossibilityDepartmentPositionList(String _userId);
 	
 	public boolean positionRequest(PositionRequestVO _positionRequestVO);

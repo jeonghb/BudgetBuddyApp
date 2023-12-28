@@ -22,7 +22,7 @@ public class GroupDAOImp implements GroupDAO {
 			GroupVO newGroupVO = new GroupVO();
 			tmp.insert("com.sandol.mapper.app.groupAdd", _groupVO);
 			
-			newGroupVO = tmp.selectOne("com.sandol.mapper.app.getGroupByName", _groupVO);
+			newGroupVO = tmp.selectOne("com.sandol.mapper.app.getGroupByName", _groupVO.getGroupName());
 			
 			if (newGroupVO.getGroupId() > 0) {
 				newGroupVO.setUserId(_groupVO.getUserId());

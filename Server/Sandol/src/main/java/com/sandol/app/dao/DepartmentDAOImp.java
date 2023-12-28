@@ -1,6 +1,7 @@
 package com.sandol.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +28,11 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	}
 	
 	@Override
-	public boolean departmentAdd(DepartmentVO _departmentVO) {
+	public boolean departmentAdd(Map<String, Object> _department) {
 		try {
-			int rowCount = tmp.insert("com.sandol.mapper.app.departmentAdd", _departmentVO);
+			int rowCount = tmp.insert("com.sandol.mapper.app.departmentAdd", _department);
 			
-			if (rowCount > 0) {
+			if (rowCount == 2) { // 부서 저장, 그룹과 부서 연결 저장
 				return true;
 			}
 			else {

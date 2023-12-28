@@ -30,8 +30,8 @@ public class DepartmentController {
 	
 	@RequestMapping(value = "/departmentAdd", method = RequestMethod.POST)
 	@ResponseBody
-	public Boolean departmentAdd(@RequestBody DepartmentVO _departmentVO) {
-		return departmentService.departmentAdd(_departmentVO);
+	public Boolean departmentAdd(@RequestBody Map<String, Object> _department) {
+		return departmentService.departmentAdd(_department);
 	}
 	
 	@RequestMapping(value = "/departmentUpdate", method = RequestMethod.POST)

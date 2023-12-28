@@ -25,18 +25,17 @@ public class UserController {
 	
 	@RequestMapping(value = "/userRegist", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean userRegist(@RequestBody UserVO _userVO) {
+	public int userRegist(@RequestBody UserVO _userVO) {
 		
-		boolean result = userService.getUserInfo(_userVO.getUserId());
+		int result = userService.getUserInfo(_userVO.getUserId());
 		
-		if (result) {
-			userService.setUserRegist(_userVO);
-			
-			return true;
+		// 조회된 데이터가 있으면 가입된 계정이 있음(클라이언트에서 가입된 ID가 있다고 표시)
+		if (result == 0) {
+			// 신규 등록 시 오류가 뜨면 -1로 에러 처리
+			if (!userService.setUserRegist(_userVO)) return -1;
 		}
-		else {
-			return false;
-		}
+		
+		return result;
 	}
 	
 	@RequestMapping(value = "/userCheck", method = RequestMethod.POST)
@@ -71,7 +70,7 @@ public class UserController {
 	
 	@RequestMapping(value = "/getLoginUserDepartmentPositionList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(@RequestBody Map<String, String> _userId) {
-		return userService.getLoginUserDepartmentPositionList(_userId.get("userId"));
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(@RequestBody Map<String, Object> _user) {
+		return userService.getLoginUserDepartmentPositionList(_user);
 	}
 }

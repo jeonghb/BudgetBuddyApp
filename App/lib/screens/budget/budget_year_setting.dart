@@ -55,7 +55,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
 
       List<BudgetYear> tempList = <BudgetYear>[];
       
-      for (int year = 2023; year <= DateTime.now().year + 1; year++) {
+      for (int year = 2024; year <= DateTime.now().year + 1; year++) {
         for (int departmentId in AppCore.instance.getUser().selectGroup.departmentList.map((e) => e.departmentId,)) {
           BudgetYear temp = BudgetYear();
           temp.departmentId = departmentId;

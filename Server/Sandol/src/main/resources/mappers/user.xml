@@ -8,7 +8,7 @@
 	<select id="userCheck" resultType="String" parameterType="userVO">
 		<![CDATA[CALL user_check(#{userName}, #{userBirthday}, #{userSex})]]>
 	</select>
-    <select id="selectUserInfo" resultType="String" parameterType="String">
+    <select id="selectUserInfo" resultType="Integer" parameterType="String">
     	<![CDATA[CALL select_user_info(#{userId})]]>
     </select>
     <insert id="insertUserInfo" parameterType="userVO">
@@ -27,7 +27,7 @@
     	<![CDATA[CALL user_info_update(#{userId}, #{userEmail}, #{userPhoneNumber}, #{bankId}, #{bankAccountNumber})]]>
     </update>
     <select id="getLoginUserDepartmentPositionList" resultType="userDepartmentPositionVO">
-		<![CDATA[CALL get_login_user_department_position_list(#{userId})]]>
+		<![CDATA[CALL get_login_user_department_position_list(#{userId}, #{groupId})]]>
 	</select>
       
 </mapper>

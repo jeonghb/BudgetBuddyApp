@@ -1,6 +1,7 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sandol.app.vo.DepartmentMemberVO;
 import com.sandol.app.vo.DepartmentRequestVO;
@@ -11,7 +12,7 @@ public interface DepartmentService {
 	
 	public List<DepartmentVO> getDepartmentList();
 	
-	public boolean departmentAdd(DepartmentVO _departmentVO);
+	public boolean departmentAdd(Map<String, Object> _department);
 	
 	public boolean departmentUpdate(DepartmentVO _departmentVO);
 	

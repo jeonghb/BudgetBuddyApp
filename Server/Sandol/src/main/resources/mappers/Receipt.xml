@@ -8,8 +8,8 @@
     <insert id="requestReceipt" parameterType="receiptVO">
    		<![CDATA[CALL request_receipt(#{requestId}, #{requestUserId}, #{title}, #{requestAmount}, #{paymentDatetime}, #{memo}, #{approvalRequestDepartmentId}, #{budgetTypeId}, #{fileNameList}, #{bankName}, #{bankAccountNumber})]]>
     </insert>
-    <select id="getReceiptApprovalList" resultType="receiptVO">
-    	<![CDATA[CALL get_receipt_approval_list(#{userId})]]>
+    <select id="getReceiptApprovalList" resultType="receiptVO" parameterType="map">
+    	<![CDATA[CALL get_receipt_approval_list(#{userId}, #{groupId})]]>
     </select>
     <select id="getReceiptRequestList" resultType="receiptVO">
     	<![CDATA[CALL get_receipt_request_list(#{userId})]]>

@@ -1,6 +1,7 @@
 package com.sandol.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,11 @@ public class UserDAOImp implements UserDAO {
 	}
 	
 	@Override
-	public boolean getUserInfo(String _id) {		
+	public int getUserInfo(String _id) {
 		try {
-			int count = tmp.selectOne("com.sandol.mapper.app.selectUserInfo", _id);
-			return count == 1 ? true : false;
+			return tmp.selectOne("com.sandol.mapper.app.selectUserInfo", _id);
 		} catch (NullPointerException e) {
-			return false;
+			return -1;
 		}
 	}
 	
@@ -117,9 +117,9 @@ public class UserDAOImp implements UserDAO {
 	}
 	
 	@Override
-	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(String _userId) {
+	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(Map<String, Object> _user) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getLoginUserDepartmentPositionList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getLoginUserDepartmentPositionList", _user);
 		}catch (NullPointerException e) {
 			return null;
 		}

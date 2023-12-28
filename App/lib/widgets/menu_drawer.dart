@@ -446,7 +446,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                 AppCore.instance.logOut();
                 
                 Navigator.pop(context);
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun()), (route) => false);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun(), settings: RouteSettings(name: '/FirstRun'),), (route) => false,);
               });
             },
             style: ButtonStyle(

@@ -60,8 +60,7 @@ class FirstRun extends StatelessWidget {
                           ),
                         ),
                         onPressed: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),
-                          );
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false);
                         },
                       ),
                     ),

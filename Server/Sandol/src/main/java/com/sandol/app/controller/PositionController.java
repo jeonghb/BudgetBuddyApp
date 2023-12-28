@@ -21,12 +21,6 @@ public class PositionController {
 	@Autowired
 	PositionService positionService;
 	
-	@RequestMapping(value = "/getDepartmentPositionList", method = RequestMethod.POST)
-	@ResponseBody
-	public List<PositionVO> getDepartmentPositionList(@RequestBody Map<String, Integer> departmentId) {
-		return positionService.getDepartmentPositionList(departmentId.get("departmentId"));
-	}
-	
 	@RequestMapping(value = "/getRequestPossibilityDepartmentPositionList", method = RequestMethod.POST)
 	@ResponseBody
 	public List<PositionVO> getRequestPossibilityDepartmentPositionList(@RequestBody Map<String, String> userId) {

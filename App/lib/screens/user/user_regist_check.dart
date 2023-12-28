@@ -39,10 +39,19 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   }
 
   String userRegistCheckValidationCheck() {
-    if (userBirthdayYear.text.trim().replaceAll('0', '').length != 4
-      || userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty
-      || userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
+    if (userBirthdayYear.text.trim().replaceAll('0', '').length != 4 ||
+        userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty ||
+        userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
       return '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요';
+    }
+
+    List<String Function()> validationMethods = [user.nameCheck];
+
+    for (var validationMethod in validationMethods) {
+      String returnMessage = validationMethod();
+      if (returnMessage.isNotEmpty) {
+        return returnMessage;
+      }
     }
 
     return '';
@@ -58,6 +67,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
+      bottomBar: false,
       appBarType: BarType.exit,
       body: Center(
         child: Padding(
@@ -246,6 +256,9 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     ),),
                     onPressed: () async {
                       FocusScope.of(context).unfocus();
+
+                      setData();
+
                       String validationMessage = userRegistCheckValidationCheck();
                       if (validationMessage.isNotEmpty) {
                         AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', validationMessage, ActionType.ok, () {
@@ -253,10 +266,9 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         });
                         return;
                       }
-                      
-                      setData();
 
                       ResponseData responseData = await user.isUserCheck();
+
                       if (responseData.statusCode == 200 && user.userId.isEmpty) {
                         switch (widget.userType) {
                           case UserType.newUser:
@@ -266,6 +278,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                           case UserType.findUser:
                             // ignore: use_build_context_synchronously
                             AppCore.showMessage(context, '회원가입', '가입된 정보가 없습니다.\n회원가입을 진행하시겠습니까?', ActionType.yesNo, () {
+                              Navigator.pop(context);
                               Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
                             });
                             break;
@@ -278,7 +291,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                             AppCore.showMessage(context, '회원가입', '이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.', ActionType.ok, () {
                               Navigator.pop(context);
                               Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false);
                             });
                             break;
                           case UserType.findUser:
@@ -286,7 +299,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                             AppCore.showMessage(context, '아이디 찾기', '가입된 ID는 ${user.userId.substring(0, 4)}${Iterable.generate(user.userId.length - 4, (_) => '*').join()}입니다.', ActionType.ok, () {
                               Navigator.pop(context);
                               Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false);
                             });
                             break;
                         }

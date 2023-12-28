@@ -6,8 +6,6 @@ import com.sandol.app.vo.PositionVO;
 import com.sandol.app.vo.UserPositionVO;
 
 public interface PositionService {
-
-	public List<PositionVO> getDepartmentPositionList(int _departmentId);
 	
 	public List<PositionVO> getRequestPossibilityDepartmentPositionList(String _userId);
 	

@@ -15,7 +15,7 @@ class Group {
   int groupUserCount = -1;
   bool groupMaster = false;
   List<Department> departmentList = <Department>[];
-  bool groupStatus = false;
+  bool activationStatus = false;
   bool isManager = false;
 
   void setData(var json) {
@@ -24,7 +24,7 @@ class Group {
     groupIntroduceMemo = AppCore.getJsonString(json, 'groupIntroduceMemo');
     groupUserCount = AppCore.getJsonInt(json, 'groupUserCount');
     groupMaster = AppCore.getJsonBool(json, 'groupMaster');
-    groupStatus = AppCore.getJsonBool(json, 'groupStatus');
+    activationStatus = AppCore.getJsonBool(json, 'activationStatus');
     isManager = AppCore.getJsonBool(json, 'isManager');
   }
 
@@ -41,9 +41,9 @@ class Group {
     if (responseData.statusCode == 200) {
       var json = jsonDecode(responseData.body);
       if (AppCore.getJsonBool(json, 'success')) {
-        setData(json);
+        // setData(json);
         
-        AppCore.instance.getUser().groupList.add(this);
+        // AppCore.instance.getUser().groupList.add(this);
         return true;
       }
       else {
@@ -101,11 +101,12 @@ class Group {
     }
   }
 
-  Future<void> getLoginUserDepartmentPositionList(String _userId) async {
+  Future<void> getLoginUserDepartmentPositionList(String userId) async {
     // 부서, 직책 조회
     String address = '/getLoginUserDepartmentPositionList';
     Map<String, dynamic> body = {
-      'userId': _userId,
+      'userId': userId,
+      'groupId': groupId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
@@ -128,7 +129,7 @@ class Group {
     // 권한 조회
     address = '/getUserAuthList';
     body = {
-      'userId': _userId
+      'userId': userId
     };
 
     responseData = await AppCore.request(ServerType.POST, address, body, null);

@@ -28,6 +28,7 @@ class _DepartmentAdd extends State<DepartmentAdd> {
   Future<bool> departmentAdd() async {
     String address = '/departmentAdd';
     Map<String, dynamic> body = {
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
       'departmentName' : departmentName.text,
     };
 
