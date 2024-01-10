@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -22,31 +21,37 @@ class PositionManage extends StatefulWidget {
 
 class _PositionManage extends State<PositionManage> {
   TextEditingController positionName = TextEditingController();
-  String newPositionName = '';
 
   @override
   void initState() {
     super.initState();
 
+    positionName.text = widget.position.positionName;
+
     getAuthList();
   }
 
   void getAuthList() async {
-    String address = '/getAuthList';
+    String address = '/getPositionAuthList';
     Map<String, dynamic> body = {
+      'positionId': widget.position.positionId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
+      List<Auth> tempList = <Auth>[];
       for (var json in jsonDecode(responseData.body))
       {
-        Auth auth = Auth.fromJson(json);
+        Auth auth = Auth();
+        auth.setData(json);
 
-        if (widget.position.positionAuthList.firstWhereOrNull((element) => element.authId == auth.authId) == null) {
-          widget.position.positionAuthList.add(auth);
-        }
+        tempList.add(auth);
       }
+
+      setState(() {
+        widget.position.positionAuthList = tempList;
+      });
     }
   }
 
@@ -81,72 +86,89 @@ class _PositionManage extends State<PositionManage> {
 
   @override
   Widget build(BuildContext context) {
-    newPositionName = widget.position.positionName;
-
     return ScreenFrame(
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TitleText(
-              text: '직책 정보',
-            ),
-            Text(
-              '부서',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              widget.position.departmentName,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormFieldV1(
-              controller: positionName,
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              '권한 설정',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
             Expanded(
-              flex: 5,
-              child: ListView.builder(
-                physics: ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: widget.position.positionAuthList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final auth = widget.position.positionAuthList[index];
+              flex: 7,
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TitleText(
+                      text: '직책 정보',
+                    ),
+                    Text(
+                      '부서명',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      '  ${widget.position.departmentName}',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      '직책명',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    TextFormFieldV1(
+                      controller: positionName,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      '권한 설정',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    ListView.builder(
+                      physics: ScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: widget.position.positionAuthList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final auth = widget.position.positionAuthList[index];
 
-                  return ListTile(
-                    title: Text(
-                      auth.authName,
+                        return ListTile(
+                          title: Text(
+                            auth.authName,
+                          ),
+                          trailing: Checkbox(
+                            value: widget.position.positionAuthList.firstWhere((element) => element.authId == auth.authId).use,
+                            onChanged: (newValue) {
+                              setState(() {
+                                widget.position.positionAuthList.firstWhere((element) => element.authId == auth.authId).use = newValue!;
+                              });
+                            },
+                          ),
+                        );
+                      }
                     ),
-                    trailing: Checkbox(
-                      value: widget.position.positionAuthList.firstWhere((element) => element.authId == auth.authId).use,
-                      onChanged: (newValue) {
-                        setState(() {
-                          widget.position.positionAuthList.firstWhere((element) => element.authId == auth.authId).use = newValue!;
-                        });
-                      },
-                    ),
-                  );
-                }
+                  ],
+                )
               ),
             ),
             SizedBox(

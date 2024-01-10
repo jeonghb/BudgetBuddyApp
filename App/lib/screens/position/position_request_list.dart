@@ -32,6 +32,7 @@ class _PositionRequestList extends State<PositionRequestList> {
     String address = '/getPositionRequestList';
     Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
@@ -115,7 +116,7 @@ class _PositionRequestList extends State<PositionRequestList> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TitleText(
-              text: '직책 신청 정보',
+              text: '직책 신청 목록',
             ),
             SizedBox(
               height: 35,
@@ -186,12 +187,12 @@ class _PositionRequestList extends State<PositionRequestList> {
                       icon: Icon(
                         Icons.check,
                         size: 14,
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                       label: Text(
                         '전체',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 14,
                         ),
                       ),
@@ -211,12 +212,12 @@ class _PositionRequestList extends State<PositionRequestList> {
                       icon: Icon(
                         Icons.refresh,
                         size: 14,
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                       label: Text(
                         '해제',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 14,
                         ),
                       ),

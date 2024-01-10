@@ -3,6 +3,7 @@ package com.sandol.app.vo;
 public class AuthVO {
 	private String authId;
 	private String authName;
+	private boolean activationStatus;
 	
 	public String getAuthId() {
 		return authId;
@@ -15,5 +16,11 @@ public class AuthVO {
 	}
 	public void setAuthName(String authName) {
 		this.authName = authName;
+	}
+	public boolean getActivationStatus() {
+		return activationStatus;
+	}
+	public void setActivationStatus(boolean activationStatus) {
+		this.activationStatus = activationStatus;
 	}
 }

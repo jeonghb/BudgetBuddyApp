@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:test/app_core.dart';
 import 'package:test/models/response_data.dart';
+import 'auth.dart';
 import 'group.dart';
 
 class User {
@@ -30,6 +31,7 @@ class User {
   RegExp nameRegExp = RegExp(r'^[가-힣]+$');
   RegExp emailRegExp = RegExp(r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
   RegExp phoneNumberRegExp = RegExp(r'^010-?([0-9]{4})-?([0-9]{4})$');
+  RegExp bankAccountNumberRegExp = RegExp(r'^[\d-]+$');
 
   String idCheck() {
     return userId.isEmpty || userId.length < 5 || idRegexCheck() ? 'ID는 5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : '';
@@ -59,6 +61,10 @@ class User {
     return phoneNumberRegExp.hasMatch(userPhoneNumber);
   }
 
+  bool bankAccountNumberRegexCheck() {
+    return bankAccountNumberRegExp.hasMatch(bankAccountNumber);
+  }
+
   String passwordCheck() {
     return userPassword.isEmpty || !passwordRegexCheck() ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : '';
   }
@@ -79,16 +85,8 @@ class User {
     return userPhoneNumber.isEmpty || !phoneNumberRegexCheck() ? '정상적인 휴대폰번호 형식이 아닙니다.' : '';
   }
 
-  bool validationCheck() {
-    if (!idRegexCheck()
-      || !nameRegexCheck()
-      || userBirthdayYear.trim().replaceAll('0', '').length != 4
-      || userBirthdayMonth.trim().replaceAll('0', '').isEmpty
-      || userBirthdayDay.trim().replaceAll('0', '').isEmpty) {
-      return false;
-    }
-
-    return true;
+  String bankAccountNumberCheck() {
+    return bankAccountNumber.isNotEmpty && !bankAccountNumberRegexCheck() ? '정상적인 계좌번호 형식이 아닙니다.' : '';
   }
   
   registStatus() {
@@ -204,6 +202,25 @@ class User {
             group.getLoginUserDepartmentPositionList(userId);
 
             groupList.add(group);
+          }
+        }
+
+        for (Group group in groupList) {
+          if (group.groupMaster) {
+            address = '/getGroupMasterAuthList';
+            body = {
+              'groupId': group.groupId,
+            };
+
+            responseData = await AppCore.request(ServerType.POST, address, body, null);
+
+            if (responseData.statusCode == 200) {
+              for (var jsonAuth in jsonDecode(responseData.body)) {
+                Auth auth = Auth();
+                auth.setData(jsonAuth);
+                group.masterAuthList.add(auth);
+              }
+            }
           }
         }
 

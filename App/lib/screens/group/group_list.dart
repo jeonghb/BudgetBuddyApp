@@ -54,9 +54,6 @@ class _GroupList extends State<GroupList> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 50,
-            ),
             TitleText(
               text: '그룹 검색',
             ),
@@ -71,6 +68,9 @@ class _GroupList extends State<GroupList> {
                 getGroupList(); 
               },
               textInputAction: TextInputAction.done,
+            ),
+            SizedBox(
+              height: 20,
             ),
             Expanded(
               child: ListView.builder(

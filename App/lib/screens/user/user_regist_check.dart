@@ -79,7 +79,8 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                 TitleText(
                   text: widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기',
                 ),
-                Text('이름',
+                Text(
+                  '이름',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold
@@ -89,7 +90,6 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                   height: 12,
                 ),
                 TextFormFieldV1(
-                  autovalidateMode: AutovalidateMode.always,
                   keyboardType: TextInputType.name,
                   controller: userName,
                   textInputAction: TextInputAction.next,
@@ -101,7 +101,8 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                 SizedBox(
                   height: 20,
                 ),
-                Text('생년월일',
+                Text(
+                  '생년월일',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold

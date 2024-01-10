@@ -27,6 +27,7 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
               text: '부서원 정보',
             ),
             Expanded(
+              flex: 2,
               child: Container(
                 width: MediaQuery.sizeOf(context).width,
                 height: MediaQuery.sizeOf(context).height,
@@ -168,6 +169,8 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
                             Expanded(
                               child: TextButton(
                                 onPressed: () {
+                                  if (widget.departmentMember.userId == AppCore.instance.getUser().userId) return;
+
                                   AppCore.showMessage(context, '부서 해지', '${widget.departmentMember.userName}님을 해지하시겠습니까?', ActionType.yesNo, () {
                                     widget.departmentMember.departmentLeave().then((bool result) {
                                       if (result) {
@@ -183,7 +186,7 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
                                   });
                                 },
                                 style: TextButton.styleFrom(
-                                  backgroundColor: Colors.black,
+                                  backgroundColor: widget.departmentMember.userId != AppCore.instance.getUser().userId ? Colors.black : Colors.grey,
                                   padding: EdgeInsets.all(0),
                                 ),
                                 child: Text(

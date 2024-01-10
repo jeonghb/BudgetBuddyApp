@@ -1,6 +1,7 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -15,14 +16,19 @@ public class AuthServiceImp implements AuthService {
 	
 	@Inject
 	AuthDAO dao;
-
+	
 	@Override
-	public List<AuthVO> getAuthList() {
-		return dao.getAuthList();
+	public List<AuthVO> getPositionAuthList(Map<String, Object> _map) {
+		return dao.getPositionAuthList(_map);
 	}
 	
 	@Override
-	public List<PositionAuthVO> getUserAuthList(String _userId) {
-		return dao.getUserAuthList(_userId);
+	public List<PositionAuthVO> getUserAuthList(Map<String, Object> _map) {
+		return dao.getUserAuthList(_map);
+	}
+	
+	@Override
+	public List<AuthVO> getGroupMasterAuthList(Map<String, Object> _map) {
+		return dao.getGroupMasterAuthList(_map);
 	}
 }

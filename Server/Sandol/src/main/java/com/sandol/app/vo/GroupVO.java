@@ -7,7 +7,7 @@ public class GroupVO {
 	private String groupIntroduceMemo;
 	private int groupUserCount;
 	private boolean groupMaster;
-	private boolean groupStatus;
+	private boolean activationStatus;
 	private boolean isSuccess; // 프로시저 성공여부
 	
 	public String getUserId() {
@@ -46,11 +46,11 @@ public class GroupVO {
 	public void setGroupMaster(boolean groupMaster) {
 		this.groupMaster = groupMaster;
 	}
-	public boolean isGroupStatus() {
-		return groupStatus;
+	public boolean isActivationStatus() {
+		return activationStatus;
 	}
-	public void setGroupStatus(boolean groupStatus) {
-		this.groupStatus = groupStatus;
+	public void setActivationStatus(boolean activationStatus) {
+		this.activationStatus = activationStatus;
 	}
 	public boolean isSuccess() {
 		return isSuccess;

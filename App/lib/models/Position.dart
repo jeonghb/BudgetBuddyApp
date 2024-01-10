@@ -18,7 +18,14 @@ class Position {
     departmentActivationStatus = AppCore.getJsonBool(json, 'departmentActivationStatus');
     positionId = AppCore.getJsonInt(json, 'positionId');
     positionName = AppCore.getJsonString(json, 'positionName');
-    positionAuthList = AppCore.getJsonList(json, 'positionAuthList', (authJson) => Auth.fromJson(authJson));
+    if (json['positionAuthList'] != null) {
+      for (var jsonAuth in json['positionAuthList'])
+      {
+        Auth auth = Auth();
+        auth.setData(jsonAuth);
+        positionAuthList.add(auth);
+      }
+    }
     positionActivationStatus = AppCore.getJsonBool(json, 'positionActivationStatus');
   }
 
@@ -28,6 +35,7 @@ class Position {
       'positionId': positionId,
       'positionName': positionName,
       'positionAuthList': positionAuthList.map((e) => {
+        'positionId': positionId,
         'authId' : e.authId,
         'authName': e.authName,
         'use': e.use,

@@ -289,7 +289,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                     itemBuilder: (BuildContext context, int index) {
                       String positionName = userPositionList[index].positionName;
 
-                      return Column(
+                      return positionName.isNotEmpty ? Column(
                         children: [
                           Expanded(
                             flex: 2,
@@ -320,7 +320,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                             ),
                           ),
                         ],
-                      );
+                      ) : SizedBox();
                     },
                   ),
                 ),

@@ -20,15 +20,21 @@ public class AuthController {
 	@Autowired
 	AuthService authService;
 	
-	@RequestMapping(value = "/getAuthList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getPositionAuthList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<AuthVO> getAuthList() {
-		return authService.getAuthList();
+	public List<AuthVO> getPositionAuthList(@RequestBody Map<String, Object> _map) {
+		return authService.getPositionAuthList(_map);
 	}
 	
 	@RequestMapping(value = "/getUserAuthList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<PositionAuthVO> getUserAuthList(@RequestBody Map<String, String> _userId) {
-		return authService.getUserAuthList(_userId.get("userId"));
+	public List<PositionAuthVO> getUserAuthList(@RequestBody Map<String, Object> _map) {
+		return authService.getUserAuthList(_map);
+	}
+	
+	@RequestMapping(value = "/getGroupMasterAuthList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<AuthVO> getGroupMasterAuthList(@RequestBody Map<String, Object> _map) {
+		return authService.getGroupMasterAuthList(_map);
 	}
 }

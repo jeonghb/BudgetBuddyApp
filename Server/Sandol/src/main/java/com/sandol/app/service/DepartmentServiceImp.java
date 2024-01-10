@@ -20,8 +20,8 @@ public class DepartmentServiceImp implements DepartmentService {
 	DepartmentDAO dao;
 
 	@Override
-	public List<DepartmentVO> getDepartmentList() {
-		return dao.getDepartmentList();
+	public List<DepartmentVO> getDepartmentList(Map<String, Object> _map) {
+		return dao.getDepartmentList(_map);
 	}
 
 	@Override
@@ -45,8 +45,8 @@ public class DepartmentServiceImp implements DepartmentService {
 	}
 	
 	@Override
-	public List<DepartmentRequestVO> getDepartmentRequestList(String _userId) {
-		return dao.getDepartmentRequestList(_userId);
+	public List<DepartmentRequestVO> getDepartmentRequestList(Map<String, Object> _map) {
+		return dao.getDepartmentRequestList(_map);
 	}
 	
 	@Override
@@ -55,8 +55,8 @@ public class DepartmentServiceImp implements DepartmentService {
 	}
 	
 	@Override
-	public List<DepartmentMemberVO> getDepartmentMemberList(String _userId) {
-		return dao.getDepartmentMemberList(_userId);
+	public List<DepartmentMemberVO> getDepartmentMemberList(Map<String, Object> _map) {
+		return dao.getDepartmentMemberList(_map);
 	}
 	
 	@Override

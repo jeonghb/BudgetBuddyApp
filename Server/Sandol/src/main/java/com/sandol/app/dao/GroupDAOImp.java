@@ -18,13 +18,22 @@ public class GroupDAOImp implements GroupDAO {
 	
 	@Override
 	public GroupVO groupAdd(GroupVO _groupVO) {
+		GroupVO newGroupVO = new GroupVO();
 		try {
-			GroupVO newGroupVO = new GroupVO();
-			tmp.insert("com.sandol.mapper.app.groupAdd", _groupVO);
-			
-			newGroupVO = tmp.selectOne("com.sandol.mapper.app.getGroupByName", _groupVO.getGroupName());
+			newGroupVO.setGroupId(tmp.selectOne("com.sandol.mapper.app.getGroupByName", _groupVO.getGroupName()));
 			
 			if (newGroupVO.getGroupId() > 0) {
+				newGroupVO.setSuccess(false);
+				return _groupVO;
+			}
+			else {
+				if (tmp.insert("com.sandol.mapper.app.groupAdd", _groupVO) == 0)
+				{
+					newGroupVO.setSuccess(false);
+					return newGroupVO;
+				}
+				
+				newGroupVO.setGroupId(tmp.selectOne("com.sandol.mapper.app.getGroupByName", _groupVO.getGroupName()));
 				newGroupVO.setUserId(_groupVO.getUserId());
 				newGroupVO.setGroupName(_groupVO.getGroupName());
 				newGroupVO.setGroupIntroduceMemo(_groupVO.getGroupIntroduceMemo());
@@ -32,20 +41,15 @@ public class GroupDAOImp implements GroupDAO {
 				
 				if (tmp.insert("com.sandol.mapper.app.userGroupAdd", newGroupVO) == 0) {
 					newGroupVO.setSuccess(false);
-					
 					return newGroupVO;
 				}
 				
 				newGroupVO.setSuccess(true);
+				return newGroupVO;
 			}
-			else {
-				newGroupVO.setSuccess(false);
-				return _groupVO;
-			}
-			
-			return newGroupVO;
 		} catch (NullPointerException e) {
-			return null;
+			newGroupVO.setSuccess(false);
+			return newGroupVO;
 		}
 	}
 	

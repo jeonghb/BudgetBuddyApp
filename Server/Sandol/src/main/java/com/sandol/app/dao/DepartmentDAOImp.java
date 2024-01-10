@@ -19,9 +19,9 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	SqlSessionTemplate tmp;
 	
 	@Override
-	public List<DepartmentVO> getDepartmentList() {
+	public List<DepartmentVO> getDepartmentList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getDepartmentList");
+			return tmp.selectList("com.sandol.mapper.app.getDepartmentList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -79,9 +79,9 @@ public class DepartmentDAOImp implements DepartmentDAO {
 	}
 	
 	@Override
-	public List<DepartmentRequestVO> getDepartmentRequestList(String _userId) {
+	public List<DepartmentRequestVO> getDepartmentRequestList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getDepartmentRequestList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getDepartmentRequestList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -96,18 +96,13 @@ public class DepartmentDAOImp implements DepartmentDAO {
 			return false;
 		}
 		
-		if (returnCount > 1) {
-			return true;
-		}
-		else {
-			return false;	
-		}
+		return true;
 	}
 	
 	@Override
-	public List<DepartmentMemberVO> getDepartmentMemberList(String _userId) {
+	public List<DepartmentMemberVO> getDepartmentMemberList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getDepartmentMemberList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getDepartmentMemberList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}

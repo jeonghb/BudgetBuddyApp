@@ -93,7 +93,7 @@ class _GroupAdd extends State<GroupAdd> {
 
                     if (await group.groupAdd()) {
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '그룹 생성', '그룹 생성이 완료되었습니다. 관리자가 승인 확인을 기다려주세요.', ActionType.ok, () {
+                      AppCore.showMessage(context, '그룹 생성', '그룹 생성이 완료되었습니다. 관리자의 승인을 기다려주세요.', ActionType.ok, () {
                         Navigator.pop(context);
                         // ignore: use_build_context_synchronously
                         Navigator.pop(context);

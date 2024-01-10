@@ -1,5 +1,6 @@
 package com.sandol.app.service;
 import java.util.List;
+import java.util.Map;
 
 import com.sandol.app.vo.PositionRequestVO;
 import com.sandol.app.vo.PositionVO;
@@ -11,7 +12,7 @@ public interface PositionService {
 	
 	public boolean positionRequest(PositionRequestVO _positionRequestVO);
 	
-	public List<PositionRequestVO> getPositionRequestList(String _userId);
+	public List<PositionRequestVO> getPositionRequestList(Map<String, Object> _map);
 	
 	public boolean positionRequestFinish(PositionRequestVO _positionRequestVO);
 	

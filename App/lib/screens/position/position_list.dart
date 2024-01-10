@@ -69,12 +69,10 @@ class _PositionList extends State<PositionList> {
                 final position = positionList[index];
 
                 return GestureDetector(
-                  onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => PositionManage(position: position,)),).then((value) {
-                      if (value == true) {
-                        getPositionList();
-                      }
-                    });
+                  onTap: () async {
+                    await Navigator.push(context, MaterialPageRoute(builder: (context) => PositionManage(position: position,)),);
+                    
+                    getPositionList();
                   },
                   child: Column (
                     children: [

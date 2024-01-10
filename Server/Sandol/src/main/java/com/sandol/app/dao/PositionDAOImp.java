@@ -2,6 +2,7 @@ package com.sandol.app.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +43,9 @@ public class PositionDAOImp implements PositionDAO {
 	
 	// 특정 유저가 소속된 부서들의 직책 신청 List
 	@Override
-	public List<PositionRequestVO> getPositionRequestList(String _userId) {
+	public List<PositionRequestVO> getPositionRequestList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getPositionRequestList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getPositionRequestList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -79,11 +80,8 @@ public class PositionDAOImp implements PositionDAO {
 	public boolean positionAdd(PositionVO _positionVO) {
 		try {
 			// 직책 추가하고
-			tmp.insert("com.sandol.mapper.app.positionAdd", _positionVO);
-			for (PositionAuthVO positionAuthVO : _positionVO.getPositionAuthList()) {
-				// position_auth 테이블 저장
-				tmp.insert("com.sandol.mapper.app.positionAuthSave", positionAuthVO);
-			}
+			_positionVO.setPositionId(tmp.selectOne("com.sandol.mapper.app.positionAdd", _positionVO));
+			if (_positionVO.getPositionId() < 0) return false;
 		} catch (NullPointerException e) {
 			return false;
 		}
@@ -97,21 +95,10 @@ public class PositionDAOImp implements PositionDAO {
 		try {
 			// 직책 목록 먼저 조회 하고
 			List<PositionVO> positionList = tmp.selectList("com.sandol.mapper.app.getPositionList");
-			// 직책별 권한 값을 가져오기 위해 전체 권한 List 조회
-			List<PositionAuthVO> positionAuthList = tmp.selectList("com.sandol.mapper.app.getPositionAuthList");
 			
 			// 각 직책별로
 			for (PositionVO position : positionList) {
-				List<PositionAuthVO> tempList = new ArrayList<>();
-				
-				// 권한 List 중에 직책이 일치하면 직책별 권한 List에 추가
-				for (PositionAuthVO positionAuth : positionAuthList) {
-					if (positionAuth.getPositionId() == position.getPositionId()) {
-						tempList.add(positionAuth);
-					}
-				}
-				
-				position.setPositionAuthList(tempList);
+				position.setPositionAuthList( tmp.selectList("com.sandol.mapper.app.getPositionAuthList", position.getPositionId()));
 			}
 			
 			return positionList;

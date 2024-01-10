@@ -17,6 +17,7 @@ class Group {
   List<Department> departmentList = <Department>[];
   bool activationStatus = false;
   bool isManager = false;
+  List<Auth> masterAuthList = <Auth>[];
 
   void setData(var json) {
     groupId = AppCore.getJsonInt(json, 'groupId');
@@ -129,7 +130,7 @@ class Group {
     // 권한 조회
     address = '/getUserAuthList';
     body = {
-      'userId': userId
+      'userId': userId,
     };
 
     responseData = await AppCore.request(ServerType.POST, address, body, null);
@@ -137,8 +138,9 @@ class Group {
     if (responseData.statusCode == 200) {
       List<Auth> authList = <Auth>[];
       for (var jsonAuth in jsonDecode(responseData.body)) {
-        Auth auth = Auth.fromJson(jsonAuth);
-        auth.positionId = AppCore.getJsonInt(jsonAuth, 'positionId');
+        Auth auth = Auth();
+        auth.setData(jsonAuth);
+        
         authList.add(auth);
       }
 
@@ -151,6 +153,10 @@ class Group {
   }
 
   List<Auth> getAuthList() {
+    if (groupMaster) {
+      return masterAuthList;
+    }
+
     List<Auth> authList = <Auth>[];
 
     for (Department department in departmentList) {

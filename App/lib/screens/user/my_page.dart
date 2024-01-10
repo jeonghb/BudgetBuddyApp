@@ -80,7 +80,7 @@ class _MyPage extends State<MyPage> {
                         itemBuilder: (BuildContext context, int index) {
                           String positionName = userPositionList[index].positionName;
 
-                          return Column(
+                          return positionName.isNotEmpty ? Column(
                             children: [
                               Expanded(
                                 flex: 2,
@@ -111,7 +111,7 @@ class _MyPage extends State<MyPage> {
                                 ),
                               ),
                             ],
-                          );
+                          ) : SizedBox();
                         },
                       ),
                     ),
@@ -149,7 +149,7 @@ class _MyPage extends State<MyPage> {
                 trailing: Icon(Icons.keyboard_arrow_right),
                 iconColor: Colors.black,
                 title: Text(
-                  '비밀번호 수정',
+                  '비밀번호 변경',
                   style: TextStyle(
                     fontSize: 15,
                     color: Colors.black,
@@ -231,8 +231,9 @@ class _MyPage extends State<MyPage> {
                       Navigator.pop(context);
                     });
                   }
-                  
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentLeave()));
+                  else {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentLeave()));
+                  }
                 },
               ),
               Divider(
@@ -264,11 +265,11 @@ class _MyPage extends State<MyPage> {
                   if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
                     AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
                       Navigator.pop(context);
-                      Navigator.pop(context);
                     });
                   }
-                  
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequest()));
+                  else {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequest()));
+                  }
                 },
               ),
               AppCore.authCheck('직책 승인') ?
@@ -296,13 +297,13 @@ class _MyPage extends State<MyPage> {
                 ),
                 onTap: () {
                   if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-                    AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
-                      Navigator.pop(context);
+                    AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 직책이 없습니다.', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }
-
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PositionLeave()));
+                  else {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PositionLeave()));
+                  }
                 },
               ),
               Divider(

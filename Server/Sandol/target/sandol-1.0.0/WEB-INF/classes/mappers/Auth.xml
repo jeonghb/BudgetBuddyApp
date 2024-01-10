@@ -5,17 +5,17 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-	<select id="getAuthList" resultType="authVO">
-		<![CDATA[CALL get_auth_list()]]>
+	<select id="getPositionAuthList" resultType="positionAuthVO" parameterType="Integer">
+		<![CDATA[CALL get_position_auth_list(#{positionId})]]>
 	</select>
-	<select id="getPositionAuthList" resultType="positionAuthVO">
-		<![CDATA[CALL get_position_auth_list()]]>
-	</select>
-	<insert id="positionAuthSave" parameterType="positionAuthVO">
+	<insert id="positionAuthSave" parameterType="map">
     	<![CDATA[CALL position_auth_save(#{positionId}, #{authId}, #{use})]]>
     </insert>
-	<select id="getUserAuthList" resultType="positionAuthVO">
+	<select id="getUserAuthList" resultType="positionAuthVO" parameterType="map">
 		<![CDATA[CALL get_user_auth_list(#{userId})]]>
+	</select>
+	<select id="getGroupMasterAuthList" resultType="authVO" parameterType="map">
+		<![CDATA[CALL get_group_master_auth_list(#{groupId})]]>
 	</select>
       
 </mapper>

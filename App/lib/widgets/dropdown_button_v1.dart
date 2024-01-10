@@ -2,7 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 
 class DropdownButtonV1 extends StatefulWidget {
-  final List<DropdownMenuItem<dynamic>> items;
+  final List<DropdownMenuItem<dynamic>>? items;
   final Function(dynamic) onChanged;
   final dynamic value;
   final bool isExpanded;
@@ -31,7 +31,7 @@ class _DropdownButtonV1 extends State<DropdownButtonV1> {
         child: DropdownButton2(
           isExpanded: widget.isExpanded,
           value: widget.value,
-          items: widget.items,
+          items: widget.items ?? widget.items,
           onChanged: widget.onChanged,
           style: TextStyle(
             color: Colors.black,

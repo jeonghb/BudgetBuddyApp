@@ -8,7 +8,7 @@
 	<insert id="groupAdd" parameterType="map">
     	<![CDATA[CALL group_add(#{groupName}, #{groupIntroduceMemo})]]>
 	</insert>
-	<select id="getGroupByName" resultType="groupVO">
+	<select id="getGroupByName" resultType="Integer">
 		<![CDATA[CALL get_group_by_name(#{groupName})]]>
 	</select>
 	<insert id="userGroupAdd" parameterType="map">

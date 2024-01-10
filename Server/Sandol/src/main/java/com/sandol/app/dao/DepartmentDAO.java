@@ -10,7 +10,7 @@ import com.sandol.app.vo.UserDepartmentVO;
 
 public interface DepartmentDAO {
 	
-	public List<DepartmentVO> getDepartmentList();
+	public List<DepartmentVO> getDepartmentList(Map<String, Object> _map);
 	
 	public boolean departmentAdd(Map<String, Object> _department);
 	
@@ -20,11 +20,11 @@ public interface DepartmentDAO {
 	
 	public List<DepartmentVO> getRequestPositilityDepartmentList(String _userId);
 	
-	public List<DepartmentRequestVO> getDepartmentRequestList(String _userId);
+	public List<DepartmentRequestVO> getDepartmentRequestList(Map<String, Object> _map);
 	
 	public boolean departmentRequestFinish(DepartmentRequestVO _departmentRequestVO);
 	
-	public List<DepartmentMemberVO> getDepartmentMemberList(String _userId);
+	public List<DepartmentMemberVO> getDepartmentMemberList(Map<String, Object> _map);
 	
 	public boolean departmentLeave(UserDepartmentVO _userDepartmentVO);
 }

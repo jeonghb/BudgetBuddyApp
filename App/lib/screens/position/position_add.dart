@@ -34,9 +34,11 @@ class _PositionAdd extends State<PositionAdd> {
   void getDepartmentList() async {
     String address = '/getDepartmentList';
     Map<String, dynamic> body = {
+      'userId': AppCore.instance.getUser().userId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<Department> tempList = <Department>[];
@@ -71,7 +73,6 @@ class _PositionAdd extends State<PositionAdd> {
     Map<String, dynamic> body = {
       'departmentId': selectDepartmentId,
       'positionName' : positionName.text,
-      'authFlag': 0,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
@@ -91,111 +92,111 @@ class _PositionAdd extends State<PositionAdd> {
 
   @override
   Widget build(BuildContext context) {
-
     return ScreenFrame(
-      body: Padding(
-        padding: EdgeInsets.all(30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TitleText(
-              text: '직책 추가',
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              '부서 선택',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(
+                text: '직책 추가',
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            DropdownButtonV1(
-              isExpanded: true,
-              value: selectDepartmentName,
-              items: departmentList.map(
-                (value) { 
-                  return DropdownMenuItem<String>(
-                    value: value.departmentName,
-                    child: Text(value.departmentName),
-                    );
-                  },
-                ).toList(),
-              onChanged: (value) {
-                setState(() {
-                  selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                  selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
-                });
-              }
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Text(
-              '직책명',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                height: 10,
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            TextFormFieldV1(
-              controller: positionName,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: ScreenUtil().setHeight(130),
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 90, 68, 223),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  )
+              Text(
+                '부서 선택',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
                 ),
-                onPressed: () async {
-                  String validationMessage = setData();
-                  if (validationMessage.isEmpty) {
-                    if (await positionAdd()) {
-                      // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '직책 추가', '직책 추가 완료', ActionType.ok, () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      });
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              DropdownButtonV1(
+                isExpanded: true,
+                value: selectDepartmentName,
+                items: departmentList.map(
+                  (value) { 
+                    return DropdownMenuItem<String>(
+                      value: value.departmentName,
+                      child: Text(value.departmentName),
+                      );
+                    },
+                  ).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectDepartmentId = departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                    selectDepartmentName = departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                  });
+                }
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Text(
+                '직책명',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              TextFormFieldV1(
+                controller: positionName,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: ScreenUtil().setHeight(130),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                  ),
+                  onPressed: () async {
+                    String validationMessage = setData();
+                    if (validationMessage.isEmpty) {
+                      if (await positionAdd()) {
+                        // ignore: use_build_context_synchronously
+                        AppCore.showMessage(context, '직책 추가', '직책 추가 완료', ActionType.ok, () {
+                          Navigator.pop(context);
+                        });
+                      }
+                      else {
+                        // ignore: use_build_context_synchronously
+                        AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
+                          Navigator.pop(context);
+                        });
+                      }
                     }
                     else {
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
+                      AppCore.showMessage(context, '직책 추가', validationMessage, ActionType.ok, () {
                         Navigator.pop(context);
                       });
                     }
-                  }
-                  else {
-                    // ignore: use_build_context_synchronously
-                    AppCore.showMessage(context, '직책 추가', validationMessage, ActionType.ok, () {
-                      Navigator.pop(context);
-                    });
-                  }
-                },
-                child: Text(
-                  '추가',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.white,
+                  },
+                  child: Text(
+                    '추가',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

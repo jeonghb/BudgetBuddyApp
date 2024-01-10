@@ -31,6 +31,7 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
     String address = '/getDepartmentRequestList';
     Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
@@ -185,12 +186,12 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
                       icon: Icon(
                         Icons.check,
                         size: 14,
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                       label: Text(
                         '전체',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 14,
                         ),
                       ),
@@ -210,12 +211,12 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
                       icon: Icon(
                         Icons.refresh,
                         size: 14,
-                        color: Colors.grey,
+                        color: Colors.black,
                       ),
                       label: Text(
                         '해제',
                         style: TextStyle(
-                          color: Colors.grey,
+                          color: Colors.black,
                           fontSize: 14,
                         ),
                       ),

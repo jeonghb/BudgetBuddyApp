@@ -71,6 +71,7 @@ class AppCore extends ChangeNotifier {
           ).timeout(const Duration(seconds: 3));
         break;
         case ServerType.GET:
+          Future.delayed(Duration(seconds: 1));
           response = await http.get(
             uri,
             headers: {"Content-Type": "application/json"},
@@ -111,10 +112,12 @@ class AppCore extends ChangeNotifier {
 
   static void loadingServerRequest() {
     isLoading = true;
+    instance.notifyListeners();
   }
 
   static void finishServerRequest() {
     isLoading = false;
+    instance.notifyListeners();
   }
 
   static void showMessage(BuildContext context, String title, String message, ActionType actionType, Function() functionOnPressed, {List<Widget>? widgets}) {

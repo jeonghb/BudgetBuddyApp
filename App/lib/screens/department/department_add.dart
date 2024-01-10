@@ -17,9 +17,9 @@ class DepartmentAdd extends StatefulWidget {
 class _DepartmentAdd extends State<DepartmentAdd> {
   TextEditingController departmentName = TextEditingController();
 
-  String setData() {
+  String validationCheck() {
     if (departmentName.text.isEmpty) {
-      return '부서명이 입력되지 않았습니다.';
+      return '부서명을 입력하세요.';
     }
 
     return '';
@@ -88,25 +88,24 @@ class _DepartmentAdd extends State<DepartmentAdd> {
                   )
                 ),
                 onPressed: () async {
-                  String validationMessage = setData();
-                  if (validationMessage.isEmpty) {
-                    if (await departmentAdd()) {
-                      // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '부서 추가', '부서 추가 완료', ActionType.ok, () {
-                        Navigator.pop(context);
-                        Navigator.pop(context);
-                      });
-                    }
-                    else {
-                      // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '부서 추가', '부서 추가 실패. 해당 부서명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
-                        Navigator.pop(context);
-                      });
-                    }
+                  String validationMessage = validationCheck();
+                  if (validationMessage.isNotEmpty) {
+                    // ignore: use_build_context_synchronously
+                    AppCore.showMessage(context, '부서 추가', validationMessage, ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                  }
+
+                  if (await departmentAdd()) {
+                    // ignore: use_build_context_synchronously
+                    AppCore.showMessage(context, '부서 추가', '부서 추가 완료', ActionType.ok, () {
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    });
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    AppCore.showMessage(context, '부서 추가', validationMessage, ActionType.ok, () {
+                    AppCore.showMessage(context, '부서 추가', '부서 추가 실패. 해당 부서명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }

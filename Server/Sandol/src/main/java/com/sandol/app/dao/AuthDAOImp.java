@@ -1,6 +1,7 @@
 package com.sandol.app.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +17,27 @@ public class AuthDAOImp implements AuthDAO {
 	SqlSessionTemplate tmp;
 	
 	@Override
-	public List<AuthVO> getAuthList() {
+	public List<AuthVO> getPositionAuthList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getAuthList");
+			return tmp.selectList("com.sandol.mapper.app.getPositionAuthList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}
 	}
 	
 	@Override
-	public List<PositionAuthVO> getUserAuthList(String _userId) {
+	public List<PositionAuthVO> getUserAuthList(Map<String, Object> _user) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getUserAuthList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getUserAuthList", _user);
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	
+	@Override
+	public List<AuthVO> getGroupMasterAuthList(Map<String, Object> _map) {
+		try {
+			return tmp.selectList("com.sandol.mapper.app.getGroupMasterAuthList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}

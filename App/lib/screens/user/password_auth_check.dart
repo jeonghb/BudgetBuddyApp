@@ -5,6 +5,7 @@ import 'package:test/screens/screen_frame.dart';
 import 'package:test/screens/user/update_password.dart';
 import 'package:test/screens/user/user_info_update.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
+import 'package:test/widgets/title_text.dart';
 
 class PasswordAuthCheck extends StatefulWidget {
   final ScreenType type;
@@ -53,12 +54,16 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
       body: Padding(
         padding: EdgeInsets.all(30),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            TitleText(
+              text: '비밀번호 확인',
+            ),
             Text(
-              '본인확인을 위해 \n비밀번호를 입력해주세요.',
-              textAlign: TextAlign.center,
+              '현재 비밀번호 입력',
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 16,
+                fontWeight: FontWeight.bold
               ),
             ),
             SizedBox(

@@ -1,6 +1,8 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import com.sandol.app.dao.PositionDAO;
@@ -25,8 +27,8 @@ public class PositionServiceImp implements PositionService {
 	}
 	
 	@Override
-	public List<PositionRequestVO> getPositionRequestList(String _userId) {
-		return dao.getPositionRequestList(_userId);
+	public List<PositionRequestVO> getPositionRequestList(Map<String, Object> _map) {
+		return dao.getPositionRequestList(_map);
 	}
 	
 	@Override

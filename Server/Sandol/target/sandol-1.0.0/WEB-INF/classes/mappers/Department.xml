@@ -5,11 +5,11 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-	<select id="getDepartmentList" resultType="departmentVO">
-		<![CDATA[CALL get_department_list()]]>
+	<select id="getDepartmentList" resultType="departmentVO" parameterType="map">
+		<![CDATA[CALL get_department_list(#{userId}, #{groupId})]]>
 	</select>
-    <insert id="departmentAdd" parameterType="departmentVO">
-    	<![CDATA[CALL department_add(#{departmentName})]]>
+    <insert id="departmentAdd" parameterType="map">
+    	<![CDATA[CALL department_add(#{groupId}, #{departmentName})]]>
     </insert>
     <update id="departmentUpdate" parameterType="departmentVO">
     	<![CDATA[CALL department_update(#{departmentId}, #{departmentName}, #{departmentActivationStatus})]]>

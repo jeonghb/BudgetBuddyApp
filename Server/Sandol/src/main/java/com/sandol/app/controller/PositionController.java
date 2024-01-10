@@ -35,8 +35,8 @@ public class PositionController {
 	
 	@RequestMapping(value = "/getPositionRequestList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<PositionRequestVO> getPositionRequestList(@RequestBody Map<String, String> _userId) {
-		return positionService.getPositionRequestList(_userId.get("userId"));
+	public List<PositionRequestVO> getPositionRequestList(@RequestBody Map<String, Object> _map) {
+		return positionService.getPositionRequestList(_map);
 	}
 	
 	@RequestMapping(value = "/positionRequestFinish", method = RequestMethod.POST)

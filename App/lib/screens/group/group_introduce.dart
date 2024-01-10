@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/screens/screen_frame.dart';
+import 'package:test/widgets/title_text.dart';
 import 'package:test/widgets/top_bar.dart';
 
 import '../../app_core.dart';
@@ -60,8 +61,8 @@ class _GroupIntroduce extends State<GroupIntroduce> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 100,
+                    TitleText(
+                      text: '그룹 정보',
                     ),
                     Row(
                       children: [

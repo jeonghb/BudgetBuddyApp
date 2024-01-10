@@ -22,10 +22,10 @@ public class DepartmentController {
 	@Autowired
 	DepartmentService departmentService;
 	
-	@RequestMapping(value = "/getDepartmentList", method = RequestMethod.GET)
+	@RequestMapping(value = "/getDepartmentList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<DepartmentVO> getDepartmentList() {
-		return departmentService.getDepartmentList();
+	public List<DepartmentVO> getDepartmentList(@RequestBody Map<String, Object> _map) {
+		return departmentService.getDepartmentList(_map);
 	}
 	
 	@RequestMapping(value = "/departmentAdd", method = RequestMethod.POST)
@@ -54,8 +54,8 @@ public class DepartmentController {
 	
 	@RequestMapping(value = "/getDepartmentRequestList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<DepartmentRequestVO> getDepartmentRequestList(@RequestBody Map<String, String> _userId) {
-		return departmentService.getDepartmentRequestList(_userId.get("userId"));
+	public List<DepartmentRequestVO> getDepartmentRequestList(@RequestBody Map<String, Object> _map) {
+		return departmentService.getDepartmentRequestList(_map);
 	}
 	
 	@RequestMapping(value = "/departmentRequestFinish", method = RequestMethod.POST)
@@ -66,8 +66,8 @@ public class DepartmentController {
 	
 	@RequestMapping(value = "/getDepartmentMemberList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<DepartmentMemberVO> getDepartmentMemberList(@RequestBody Map<String, String> _userId) {
-		return departmentService.getDepartmentMemberList(_userId.get("userId"));
+	public List<DepartmentMemberVO> getDepartmentMemberList(@RequestBody Map<String, Object> _map) {
+		return departmentService.getDepartmentMemberList(_map);
 	}
 	
 	@RequestMapping(value = "/departmentLeave", method = RequestMethod.POST)

@@ -97,8 +97,6 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/positionUpdate</url-pattern>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/getAuthList</url-pattern>
-		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getUserAuthList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/budgetAdd</url-pattern>
@@ -154,6 +152,10 @@
 		<url-pattern>/getGroupMemberList</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/groupManagerUpdate</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getGroupMasterAuthList</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/getPositionAuthList</url-pattern>
 		
 	</servlet-mapping>
 
