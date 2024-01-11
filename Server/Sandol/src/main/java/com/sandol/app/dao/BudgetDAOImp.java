@@ -1,6 +1,8 @@
 package com.sandol.app.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -15,9 +17,9 @@ public class BudgetDAOImp implements BudgetDAO {
 	SqlSessionTemplate tmp;
 	
 	@Override
-	public List<BudgetTypeVO> getBudgetTypeList(String _userId) {
+	public List<BudgetTypeVO> getBudgetTypeList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getBudgetTypeList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getBudgetTypeList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -66,9 +68,9 @@ public class BudgetDAOImp implements BudgetDAO {
 	}
 	
 	@Override
-	public List<BudgetVO> getBudgetList(String _userId) {
+	public List<BudgetVO> getBudgetList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getBudgetList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getBudgetList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}
@@ -89,6 +91,17 @@ public class BudgetDAOImp implements BudgetDAO {
 	public boolean budgetDelete(int _id) {
 		try {
 			tmp.delete("com.sandol.mapper.app.budgetDelete", _id);
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
+	}
+	
+	@Override
+	public boolean budgetTypeActivationStatusSave(BudgetTypeVO _budgetTypeVO) {
+		try {
+			tmp.update("com.sandol.mapper.app.budgetTypeActivationStatusSave", _budgetTypeVO);
 		} catch (NullPointerException e) {
 			return false;
 		}

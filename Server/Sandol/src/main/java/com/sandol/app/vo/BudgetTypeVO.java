@@ -5,7 +5,7 @@ public class BudgetTypeVO {
 	private String departmentName;
 	private int budgetTypeId;
 	private String budgetTypeName;
-	private int budgetActivationStatus;
+	private boolean activationStatus;
 	
 	public int getDepartmentId() {
 		return departmentId;
@@ -31,10 +31,10 @@ public class BudgetTypeVO {
 	public void setBudgetTypeName(String budgetTypeName) {
 		this.budgetTypeName = budgetTypeName;
 	}
-	public int getBudgetActivationStatus() {
-		return budgetActivationStatus;
+	public boolean getActivationStatus() {
+		return activationStatus;
 	}
-	public void setBudgetActivationStatus(int budgetActivationStatus) {
-		this.budgetActivationStatus = budgetActivationStatus;
+	public void setActivationStatus(boolean activationStatus) {
+		this.activationStatus = activationStatus;
 	}
 }

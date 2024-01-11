@@ -20,8 +20,8 @@ class BudgetAdd extends StatefulWidget {
 
 class _BudgetAdd extends State<BudgetAdd> {
   List<BudgetType> budgetTypeList = <BudgetType>[];
-  int departmentId = -1;
-  String departmentName = '';
+  int selectDepartmentId = -1;
+  String selectDepartmentName = '';
   int budgetTypeId = -1;
   String budgetTypeName = '';
   TextEditingController budgetYear = TextEditingController();
@@ -34,8 +34,8 @@ class _BudgetAdd extends State<BudgetAdd> {
   void initState() {
     super.initState();
 
-    departmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
-    departmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
+    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList[0].departmentId;
+    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList[0].departmentName;
 
     budgetTypeList.add(BudgetType());
     getBudgetTypeList();
@@ -48,6 +48,7 @@ class _BudgetAdd extends State<BudgetAdd> {
     String address = '/getBudgetTypeList';
     Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
@@ -62,7 +63,16 @@ class _BudgetAdd extends State<BudgetAdd> {
         tempList.add(budgetType);
       }
 
-      if (budgetTypeList.isNotEmpty) {
+      if (tempList.isEmpty) {
+        // ignore: use_build_context_synchronously
+        AppCore.showMessage(context, '예산 추가', '예산 구분 항목이 없습니다. 예산 구분을 먼저 설정하세요.', ActionType.ok, () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+          return;
+        });
+      }
+
+      if (budgetTypeList.isNotEmpty && tempList.isNotEmpty) {
         budgetTypeId = tempList[0].budgetTypeId;
         budgetTypeName = tempList[0].budgetTypeName;
 
@@ -74,7 +84,7 @@ class _BudgetAdd extends State<BudgetAdd> {
   }
 
   String setData() {
-    if (departmentId == -1) {
+    if (selectDepartmentId == -1) {
       return '부서가 선택되지 않았습니다.';
     }
     else if (budgetTypeId == -1) {
@@ -99,7 +109,7 @@ class _BudgetAdd extends State<BudgetAdd> {
   Future<bool> budgetAdd() async {
     String address = '/budgetAdd';
     Map<String, dynamic> body = {
-      'departmentId': departmentId,
+      'departmentId': selectDepartmentId,
       'budgetTypeId': budgetTypeId,
       'budgetTitle': budgetTitle.text,
       'budgetMemo': budgetMemo.text,
@@ -146,7 +156,7 @@ class _BudgetAdd extends State<BudgetAdd> {
               ),
               DropdownButtonV1(
                 isExpanded: true,
-                value: departmentName,
+                value: selectDepartmentName,
                 items: AppCore.instance.getUser().selectGroup.departmentList.map(
                   (value) { 
                     return DropdownMenuItem<String>(
@@ -157,8 +167,10 @@ class _BudgetAdd extends State<BudgetAdd> {
                   ).toList(),
                 onChanged: (value) {
                   setState(() {
-                    departmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
-                    departmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
+                    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
+                    budgetTypeId = budgetTypeList.where((budgetType) => budgetType.departmentId == selectDepartmentId).toList().isNotEmpty ? budgetTypeList.where((budgetType) => budgetType.departmentId == selectDepartmentId).toList()[0].budgetTypeId : -1;
+                    budgetTypeName = budgetTypeList.where((budgetType) => budgetType.departmentId == selectDepartmentId).toList().isNotEmpty ? budgetTypeList.where((budgetType) => budgetType.departmentId == selectDepartmentId).toList()[0].budgetTypeName : '';
                   });
                 }
               ),
@@ -178,7 +190,7 @@ class _BudgetAdd extends State<BudgetAdd> {
               DropdownButtonV1(
                 isExpanded: true,
                 value: budgetTypeName,
-                items: budgetTypeList.map(
+                items: budgetTypeList.where((budgetType) => budgetType.departmentId == selectDepartmentId).map(
                   (value) {
                     return DropdownMenuItem<String>(
                       value: value.budgetTypeName,
@@ -210,6 +222,10 @@ class _BudgetAdd extends State<BudgetAdd> {
                 controller: budgetAmount,
                 keyboardType: TextInputType.number,
                 textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                  FocusScope.of(context).nextFocus();
+                },
               ),
               SizedBox(
                 height: 10,
@@ -228,6 +244,10 @@ class _BudgetAdd extends State<BudgetAdd> {
                 controller: budgetTitle,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                  FocusScope.of(context).nextFocus();
+                },
                 maxLength: 32,
               ),
               SizedBox(

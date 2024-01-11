@@ -1,6 +1,8 @@
 package com.sandol.app.service;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 import com.sandol.app.dao.BudgetDAO;
@@ -16,8 +18,8 @@ public class BudgetServiceImp implements BudgetService {
 	BudgetDAO dao;
 	
 	@Override
-	public List<BudgetTypeVO> getBudgetTypeList(String _userId) {
-		return dao.getBudgetTypeList(_userId);
+	public List<BudgetTypeVO> getBudgetTypeList(Map<String, Object> _map) {
+		return dao.getBudgetTypeList(_map);
 	}
 
 	@Override
@@ -41,8 +43,8 @@ public class BudgetServiceImp implements BudgetService {
 	}
 	
 	@Override
-	public List<BudgetVO> getBudgetList(String _userId) {
-		return dao.getBudgetList(_userId);
+	public List<BudgetVO> getBudgetList(Map<String, Object> _map) {
+		return dao.getBudgetList(_map);
 	}
 	
 	@Override
@@ -53,5 +55,10 @@ public class BudgetServiceImp implements BudgetService {
 	@Override
 	public boolean budgetDelete(int _id) {
 		return dao.budgetDelete(_id);
+	}
+	
+	@Override
+	public boolean budgetTypeActivationStatusSave(BudgetTypeVO _budgetTypeVO) {
+		return dao.budgetTypeActivationStatusSave(_budgetTypeVO);
 	}
 }

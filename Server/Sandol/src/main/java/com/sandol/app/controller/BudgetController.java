@@ -23,8 +23,8 @@ public class BudgetController {
 	
 	@RequestMapping(value = "/getBudgetTypeList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<BudgetTypeVO> getBudgetTypeList(@RequestBody Map<String, String> _userId) {
-		return budgetService.getBudgetTypeList(_userId.get("userId"));
+	public List<BudgetTypeVO> getBudgetTypeList(@RequestBody Map<String, Object> _map) {
+		return budgetService.getBudgetTypeList(_map);
 	}
 	
 	@RequestMapping(value = "/budgetTypeAdd", method = RequestMethod.POST)
@@ -53,8 +53,8 @@ public class BudgetController {
 	
 	@RequestMapping(value = "/getBudgetList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<BudgetVO> getBudgetList(@RequestBody Map<String, String> _userId) {
-		return budgetService.getBudgetList(_userId.get("userId"));
+	public List<BudgetVO> getBudgetList(@RequestBody Map<String, Object> _map) {
+		return budgetService.getBudgetList(_map);
 	}
 	
 	@RequestMapping(value = "/budgetUpdate", method = RequestMethod.POST)
@@ -67,5 +67,11 @@ public class BudgetController {
 	@ResponseBody
 	public boolean budgetDelete(@RequestBody Map<String, Integer> _id) {
 		return budgetService.budgetDelete(_id.get("id"));
+	}
+	
+	@RequestMapping(value = "/budgetTypeActivationStatusSave", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean budgetTypeActivationStatusSave(@RequestBody BudgetTypeVO _budgetTypeVO) {
+		return budgetService.budgetTypeActivationStatusSave(_budgetTypeVO);
 	}
 }

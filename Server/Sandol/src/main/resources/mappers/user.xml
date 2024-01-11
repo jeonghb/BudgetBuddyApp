@@ -26,7 +26,7 @@
     <update id="userInfoUpdate" parameterType="userVO">
     	<![CDATA[CALL user_info_update(#{userId}, #{userEmail}, #{userPhoneNumber}, #{bankId}, #{bankAccountNumber})]]>
     </update>
-    <select id="getLoginUserDepartmentPositionList" resultType="userDepartmentPositionVO">
+    <select id="getLoginUserDepartmentPositionList" resultType="userDepartmentPositionVO" parameterType="map">
 		<![CDATA[CALL get_login_user_department_position_list(#{userId}, #{groupId})]]>
 	</select>
       

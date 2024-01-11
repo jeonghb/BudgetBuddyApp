@@ -74,7 +74,39 @@ class _MyPage extends State<MyPage> {
                     ),
                     Expanded(
                       flex: 3,
-                      child: ListView.builder(
+                      child: AppCore.instance.getUser().selectGroup.groupMaster ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: SizedBox(
+                            ),
+                          ),
+                          Expanded(
+                            flex: 3,
+                            child: Container(
+                              margin: EdgeInsets.fromLTRB(2, 0, 2, 10),
+                              padding: EdgeInsets.fromLTRB(8, 0, 8, 2),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.all(Radius.circular(20)),
+                                color: Color.fromARGB(236, 214, 215, 252),
+                              ),
+                              child: Text(
+                                '관리자',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: SizedBox(
+                            ),
+                          ),
+                        ],
+                      ) : ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: userPositionList.length,
                         itemBuilder: (BuildContext context, int index) {

@@ -8,8 +8,8 @@
     <insert id="budgetTypeAdd" parameterType="budgetTypeVO">
     	<![CDATA[CALL budget_type_add(#{departmentId}, #{budgetTypeName})]]>
     </insert>
-    <select id="getBudgetTypeList" resultType="budgetTypeVO">
-		<![CDATA[CALL get_budget_type_list(#{userId})]]>
+    <select id="getBudgetTypeList" resultType="budgetTypeVO" parameterType="map">
+		<![CDATA[CALL get_budget_type_list(#{userId}, #{groupId})]]>
 	</select>
 	<select id="getBudgetYearList" resultType="budgetYearVO">
 		<![CDATA[CALL get_budget_year_list(#{userId})]]>
@@ -20,8 +20,8 @@
 	<insert id="budgetAdd" parameterType="budgetVO">
     	<![CDATA[CALL budget_add(#{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
     </insert>
-	<select id="getBudgetList" resultType="budgetVO">
-		<![CDATA[CALL get_budget_list(#{userId})]]>
+	<select id="getBudgetList" resultType="budgetVO" parameterType="map">
+		<![CDATA[CALL get_budget_list(#{userId}, #{groupId})]]>
 	</select>
     <update id="budgetUpdate" parameterType="budgetVO">
     	<![CDATA[CALL budget_update(#{id}, #{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
@@ -29,5 +29,8 @@
     <delete id="budgetDelete">
     	<![CDATA[CALL budget_delete(#{id})]]>
     </delete>
+    <update id="budgetTypeActivationStatusSave" parameterType="budgetTypeVO">
+    	<![CDATA[CALL budget_type_activation_status_save(#{departmentId}, #{budgetTypeId}, #{activationStatus})]]>
+    </update>
     
 </mapper>

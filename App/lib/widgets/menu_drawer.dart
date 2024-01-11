@@ -9,7 +9,7 @@ import '../models/department.dart';
 import '../models/position.dart';
 import '../models/receipt.dart';
 import '../screens/auth/auth_manage.dart';
-import '../screens/budget/budget_type_manage.dart';
+import '../screens/budget/budget_type_list.dart';
 import '../screens/budget/budget_year_setting.dart';
 import '../screens/news/news_list.dart';
 import '../screens/receipt/receipt_approval_list.dart';
@@ -196,7 +196,7 @@ class _MenuDrawer extends State<MenuDrawer> {
             )
           ),
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeManage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetTypeList()));
           },
         ),
       );
@@ -283,7 +283,39 @@ class _MenuDrawer extends State<MenuDrawer> {
                 ),
                 Expanded(
                   flex: 3,
-                  child: ListView.builder(
+                  child: AppCore.instance.getUser().selectGroup.groupMaster ? Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: SizedBox(
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(2, 0, 2, 10),
+                          padding: EdgeInsets.fromLTRB(8, 0, 8, 2),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                            color: Color.fromARGB(236, 214, 215, 252),
+                          ),
+                          child: Text(
+                            '관리자',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                        ),
+                      ),
+                    ],
+                  ) : ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: userPositionList.length,
                     itemBuilder: (BuildContext context, int index) {
