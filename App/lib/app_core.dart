@@ -243,6 +243,33 @@ class AppCore extends ChangeNotifier {
   static bool authCheck(String authName) {
     return user.selectGroup.getAuthList().any((element) => element.authName == authName);
   }
+
+  static bool isNumeric(String value) {
+    if (value.isEmpty) {
+      return false;
+    }
+    return double.tryParse(value) != null;
+  }
+
+  static bool isValidationDate(int year, int month, int day) {
+    if (year < 1 || month < 1 || month > 12 || day < 1 || day > 31) {
+      return false;
+    }
+
+    // 월별 일수 체크
+    if (month == 2) {
+      // 윤년 체크
+      if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        return day <= 29;
+      } else {
+        return day <= 28;
+      }
+    } else if (month == 4 || month == 6 || month == 9 || month == 11) {
+      return day <= 30;
+    } else {
+      return day <= 31;
+    }
+  }
 }
 
 enum ActionType {

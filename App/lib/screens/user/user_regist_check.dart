@@ -39,19 +39,20 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   }
 
   String userRegistCheckValidationCheck() {
-    if (userBirthdayYear.text.trim().replaceAll('0', '').length != 4 ||
-        userBirthdayMonth.text.trim().replaceAll('0', '').isEmpty ||
-        userBirthdayDay.text.trim().replaceAll('0', '').isEmpty) {
-      return '정상적으로 입력되지 않은 항목이 있습니다. 확인 후 다시 시도해주세요';
-    }
-
-    List<String Function()> validationMethods = [user.nameCheck];
+    List<String Function()> validationMethods = [
+      user.nameCheck,
+      user.birthdayCheck,
+    ];
 
     for (var validationMethod in validationMethods) {
       String returnMessage = validationMethod();
       if (returnMessage.isNotEmpty) {
         return returnMessage;
       }
+    }
+
+    if (!DateTime.now().isAfter(DateTime(int.parse(user.userBirthdayYear) + 19, int.parse(user.userBirthdayMonth), int.parse(user.userBirthdayDay)))) {
+      return '현재 성인만 가입 가능합니다';
     }
 
     return '';

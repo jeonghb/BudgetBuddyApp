@@ -88,14 +88,23 @@ class User {
   String bankAccountNumberCheck() {
     return bankAccountNumber.isNotEmpty && !bankAccountNumberRegexCheck() ? '정상적인 계좌번호 형식이 아닙니다.' : '';
   }
-  
-  registStatus() {
-    userBirthday = DateTime.now().toString();
-    userSex = 'male';
-  }
 
+  String birthdayCheck() {
+    if (userBirthdayYear.isEmpty || userBirthdayMonth.isEmpty || userBirthdayDay.isEmpty) {
+      return '년, 월, 일을 모두 입력해주세요.';
+    }
+    else if (!AppCore.isNumeric(userBirthdayYear) || !AppCore.isNumeric(userBirthdayMonth) || !AppCore.isNumeric(userBirthdayDay)) {
+      return '올바른 숫자를 입력해주세요.';
+    }
+    else if (!AppCore.isValidationDate(int.parse(userBirthdayYear), int.parse(userBirthdayMonth), int.parse(userBirthdayDay))) {
+      return '올바른 날짜를 입력해주세요';
+    }
+
+    return '';
+  }
+  
   String getUserBirthday() {
-    if (userBirthdayYear.length != 4 && userBirthdayMonth.length != 2 && userBirthdayDay.length != 2) {
+    if (userBirthdayYear.length != 4 || userBirthdayMonth.length != 2 || userBirthdayDay.length != 2) {
       return DateTime.now().toString();
     }
     else {

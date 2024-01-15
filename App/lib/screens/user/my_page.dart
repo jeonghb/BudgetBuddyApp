@@ -201,15 +201,14 @@ class _MyPage extends State<MyPage> {
                   ),
                 ),
                 onTap: () {
-                  // if (AppCore.instance.getUser().groupList.isNotEmpty) {
-                  //   AppCore.showMessage(context, '계정 탈퇴', '가입된 그룹이 있으면 계정을 탈퇴할 수 없습니다.', ActionType.ok, () {
-                  //     Navigator.pop(context);
-                  //   });
-                  // }
-                  // else {
-                  //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.userWithdraw)),);
-                  // }
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.userWithdraw)),);
+                  if (AppCore.instance.getUser().groupList.isNotEmpty) {
+                    AppCore.showMessage(context, '계정 탈퇴', '가입된 그룹이 있으면 계정을 탈퇴할 수 없습니다.', ActionType.ok, () {
+                      Navigator.pop(context);
+                    });
+                  }
+                  else {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.userWithdraw)),);
+                  }
                 },
               ),
               Divider(
