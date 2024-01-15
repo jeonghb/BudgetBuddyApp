@@ -29,5 +29,11 @@
     <select id="getLoginUserDepartmentPositionList" resultType="userDepartmentPositionVO" parameterType="map">
 		<![CDATA[CALL get_login_user_department_position_list(#{userId}, #{groupId})]]>
 	</select>
+	<select id="getUserGroupCount" resultType="Integer" parameterType="map">
+		<![CDATA[CALL get_user_group_count(#{userId})]]>
+	</select>
+	<update id="userWithdraw" parameterType="map">
+		<![CDATA[CALL user_withdraw(#{userId})]]>
+	</update>
       
 </mapper>

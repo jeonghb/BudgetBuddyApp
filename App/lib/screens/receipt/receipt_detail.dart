@@ -43,7 +43,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
   void initState() {
     super.initState();
 
-    // getFileList();
+    getFileList();
 
     // 현재 상태값 다음으로 변경할 수 있도록 세팅(단 송금(3) 보다 클 수 없음)
     selectApprovalId = widget.receipt.submissionStatus + 1 > 3 ? widget.receipt.submissionStatus : widget.receipt.submissionStatus + 1;
@@ -55,7 +55,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
       'fileNameList': widget.receipt.fileNameList,
     };
 
-    ResponseData responseData = await AppCore.request(ServerType.GET, address, body, null);
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       List<XFile> tempList = <XFile>[];
@@ -84,7 +84,18 @@ class _ReceiptDetail extends State<ReceiptDetail> {
     }
   }
 
-  void showImage(int index) {
+  void showImage(BuildContext context, File file) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return Dialog(
+          child: Container(
+            padding: EdgeInsets.all(16),
+            child: Image.file(file),
+          ),
+        );
+      }
+    );
   }
 
   @override
@@ -180,24 +191,28 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                       width: 300,
                       height: 100,
                       child: GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         padding: EdgeInsets.all(8),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 3,
                           mainAxisSpacing: 8,
                           crossAxisSpacing: 8,
                         ),
-                        itemCount: receipt.fileList.length,
+                        itemCount: widget.receipt.fileList.length,
                         itemBuilder: (BuildContext context, int index) {
+                          final file = widget.receipt.fileList.isNotEmpty ? widget.receipt.fileList[index] : null;
                           return GestureDetector(
                             onTap: () {
-                              showImage(index);
+                              if (file != null) {
+                                showImage(context, File(file.path));
+                              }
                             },
                             child: Image.file(
                               File(receipt.fileList[index].path),
                               fit: BoxFit.cover,
                             ),
                           );
-                        },
+                        }
                       ),
                     ),
                   ),

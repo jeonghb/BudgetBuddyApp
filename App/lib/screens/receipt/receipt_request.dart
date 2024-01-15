@@ -133,6 +133,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     String address = '/getBudgetTypeList';
     Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);

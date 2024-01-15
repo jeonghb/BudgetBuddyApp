@@ -266,4 +266,20 @@ class User {
     
     return false;
   }
+
+  Future<bool> userWithdraw() async {
+    String address = '/userWithdraw';
+    Map<String, dynamic> body = {
+      'userId' : userId,
+    };
+    
+    ResponseData response = await AppCore.request(ServerType.POST, address, body, null);
+
+    if (response.statusCode == 200 && response.body == 'true') {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }

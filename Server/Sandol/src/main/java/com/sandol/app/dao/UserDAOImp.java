@@ -120,8 +120,23 @@ public class UserDAOImp implements UserDAO {
 	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(Map<String, Object> _user) {
 		try {
 			return tmp.selectList("com.sandol.mapper.app.getLoginUserDepartmentPositionList", _user);
-		}catch (NullPointerException e) {
+		} catch (NullPointerException e) {
 			return null;
 		}
+	}
+	
+	@Override
+	public boolean userWithdraw(Map<String, Object> _map) {
+		try {
+			int groupCount = tmp.selectOne("com.sandol.mapper.app.getUserGroupCount", _map);
+			
+			if (groupCount > 0) return false;
+			
+			if (tmp.update("com.sandol.mapper.app.userWithdraw", _map) == 0) return false;
+		} catch (NullPointerException e) {
+			return false;
+		}
+		
+		return true;
 	}
 }

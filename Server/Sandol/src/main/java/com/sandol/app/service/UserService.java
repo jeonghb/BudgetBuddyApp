@@ -23,4 +23,6 @@ public interface UserService {
 	public boolean userInfoUpdate(UserVO _userVO);
 	
 	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(Map<String, Object> _user);
+	
+	public boolean userWithdraw(Map<String, Object> _map);
 }

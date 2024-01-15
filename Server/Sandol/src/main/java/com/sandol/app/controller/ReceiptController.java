@@ -1,6 +1,8 @@
 package com.sandol.app.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,18 +16,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sandol.app.service.ReceiptService;
-import com.sandol.app.core.FileManager;
-import com.sandol.app.service.FileService;
 import com.sandol.app.vo.ReceiptVO;
+import com.sandol.app.core.FileManager;
 
 @Controller
 public class ReceiptController {
 	
 	@Autowired
 	ReceiptService receiptService;
-	
-	@Autowired
-	FileService fileService;
 	
 	@RequestMapping(value = "/requestReceipt", method = RequestMethod.POST)
 	@ResponseBody
@@ -37,7 +35,7 @@ public class ReceiptController {
 		if (fileList.size() > 0) {
 			try {
 				FileManager.getInstance();
-				fileNameList = FileManager.saveFiles(fileList);	
+				fileNameList = FileManager.saveFiles(fileList);
 			} catch (ExceptionInInitializerError e) {
 				e.printStackTrace();
 			}
@@ -69,5 +67,36 @@ public class ReceiptController {
 	@ResponseBody
 	public boolean changeSubmissionStatus(@RequestBody ReceiptVO _receiptVO) {
 		return receiptService.changeSubmissionStatus(_receiptVO);
+	}
+	
+	@RequestMapping(value = "/getFileList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String, Object>> getFileList(@RequestBody Map<String, Object> _map) {
+		List<Map<String, Object>> fileList = new ArrayList<Map<String,Object>>();
+		String fileNameList = _map.get("fileNameList").toString();
+		
+		try {
+			FileManager.getInstance();
+			List<MultipartFile> multipartFileList = FileManager.getFiles(fileNameList);
+			
+			for (MultipartFile multipartFile : multipartFileList) {
+				Map<String, Object> file = new HashMap<String, Object>();
+				file.put("name", multipartFile.getName());
+	            file.put("originalFilename", multipartFile.getOriginalFilename());
+	            file.put("contentType", multipartFile.getContentType());
+	            file.put("size", multipartFile.getSize());
+	            try {
+					file.put("bytes", multipartFile.getBytes());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+	            
+	            fileList.add(file);
+			}
+		} catch (ExceptionInInitializerError e) {
+			e.printStackTrace();
+		}
+		
+		return fileList;
 	}
 }

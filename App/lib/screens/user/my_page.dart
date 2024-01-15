@@ -8,7 +8,6 @@ import '../../app_core.dart';
 import '../../models/department.dart';
 import '../../models/position.dart';
 import '../../widgets/title_text.dart';
-import '../notification_settings.dart';
 import '../department/department_member_list.dart';
 import '../department/department_request_list.dart';
 import '../inquiry/inquiry_home.dart';
@@ -189,6 +188,28 @@ class _MyPage extends State<MyPage> {
                 ),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.passwordUpdate)),);
+                },
+              ),
+              ListTile(
+                trailing: Icon(Icons.keyboard_arrow_right),
+                iconColor: Colors.black,
+                title: Text(
+                  '계정 탈퇴',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  // if (AppCore.instance.getUser().groupList.isNotEmpty) {
+                  //   AppCore.showMessage(context, '계정 탈퇴', '가입된 그룹이 있으면 계정을 탈퇴할 수 없습니다.', ActionType.ok, () {
+                  //     Navigator.pop(context);
+                  //   });
+                  // }
+                  // else {
+                  //   Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.userWithdraw)),);
+                  // }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PasswordAuthCheck(type: ScreenType.userWithdraw)),);
                 },
               ),
               Divider(

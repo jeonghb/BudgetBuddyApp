@@ -73,4 +73,10 @@ public class UserController {
 	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(@RequestBody Map<String, Object> _user) {
 		return userService.getLoginUserDepartmentPositionList(_user);
 	}
+	
+	@RequestMapping(value = "/userWithdraw", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean userWithdraw(@RequestBody Map<String, Object> _map) {
+		return userService.userWithdraw(_map);
+	}
 }

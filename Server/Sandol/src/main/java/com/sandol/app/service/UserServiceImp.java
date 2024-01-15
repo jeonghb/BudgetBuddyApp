@@ -56,4 +56,9 @@ public class UserServiceImp implements UserService {
 	public List<UserDepartmentPositionVO> getLoginUserDepartmentPositionList(Map<String, Object> _user) {
 		return dao.getLoginUserDepartmentPositionList(_user);
 	}
+	
+	@Override
+	public boolean userWithdraw(Map<String, Object> _map) {
+		return dao.userWithdraw(_map);
+	}
 }
