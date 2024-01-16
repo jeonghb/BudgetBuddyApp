@@ -7,13 +7,10 @@ import 'package:test/widgets/top_bar.dart';
 import '../../models/response_data.dart';
 import '../../widgets/text_form_field_v1.dart';
 import '../../widgets/title_text.dart';
-import '../login.dart';
 import '../screen_frame.dart';
 
 class UserRegistCheck extends StatefulWidget {
-  final UserType userType;
-
-  const UserRegistCheck({super.key, required this.userType});
+  const UserRegistCheck({super.key,});
 
   @override
   State<UserRegistCheck> createState() => _UserRegistCheck();
@@ -21,6 +18,7 @@ class UserRegistCheck extends StatefulWidget {
 
 class _UserRegistCheck extends State<UserRegistCheck> {
   User user = User();
+  TextEditingController userId = TextEditingController();
   TextEditingController userName = TextEditingController();
   TextEditingController userBirthdayYear = TextEditingController();
   TextEditingController userBirthdayMonth = TextEditingController();
@@ -34,12 +32,11 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   @override
   void initState() {
     super.initState();
-
-    user.userId = AppCore.instance.getUser().userId;
   }
 
   String userRegistCheckValidationCheck() {
     List<String Function()> validationMethods = [
+      user.idCheck,
       user.nameCheck,
       user.birthdayCheck,
     ];
@@ -59,6 +56,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
   }
 
   void setData() {
+    user.userId = userId.text;
     user.userName = userName.text;
     user.userBirthdayYear = userBirthdayYear.text;
     user.userBirthdayMonth = userBirthdayMonth.text;
@@ -78,7 +76,32 @@ class _UserRegistCheck extends State<UserRegistCheck> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 TitleText(
-                  text: widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기',
+                  text: '회원가입',
+                ),
+                Text('아이디',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                TextFormFieldV1(
+                  hintText: 'ID',
+                  hintStyle: TextStyle(
+                    color: Colors.grey,
+                  ),
+                  keyboardType: TextInputType.name,
+                  controller: userId,
+                  textInputAction: TextInputAction.next,
+                  onEditingComplete: () {
+                    FocusScope.of(context).nextFocus();
+                    FocusScope.of(context).nextFocus();
+                  },
+                ),
+                SizedBox(
+                  height: 10,
                 ),
                 Text(
                   '이름',
@@ -251,7 +274,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.black,
                     ),
-                    child: Text(widget.userType == UserType.newUser ? '다음' : '조회',
+                    child: Text('다음',
                     style: TextStyle(
                       fontSize: 18,
                       color: Colors.white
@@ -263,7 +286,7 @@ class _UserRegistCheck extends State<UserRegistCheck> {
 
                       String validationMessage = userRegistCheckValidationCheck();
                       if (validationMessage.isNotEmpty) {
-                        AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', validationMessage, ActionType.ok, () {
+                        AppCore.showMessage(context, '회원가입', validationMessage, ActionType.ok, () {
                           Navigator.pop(context);
                         });
                         return;
@@ -271,44 +294,21 @@ class _UserRegistCheck extends State<UserRegistCheck> {
 
                       ResponseData responseData = await user.isUserCheck();
 
-                      if (responseData.statusCode == 200 && user.userId.isEmpty) {
-                        switch (widget.userType) {
-                          case UserType.newUser:
-                            // ignore: use_build_context_synchronously
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
-                            break;
-                          case UserType.findUser:
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '회원가입', '가입된 정보가 없습니다.\n회원가입을 진행하시겠습니까?', ActionType.yesNo, () {
-                              Navigator.pop(context);
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
-                            });
-                            break;
+                      if (responseData.statusCode == 200) {
+                        if (responseData.body == 'true') {
+                          // ignore: use_build_context_synchronously
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegist(user: user)),);
                         }
-                      }
-                      else if (responseData.statusCode == 200 && user.userId.isNotEmpty) {
-                        switch (widget.userType) {
-                          case UserType.newUser:
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '회원가입', '이미 가입된 정보가 있습니다. 로그인 화면으로 이동합니다.', ActionType.ok, () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false);
-                            });
-                            break;
-                          case UserType.findUser:
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '아이디 찾기', '가입된 ID는 ${user.userId.substring(0, 4)}${Iterable.generate(user.userId.length - 4, (_) => '*').join()}입니다.', ActionType.ok, () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false);
-                            });
-                            break;
+                        else {
+                          // ignore: use_build_context_synchronously
+                          AppCore.showMessage(context, '회원가입', '이미 가입된 정보가 있거나 해당 아이디를 사용할 수 없습니다.', ActionType.ok, () {
+                            Navigator.pop(context);
+                          });
                         }
                       }
                       else {
                         // ignore: use_build_context_synchronously
-                        AppCore.showMessage(context, widget.userType == UserType.newUser ? '회원가입' : '아이디 찾기', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                        AppCore.showMessage(context, '회원가입', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }
@@ -322,9 +322,4 @@ class _UserRegistCheck extends State<UserRegistCheck> {
       ),
     );
   }
-}
-
-enum UserType {
-  newUser,
-  findUser
 }

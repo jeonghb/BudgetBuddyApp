@@ -5,8 +5,8 @@
    
 <mapper namespace="com.sandol.mapper.app">
 
-	<select id="userCheck" resultType="String" parameterType="userVO">
-		<![CDATA[CALL user_check(#{userName}, #{userBirthday}, #{userSex})]]>
+	<select id="userCheck" resultType="Integer" parameterType="userVO">
+		<![CDATA[CALL user_check(#{userId}, #{userName}, #{userBirthday}, #{userSex})]]>
 	</select>
     <select id="selectUserInfo" resultType="Integer" parameterType="String">
     	<![CDATA[CALL select_user_info(#{userId})]]>

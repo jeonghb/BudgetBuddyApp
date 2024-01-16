@@ -42,7 +42,7 @@ class _TopBar extends State<TopBar> {
       case BarType.exit:
         actionIcon = IconButton(
           onPressed: () {
-            Navigator.popUntil(context, (route) => route.settings.name == '/Home' || route.settings.name == '/FirstRun' || route.settings.name == '/Login' || route.settings.name == '/GroupMain');
+            Navigator.popUntil(context, (route) => route.settings.name == '/Home' || route.settings.name == '/Login' || route.settings.name == '/GroupMain');
           },
           icon: Icon(
             Icons.close,

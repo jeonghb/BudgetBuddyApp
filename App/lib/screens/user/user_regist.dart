@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
-import 'package:test/screens/first_run.dart';
+import 'package:test/screens/login.dart';
 import 'package:test/screens/screen_frame.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/top_bar.dart';
@@ -17,14 +17,12 @@ class UserRegist extends StatefulWidget {
 }
 
 class _UserRegist extends State<UserRegist> {
-  TextEditingController userId = TextEditingController();
   TextEditingController userPassword = TextEditingController();
   TextEditingController userPasswordCheck = TextEditingController();
   TextEditingController userEmail = TextEditingController();
   TextEditingController userPhoneNumber = TextEditingController();
 
   void setData() {
-    widget.user.userId = userId.text;
     widget.user.userPassword = userPassword.text;
     widget.user.userPasswordCheck = userPasswordCheck.text;
     widget.user.userEmail = userEmail.text;
@@ -33,7 +31,6 @@ class _UserRegist extends State<UserRegist> {
 
   String validationCheck() {
     List<String Function()> validationMethods = [
-      widget.user.idCheck,
       widget.user.passwordCheck,
       widget.user.passwordEqualCheck,
       widget.user.emailCheck,
@@ -63,31 +60,6 @@ class _UserRegist extends State<UserRegist> {
             children: <Widget>[
               TitleText(
                 text: '회원가입',
-              ),
-              Text('아이디',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              TextFormFieldV1(
-                hintText: 'ID',
-                hintStyle: TextStyle(
-                  color: Colors.grey,
-                ),
-                keyboardType: TextInputType.name,
-                controller: userId,
-                textInputAction: TextInputAction.next,
-                onEditingComplete: () {
-                  FocusScope.of(context).nextFocus();
-                  FocusScope.of(context).nextFocus();
-                },
-              ),
-              SizedBox(
-                height: 10,
               ),
               Text('비밀번호',
                 style: TextStyle(
@@ -211,7 +183,7 @@ class _UserRegist extends State<UserRegist> {
                     widget.user.userRegist().then((String result) {
                       if (result == "0") {
                         AppCore.showMessage(context, '회원가입', '가입 완료', ActionType.ok, () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => FirstRun()),);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
                         });
                       }
                       else if (result == "1") {

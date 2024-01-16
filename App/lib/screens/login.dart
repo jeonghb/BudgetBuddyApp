@@ -172,15 +172,14 @@ class _LogInPage extends State<LogInPage> {
                         children: <Widget>[
                           TextButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck(userType: UserType.findUser,)),
-                              );
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => UserRegistCheck()),);
                             },
                             style: ButtonStyle(
                               overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
                             ),
-                            child: Text('아이디 찾기',
+                            child: Text('회원가입',
                               style: TextStyle(
-                                color: Colors.black
+                                color: Colors.black,
                               ),
                             ),
                           ),

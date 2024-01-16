@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:test/screens/group/group_main.dart';
-import 'package:test/screens/first_run.dart';
+import 'package:test/screens/login.dart';
 
 import 'app_core.dart';
 import 'screens/home.dart';
@@ -37,7 +37,7 @@ class _Initialize extends State<Initialize> {
         }
       }
       else {
-        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun(), settings: RouteSettings(name: '/FirstRun'),), (route) => false,);
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false,);
       }
     });
   }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:test/screens/budget/budget_add.dart';
 import 'package:test/screens/budget/budget_list.dart';
-import 'package:test/screens/first_run.dart';
+import 'package:test/screens/login.dart';
 import 'package:test/screens/news/news_add.dart';
 
 import '../app_core.dart';
@@ -478,7 +478,7 @@ class _MenuDrawer extends State<MenuDrawer> {
                 AppCore.instance.logOut();
                 
                 Navigator.pop(context);
-                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => FirstRun(), settings: RouteSettings(name: '/FirstRun'),), (route) => false,);
+                Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false,);
               });
             },
             style: ButtonStyle(

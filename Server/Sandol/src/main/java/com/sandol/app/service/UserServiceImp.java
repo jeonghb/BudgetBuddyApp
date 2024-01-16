@@ -18,7 +18,7 @@ public class UserServiceImp implements UserService {
 	UserDAO dao;
 
 	@Override
-	public String getUserCheck(UserVO _userVO) {
+	public boolean getUserCheck(UserVO _userVO) {
 		return dao.getUserCheck(_userVO);
 	}
 	

@@ -121,16 +121,13 @@ class User {
   Future<ResponseData> isUserCheck() async {
     String address = '/userCheck';
     Map<String, dynamic> body = {
+      'userId': userId,
       'userName': userName,
       'userBirthday': getUserBirthday(),
       'userSex': userSex,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
-
-    if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
-      userId = responseData.body.toString();
-    }
 
     return responseData;
   }
