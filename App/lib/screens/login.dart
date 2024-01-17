@@ -29,8 +29,8 @@ class _LogInPage extends State<LogInPage> {
     user.userId = userId.text;
     user.userPassword = userPassword.text;
     
-    user.userLogin(true).then((String result) async {
-      if (result == "0") {
+    user.userLogin(true, false).then((String result) async {
+      if (result == '0') {
         SharedPreferences preferences = await SharedPreferences.getInstance();
         preferences.setBool('autoLogin', true);
         preferences.setString('userId', user.userId);
@@ -40,13 +40,18 @@ class _LogInPage extends State<LogInPage> {
 
         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Initialize()), (route) => false,);
       }
-      else if (result == "1") {
-        AppCore.showMessage(context, '로그인', '잘못된 정보입니다.', ActionType.ok, () {
+      else if (result == '1') {
+        AppCore.showMessage(context, '로그인', '잘못된 정보입니다', ActionType.ok, () {
+          Navigator.pop(context);
+        });
+      }
+      else if (result == '3') {
+        AppCore.showMessage(context, '로그인', '오늘 로그인 시도횟수가 초과하였습니다.', ActionType.ok, () {
           Navigator.pop(context);
         });
       }
       else {
-        AppCore.showMessage(context, '로그인', '로그인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+        AppCore.showMessage(context, '로그인', '로그인 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
           Navigator.pop(context);
         });
       }
@@ -106,7 +111,7 @@ class _LogInPage extends State<LogInPage> {
                     // ignore: prefer_const_literals_to_create_immutables
                     children: <Widget>[
                       TextFormFieldV1(
-                        hintText: '아이디를 입력해주세요.',
+                        hintText: '아이디를 입력해주세요',
                         hintStyle: TextStyle(
                           fontSize: 18,
                           color: Color.fromARGB(255, 90, 68, 223)
@@ -124,7 +129,7 @@ class _LogInPage extends State<LogInPage> {
                         height: 10,
                       ),
                       TextFormFieldV1(
-                        hintText: '비밀번호를 입력해주세요.',
+                        hintText: '비밀번호를 입력해주세요',
                         hintStyle: TextStyle(
                           fontSize: 18,
                           color: Color.fromARGB(255, 90, 68, 223)

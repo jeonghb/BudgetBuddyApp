@@ -186,14 +186,14 @@ class _UserInfoUpdate extends State<UserInfoUpdate> {
 
                     if (await userUpdate()) { // 저장 성공 시
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '개인정보 수정', '저장되었습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '개인정보 수정', '저장되었습니다', ActionType.ok, () {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       });
                     }
                     else {
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '개인정보 수정', '저장에 실패하였습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '개인정보 수정', '저장에 실패하였습니다', ActionType.ok, () {
                         Navigator.pop(context);
                       });
                     }

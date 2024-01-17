@@ -69,7 +69,8 @@ class _UpdatePassword extends State<UpdatePassword> {
               TitleText(
                 text: '비밀번호 변경',
               ),
-              Text('변경할 비밀번호 입력',
+              Text(
+                '변경할 비밀번호 입력',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
@@ -95,7 +96,8 @@ class _UpdatePassword extends State<UpdatePassword> {
               SizedBox(
                 height: 20,
               ),
-              Text('변경할 비밀번호 확인',
+              Text(
+                '변경할 비밀번호 확인',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold
@@ -128,11 +130,13 @@ class _UpdatePassword extends State<UpdatePassword> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
                   ),
-                  child: Text('변경',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white
-                  ),),
+                  child: Text(
+                    '변경',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white
+                    ),)
+                  ,
                   onPressed: () async {
                     FocusScope.of(context).unfocus();
 
@@ -148,7 +152,7 @@ class _UpdatePassword extends State<UpdatePassword> {
 
                     ResponseData responseData = await userUpdatePassword();
                     if (responseData.statusCode == 200 && responseData.body.isEmpty) {
-                      AppCore.showMessage(context, '비밀번호 변경', '일치하는 정보가 없습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '비밀번호 변경', '일치하는 정보가 없습니다', ActionType.ok, () {
                         Navigator.pop(context);
                       });
                     }
@@ -162,7 +166,11 @@ class _UpdatePassword extends State<UpdatePassword> {
                             content: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const <Widget>[Text("비밀번호 변경이 완료되었습니다. 로그인 화면으로 이동합니다.",),],
+                              children: const <Widget>[
+                                Text(
+                                  '비밀번호 변경이 완료되었습니다. 로그인 화면으로 이동합니다',
+                                ),
+                              ],
                             ),
                             actions: <Widget>[
                               TextButton(
@@ -173,7 +181,9 @@ class _UpdatePassword extends State<UpdatePassword> {
                                 style: ButtonStyle(
                                   overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
                                 ),
-                                child: Text('확인'), 
+                                child: Text(
+                                  '확인',
+                                ), 
                               )
                             ],
                           );
@@ -182,7 +192,7 @@ class _UpdatePassword extends State<UpdatePassword> {
                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false);
                     }
                     else {
-                      AppCore.showMessage(context, '비밀번호 변경', '비밀번호를 변경하는 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                      AppCore.showMessage(context, '비밀번호 변경', '비밀번호를 변경하는 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                         Navigator.pop(context);
                       });
                     }

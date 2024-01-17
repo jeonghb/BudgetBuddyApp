@@ -59,10 +59,10 @@ class _PositionAdd extends State<PositionAdd> {
 
   String setData() {
     if (selectDepartmentId == -1) {
-      return '부서가 선택되지 않았습니다.';
+      return '부서가 선택되지 않았습니다';
     }
     else if (positionName.text.isEmpty) {
-      return '직책명이 입력되지 않았습니다.';
+      return '직책명이 입력되지 않았습니다';
     }
 
     return '';
@@ -173,7 +173,7 @@ class _PositionAdd extends State<PositionAdd> {
                       }
                       else {
                         // ignore: use_build_context_synchronously
-                        AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
+                        AppCore.showMessage(context, '직책 추가', '직책 추가 실패. 해당 직책명이 추가되어 있는지 확인하세요', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }

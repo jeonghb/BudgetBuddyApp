@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'initialize.dart';
-import 'dart:developer' as developer;
+// import 'dart:developer' as developer;
 
 void main() async {
-  developer.debugger();
+  // developer.debugger();
   runApp(MyApp());
 }
 

@@ -79,10 +79,10 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
 
   String setData() {
     if (selectDepartmentId == -1) {
-      return '부서가 선택되지 않았습니다.';
+      return '부서가 선택되지 않았습니다';
     }
     if (budgetYearList.firstWhere((element) => element.departmentId == selectDepartmentId && element.year == selectYear).budgetAmount.text == '') {
-      return '예산 금액이 입력되지 않았습니다.';
+      return '예산 금액이 입력되지 않았습니다';
     }
 
     return '';
@@ -191,7 +191,7 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '예산 설정', '예산 설정을 실패하였습니다.', ActionType.ok, () {
+                  AppCore.showMessage(context, '예산 설정', '예산 설정을 실패하였습니다', ActionType.ok, () {
                     Navigator.pop(context);
                   });
                 }

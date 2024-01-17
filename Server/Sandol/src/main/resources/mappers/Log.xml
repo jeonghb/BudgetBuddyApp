@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="com.sandol.mapper.app">
+
+	<select id="getUserLoginFaliedLog" resultType="Integer" parameterType="userVO">
+		<![CDATA[CALL get_user_login_failed_log(#{userId})]]>
+	</select>
+	<select id="loginLog" resultType="Integer" parameterType="userVO">
+    	<![CDATA[CALL login_log(#{userId}, #{logInIsSuccess})]]>
+    </select>
+    
+</mapper>

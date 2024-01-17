@@ -34,7 +34,7 @@ class User {
   RegExp bankAccountNumberRegExp = RegExp(r'^[\d-]+$');
 
   String idCheck() {
-    return userId.isEmpty || userId.length < 5 || idRegexCheck() ? 'ID는 5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다.' : '';
+    return userId.isEmpty || userId.length < 5 || idRegexCheck() ? 'ID는 5자 이상이어야 하며, 특수문자는 _만 사용 가능합니다' : '';
   }
 
   bool idRegexCheck() {
@@ -66,35 +66,35 @@ class User {
   }
 
   String passwordCheck() {
-    return userPassword.isEmpty || !passwordRegexCheck() ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요.' : '';
+    return userPassword.isEmpty || !passwordRegexCheck() ? '알파벳 대문자, 소문자, 숫자, 특수문자를 반드시 포함하여 8자 이상 입력하세요' : '';
   }
 
   String passwordEqualCheck() {
-    return userPasswordCheck.isEmpty ? '비밀번호를 입력해주세요.' : !passwordSameCheck() ? '입력한 비밀번호와 일치하지 않습니다.' : '';
+    return userPasswordCheck.isEmpty ? '비밀번호를 입력해주세요' : !passwordSameCheck() ? '입력한 비밀번호와 일치하지 않습니다' : '';
   }
 
   String nameCheck() {
-    return userName.isEmpty || userName.length < 2 || !nameRegexCheck() ? '정상적인 이름 형식이 아닙니다.' : '';
+    return userName.isEmpty || userName.length < 2 || !nameRegexCheck() ? '정상적인 이름 형식이 아닙니다' : '';
   }
 
   String emailCheck() {
-    return userEmail.isEmpty || !emailRegexCheck() ? '정상적인 이메일 형식이 아닙니다.' : '';
+    return userEmail.isEmpty || !emailRegexCheck() ? '정상적인 이메일 형식이 아닙니다' : '';
   }
 
   String phoneNumberCheck() {
-    return userPhoneNumber.isEmpty || !phoneNumberRegexCheck() ? '정상적인 휴대폰번호 형식이 아닙니다.' : '';
+    return userPhoneNumber.isEmpty || !phoneNumberRegexCheck() ? '정상적인 휴대폰번호 형식이 아닙니다' : '';
   }
 
   String bankAccountNumberCheck() {
-    return bankAccountNumber.isNotEmpty && !bankAccountNumberRegexCheck() ? '정상적인 계좌번호 형식이 아닙니다.' : '';
+    return bankAccountNumber.isNotEmpty && !bankAccountNumberRegexCheck() ? '정상적인 계좌번호 형식이 아닙니다' : '';
   }
 
   String birthdayCheck() {
     if (userBirthdayYear.isEmpty || userBirthdayMonth.isEmpty || userBirthdayDay.isEmpty) {
-      return '년, 월, 일을 모두 입력해주세요.';
+      return '년, 월, 일을 모두 입력해주세요';
     }
     else if (!AppCore.isNumeric(userBirthdayYear) || !AppCore.isNumeric(userBirthdayMonth) || !AppCore.isNumeric(userBirthdayDay)) {
-      return '올바른 숫자를 입력해주세요.';
+      return '올바른 숫자를 입력해주세요';
     }
     else if (!AppCore.isValidationDate(int.parse(userBirthdayYear), int.parse(userBirthdayMonth), int.parse(userBirthdayDay))) {
       return '올바른 날짜를 입력해주세요';
@@ -170,17 +170,21 @@ class User {
     }
   }
 
-  Future<String> userLogin(bool isPasswordEncode) async {
+  Future<String> userLogin(bool isPasswordEncode, bool isAutoLogin) async {
     String address = '/login';
     Map<String, dynamic> body = {
       'userId': userId,
-      'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword)).toString() : userPassword
+      'userPassword': isPasswordEncode ? sha512.convert(utf8.encode(userPassword)).toString() : userPassword,
+      'isAutoLogin': isAutoLogin,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
 
     if (responseData.statusCode == 200) {
       var json = jsonDecode(responseData.body);
+      if (!AppCore.getJsonBool(json, 'loginFailedMax')) {
+        return '3';
+      }
       if (AppCore.getJsonBool(json, 'logInIsSuccess')) {
         userName = AppCore.getJsonString(json, 'userName');
         userEmail = AppCore.getJsonString(json, 'userEmail');

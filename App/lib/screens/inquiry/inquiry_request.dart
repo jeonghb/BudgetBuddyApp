@@ -20,10 +20,10 @@ class _InquiryRequest extends State<InquiryRequest> {
 
   String setData() {
     if (inquiryTitle.text.isEmpty) {
-      return '제목이 입력되지 않았습니다.';
+      return '제목이 입력되지 않았습니다';
     }
     else if (inquiryMemo.text.isEmpty) {
-      return '내용이 입력되지 않았습니다.';
+      return '내용이 입력되지 않았습니다';
     }
 
     return '';
@@ -120,7 +120,7 @@ class _InquiryRequest extends State<InquiryRequest> {
                     }
                     else if (await inquiryRequest()) {
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '문의하기', '문의를 요청하였습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '문의하기', '문의를 요청하였습니다', ActionType.ok, () {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       });

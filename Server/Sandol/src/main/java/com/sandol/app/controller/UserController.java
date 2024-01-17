@@ -1,5 +1,7 @@
 package com.sandol.app.controller;
 
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.sandol.app.core.FileManager;
 import com.sandol.app.service.UserService;
 import com.sandol.app.vo.UserDepartmentPositionVO;
 import com.sandol.app.vo.UserVO;
@@ -78,5 +82,30 @@ public class UserController {
 	@ResponseBody
 	public boolean userWithdraw(@RequestBody Map<String, Object> _map) {
 		return userService.userWithdraw(_map);
+	}
+	
+	@RequestMapping(value = "/getPersonalInfomationAgreementDocument", method = RequestMethod.GET)
+	@ResponseBody
+	public Map<String, Object> getPersonalInfomationAgreementDocument() {
+		Map<String, Object> file = new HashMap<String, Object>();
+		
+		try {
+			FileManager.getInstance();
+			MultipartFile multipartFile = FileManager.getDocument("personalInfomationAgreement.txt");
+			
+			file.put("name", multipartFile.getName());
+            file.put("originalFilename", multipartFile.getOriginalFilename());
+            file.put("contentType", multipartFile.getContentType());
+            file.put("size", multipartFile.getSize());
+            try {
+				file.put("bytes", multipartFile.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (ExceptionInInitializerError e) {
+			e.printStackTrace();
+		}
+		
+		return file;
 	}
 }

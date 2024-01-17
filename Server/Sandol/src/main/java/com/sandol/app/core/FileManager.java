@@ -18,7 +18,8 @@ import com.sandol.app.vo.InMemoryMultipartFile;
 public class FileManager {
 	private static FileManager instance;
 	private static AtomicInteger counter;
-	private static String path = "D:/UploadFiles/"; 
+	private static String receiptpath = "D:/UploadFiles/";
+	private static String documentPath = "D:/SandolApp/Server/document/";
 	
 	private FileManager() {
 		initializeCounter();
@@ -35,7 +36,7 @@ public class FileManager {
 	}
 	
 	private void initializeCounter() {
-		File directory = new File(path);
+		File directory = new File(receiptpath);
         String[] files = directory.list();
         
         int maxCount = 0;
@@ -84,11 +85,12 @@ public class FileManager {
 				
 				fileName = generateFileName();
 				
-				fileList.get(i).transferTo(new File(path + fileName + ".png"));
+				fileList.get(i).transferTo(new File(receiptpath + fileName + ".png"));
 				
 				fileNameList += fileName + ".png;";
 			} 
 		} catch (IOException e) {
+			e.printStackTrace();
 			return "";
 		}
 		
@@ -101,7 +103,7 @@ public class FileManager {
 		
 		try {
 			for (String fileName : fileNameList) {
-				byte[] fileContent = Files.readAllBytes(new File(path + fileName).toPath());
+				byte[] fileContent = Files.readAllBytes(new File(receiptpath + fileName).toPath());
 				
 				MultipartFile file = new InMemoryMultipartFile(fileName, fileContent);
 				
@@ -115,12 +117,27 @@ public class FileManager {
 		return fileList;
 	}
 	
+	public static MultipartFile getDocument(String _fileName) {
+		MultipartFile file = null;
+		
+		try {
+			byte[] fileContent = Files.readAllBytes(new File(documentPath + _fileName).toPath());
+			
+			file = new InMemoryMultipartFile(_fileName, fileContent);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+		return file;
+	}
+	
 	public static boolean fileDuplicateCheck(MultipartFile _file) {
 		boolean returnValue = true; // true¸é Áßº¹
 		byte[] directoryFile = null;
 		
 		try {
-			directoryFile = Files.readAllBytes(new File(path + _file.getOriginalFilename()).toPath());
+			directoryFile = Files.readAllBytes(new File(receiptpath + _file.getOriginalFilename()).toPath());
 		} catch (NoSuchFileException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

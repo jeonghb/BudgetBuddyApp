@@ -305,7 +305,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                             controller: rejectMessage,
                             maxLines: null,
                             decoration: InputDecoration(
-                              hintText: '반려 사유를 입력하세요.',
+                              hintText: '반려 사유를 입력하세요',
                               contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                             ),
                           )
@@ -330,7 +330,7 @@ class _ReceiptDetail extends State<ReceiptDetail> {
                             Navigator.pop(context, true);
                           }
                           else {
-                            AppCore.showMessage(context, title, '$title 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                            AppCore.showMessage(context, title, '$title 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                               Navigator.pop(context);
                             });
                           }

@@ -282,7 +282,7 @@ class _FindPassword extends State<FindPassword> {
 
                         ResponseData responseData = await userPasswordFind();
                         if (responseData.statusCode == 200 && responseData.body.toString() == 'false') {
-                          AppCore.showMessage(context, '비밀번호 찾기', '일치하는 정보가 없습니다.', ActionType.ok, () {
+                          AppCore.showMessage(context, '비밀번호 찾기', '일치하는 정보가 없습니다', ActionType.ok, () {
                             Navigator.pop(context);
                           });
                         }
@@ -290,7 +290,7 @@ class _FindPassword extends State<FindPassword> {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePassword()),);
                         }
                         else {
-                          AppCore.showMessage(context, '비밀번호 찾기', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                          AppCore.showMessage(context, '비밀번호 찾기', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                             Navigator.pop(context);
                           });
                         }

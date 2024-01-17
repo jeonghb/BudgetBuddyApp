@@ -301,14 +301,14 @@ class _UserRegistCheck extends State<UserRegistCheck> {
                         }
                         else {
                           // ignore: use_build_context_synchronously
-                          AppCore.showMessage(context, '회원가입', '이미 가입된 정보가 있거나 해당 아이디를 사용할 수 없습니다.', ActionType.ok, () {
+                          AppCore.showMessage(context, '회원가입', '이미 가입된 정보가 있거나 해당 아이디를 사용할 수 없습니다', ActionType.ok, () {
                             Navigator.pop(context);
                           });
                         }
                       }
                       else {
                         // ignore: use_build_context_synchronously
-                        AppCore.showMessage(context, '회원가입', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                        AppCore.showMessage(context, '회원가입', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }

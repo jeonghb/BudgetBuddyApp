@@ -225,7 +225,7 @@ class _GroupMain extends State<GroupMain> {
                             if (selectGroup.groupId == -1) return;
 
                             if (selectGroup.groupMaster) {
-                              AppCore.showMessage(context, '그룹 탈퇴', '그룹관리자는 그룹을 탈퇴할 수 없습니다.', ActionType.ok, () {
+                              AppCore.showMessage(context, '그룹 탈퇴', '그룹관리자는 그룹을 탈퇴할 수 없습니다', ActionType.ok, () {
                                 Navigator.pop(context);
                               });
 
@@ -237,7 +237,7 @@ class _GroupMain extends State<GroupMain> {
 
                               if (await selectGroup.groupExit()) {
                                 // ignore: use_build_context_synchronously
-                                AppCore.showMessage(context, '그룹 탈퇴', '그룹이 탈퇴되었습니다.', ActionType.ok, () {
+                                AppCore.showMessage(context, '그룹 탈퇴', '그룹이 탈퇴되었습니다', ActionType.ok, () {
                                   Navigator.pop(context);
                                 });
 
@@ -285,12 +285,12 @@ class _GroupMain extends State<GroupMain> {
                           onTap: () {
                             if (!selectGroup.groupMaster) return;
 
-                            AppCore.showMessage(context, '그룹 삭제', '정말로 그룹 ${selectGroup.groupName}을 삭제하시겠습니까? 삭제된 그룹은 되돌릴 수 없습니다.', ActionType.yesNo, () async {
+                            AppCore.showMessage(context, '그룹 삭제', '정말로 그룹 ${selectGroup.groupName}을 삭제하시겠습니까? 삭제된 그룹은 되돌릴 수 없습니다', ActionType.yesNo, () async {
                               Navigator.pop(context);
 
                               if (await selectGroup.groupDelete()) {
                                 // ignore: use_build_context_synchronously
-                                AppCore.showMessage(context, '그룹 삭제', '그룹이 삭제되었습니다.', ActionType.ok, () {
+                                AppCore.showMessage(context, '그룹 삭제', '그룹이 삭제되었습니다', ActionType.ok, () {
                                   Navigator.pop(context);
                                 });
 

@@ -31,7 +31,7 @@ class AppCore extends ChangeNotifier {
       localUserInfo.userId = preferences.getString('userId')!;
       localUserInfo.userPassword = preferences.getString('userPassword')!;
 
-      String result = await localUserInfo.userLogin(false);
+      String result = await localUserInfo.userLogin(false, true);
       if (result == "0") {
         setUser(localUserInfo);
       }
@@ -95,6 +95,7 @@ class AppCore extends ChangeNotifier {
 
       responseData.statusCode = response.statusCode;
       responseData.body = response.body;
+      responseData.bodyBytes = response.bodyBytes;
     }
     catch (e) {
       if (e is TimeoutException) {

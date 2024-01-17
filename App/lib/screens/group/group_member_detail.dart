@@ -165,7 +165,7 @@ class _GroupMemberDetail extends State<GroupMemberDetail> {
 
                     if (await widget.groupMember.groupManagerUpdate()) {
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '관리자 변경', '관리자가 변경되었습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '관리자 변경', '관리자가 변경되었습니다', ActionType.ok, () {
                         Navigator.pop(context);
 
                         Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Initialize()), (route) => false,);

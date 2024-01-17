@@ -19,7 +19,7 @@ class _DepartmentAdd extends State<DepartmentAdd> {
 
   String validationCheck() {
     if (departmentName.text.isEmpty) {
-      return '부서명을 입력하세요.';
+      return '부서명을 입력하세요';
     }
 
     return '';
@@ -105,7 +105,7 @@ class _DepartmentAdd extends State<DepartmentAdd> {
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    AppCore.showMessage(context, '부서 추가', '부서 추가 실패. 해당 부서명이 추가되어 있는지 확인하세요.', ActionType.ok, () {
+                    AppCore.showMessage(context, '부서 추가', '부서 추가 실패. 해당 부서명이 추가되어 있는지 확인하세요', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }

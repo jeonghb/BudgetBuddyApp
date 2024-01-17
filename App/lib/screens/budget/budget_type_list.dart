@@ -154,7 +154,7 @@ class _BudgetTypeList extends State<BudgetTypeList> {
                 ),
                 onPressed: () async {
                   if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-                    AppCore.showMessage(context, '예산 항목 추가', '설정 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+                    AppCore.showMessage(context, '예산 항목 추가', '설정 가능한 부서가 없습니다. 부서를 먼저 신청하세요', ActionType.ok, () {
                       Navigator.pop(context);
                       Navigator.pop(context);
                     });

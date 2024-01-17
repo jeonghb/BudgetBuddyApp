@@ -53,16 +53,44 @@ public class UserDAOImp implements UserDAO {
 
 	@Override
 	public UserVO login(UserVO _userVO) {
-		UserVO newVO = null;
-		
 		try {
-			newVO = tmp.selectOne("com.sandol.mapper.app.login", _userVO);
+			if (!_userVO.getIsAutoLogin()) {
+				int failedCount = tmp.selectOne("com.sandol.mapper.app.getUserLoginFaliedLog", _userVO);
+				
+				if (failedCount >= 5) {
+					_userVO.setLogInIsSuccess(false);
+					_userVO.setLoginFailedMax(false);
+					tmp.insert("com.sandol.mapper.app.loginLog", _userVO);
+					return _userVO;
+				}
+				else {
+					_userVO.setLoginFailedMax(true);
+				}
+			}
+			else {
+				_userVO.setLoginFailedMax(true);
+			}
+			
+			int loginSuccess = tmp.selectOne("com.sandol.mapper.app.login", _userVO);
+			
+			if (loginSuccess == 0) {
+				_userVO.setLogInIsSuccess(false);
+				_userVO.setLoginFailedMax(true);
+				tmp.insert("com.sandol.mapper.app.loginLog", _userVO);
+				return _userVO;
+			}
+			
+			UserVO newVO = tmp.selectOne("com.sandol.mapper.app.getLoginUserData", _userVO);
+			
 			if (newVO.getUserName() != null) {
 				_userVO.setLogInIsSuccess(true);
 				_userVO.LogInUpdate(newVO);
+				tmp.insert("com.sandol.mapper.app.loginLog", _userVO);
 			}
 			else {
 				_userVO.setLogInIsSuccess(false);
+				_userVO.setLoginFailedMax(false);
+				tmp.insert("com.sandol.mapper.app.loginLog", _userVO);
 			}
 		} catch (NullPointerException e) {
 			return _userVO;

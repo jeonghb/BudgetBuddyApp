@@ -57,7 +57,7 @@ class _PositionManage extends State<PositionManage> {
 
   void save(bool positionActivationStatus) async {
     if (widget.position.positionName.isEmpty) {
-      AppCore.showMessage(context, '직책 정보 수정', '직책명이 입력되지 않았습니다.', ActionType.ok, () {
+      AppCore.showMessage(context, '직책 정보 수정', '직책명이 입력되지 않았습니다', ActionType.ok, () {
         Navigator.pop(context);
       });
 
@@ -76,7 +76,7 @@ class _PositionManage extends State<PositionManage> {
     }
     else {
       // ignore: use_build_context_synchronously
-      AppCore.showMessage(context, '직책 정보 수정', '저장 실패. 직책명이 해당 부서에서 사용되고 있는지 확인하세요.', ActionType.ok, () {
+      AppCore.showMessage(context, '직책 정보 수정', '저장 실패. 직책명이 해당 부서에서 사용되고 있는지 확인하세요', ActionType.ok, () {
         Navigator.pop(context);
       });
     }

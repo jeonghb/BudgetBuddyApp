@@ -7,6 +7,7 @@ import 'package:test/widgets/text_form_field_v1.dart';
 import 'package:test/widgets/top_bar.dart';
 import '../../models/user.dart';
 import '../../widgets/title_text.dart';
+import '../personal_infomation_agreement.dart';
 
 class UserRegist extends StatefulWidget {
   final User user;
@@ -21,6 +22,7 @@ class _UserRegist extends State<UserRegist> {
   TextEditingController userPasswordCheck = TextEditingController();
   TextEditingController userEmail = TextEditingController();
   TextEditingController userPhoneNumber = TextEditingController();
+  bool isPersonalInfomationAgreement = false;
 
   void setData() {
     widget.user.userPassword = userPassword.text;
@@ -68,7 +70,7 @@ class _UserRegist extends State<UserRegist> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               TextFormFieldV1(
                 hintText: '●●●●●●●●',
@@ -85,7 +87,7 @@ class _UserRegist extends State<UserRegist> {
                 },
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text('비밀번호 확인',
                 style: TextStyle(
@@ -94,7 +96,7 @@ class _UserRegist extends State<UserRegist> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               TextFormFieldV1(
                 hintText: '●●●●●●●●',
@@ -111,7 +113,7 @@ class _UserRegist extends State<UserRegist> {
                 },
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text('이메일',
                 style: TextStyle(
@@ -120,7 +122,7 @@ class _UserRegist extends State<UserRegist> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               TextFormFieldV1(
                 hintText: 'honggildong@gmail.com',
@@ -136,7 +138,7 @@ class _UserRegist extends State<UserRegist> {
                 },
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Text('휴대폰번호',
                 style: TextStyle(
@@ -145,7 +147,7 @@ class _UserRegist extends State<UserRegist> {
                 ),
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               TextFormFieldV1(
                 hintText: '(-)없이 입력. ex)01012345678',
@@ -157,7 +159,61 @@ class _UserRegist extends State<UserRegist> {
                 textInputAction: TextInputAction.done,
               ),
               SizedBox(
-                height: 10,
+                height: 20,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Checkbox(
+                      value: isPersonalInfomationAgreement,
+                      onChanged: (newValue) {
+                        setState(() {
+                          isPersonalInfomationAgreement = !isPersonalInfomationAgreement;
+                        });
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    flex: 11,
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          isPersonalInfomationAgreement = !isPersonalInfomationAgreement;
+                        });
+                      },
+                      child: Text(
+                        '(필수) 개인정보 수집·이용 동의서',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 3,
+                    child: SizedBox(
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                        ),
+                        child: Text(
+                          '보기',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.white
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfomationAgreement()),);
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 20,
               ),
               SizedBox(
                 width: double.infinity,
@@ -166,12 +222,21 @@ class _UserRegist extends State<UserRegist> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromARGB(255, 90, 68, 223),
                   ),
-                  child: Text('가입하기',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Colors.white
-                  ),),
+                  child: Text(
+                    '가입하기',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Colors.white
+                    ),
+                  ),
                   onPressed: () {
+                    if (!isPersonalInfomationAgreement) {
+                      AppCore.showMessage(context, '회원가입', '개인정보 제공에 동의해주세요', ActionType.ok, () {
+                        Navigator.pop(context);
+                      });
+                      return;
+                    }
+
                     setData();
                     String validationMessage = validationCheck();
                     if (validationMessage.isNotEmpty) {
@@ -183,16 +248,16 @@ class _UserRegist extends State<UserRegist> {
                     widget.user.userRegist().then((String result) {
                       if (result == "0") {
                         AppCore.showMessage(context, '회원가입', '가입 완료', ActionType.ok, () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()),);
+                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => LogInPage(), settings: RouteSettings(name: '/Login'),), (route) => false,);
                         });
                       }
                       else if (result == "1") {
-                        AppCore.showMessage(context, '회원가입', '이미 사용중인 아이디입니다.', ActionType.ok, () {
+                        AppCore.showMessage(context, '회원가입', '이미 사용중인 아이디입니다', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }
                       else {
-                        AppCore.showMessage(context, '회원가입', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                        AppCore.showMessage(context, '회원가입', '가입정보를 확인 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }

@@ -265,7 +265,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
                   ),
                   onPressed: () {
                     if (calculate.dataCount == 0) {
-                      AppCore.showMessage(context, '엑셀 전송', '정산된 데이터가 없습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '엑셀 전송', '정산된 데이터가 없습니다', ActionType.ok, () {
                         Navigator.pop(context);
                       });
                       return;

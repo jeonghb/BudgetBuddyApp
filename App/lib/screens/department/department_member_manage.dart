@@ -177,7 +177,7 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
                                         Navigator.pop(context);
                                       }
                                       else {
-                                        AppCore.showMessage(context, '부서 해지', '해지 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                                        AppCore.showMessage(context, '부서 해지', '해지 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                                           Navigator.pop(context);
                                         });
                                       }
@@ -236,7 +236,7 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
                                         Navigator.pop(context);
                                       }
                                       else {
-                                        AppCore.showMessage(context, '직책 해지', '해지 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                                        AppCore.showMessage(context, '직책 해지', '해지 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                                           Navigator.pop(context);
                                         });
                                       }

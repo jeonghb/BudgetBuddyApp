@@ -65,7 +65,7 @@ class _BudgetAdd extends State<BudgetAdd> {
 
       if (tempList.isEmpty) {
         // ignore: use_build_context_synchronously
-        AppCore.showMessage(context, '예산 추가', '예산 구분 항목이 없습니다. 예산 구분을 먼저 설정하세요.', ActionType.ok, () {
+        AppCore.showMessage(context, '예산 추가', '예산 구분 항목이 없습니다. 예산 구분을 먼저 설정하세요', ActionType.ok, () {
           Navigator.pop(context);
           Navigator.pop(context);
           return;
@@ -85,22 +85,22 @@ class _BudgetAdd extends State<BudgetAdd> {
 
   String setData() {
     if (selectDepartmentId == -1) {
-      return '부서가 선택되지 않았습니다.';
+      return '부서가 선택되지 않았습니다';
     }
     else if (budgetTypeId == -1) {
-      return '예산 구분이 선택되지 않았습니다.';
+      return '예산 구분이 선택되지 않았습니다';
     }
     else if (budgetYear.text.isEmpty) {
-      return '예산 추가할 연도가 입력되지 않았습니다.';
+      return '예산 추가할 연도가 입력되지 않았습니다';
     }
     else if (budgetMonth.text.isEmpty) {
-      return '예산 추가할 월이 입력되지 않았습니다.';
+      return '예산 추가할 월이 입력되지 않았습니다';
     }
     else if (budgetAmount.text.isEmpty) {
-      return '예산 금액이 입력되지 않았습니다.';
+      return '예산 금액이 입력되지 않았습니다';
     }
     else if (budgetTitle.text.isEmpty) {
-      return '예산명이 입력되지 않았습니다.';
+      return '예산명이 입력되지 않았습니다';
     }
 
     return '';

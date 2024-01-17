@@ -140,7 +140,7 @@ class _PositionLeave extends State<PositionLeave> {
                 ),
                 onPressed: () async {
                   if (selectDepartmentId == -1 || selectPositionId == -1) {
-                    AppCore.showMessage(context, '직책 탈퇴', '정상적으로 부서와 직책이 선택되지 않았습니다. 다시 시도해주세요.', ActionType.ok, () => {
+                    AppCore.showMessage(context, '직책 탈퇴', '정상적으로 부서와 직책이 선택되지 않았습니다. 다시 시도해주세요', ActionType.ok, () => {
                       Navigator.pop(context),
                     });
                   }
@@ -152,7 +152,7 @@ class _PositionLeave extends State<PositionLeave> {
                           Navigator.pop(context);
                         }
                         else {
-                          AppCore.showMessage(context, '직책 탈퇴', '탈퇴 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                          AppCore.showMessage(context, '직책 탈퇴', '탈퇴 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                             Navigator.pop(context);
                           });
                         }

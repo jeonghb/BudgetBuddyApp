@@ -208,37 +208,37 @@ class _ReceiptRequest extends State<ReceiptRequest> {
 
   Future<String> setData() async {
     if (title.text.isEmpty) {
-      return '제목이 입력되지 않았습니다.';
+      return '제목이 입력되지 않았습니다';
     }
     else if (requestAmount.text.isEmpty) {
-      return '금액이 입력되지 않았습니다.';
+      return '금액이 입력되지 않았습니다';
     }
     else if (paymentDatetimeYear.text.isEmpty) {
-      return '결제연도가 입력되지 않았습니다.';
+      return '결제연도가 입력되지 않았습니다';
     }
     else if (paymentDatetimeMonth.text.isEmpty) {
-      return '결제월이 입력되지 않았습니다.';
+      return '결제월이 입력되지 않았습니다';
     }
     else if (paymentDatetimeDay.text.isEmpty) {
-      return '결제일이 입력되지 않았습니다.';
+      return '결제일이 입력되지 않았습니다';
     }
     else if (paymentDatetimeHour.text.isEmpty) {
-      return '결제시간이 입력되지 않았습니다.';
+      return '결제시간이 입력되지 않았습니다';
     }
     else if (paymentDatetimeMinute.text.isEmpty) {
-      return '결제분이 입력되지 않았습니다.';
+      return '결제분이 입력되지 않았습니다';
     }
     else if (approvalRequestDepartmentId == -1) {
-      return '부서가 선택되지 않았습니다.';
+      return '부서가 선택되지 않았습니다';
     }
     else if (budgetTypeId == -1) {
-      return '결제 구분이 선택되지 않았습니다.';
+      return '결제 구분이 선택되지 않았습니다';
     }
     else if (bankName.isEmpty) {
       return '은행이 선택되지 않았습니다';
     }
     else if (bankAccountNumber.text.isEmpty) {
-      return '계좌번호가 입력되지 않았습니다.';
+      return '계좌번호가 입력되지 않았습니다';
     }
     
     widget.receipt.title = title.text;
@@ -714,7 +714,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                     }
                     else {
                       // ignore: use_build_context_synchronously
-                      AppCore.showMessage(context, '영수증 제출', '제출에 실패하였습니다.', ActionType.ok, () {
+                      AppCore.showMessage(context, '영수증 제출', '제출에 실패하였습니다', ActionType.ok, () {
                         Navigator.pop(context);
                       });
                     }

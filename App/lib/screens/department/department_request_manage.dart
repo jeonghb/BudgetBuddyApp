@@ -193,7 +193,7 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                         widget.departmentRequest.approvalStatus = 0;
                         widget.departmentRequest.requestFinish().then((bool result) {
                           if (!result) {
-                            AppCore.showMessage(context, '부서 신청 거부', '거부 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                            AppCore.showMessage(context, '부서 신청 거부', '거부 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                               Navigator.pop(context);
                             });
                           }
@@ -228,7 +228,7 @@ class _DepartmentRequestManage extends State<DepartmentRequestManage> {
                         widget.departmentRequest.approvalStatus = 2;
                         widget.departmentRequest.requestFinish().then((bool result) {
                           if (!result) {
-                            AppCore.showMessage(context, '부서 신청 승인', '승인 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                            AppCore.showMessage(context, '부서 신청 승인', '승인 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                               Navigator.pop(context);
                             });
                           }

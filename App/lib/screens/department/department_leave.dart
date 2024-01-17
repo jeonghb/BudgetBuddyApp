@@ -73,12 +73,12 @@ class _DepartmentLeave extends State<DepartmentLeave> {
                     Navigator.pop(context);
                     leave(selectDepartmentId).then((bool result) {
                       if (result) {
-                        AppCore.showMessage(context, '재시작', '부서가 변경되어 다시 시작합니다.', ActionType.ok, () async {
+                        AppCore.showMessage(context, '재시작', '부서가 변경되어 다시 시작합니다', ActionType.ok, () async {
                           Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Initialize()), (route) => false);
                         });
                       }
                       else {
-                        AppCore.showMessage(context, '부서 탈퇴', '탈퇴 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                        AppCore.showMessage(context, '부서 탈퇴', '탈퇴 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }

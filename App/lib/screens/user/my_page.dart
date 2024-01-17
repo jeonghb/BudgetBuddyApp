@@ -202,7 +202,7 @@ class _MyPage extends State<MyPage> {
                 ),
                 onTap: () {
                   if (AppCore.instance.getUser().groupList.isNotEmpty) {
-                    AppCore.showMessage(context, '계정 탈퇴', '가입된 그룹이 있으면 계정을 탈퇴할 수 없습니다.', ActionType.ok, () {
+                    AppCore.showMessage(context, '계정 탈퇴', '가입된 그룹이 있으면 계정을 탈퇴할 수 없습니다', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }
@@ -279,7 +279,7 @@ class _MyPage extends State<MyPage> {
                 ),
                 onTap: () {
                   if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-                    AppCore.showMessage(context, '부서 탈퇴', '탈퇴 가능한 부서가 없습니다.', ActionType.ok, () {
+                    AppCore.showMessage(context, '부서 탈퇴', '탈퇴 가능한 부서가 없습니다', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }
@@ -315,7 +315,7 @@ class _MyPage extends State<MyPage> {
                 ),
                 onTap: () {
                   if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-                    AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+                    AppCore.showMessage(context, '직책 신청', '직책 신청 가능한 부서가 없습니다. 부서를 먼저 신청하세요', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }
@@ -349,7 +349,7 @@ class _MyPage extends State<MyPage> {
                 ),
                 onTap: () {
                   if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-                    AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 직책이 없습니다.', ActionType.ok, () {
+                    AppCore.showMessage(context, '직책 탈퇴', '탈퇴 가능한 직책이 없습니다', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }

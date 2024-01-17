@@ -99,7 +99,7 @@ class _MenuDrawer extends State<MenuDrawer> {
           ),
           onTap: () {
             if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-              AppCore.showMessage(context, '예산 추가', '소속된 부서가 없습니다.', ActionType.ok, () {
+              AppCore.showMessage(context, '예산 추가', '소속된 부서가 없습니다', ActionType.ok, () {
                 Navigator.pop(context);
               });
 
@@ -141,14 +141,14 @@ class _MenuDrawer extends State<MenuDrawer> {
           ),
           onTap: () {
             if ((AppCore.instance.getUser().selectGroup.departmentList.isNotEmpty ? AppCore.instance.getUser().selectGroup.departmentList[0].departmentId : -1) == -1) {
-              AppCore.showMessage(context, '월별 정산', '소속된 부서가 없습니다.', ActionType.ok, () {
+              AppCore.showMessage(context, '월별 정산', '소속된 부서가 없습니다', ActionType.ok, () {
                 Navigator.pop(context);
               });
 
               return;
             }
             else if ((AppCore.instance.getUser().selectGroup.departmentList.isNotEmpty ? AppCore.instance.getUser().selectGroup.departmentList[0].departmentName : '').isEmpty) {
-              AppCore.showMessage(context, '월별 정산', '이메일 정보가 없습니다.', ActionType.ok, () {
+              AppCore.showMessage(context, '월별 정산', '이메일 정보가 없습니다', ActionType.ok, () {
                 Navigator.pop(context);
               });
 
@@ -174,7 +174,7 @@ class _MenuDrawer extends State<MenuDrawer> {
           onTap: () {
             if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
               // ignore: use_build_context_synchronously
-              AppCore.showMessage(context, '예산 설정', '예산을 설정할 부서가 없습니다.', ActionType.ok, () {
+              AppCore.showMessage(context, '예산 설정', '예산을 설정할 부서가 없습니다', ActionType.ok, () {
                 Navigator.pop(context);
               });
             }
@@ -214,7 +214,7 @@ class _MenuDrawer extends State<MenuDrawer> {
           ),
           onTap: () {
             if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-              AppCore.showMessage(context, '소식 등록', '소속된 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+              AppCore.showMessage(context, '소식 등록', '소속된 부서가 없습니다. 부서를 먼저 신청하세요', ActionType.ok, () {
                 Navigator.pop(context);
               });
             }

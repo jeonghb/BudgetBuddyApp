@@ -29,7 +29,7 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
     super.initState();
 
     if (widget.type == ScreenType.none) {
-      AppCore.showMessage(context, '비밀번호 확인', '정상적이지 않습니다.', ActionType.ok, () {
+      AppCore.showMessage(context, '비밀번호 확인', '정상적이지 않습니다', ActionType.ok, () {
         Navigator.pop(context);
         Navigator.pop(context);
       });
@@ -54,7 +54,7 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
   void auth() {
     if (AppCore.instance.getUser().passwordAuthCheck(password.text)) {
       if (widget.type == ScreenType.userWithdraw) {
-        AppCore.showMessage(context, '계정 탈퇴', '정말로 계정 탈퇴하시겠습니까? 탈퇴 후 계정 복구가 불가능합니다.', ActionType.yesNo, () async {
+        AppCore.showMessage(context, '계정 탈퇴', '정말로 계정 탈퇴하시겠습니까? 탈퇴 후 계정 복구가 불가능합니다', ActionType.yesNo, () async {
           Navigator.pop(context);
           
           if (await AppCore.instance.getUser().userWithdraw()) {
@@ -77,7 +77,7 @@ class _PasswordAuthCheck extends State<PasswordAuthCheck> {
       }
     }
     else {
-      AppCore.showMessage(context, '비밀번호 확인', '비밀번호가 일치하지 않습니다.', ActionType.ok, () {
+      AppCore.showMessage(context, '비밀번호 확인', '비밀번호가 일치하지 않습니다', ActionType.ok, () {
         Navigator.pop(context);
       });
     }

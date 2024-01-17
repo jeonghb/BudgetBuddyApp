@@ -21,7 +21,7 @@ class _DepartmentManage extends State<DepartmentManage> {
   void save(bool departmentActivationStatus) async {
     if (widget.department.departmentName.isEmpty) {
       // ignore: use_build_context_synchronously
-      AppCore.showMessage(context, '부서 정보 수정', '부서명이 입력되지 않았습니다.', ActionType.ok, () {
+      AppCore.showMessage(context, '부서 정보 수정', '부서명이 입력되지 않았습니다', ActionType.ok, () {
         Navigator.pop(context);
       });
 
@@ -40,7 +40,7 @@ class _DepartmentManage extends State<DepartmentManage> {
     }
     else {
       // ignore: use_build_context_synchronously
-      AppCore.showMessage(context, '부서 정보 수정', '저장 실패. 부서명이 사용되고 있는지 확인하세요.', ActionType.ok, () {
+      AppCore.showMessage(context, '부서 정보 수정', '저장 실패. 부서명이 사용되고 있는지 확인하세요', ActionType.ok, () {
         Navigator.pop(context);
       });
     }

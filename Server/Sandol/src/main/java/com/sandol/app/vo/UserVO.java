@@ -16,6 +16,8 @@ public class UserVO {
 	private String bankAccountNumber;
 	private List<DepartmentVO> departmentList;
 	private boolean logInIsSuccess;
+	private boolean loginFailedMax;
+	private boolean isAutoLogin;
 	
 	public boolean isRegistCheck() {
 		return registCheck;
@@ -94,6 +96,18 @@ public class UserVO {
 	}
 	public void setLogInIsSuccess(boolean logInIsSuccess) {
 		this.logInIsSuccess = logInIsSuccess;
+	}
+	public boolean getLoginFailedMax() {
+		return loginFailedMax;
+	}
+	public void setLoginFailedMax(boolean loginFailedMax) {
+		this.loginFailedMax = loginFailedMax;
+	}
+	public boolean getIsAutoLogin() {
+		return isAutoLogin;
+	}
+	public void setIsAutoLogin(boolean isAutoLogin) {
+		this.isAutoLogin = isAutoLogin;
 	}
 	
 	public void LogInUpdate(UserVO newVO) {

@@ -117,7 +117,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
                 ),
                 onPressed: () async {
                   if (selectDepartmentId == -1) {
-                    AppCore.showMessage(context, '부서 신청', '신청할 부서를 선택하세요.', ActionType.ok, () {
+                    AppCore.showMessage(context, '부서 신청', '신청할 부서를 선택하세요', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                     
@@ -132,7 +132,7 @@ class _DepartmentRequest extends State<DepartmentRequest> {
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    AppCore.showMessage(context, '부서 신청', '요청에 실패했습니다.', ActionType.ok, () {
+                    AppCore.showMessage(context, '부서 신청', '요청에 실패했습니다', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }

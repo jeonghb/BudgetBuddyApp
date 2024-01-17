@@ -74,7 +74,7 @@ class _NewsDetail extends State<NewsDetail> {
                       switch (choice) {
                         case '수정':
                           if (AppCore.instance.getUser().selectGroup.departmentList.isEmpty) {
-                            AppCore.showMessage(context, '소식 수정', '소속된 부서가 없습니다. 부서를 먼저 신청하세요.', ActionType.ok, () {
+                            AppCore.showMessage(context, '소식 수정', '소속된 부서가 없습니다. 부서를 먼저 신청하세요', ActionType.ok, () {
                               Navigator.pop(context);
                             });
                           }
@@ -103,7 +103,7 @@ class _NewsDetail extends State<NewsDetail> {
                               controller: content,
                               maxLines: null,
                               decoration: InputDecoration(
-                                hintText: '신고 내용을 입력하세요.',
+                                hintText: '신고 내용을 입력하세요',
                                 contentPadding: EdgeInsets.symmetric(vertical: 10.0),
                               ),
                             )
@@ -121,7 +121,7 @@ class _NewsDetail extends State<NewsDetail> {
                                 });
                               }
                               else {
-                                AppCore.showMessage(context, '신고', '신고 처리 중 오류가 발생하였습니다. 다시 시도해주세요.', ActionType.ok, () {
+                                AppCore.showMessage(context, '신고', '신고 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
                                   Navigator.pop(context);
                                 });
                               }

@@ -194,7 +194,7 @@ class _PositionRequest extends State<PositionRequest> {
                 }
                 else {
                   // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '직책 신청', '요청에 실패했습니다.', ActionType.ok, () {
+                  AppCore.showMessage(context, '직책 신청', '요청에 실패했습니다', ActionType.ok, () {
                     Navigator.pop(context);
                   });
                 }

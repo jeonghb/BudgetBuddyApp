@@ -74,22 +74,22 @@ class _BudgetManage extends State<BudgetManage> {
 
   String setData() {
     if (widget.budget.departmentId == -1) {
-      return '부서가 선택되지 않았습니다.';
+      return '부서가 선택되지 않았습니다';
     }
     else if (widget.budget.budgetTypeId == -1) {
-      return '예산 구분이 선택되지 않았습니다.';
+      return '예산 구분이 선택되지 않았습니다';
     }
     else if (budgetYear.text.isEmpty) {
-      return '연도가 입력되지 않았습니다.';
+      return '연도가 입력되지 않았습니다';
     }
     else if (budgetMonth.text.isEmpty) {
-      return '예산 월이 입력되지 않았습니다.';
+      return '예산 월이 입력되지 않았습니다';
     }
     else if (budgetAmount.text.isEmpty) {
-      return '금액이 입력되지 않았습니다.';
+      return '금액이 입력되지 않았습니다';
     }
     else if (budgetTitle.text.isEmpty) {
-      return '예산명이 입력되지 않았습니다.';
+      return '예산명이 입력되지 않았습니다';
     }
 
     widget.budget.budgetDate = '${budgetYear.text.padLeft(4, '0')}-${budgetMonth.text.padLeft(2, '0')}';

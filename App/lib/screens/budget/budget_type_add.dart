@@ -169,13 +169,13 @@ class _BudgetTypeAdd extends State<BudgetTypeAdd> {
                             }
                             else {
                               // ignore: use_build_context_synchronously
-                              AppCore.showMessage(context, '예산 항목 추가', '예산 항목 추가에 실패했습니다.', ActionType.ok, () {
+                              AppCore.showMessage(context, '예산 항목 추가', '예산 항목 추가에 실패했습니다', ActionType.ok, () {
                                 Navigator.pop(context);
                               });
                             }
                           }
                           else {
-                            AppCore.showMessage(context, '예산 항목 추가', '예산 항목명이 입력되지 않았습니다.', ActionType.ok, () {
+                            AppCore.showMessage(context, '예산 항목 추가', '예산 항목명이 입력되지 않았습니다', ActionType.ok, () {
                               Navigator.pop(context);
                             });
                           }

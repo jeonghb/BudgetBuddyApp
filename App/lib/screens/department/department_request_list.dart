@@ -391,7 +391,7 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
 
                       if (!await departmentRequestApproval(true)) {
                         // ignore: use_build_context_synchronously
-                        AppCore.showMessage(context, '부서 승인', '승인되지 않은 항목이 있습니다.', ActionType.ok, () {
+                        AppCore.showMessage(context, '부서 승인', '승인되지 않은 항목이 있습니다', ActionType.ok, () {
                           Navigator.pop(context);
                         });
                       }

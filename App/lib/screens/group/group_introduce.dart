@@ -114,7 +114,7 @@ class _GroupIntroduce extends State<GroupIntroduce> {
                 ),
                 onPressed: () async {
                   if (AppCore.instance.getUser().groupList.any((group) => group.groupId == widget.group.groupId)) {
-                    AppCore.showMessage(context, '그룹 가입', '이미 가입된 그룹입니다.', ActionType.ok, () {
+                    AppCore.showMessage(context, '그룹 가입', '이미 가입된 그룹입니다', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                     return;
@@ -131,7 +131,7 @@ class _GroupIntroduce extends State<GroupIntroduce> {
                   }
                   else {
                     // ignore: use_build_context_synchronously
-                    AppCore.showMessage(context, '그룹 가입', '그룹 가입에 실패했습니다.', ActionType.ok, () {
+                    AppCore.showMessage(context, '그룹 가입', '그룹 가입에 실패했습니다', ActionType.ok, () {
                       Navigator.pop(context);
                     });
                   }
