@@ -43,7 +43,9 @@ class _ReceiptDetail extends State<ReceiptDetail> {
   void initState() {
     super.initState();
 
-    getFileList();
+    if (widget.receipt.fileNameList.isNotEmpty) {
+      getFileList();
+    }
 
     // 현재 상태값 다음으로 변경할 수 있도록 세팅(단 송금(3) 보다 클 수 없음)
     selectApprovalId = widget.receipt.submissionStatus + 1 > 3 ? widget.receipt.submissionStatus : widget.receipt.submissionStatus + 1;

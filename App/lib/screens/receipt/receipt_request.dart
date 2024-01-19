@@ -548,7 +548,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
               DropdownButtonV1(
                 isExpanded: true,
                 value: budgetTypeName,
-                items: approvalRequestDepartmentId != -1 && budgetTypeList.firstWhereOrNull((element) => element.departmentId == approvalRequestDepartmentId) != null ? budgetTypeList.map(
+                items: approvalRequestDepartmentId != -1 && budgetTypeList.firstWhereOrNull((element) => element.departmentId == approvalRequestDepartmentId) != null ? budgetTypeList.where((budgetType) => budgetType.departmentId == approvalRequestDepartmentId).map(
                   (value) {
                     return DropdownMenuItem<String>(
                       value: value.budgetTypeName,
@@ -646,17 +646,25 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                       fontSize: 20
                     ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        bankName = AppCore.instance.getUser().bankName;
-                      });
-                      bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber;
-                    },
-                    style: ButtonStyle(
-                      overlayColor: MaterialStateProperty.resolveWith((states) => Color.fromARGB(80, 90, 68, 223)),
+                  SizedBox(
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                      ),
+                      child: Text(
+                        '내 계좌',
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          bankName = AppCore.instance.getUser().bankName;
+                        });
+                        bankAccountNumber.text = AppCore.instance.getUser().bankAccountNumber;
+                      },
                     ),
-                    child: Text('내 계좌')
                   ),
                 ],
               ),

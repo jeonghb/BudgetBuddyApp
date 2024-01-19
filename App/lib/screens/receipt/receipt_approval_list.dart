@@ -36,17 +36,7 @@ class _ReceiptList extends State<ReceiptApprovalList> {
     departmentList.add(allDepartment);
     departmentList.addAll(AppCore.instance.getUser().selectGroup.departmentList);
 
-    setReceiptList();
-  }
-
-  void setReceiptList() async {
-    List<Receipt> tempList = await getReceiptApprovalList();
-
-    setState(()  {
-      receiptList = tempList;
-    });
-
-    refreshFilterReceiptList();
+    getReceiptApprovalList();
   }
 
   void refreshFilterReceiptList() {
@@ -72,8 +62,7 @@ class _ReceiptList extends State<ReceiptApprovalList> {
     });
   }
   
-  Future<List<Receipt>> getReceiptApprovalList() async {
-
+  Future<void> getReceiptApprovalList() async {
     String address = '/getReceiptApprovalList';
     Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId,
@@ -92,10 +81,14 @@ class _ReceiptList extends State<ReceiptApprovalList> {
         tempList.add(receipt);
       }
 
-      return tempList;
+      setState(() {
+        receiptList = tempList;
+      });
+
+      refreshFilterReceiptList();
     }
 
-    return [];
+    return;
   }
 
   @override
@@ -203,12 +196,9 @@ class _ReceiptList extends State<ReceiptApprovalList> {
 
                     return GestureDetector(
                       onTap: () async {
-                        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptDetail(receipt: receipt, authLevel: AuthLevel.approval,)),).then((value) {
-                          if (value == true) {
-                            getReceiptApprovalList();
-                            refreshFilterReceiptList();
-                          }
-                        });
+                        await Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptDetail(receipt: receipt, authLevel: AuthLevel.approval,)),);
+
+                        getReceiptApprovalList();
                       },
                       child: Column(
                         children: [
