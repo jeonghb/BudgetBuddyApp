@@ -96,6 +96,8 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
                   selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentId;
                   selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((department) => department.departmentName == value).departmentName;
                 });
+
+                getMonthCalculateStatus();
               },
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -163,12 +165,14 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
                     borderRadius: BorderRadius.circular(10),
                   )
                 ),
-                onPressed: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate2(
+                onPressed: () async {
+                  await Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptCalculate2(
                     departmentId: selectDepartmentId,
                     selectDate: selectDate,
                     isDBData: selectMonthIsDBData,
                   )));
+
+                  getMonthCalculateStatus();
                 },
                 child: Text(
                   '다음',

@@ -37,9 +37,9 @@ public class BudgetDAOImp implements BudgetDAO {
 	}
 	
 	@Override
-	public List<BudgetYearVO> getBudgetYearList(String _userId) {
+	public List<BudgetYearVO> getBudgetYearList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getBudgetYearList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getBudgetYearList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}

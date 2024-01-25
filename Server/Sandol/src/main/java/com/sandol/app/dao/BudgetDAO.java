@@ -13,7 +13,7 @@ public interface BudgetDAO {
 	
 	public boolean budgetTypeAdd(BudgetTypeVO _budgetTypeVO);
 	
-	public List<BudgetYearVO> getBudgetYearList(String _userId);
+	public List<BudgetYearVO> getBudgetYearList(Map<String, Object> _map);
 	
 	public boolean setBudgetYearAmount(BudgetYearVO _budgetYearVO);
 	

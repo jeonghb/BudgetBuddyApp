@@ -13,6 +13,7 @@ public class MonthCalculateVO {
 	private String modUserId;
 	private String modUserName;
 	private boolean isDBData;
+	private boolean isSuccess;
 	
 	public int getDepartmentId() {
 		return departmentId;
@@ -85,5 +86,11 @@ public class MonthCalculateVO {
 	}
 	public void setDBData(boolean isDBData) {
 		this.isDBData = isDBData;
+	}
+	public boolean getIsSuccess() {
+		return isSuccess;
+	}
+	public void setIsSuccess(boolean isSuccess) {
+		this.isSuccess = isSuccess;
 	}
 }

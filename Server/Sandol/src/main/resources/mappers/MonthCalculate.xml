@@ -21,10 +21,13 @@
 		<![CDATA[CALL get_month_receipt_amount(#{departmentId}, #{yearMonth})]]>
 	</select>
 	<insert id="monthCalculateAdd" parameterType="monthCalculateVO">
-		<![CDATA[CALL month_calculate_add(#{departmentId}, #{yearMonth}, #{monthAmount}, #{regUserId})]]>
+		<![CDATA[CALL month_calculate_add(#{departmentId}, #{yearMonth}, #{monthBudgetAmount}, #{monthReceiptAmount}, #{regUserId})]]>
 	</insert>
 	<update id="monthCalculateUpdate" parameterType="monthCalculateVO">
-		<![CDATA[CALL month_calculate_update(#{departmentId}, #{yearMonth}, #{monthAmount}, #{modUserId})]]>
+		<![CDATA[CALL month_calculate_update(#{departmentId}, #{yearMonth}, #{monthBudgetAmount}, #{monthReceiptAmount}, #{modUserId})]]>
 	</update>
+	<select id="getMonthCalculateData" resultType="monthCalculateVO" parameterType="monthCalculateVO">
+		<![CDATA[CALL get_month_calculate_data(#{departmentId}, #{yearMonth})]]>
+	</select>
     
 </mapper>

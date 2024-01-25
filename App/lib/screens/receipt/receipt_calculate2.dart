@@ -50,8 +50,18 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
     if (responseData.statusCode == 200 && responseData.body.isNotEmpty) {
       var json = jsonDecode(responseData.body);
 
+      if (!AppCore.getJsonBool(json, 'isSuccess')) {
+        // ignore: use_build_context_synchronously
+        AppCore.showMessage(context, '월 정산', '정상적으로 조회가 이뤄지지 않았습니다.', ActionType.ok, () {
+          Navigator.pop(context);
+          Navigator.pop(context);
+        });
+        
+        return;
+      }
+
       Calculate temp = Calculate();
-      temp.setData(json);  
+      temp.setData(json);
 
       setState(() {
         calculate = temp;

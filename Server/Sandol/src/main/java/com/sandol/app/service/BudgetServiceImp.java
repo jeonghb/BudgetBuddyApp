@@ -28,8 +28,8 @@ public class BudgetServiceImp implements BudgetService {
 	}
 	
 	@Override
-	public List<BudgetYearVO> getBudgetYearList(String _userId) {
-		return dao.getBudgetYearList(_userId);
+	public List<BudgetYearVO> getBudgetYearList(Map<String, Object> _map) {
+		return dao.getBudgetYearList(_map);
 	}
 	
 	@Override

@@ -35,8 +35,8 @@ public class BudgetController {
 	
 	@RequestMapping(value = "/getBudgetYearList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<BudgetYearVO> getBudgetYearList(@RequestBody Map<String, String> _userId) {
-		return budgetService.getBudgetYearList(_userId.get("userId"));
+	public List<BudgetYearVO> getBudgetYearList(@RequestBody Map<String, Object> _map) {
+		return budgetService.getBudgetYearList(_map);
 	}
 	
 	@RequestMapping(value = "/setBudgetYearAmount", method = RequestMethod.POST)

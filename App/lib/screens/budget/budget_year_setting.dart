@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test/app_core.dart';
 import 'package:test/widgets/text_form_field_v1.dart';
 
@@ -114,100 +115,142 @@ class _BudgetYearSetting extends State<BudgetYearSetting> {
   @override
   Widget build(BuildContext context) {
     return ScreenFrame(
-      body: Column(
-        children: [
-          TitleText(
-            text: '예산 설정',
-          ),
-          Text(
-            '부서',
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          DropdownButtonV1(
-            // isExpanded: true,
-            value: selectDepartmentName,
-            items: AppCore.instance.getUser().selectGroup.departmentList.map(
-              (value) { 
-                return DropdownMenuItem<String>(
-                  value: value.departmentName,
-                  child: Text(value.departmentName),
-                  );
-                },
-              ).toList(),
-            onChanged: (value) {
-              setState(() {
-                selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentId;
-                selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentName;
-              });
-            }
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          DropdownButtonV1(
-            // isExpanded: true,
-            value: selectYear.toString(),
-            items: budgetYearList.where((element) => element.departmentId == selectDepartmentId).map(
-              (value) { 
-                return DropdownMenuItem<String>(
-                  value: value.year.toString(),
-                  child: Text(value.year.toString()),
-                  );
-                },
-              ).toList(),
-            onChanged: (value) {
-              setState(() {
-                selectYear = AppCore.parseInt(value.toString());
-              });
-            }
-          ),
-          Text(
-            '년',
-          ),
-          TextFormFieldV1(
-            keyboardType: TextInputType.number,
-            maxLength: 10,
-            textAlign: TextAlign.right,
-            controller: budgetYearList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId && element.year == selectYear) != null ? budgetYearList.firstWhere((element) => element.departmentId == selectDepartmentId && element.year == selectYear).budgetAmount : TextEditingController(),
-          ),
-          Text(
-            '원',
-          ),
-          SizedBox(
-            height: 15,
-          ),
-          TextButton(
-            onPressed: () async {
-              String validationMessage = setData();
-              if (validationMessage.isEmpty) {
-                if (await setbudgetYearAmount()) {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '예산 설정', '예산 설정 완료', ActionType.ok, () {
-                    Navigator.pop(context);
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId)),);
+      body: Padding(
+        padding: EdgeInsets.all(30),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TitleText(
+                text: '예산 설정',
+              ),
+              Text(
+                '부서',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DropdownButtonV1(
+                // isExpanded: true,
+                value: selectDepartmentName,
+                items: AppCore.instance.getUser().selectGroup.departmentList.map(
+                  (value) { 
+                    return DropdownMenuItem<String>(
+                      value: value.departmentName,
+                      child: Text(value.departmentName),
+                      );
+                    },
+                  ).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectDepartmentId = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentId;
+                    selectDepartmentName = AppCore.instance.getUser().selectGroup.departmentList.firstWhere((element) => element.departmentName == value).departmentName;
                   });
                 }
-                else {
-                  // ignore: use_build_context_synchronously
-                  AppCore.showMessage(context, '예산 설정', '예산 설정을 실패하였습니다', ActionType.ok, () {
-                    Navigator.pop(context);
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                '설정 연도',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              DropdownButtonV1(
+                // isExpanded: true,
+                value: selectYear.toString(),
+                items: budgetYearList.where((element) => element.departmentId == selectDepartmentId).map(
+                  (value) { 
+                    return DropdownMenuItem<String>(
+                      value: value.year.toString(),
+                      child: Text(value.year.toString()),
+                      );
+                    },
+                  ).toList(),
+                onChanged: (value) {
+                  setState(() {
+                    selectYear = AppCore.parseInt(value.toString());
                   });
                 }
-              }
-              else {
-                // ignore: use_build_context_synchronously
-                AppCore.showMessage(context, '예산 설정', validationMessage, ActionType.ok, () {
-                  Navigator.pop(context);
-                });
-              }
-            },
-            child: Text(
-              '저장',
-            )
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                '설정 금액',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              TextFormFieldV1(
+                keyboardType: TextInputType.number,
+                maxLength: 10,
+                textAlign: TextAlign.right,
+                controller: budgetYearList.firstWhereOrNull((element) => element.departmentId == selectDepartmentId && element.year == selectYear) != null ? budgetYearList.firstWhere((element) => element.departmentId == selectDepartmentId && element.year == selectYear).budgetAmount : TextEditingController(),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              SizedBox(
+                width: double.infinity,
+                height: ScreenUtil().setHeight(130),
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.black,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )
+                  ),
+                  onPressed: () async {
+                    String validationMessage = setData();
+                    if (validationMessage.isEmpty) {
+                      if (await setbudgetYearAmount()) {
+                        // ignore: use_build_context_synchronously
+                        AppCore.showMessage(context, '예산 설정', '예산 설정 완료', ActionType.ok, () {
+                          Navigator.pop(context);
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId)),);
+                        });
+                      }
+                      else {
+                        // ignore: use_build_context_synchronously
+                        AppCore.showMessage(context, '예산 설정', '예산 설정을 실패하였습니다', ActionType.ok, () {
+                          Navigator.pop(context);
+                        });
+                      }
+                    }
+                    else {
+                      // ignore: use_build_context_synchronously
+                      AppCore.showMessage(context, '예산 설정', validationMessage, ActionType.ok, () {
+                        Navigator.pop(context);
+                      });
+                    }
+                  },
+                  child: Text(
+                    '저장',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
