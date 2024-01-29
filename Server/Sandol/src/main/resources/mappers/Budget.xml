@@ -18,7 +18,7 @@
     	<![CDATA[CALL set_budget_year_amount(#{departmentId}, #{year}, #{budgetAmount})]]>
     </insert>
 	<insert id="budgetAdd" parameterType="budgetVO">
-    	<![CDATA[CALL budget_add(#{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
+    	<![CDATA[CALL budget_add(#{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount}, #{userId})]]>
     </insert>
 	<select id="getBudgetList" resultType="budgetVO" parameterType="map">
 		<![CDATA[CALL get_budget_list(#{userId}, #{groupId})]]>
@@ -32,5 +32,8 @@
     <update id="budgetTypeActivationStatusSave" parameterType="budgetTypeVO">
     	<![CDATA[CALL budget_type_activation_status_save(#{departmentId}, #{budgetTypeId}, #{activationStatus})]]>
     </update>
+    <select id="getMonthBudgetList" resultType="budgetVO" parameterType="monthCalculateVO">
+    	<![CDATA[CALL get_month_budget_list(#{departmentId}, #{yearMonth})]]>
+    </select>
     
 </mapper>

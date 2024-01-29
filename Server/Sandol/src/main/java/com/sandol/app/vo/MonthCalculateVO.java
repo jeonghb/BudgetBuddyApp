@@ -1,5 +1,7 @@
 package com.sandol.app.vo;
 
+import java.util.List;
+
 public class MonthCalculateVO {
 	private int departmentId;
 	private String departmentName;
@@ -14,6 +16,8 @@ public class MonthCalculateVO {
 	private String modUserName;
 	private boolean isDBData;
 	private boolean isSuccess;
+	private List<ReceiptVO> receiptList;
+	private List<BudgetVO> budgetList;
 	
 	public int getDepartmentId() {
 		return departmentId;
@@ -92,5 +96,17 @@ public class MonthCalculateVO {
 	}
 	public void setIsSuccess(boolean isSuccess) {
 		this.isSuccess = isSuccess;
+	}
+	public List<ReceiptVO> getReceiptList() {
+		return receiptList;
+	}
+	public void setReceiptList(List<ReceiptVO> receiptList) {
+		this.receiptList = receiptList;
+	}
+	public List<BudgetVO> getBudgetList() {
+		return budgetList;
+	}
+	public void setBudgetList(List<BudgetVO> budgetList) {
+		this.budgetList = budgetList;
 	}
 }

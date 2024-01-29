@@ -113,8 +113,9 @@ class _BudgetAdd extends State<BudgetAdd> {
       'budgetTypeId': budgetTypeId,
       'budgetTitle': budgetTitle.text,
       'budgetMemo': budgetMemo.text,
-      'budgetAmount': budgetAmount.text,
       'budgetDate': '${budgetYear.text.toString().padLeft(4, '0')}-${budgetMonth.text.toString().padLeft(2, '0')}',
+      'budgetAmount': budgetAmount.text,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);

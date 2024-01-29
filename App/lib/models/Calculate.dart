@@ -35,6 +35,22 @@ class Calculate {
     modUserName = AppCore.getJsonString(json, 'modUserName');
     isDBData = AppCore.getJsonBool(json, 'isDBData');
     dataCount = AppCore.getJsonInt(json, 'dataCount');
+    if (json['budgetList'] != null) {
+      for (var jsonBudget in json['budgetList'])
+      {
+        Budget budget = Budget();
+        budget.setData(jsonBudget);
+        budgetList.add(budget);
+      }
+    }
+    if (json['receiptList'] != null) {
+      for (var jsonReceipt in json['receiptList'])
+      {
+        Receipt receipt = Receipt();
+        receipt.setData(jsonReceipt);
+        receiptList.add(receipt);
+      }
+    }
   }
 
   Future<bool> saveMonthCalculate() async {

@@ -24,6 +24,7 @@ class Receipt with ChangeNotifier {
   String rejectMessage = '';
   int approvalType = -1;
   String approvalDatetime = DateTime.now().toString();
+  String sendDatetime = DateTime.now().toString();
   int calculateStatus = -1;
   String calculateDatetime = DateTime.now().toString();
 
@@ -46,6 +47,7 @@ class Receipt with ChangeNotifier {
     submissionStatus = AppCore.getJsonInt(json, 'submissionStatus');
     approvalType = AppCore.getJsonInt(json, 'approvalType');
     approvalDatetime = AppCore.getJsonString(json, 'approvalDatetime');
+    sendDatetime = AppCore.getJsonString(json, 'sendDatetime');
     rejectMessage = AppCore.getJsonString(json, 'rejectMessage');
     calculateStatus = AppCore.getJsonInt(json, 'calculateStatus');
     calculateDatetime = AppCore.getJsonString(json, 'calculateDatetime');

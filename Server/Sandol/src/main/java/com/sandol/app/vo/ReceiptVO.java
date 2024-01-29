@@ -12,6 +12,7 @@ public class ReceiptVO {
 	private String memo;
 	private int approvalRequestDepartmentId;
 	private String approvalRequestDepartmentName;
+	private String approvalDatetime;
 	private int budgetTypeId;
 	private String budgetTypeName;
 	private String fileNameList;
@@ -19,6 +20,7 @@ public class ReceiptVO {
 	private String bankAccountNumber;
 	private int submissionStatus;
 	private String rejectMessage;
+	private String sendDatetime;
 
 	public int getRequestId() {
 		return requestId;
@@ -86,6 +88,12 @@ public class ReceiptVO {
 	public void setApprovalRequestDepartmentName(String approvalRequestDepartmentName) {
 		this.approvalRequestDepartmentName = approvalRequestDepartmentName;
 	}
+	public String getApprovalDatetime() {
+		return approvalDatetime;
+	}
+	public void setApprovalDatetime(String approvalDatetime) {
+		this.approvalDatetime = approvalDatetime;
+	}
 	public String getFileNameList() {
 		return fileNameList;
 	}
@@ -115,6 +123,12 @@ public class ReceiptVO {
 	}
 	public void setRejectMessage(String rejectMessage) {
 		this.rejectMessage = rejectMessage;
+	}
+	public String getSendDatetime() {
+		return sendDatetime;
+	}
+	public void setSendDatetime(String sendDatetime) {
+		this.sendDatetime = sendDatetime;
 	}
 	
 	public void setData(Map<String, String> dataMap) {

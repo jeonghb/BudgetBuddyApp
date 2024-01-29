@@ -17,5 +17,8 @@
     <update id="changeSubmissionStatus" parameterType="receiptVO">
     	<![CDATA[CALL change_submission_status(#{requestId}, #{submissionStatus}, #{rejectMessage})]]>
     </update>
+    <select id="getMonthReceiptList" resultType="receiptVO" parameterType="monthCalculateVO">
+    	<![CDATA[CALL get_month_receipt_list(#{departmentId}, #{yearMonth})]]>
+    </select>
       
 </mapper>

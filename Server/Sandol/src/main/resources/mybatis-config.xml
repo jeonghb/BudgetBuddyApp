@@ -29,6 +29,7 @@
    		<typeAlias alias="monthCalculateVO" type="com.sandol.app.vo.MonthCalculateVO"/>
    		<typeAlias alias="groupVO" type="com.sandol.app.vo.GroupVO"/>
    		<typeAlias alias="groupMemberVO" type="com.sandol.app.vo.GroupMemberVO"/>
+   		<typeAlias alias="monthCalculateVO" type="com.sandol.app.vo.MonthCalculateVO"/>
 	</typeAliases>
 	
 </configuration>

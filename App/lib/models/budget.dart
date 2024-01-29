@@ -12,6 +12,8 @@ class Budget {
   String budgetMemo = '';
   String budgetDate = DateTime.now().toString().substring(0, 6);
   int budgetAmount = -1;
+  String userId = '';
+  String userName = '';
 
   void setData(var json) {
     id = AppCore.getJsonInt(json, 'id');
@@ -23,6 +25,8 @@ class Budget {
     budgetMemo = AppCore.getJsonString(json, 'budgetMemo');
     budgetDate = AppCore.getJsonString(json, 'budgetDate');
     budgetAmount = AppCore.getJsonInt(json, 'budgetAmount');
+    userId = AppCore.getJsonString(json, 'userId');
+    userName = AppCore.getJsonString(json, 'userName');
   }
 
   Future<bool> budgetUpdate() async {
