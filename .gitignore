@@ -74,3 +74,8 @@ Server/Sandol/target/generated-test-sources
 Server/Sandol/target/m2e-wtp
 Server/Sandol/target/maven-archiver
 Server/Sandol/target/sandol-1.0.0
+
+# KeyStore
+key.properties
+**/*.keysotre
+**/*.jks
