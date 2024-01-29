@@ -193,7 +193,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  '${NumberFormat('#,##0').format(calculate.yearAccumulateAmount + calculate.monthReceiptAmount)}원',
+                  '${NumberFormat('#,##0').format(calculate.yearAccumulateAmount + calculate.monthReceiptAmount + calculate.monthBudgetAmount)}원',
                 ),
               ),
               SizedBox(
@@ -215,7 +215,7 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
               Align(
                 alignment: Alignment.centerRight,
                 child: Text(
-                  '${NumberFormat('#,##0').format(calculate.yearBudgetAmount + calculate.monthBudgetAmount +  (calculate.yearAccumulateAmount + calculate.monthReceiptAmount))}원',
+                  '${NumberFormat('#,##0').format(calculate.yearBudgetAmount + calculate.monthBudgetAmount + calculate.yearAccumulateAmount + calculate.monthReceiptAmount)}원',
                 ),
               ),
               SizedBox(
@@ -238,7 +238,6 @@ class _ReceiptCalculate2 extends State<ReceiptCalculate2> {
                       if (await calculate.saveMonthCalculate()) {
                         // ignore: use_build_context_synchronously
                         AppCore.showMessage(context, '월 정산', '정산 처리 완료!', ActionType.ok, () {
-                          Navigator.pop(context);
                           Navigator.pop(context);
                         });
                       }

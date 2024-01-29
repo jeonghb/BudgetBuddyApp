@@ -1,5 +1,7 @@
 package com.sandol.app.dao;
 
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -68,9 +70,9 @@ public class MonthCalculateDAOImp implements MonthCalculateDAO {
 	}
 
 	@Override
-	public boolean monthCalculateUpdate(MonthCalculateVO _monthCalculateVO) {
+	public boolean monthCalculateUpdate(Map<String, Object> _map) {
 		try {
-			tmp.insert("com.sandol.mapper.app.monthCalculateUpdate", _monthCalculateVO);
+			tmp.insert("com.sandol.mapper.app.monthCalculateUpdate", _map);
 		} catch (NullPointerException e) {
 			return false;
 		}

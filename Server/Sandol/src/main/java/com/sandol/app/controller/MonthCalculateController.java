@@ -1,5 +1,7 @@
 package com.sandol.app.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,9 +36,9 @@ public class MonthCalculateController {
 		return monthCalculateService.monthCalculateAdd(_monthCalculateVO);
 	}
 	
-	@RequestMapping(value = "/monthAccumulateUpdate", method = RequestMethod.POST)
+	@RequestMapping(value = "/monthCalculateUpdate", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean monthCalculateUpdate(@RequestBody MonthCalculateVO _monthCalculateVO) {
-		return monthCalculateService.monthCalculateUpdate(_monthCalculateVO);
+	public boolean monthCalculateUpdate(@RequestBody Map<String, Object> _map) {
+		return monthCalculateService.monthCalculateUpdate(_map);
 	}
 }

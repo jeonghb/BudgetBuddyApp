@@ -23,7 +23,7 @@
 	<insert id="monthCalculateAdd" parameterType="monthCalculateVO">
 		<![CDATA[CALL month_calculate_add(#{departmentId}, #{yearMonth}, #{monthBudgetAmount}, #{monthReceiptAmount}, #{regUserId})]]>
 	</insert>
-	<update id="monthCalculateUpdate" parameterType="monthCalculateVO">
+	<update id="monthCalculateUpdate" parameterType="map">
 		<![CDATA[CALL month_calculate_update(#{departmentId}, #{yearMonth}, #{monthBudgetAmount}, #{monthReceiptAmount}, #{modUserId})]]>
 	</update>
 	<select id="getMonthCalculateData" resultType="monthCalculateVO" parameterType="monthCalculateVO">

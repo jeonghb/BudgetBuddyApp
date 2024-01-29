@@ -1,5 +1,7 @@
 package com.sandol.app.service;
 
+import java.util.Map;
+
 import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +30,7 @@ public class MonthCalculateServiceImp implements MonthCalculateService {
 	}
 
 	@Override
-	public boolean monthCalculateUpdate(MonthCalculateVO _monthCalculateVO) {
-		return dao.monthCalculateUpdate(_monthCalculateVO);
+	public boolean monthCalculateUpdate(Map<String, Object> _map) {
+		return dao.monthCalculateUpdate(_map);
 	}
 }

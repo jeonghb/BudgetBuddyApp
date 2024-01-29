@@ -1,5 +1,7 @@
 package com.sandol.app.service;
 
+import java.util.Map;
+
 import com.sandol.app.vo.MonthCalculateVO;
 
 public interface MonthCalculateService {
@@ -10,5 +12,5 @@ public interface MonthCalculateService {
 	
 	public boolean monthCalculateAdd(MonthCalculateVO _monthCalculateVO);
 	
-	public boolean monthCalculateUpdate(MonthCalculateVO _monthCalculateVO);
+	public boolean monthCalculateUpdate(Map<String, Object> _map);
 }

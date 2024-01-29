@@ -34,7 +34,7 @@ class _ReceiptCalculate1 extends State<ReceiptCalculate1> {
       lastDate: DateTime(2050),
     ));
     
-    if (picked != null && '${picked.year}-${picked.month}' != '${selectDate.year}-${selectDate.month}') {
+    if (picked != null) {
       setState(() {
         selectDate = picked;
       });

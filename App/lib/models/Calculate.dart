@@ -33,7 +33,7 @@ class Calculate {
     regUserName = AppCore.getJsonString(json, 'regUserName');
     modUserId = AppCore.getJsonString(json, 'modUserId');
     modUserName = AppCore.getJsonString(json, 'modUserName');
-    isDBData = AppCore.getJsonBool(json, 'isDBData');
+    isDBData = AppCore.getJsonBool(json, 'dbdata');
     dataCount = AppCore.getJsonInt(json, 'dataCount');
     if (json['budgetList'] != null) {
       for (var jsonBudget in json['budgetList'])
