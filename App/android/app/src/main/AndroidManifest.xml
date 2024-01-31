@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.test">
    <application
-        android:label="산돌교회"
+        android:label="BudgetBuddy"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
