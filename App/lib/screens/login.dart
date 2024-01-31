@@ -68,31 +68,31 @@ class _LogInPage extends State<LogInPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              // if (AppCore.isLoading) CircularProgressIndicator(),
-              Positioned(
-                top: 0,
-                child: ClipPath(
-                  clipper: MyClipper(),
-                  child: Container(
-                    height: 300,
-                    color: Color.fromARGB(255, 90, 68, 223),
-                    child: Center(
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle
-                        ),
-                        child: Text('\n\nBudgetBuddy',
-                          style: TextStyle(
-                            fontSize: 50,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'GOOGLE SEN',
+              Stack(
+                children: [
+                  ClipPath(
+                    clipper: MyClipper(),
+                    child: Container(
+                      height: 300,
+                      color: Color.fromARGB(255, 90, 68, 223),
+                      child: Center(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle
                           ),
-                        ),
+                          child: Text('\n\nBudgetBuddy',
+                            style: TextStyle(
+                              fontSize: 50,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'GOOGLE SEN',
+                            ),
+                          ),
+                        )
                       )
-                    )
+                    ),
                   ),
-                ),
+                ],
               ),
               Padding(
                 padding: EdgeInsets.fromLTRB(30, 0, 0, 0),
