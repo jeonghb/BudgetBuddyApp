@@ -15,7 +15,7 @@ class _NotificationSettings extends State<NotificationSettings> {
   Widget build(BuildContext context) {
     return ScreenFrame(
       body: Column(
-        children: [
+        children: const [
 
         ]
       ),
