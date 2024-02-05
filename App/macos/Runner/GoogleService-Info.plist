@@ -13,7 +13,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.test</string>
+	<string>com.BudgetBuddy.BudgetBuddy</string>
 	<key>PROJECT_ID</key>
 	<string>sandol-58497</string>
 	<key>STORAGE_BUCKET</key>
