@@ -104,12 +104,7 @@ class User {
   }
   
   String getUserBirthday() {
-    if (userBirthdayYear.length != 4 || userBirthdayMonth.length != 2 || userBirthdayDay.length != 2) {
-      return DateTime.now().toString();
-    }
-    else {
-      return '${userBirthdayYear.padLeft(4, '0')}-${userBirthdayMonth.padLeft(2, '0')}-${userBirthdayDay.padLeft(2, '0')}';
-    }
+    return '${userBirthdayYear.padLeft(4, '0')}-${userBirthdayMonth.padLeft(2, '0')}-${userBirthdayDay.padLeft(2, '0')}';
   }
 
   void setUserBirthday() {

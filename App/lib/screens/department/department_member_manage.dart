@@ -209,7 +209,6 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
                         child: Row(
                           children: [
                             Expanded(
-                              flex: 2,
                               child: Text(
                                 '직책',
                                 style: TextStyle(
@@ -219,43 +218,13 @@ class _DepartmentMemberManage extends State<DepartmentMemberManage> {
                               ),
                             ),
                             Expanded(
-                              flex: 3,
+                              flex: 2,
                               child: Text(
                                 widget.departmentMember.userPositionName.isNotEmpty ? widget.departmentMember.userPositionName : '없음',
                                 style: TextStyle(
                                   fontSize: 18,
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: widget.departmentMember.userPositionId != -1 ? TextButton(
-                                onPressed: () {
-                                  AppCore.showMessage(context, '직책 해지', '${widget.departmentMember.userName}님을 해지하시겠습니까?', ActionType.yesNo, () {
-                                    widget.departmentMember.positionLeave().then((bool result) {
-                                      if (result) {
-                                        Navigator.pop(context);
-                                      }
-                                      else {
-                                        AppCore.showMessage(context, '직책 해지', '해지 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
-                                          Navigator.pop(context);
-                                        });
-                                      }
-                                    });
-                                    Navigator.pop(context);
-                                  });
-                                },
-                                style: TextButton.styleFrom(
-                                  backgroundColor: Colors.black,
-                                  padding: EdgeInsets.all(0),
-                                ),
-                                child: Text(
-                                    '탈퇴',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.white
-                                    ),
-                                ),
-                              ) : SizedBox(),
                             ),
                           ],
                         ),

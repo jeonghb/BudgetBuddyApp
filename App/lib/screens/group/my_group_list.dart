@@ -53,26 +53,24 @@ class _MyGroupList extends State<MyGroupList> {
                           ),
                           child: Padding(
                             padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                            child: Expanded(
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    flex: 7,
-                                    child: Text(
-                                      group.groupName,
-                                    ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 7,
+                                  child: Text(
+                                    group.groupName,
                                   ),
-                                  Expanded(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      child: group.groupId == AppCore.instance.getUser().selectGroup.groupId ? Icon(
-                                        Icons.check_circle,
-                                        color: Color.fromARGB(255, 90, 68, 223),
-                                      ) : null,
-                                    ),
+                                ),
+                                Expanded(
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    child: group.groupId == AppCore.instance.getUser().selectGroup.groupId ? Icon(
+                                      Icons.check_circle,
+                                      color: Color.fromARGB(255, 90, 68, 223),
+                                    ) : null,
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
