@@ -71,6 +71,7 @@ class _DepartmentLeave extends State<DepartmentLeave> {
                 onPressed: () async {
                   AppCore.showMessage(context, '부서 탈퇴', '선택한 부서를 탈퇴하시겠습니까?', ActionType.yesNo, () async {
                     Navigator.pop(context);
+                    
                     leave(selectDepartmentId).then((bool result) {
                       if (result) {
                         AppCore.showMessage(context, '재시작', '부서가 변경되어 다시 시작합니다', ActionType.ok, () async {

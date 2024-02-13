@@ -275,9 +275,9 @@ class _DepartmentRequestList extends State<DepartmentRequestList> {
                                         flex: 2,
                                         child: TextButton(
                                           onPressed: () async {
-                                            await Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentRequestManage(departmentRequest: departmentRequest,)),).then((value) {
-                                              getDepartmentRequestList();
-                                            });
+                                            await Navigator.push(context, MaterialPageRoute(builder: (context) => DepartmentRequestManage(departmentRequest: departmentRequest,)),);
+
+                                            getDepartmentRequestList();
                                           },
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets.fromLTRB(8, 0, 8, 2),

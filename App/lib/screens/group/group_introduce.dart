@@ -127,7 +127,7 @@ class _GroupIntroduce extends State<GroupIntroduce> {
                     });
                     
                     // ignore: use_build_context_synchronously
-                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().groupList[0].groupId)), (route) => false,);
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => Home(groupId: AppCore.instance.getUser().selectGroup.groupId), settings: RouteSettings(name: '/Home'),), (route) => false);
                   }
                   else {
                     // ignore: use_build_context_synchronously

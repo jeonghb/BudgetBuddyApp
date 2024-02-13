@@ -72,12 +72,10 @@ class _BudgetAddList extends State<BudgetList> {
                   final budget = budgetList[index];
 
                   return GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetManage(budget: budget,)),).then((value) {
-                        if (value == true) {
-                          getBudgetList();
-                        }
-                      });
+                    onTap: () async {
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => BudgetManage(budget: budget,)),);
+                      
+                      getBudgetList();
                     },
                     child: Column(
                       children: [

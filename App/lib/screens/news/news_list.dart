@@ -73,10 +73,10 @@ class _NewsList extends State<NewsList> {
                   News news = newsList[index];
 
                   return GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(id: news.id)),).then((value) {
-                        getNewsList();
-                      });
+                    onTap: () async {
+                      await Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(id: news.id)),);
+
+                      getNewsList();
                     },
                     child: Column(
                       children: [

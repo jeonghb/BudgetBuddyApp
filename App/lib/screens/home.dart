@@ -299,10 +299,10 @@ class _Home extends State<Home> {
                             final news = newsList[index];
 
                             return GestureDetector(
-                              onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(id: news.id)),).then((value) {
-                                  getNewsTopList();
-                                });
+                              onTap: () async {
+                                await Navigator.push(context, MaterialPageRoute(builder: (context) => NewsDetail(id: news.id)),);
+                                
+                                getNewsTopList();
                               },
                               child: Column(
                                 children: [

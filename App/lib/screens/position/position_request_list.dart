@@ -276,9 +276,9 @@ class _PositionRequestList extends State<PositionRequestList> {
                                         flex: 2,
                                         child: TextButton(
                                           onPressed: () async {
-                                            await Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequestManage(positionRequest: positionRequest,)),).then((value) {
-                                              getPositionRequestList();
-                                            });
+                                            await Navigator.push(context, MaterialPageRoute(builder: (context) => PositionRequestManage(positionRequest: positionRequest,)),);
+                                            
+                                            getPositionRequestList();
                                           },
                                           style: TextButton.styleFrom(
                                             padding: EdgeInsets.fromLTRB(8, 0, 8, 2),

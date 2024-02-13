@@ -79,12 +79,13 @@ class _NewsDetail extends State<NewsDetail> {
                             });
                           }
                           else {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => NewsEdit(news: news))).then((value) {
-                              getNewsData();
-                            });
+                            await Navigator.push(context, MaterialPageRoute(builder: (context) => NewsEdit(news: news)));
+
+                            getNewsData();
                           }
                         break;
                         case '삭제':
+                          // ignore: use_build_context_synchronously
                           AppCore.showMessage(context, '소식 삭제', '소식을 삭제하시겠습니까?', ActionType.yesNo, () {
                             Navigator.pop(context);
                             if (!(news.newsDelete() as bool)) {

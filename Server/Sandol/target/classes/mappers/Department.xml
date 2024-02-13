@@ -27,7 +27,7 @@
     	<![CDATA[CALL department_request_finish(#{id}, #{requestUserId}, #{requestDepartmentId}, #{approvalUserId}, #{approvalStatus})]]>
     </insert>
 	<select id="getDepartmentMemberList" resultType="departmentMemberVO">
-		<![CDATA[CALL get_department_member_list(#{groupId})]]>
+		<![CDATA[CALL get_department_member_list(#{userId}, #{groupId})]]>
 	</select>
 	<insert id="departmentLeave" parameterType="userDepartmentVO">
     	<![CDATA[CALL department_leave(#{userId}, #{departmentId})]]>
