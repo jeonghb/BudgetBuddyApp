@@ -39,8 +39,6 @@ class _ReceiptRequest extends State<ReceiptRequest> {
   TextEditingController paymentDatetimeYear = TextEditingController();
   TextEditingController paymentDatetimeMonth = TextEditingController();
   TextEditingController paymentDatetimeDay = TextEditingController();
-  TextEditingController paymentDatetimeHour = TextEditingController();
-  TextEditingController paymentDatetimeMinute = TextEditingController();
   int approvalRequestDepartmentId = -1;
   String approvalRequestDepartmentName = '';
   int budgetTypeId = -1;
@@ -88,8 +86,6 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     paymentDatetimeYear.text = widget.receipt.paymentDatetime.substring(0, 4);
     paymentDatetimeMonth.text = widget.receipt.paymentDatetime.substring(5, 7);
     paymentDatetimeDay.text = widget.receipt.paymentDatetime.substring(8, 10);
-    paymentDatetimeHour.text = widget.receipt.paymentDatetime.substring(11, 13);
-    paymentDatetimeMinute.text = widget.receipt.paymentDatetime.substring(14, 16);
     approvalRequestDepartmentId = widget.receipt.approvalRequestDepartmentId;
     approvalRequestDepartmentName = widget.receipt.approvalRequestDepartmentName;
     budgetTypeId = widget.receipt.budgetTypeId;
@@ -222,12 +218,6 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     else if (paymentDatetimeDay.text.isEmpty) {
       return '결제일이 입력되지 않았습니다';
     }
-    else if (paymentDatetimeHour.text.isEmpty) {
-      return '결제시간이 입력되지 않았습니다';
-    }
-    else if (paymentDatetimeMinute.text.isEmpty) {
-      return '결제분이 입력되지 않았습니다';
-    }
     else if (approvalRequestDepartmentId == -1) {
       return '부서가 선택되지 않았습니다';
     }
@@ -244,7 +234,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
     widget.receipt.title = title.text;
     widget.receipt.requestAmount = AppCore.parseInt(requestAmount.text);
     widget.receipt.memo = memo.text;
-    widget.receipt.paymentDatetime = '${paymentDatetimeYear.text.padLeft(4, '0')}-${paymentDatetimeMonth.text.padLeft(2, '0')}-${paymentDatetimeDay.text.padLeft(2, '0')} ${paymentDatetimeHour.text.padLeft(2, '0')}:${paymentDatetimeMinute.text.padLeft(2, '0')}';
+    widget.receipt.paymentDatetime = '${paymentDatetimeYear.text.padLeft(4, '0')}-${paymentDatetimeMonth.text.padLeft(2, '0')}-${paymentDatetimeDay.text.padLeft(2, '0')}';
     widget.receipt.approvalRequestDepartmentId = approvalRequestDepartmentId;
     widget.receipt.approvalRequestDepartmentName = approvalRequestDepartmentName;
     widget.receipt.budgetTypeId = budgetTypeId;
@@ -435,63 +425,6 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                       controller: paymentDatetimeDay,
                       textInputAction: TextInputAction.next,
                       onEditingComplete: () {FocusScope.of(context).nextFocus();},
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormFieldV1(
-                      textAlign: TextAlign.center,
-                      counterText: '',
-                      hintText: '00',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      maxLength: 2,
-                      keyboardType: TextInputType.number,
-                      controller: paymentDatetimeHour,
-                      textInputAction: TextInputAction.next,
-                      onEditingComplete: () {
-                        FocusScope.of(context).nextFocus();
-                        FocusScope.of(context).nextFocus();
-                      },
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  SizedBox(
-                    width: 5,
-                    child: Text(
-                      ':',
-                      style: TextStyle(
-                        fontSize: 30,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    child: TextFormFieldV1(
-                      textAlign: TextAlign.center,
-                      counterText: '',
-                      hintText: '00',
-                      hintStyle: TextStyle(
-                        color: Colors.grey,
-                      ),
-                      maxLength: 2,
-                      keyboardType: TextInputType.number,
-                      controller: paymentDatetimeMinute,
-                      textInputAction: TextInputAction.done,
-                      onEditingComplete: () {
-                        FocusScope.of(context).unfocus();
-                      },
                     ),
                   ),
                 ],

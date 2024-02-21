@@ -26,7 +26,7 @@ class User {
   // Image? image;
   bool isLoginSucess = false;
 
-  RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]');
+  RegExp idRegExp = RegExp(r'[\W]|[\\\[\]\^\`]|^admin$|^admin[\W]|[\W]admin$');
   RegExp passwordRegExp = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}');
   RegExp nameRegExp = RegExp(r'^[가-힣]+$');
   RegExp emailRegExp = RegExp(r'^[a-zA-Z0-9.a-zA-Z0-9.!#$%&*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
