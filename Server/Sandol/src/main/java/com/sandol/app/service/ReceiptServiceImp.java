@@ -35,4 +35,9 @@ public class ReceiptServiceImp implements ReceiptService {
 	public boolean changeSubmissionStatus(ReceiptVO _receiptVO) {
 		return dao.changeSubmissionStatus(_receiptVO);
 	}
+	
+	@Override
+	public boolean receiptRemove(Map<String, Object> _map) {
+		return dao.receiptRemove(_map);
+	}
 }

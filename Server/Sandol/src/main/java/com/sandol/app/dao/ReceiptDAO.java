@@ -14,4 +14,6 @@ public interface ReceiptDAO {
 	public List<ReceiptVO> getReceiptRequestList(String _userId);
 	
 	public boolean changeSubmissionStatus(ReceiptVO _receiptVO);
+	
+	public boolean receiptRemove(Map<String, Object> _map);
 }

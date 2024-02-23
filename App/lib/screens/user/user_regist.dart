@@ -223,7 +223,7 @@ class _UserRegist extends State<UserRegist> {
                     backgroundColor: Color.fromARGB(255, 90, 68, 223),
                   ),
                   child: Text(
-                    '가입하기',
+                    '가입',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white

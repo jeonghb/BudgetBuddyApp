@@ -63,10 +63,10 @@ public class BudgetController {
 		return budgetService.budgetUpdate(_budgetVO);
 	}
 	
-	@RequestMapping(value = "/budgetDelete", method = RequestMethod.POST)
+	@RequestMapping(value = "/budgetRemove", method = RequestMethod.POST)
 	@ResponseBody
-	public boolean budgetDelete(@RequestBody Map<String, Integer> _id) {
-		return budgetService.budgetDelete(_id.get("id"));
+	public boolean budgetRemove(@RequestBody Map<String, Object> _map) {
+		return budgetService.budgetRemove(_map);
 	}
 	
 	@RequestMapping(value = "/budgetTypeActivationStatusSave", method = RequestMethod.POST)

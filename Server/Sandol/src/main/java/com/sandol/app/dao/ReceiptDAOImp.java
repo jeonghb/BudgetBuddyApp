@@ -60,4 +60,15 @@ public class ReceiptDAOImp implements ReceiptDAO {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean receiptRemove(Map<String, Object> _map) {
+		try {
+			tmp.delete("com.sandol.mapper.app.receiptRemove", _map);
+			
+			return true;
+		} catch (NullPointerException e) {
+			return false;
+		}
+	}
 }

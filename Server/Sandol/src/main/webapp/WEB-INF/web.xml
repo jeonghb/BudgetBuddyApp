@@ -105,7 +105,7 @@
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/budgetUpdate</url-pattern>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/budgetDelete</url-pattern>
+		<url-pattern>/budgetRemove</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/inquiryRequest</url-pattern>
 		<servlet-name>appServlet</servlet-name>
@@ -164,6 +164,8 @@
 		<url-pattern>/userWithdraw</url-pattern>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/getPersonalInfomationAgreementDocument</url-pattern>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/receiptRemove</url-pattern>
 		
 	</servlet-mapping>
 

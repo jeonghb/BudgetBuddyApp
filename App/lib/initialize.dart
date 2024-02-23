@@ -26,7 +26,7 @@ class _Initialize extends State<Initialize> {
   void pageMove() async {
     await AppCore.instance.getUserDB();
 
-    Future.delayed(Duration(seconds: 3), () {
+    Future.delayed(Duration(seconds: 1), () {
       if (AppCore.instance.getUser().isLoginSucess) {
         if (AppCore.instance.getUser().groupList.isNotEmpty) {
           AppCore.instance.getUser().selectGroup = AppCore.instance.getUser().groupList[0];

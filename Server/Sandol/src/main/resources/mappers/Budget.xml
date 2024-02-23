@@ -26,8 +26,8 @@
     <update id="budgetUpdate" parameterType="budgetVO">
     	<![CDATA[CALL budget_update(#{id}, #{departmentId}, #{budgetTypeId}, #{budgetTitle}, #{budgetMemo}, #{budgetDate}, #{budgetAmount})]]>
     </update>
-    <delete id="budgetDelete">
-    	<![CDATA[CALL budget_delete(#{id})]]>
+    <delete id="budgetRemove" parameterType="map">
+    	<![CDATA[CALL budget_remove(#{id}, #{userId})]]>
     </delete>
     <update id="budgetTypeActivationStatusSave" parameterType="budgetTypeVO">
     	<![CDATA[CALL budget_type_activation_status_save(#{departmentId}, #{budgetTypeId}, #{activationStatus})]]>

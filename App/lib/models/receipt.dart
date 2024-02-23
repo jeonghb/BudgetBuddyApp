@@ -105,4 +105,26 @@ class Receipt with ChangeNotifier {
       return false;
     }
   }
+
+  Future<bool> receiptRemove() async {
+    String address = '/receiptRemove';
+    Map<String, dynamic> body = {
+      'requestId': requestId,
+      'userId': AppCore.instance.getUser().userId,
+    };
+
+    ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);
+
+    if (responseData.statusCode == 200) {
+      if (responseData.body == 'true') {
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+    else {
+      return false;
+    }
+  }
 }

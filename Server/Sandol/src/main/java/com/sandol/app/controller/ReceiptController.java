@@ -99,4 +99,10 @@ public class ReceiptController {
 		
 		return fileList;
 	}
+	
+	@RequestMapping(value = "/receiptRemove", method = RequestMethod.POST)
+	@ResponseBody
+	public boolean receiptRemove(@RequestBody Map<String, Object> _map) {
+		return receiptService.receiptRemove(_map);
+	}
 }

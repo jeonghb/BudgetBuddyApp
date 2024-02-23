@@ -23,7 +23,7 @@ public interface BudgetDAO {
 	
 	public boolean budgetUpdate(BudgetVO _budgetVO);
 	
-	public boolean budgetDelete(int _id);
+	public boolean budgetRemove(Map<String, Object> _map);
 	
 	public boolean budgetTypeActivationStatusSave(BudgetTypeVO _budgetTypeVO);
 }

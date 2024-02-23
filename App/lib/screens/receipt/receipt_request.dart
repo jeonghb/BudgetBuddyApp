@@ -661,7 +661,7 @@ class _ReceiptRequest extends State<ReceiptRequest> {
                     }
                   },
                   child: Text(
-                    '제출하기',
+                    '제출',
                     style: TextStyle(
                       color: Colors.white,
                     ),

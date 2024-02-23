@@ -20,5 +20,8 @@
     <select id="getMonthReceiptList" resultType="receiptVO" parameterType="monthCalculateVO">
     	<![CDATA[CALL get_month_receipt_list(#{departmentId}, #{yearMonth})]]>
     </select>
-      
+    <delete id="receiptRemove" parameterType="map">
+    	<![CDATA[CALL receipt_remove(#{receiptId}, #{userId})]]>
+    </delete>
+    
 </mapper>

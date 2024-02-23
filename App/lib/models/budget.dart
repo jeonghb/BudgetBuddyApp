@@ -56,10 +56,11 @@ class Budget {
     }
   }
 
-  Future<bool> budgetDelete() async {
-    String address = '/budgetDelete';
+  Future<bool> budgetRemove() async {
+    String address = '/budgetRemove';
     Map<String, dynamic> body = {
-      'id': id,
+      'budgetId': id,
+      'userId': AppCore.instance.getUser().userId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);

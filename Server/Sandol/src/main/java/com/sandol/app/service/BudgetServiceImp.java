@@ -53,8 +53,8 @@ public class BudgetServiceImp implements BudgetService {
 	}
 	
 	@Override
-	public boolean budgetDelete(int _id) {
-		return dao.budgetDelete(_id);
+	public boolean budgetRemove(Map<String, Object> _map) {
+		return dao.budgetRemove(_map);
 	}
 	
 	@Override

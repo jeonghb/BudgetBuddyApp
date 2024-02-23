@@ -88,9 +88,9 @@ public class BudgetDAOImp implements BudgetDAO {
 	}
 	
 	@Override
-	public boolean budgetDelete(int _id) {
+	public boolean budgetRemove(Map<String, Object> _map) {
 		try {
-			tmp.delete("com.sandol.mapper.app.budgetDelete", _id);
+			tmp.delete("com.sandol.mapper.app.budgetDelete", _map);
 		} catch (NullPointerException e) {
 			return false;
 		}
