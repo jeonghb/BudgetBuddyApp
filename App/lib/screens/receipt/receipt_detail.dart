@@ -287,117 +287,124 @@ class _ReceiptDetail extends State<ReceiptDetail> {
               ),
               Row(
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(130),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? Colors.grey : Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                      ),
-                      onPressed: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? null : () async {
-                        AppCore.showMessage(context, '영수증 삭제', '제출한 영수증을 삭제하시겠습니까?', ActionType.yesNo, () async {
-                          Navigator.pop(context);
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(130),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? Colors.grey : Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )
+                        ),
+                        onPressed: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? null : () async {
+                          AppCore.showMessage(context, '영수증 삭제', '제출한 영수증을 삭제하시겠습니까?', ActionType.yesNo, () async {
+                            Navigator.pop(context);
 
-                          if (await widget.receipt.receiptRemove()) {
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '영수증 삭제', '삭제 완료', ActionType.ok, () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            });
-                          }
-                          else {
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '영수증 삭제', '삭제 실패', ActionType.ok, () {
-                              Navigator.pop(context);
-                            });
-                          }
-                        });
-                      },
-                      child: Text(
-                        '삭제',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white,
+                            if (await widget.receipt.receiptRemove()) {
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '영수증 삭제', '삭제 완료', ActionType.ok, () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              });
+                            }
+                            else {
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '영수증 삭제', '삭제 실패', ActionType.ok, () {
+                                Navigator.pop(context);
+                              });
+                            }
+                          });
+                        },
+                        child: Text(
+                          '삭제',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(130),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? Colors.grey : Color.fromARGB(255, 90, 68, 223),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                      ),
-                      onPressed: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? null : () async {
-                        if (widget.authLevel == AuthLevel.approval) {
-                          List<Widget>? widgets;
-                          String title = '';
-                          
-                          if (selectApprovalId == 0) {
-                            widgets = <Widget>[
-                              Text('반려 사유'),
-                              TextFormField(
-                                controller: rejectMessage,
-                                maxLines: null,
-                                decoration: InputDecoration(
-                                  hintText: '반려 사유를 입력하세요',
-                                  contentPadding: EdgeInsets.symmetric(vertical: 10.0),
-                                ),
-                              )
-                            ];
-                            title = '반려';
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(130),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? Colors.grey : Color.fromARGB(255, 90, 68, 223),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )
+                        ),
+                        onPressed: widget.authLevel == AuthLevel.view && receipt.submissionStatus > 1 ? null : () async {
+                          if (widget.authLevel == AuthLevel.approval) {
+                            List<Widget>? widgets;
+                            String title = '';
+                            
+                            if (selectApprovalId == 0) {
+                              widgets = <Widget>[
+                                Text('반려 사유'),
+                                TextFormField(
+                                  controller: rejectMessage,
+                                  maxLines: null,
+                                  decoration: InputDecoration(
+                                    hintText: '반려 사유를 입력하세요',
+                                    contentPadding: EdgeInsets.symmetric(vertical: 10.0),
+                                  ),
+                                )
+                              ];
+                              title = '반려';
+                            }
+                            else if (selectApprovalId == 1) {
+                              title = '신청';
+                            }
+                            else if (selectApprovalId == 2) {
+                              title = '결재';
+                            }
+                            else if (selectApprovalId == 3) {
+                              title = '송금완료';
+                            }
+                            AppCore.showMessage(context, title, '$title 처리하시겠습니까?', ActionType.yesNo, () {
+                              Navigator.pop(context);
+                              receipt.submissionStatus = selectApprovalId;
+                              receipt.rejectMessage = rejectMessage.text;
+                              receipt.changeSubmissionStatus().then((bool result) {
+                                if (result) {
+                                  Navigator.pop(context, true);
+                                }
+                                else {
+                                  AppCore.showMessage(context, title, '$title 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
+                                    Navigator.pop(context);
+                                  });
+                                }
+                              });
+                            },
+                            widgets: widgets);
                           }
-                          else if (selectApprovalId == 1) {
-                            title = '신청';
-                          }
-                          else if (selectApprovalId == 2) {
-                            title = '결재';
-                          }
-                          else if (selectApprovalId == 3) {
-                            title = '송금완료';
-                          }
-                          AppCore.showMessage(context, title, '$title 처리하시겠습니까?', ActionType.yesNo, () {
-                            Navigator.pop(context);
-                            receipt.submissionStatus = selectApprovalId;
-                            receipt.rejectMessage = rejectMessage.text;
-                            receipt.changeSubmissionStatus().then((bool result) {
-                              if (result) {
-                                Navigator.pop(context, true);
-                              }
-                              else {
-                                AppCore.showMessage(context, title, '$title 처리 중 오류가 발생하였습니다. 다시 시도해주세요', ActionType.ok, () {
-                                  Navigator.pop(context);
+                          else {
+                            await Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: receipt)),).then((value) {
+                              if (value == true) {
+                                Receipt newReceipt = receipt;
+                                setState(() {
+                                  receipt = newReceipt;
                                 });
                               }
                             });
-                          },
-                          widgets: widgets);
-                        }
-                        else {
-                          await Navigator.push(context, MaterialPageRoute(builder: (context) => ReceiptRequest(receipt: receipt)),).then((value) {
-                            if (value == true) {
-                              Receipt newReceipt = receipt;
-                              setState(() {
-                                receipt = newReceipt;
-                              });
-                            }
-                          });
-                        }
-                      },
-                      child: Text(
-                        widget.authLevel == AuthLevel.approval ? '결재' : '수정',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white,
+                          }
+                        },
+                        child: Text(
+                          widget.authLevel == AuthLevel.approval ? '결재' : '수정',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

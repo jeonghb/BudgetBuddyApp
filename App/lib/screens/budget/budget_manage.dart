@@ -311,85 +311,92 @@ class _BudgetManage extends State<BudgetManage> {
               ),
               Row(
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(130),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: widget.budget.userId != AppCore.instance.getUser().userId ? Colors.grey : Colors.red,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                      ),
-                      onPressed: widget.budget.userId != AppCore.instance.getUser().userId ? null : () async {
-                        AppCore.showMessage(context, '예산 삭제', '예산을 삭제하시겠습니까?', ActionType.yesNo, () async {
-                          Navigator.pop(context);
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(130),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: widget.budget.userId != AppCore.instance.getUser().userId ? Colors.grey : Colors.red,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )
+                        ),
+                        onPressed: widget.budget.userId != AppCore.instance.getUser().userId ? null : () async {
+                          AppCore.showMessage(context, '예산 삭제', '예산을 삭제하시겠습니까?', ActionType.yesNo, () async {
+                            Navigator.pop(context);
 
-                          if (await widget.budget.budgetRemove()) {
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '예산 삭제', '삭제 완료', ActionType.ok, () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            });
-                          }
-                          else {
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '예산 삭제', '삭제 실패', ActionType.ok, () {
-                              Navigator.pop(context);
-                            });
-                          }
-                        });
-                      },
-                      child: Text(
-                        '삭제',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white,
+                            if (await widget.budget.budgetRemove()) {
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '예산 삭제', '삭제 완료', ActionType.ok, () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              });
+                            }
+                            else {
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '예산 삭제', '삭제 실패', ActionType.ok, () {
+                                Navigator.pop(context);
+                              });
+                            }
+                          });
+                        },
+                        child: Text(
+                          '삭제',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   SizedBox(
-                    width: double.infinity,
-                    height: ScreenUtil().setHeight(130),
-                    child: TextButton(
-                      style: TextButton.styleFrom(
-                        backgroundColor: Color.fromARGB(255, 90, 68, 223),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        )
-                      ),
-                      onPressed: () async {
-                        String validationMessage = setData();
-                        if (validationMessage.isEmpty) {
-                          if (await widget.budget.budgetUpdate()) {
-                            // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '예산 정보', '저장 완료', ActionType.ok, () {
-                              Navigator.pop(context);
-                              Navigator.pop(context);
-                            });
+                    width: 5,
+                  ),
+                  Expanded(
+                    child: SizedBox(
+                      width: double.infinity,
+                      height: ScreenUtil().setHeight(130),
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          backgroundColor: Color.fromARGB(255, 90, 68, 223),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )
+                        ),
+                        onPressed: () async {
+                          String validationMessage = setData();
+                          if (validationMessage.isEmpty) {
+                            if (await widget.budget.budgetUpdate()) {
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '예산 정보', '저장 완료', ActionType.ok, () {
+                                Navigator.pop(context);
+                                Navigator.pop(context);
+                              });
+                            }
+                            else {
+                              // ignore: use_build_context_synchronously
+                              AppCore.showMessage(context, '예산 정보', '예산 저장 실패', ActionType.ok, () {
+                                Navigator.pop(context);
+                              });
+                            }
                           }
                           else {
                             // ignore: use_build_context_synchronously
-                            AppCore.showMessage(context, '예산 정보', '예산 저장 실패', ActionType.ok, () {
+                            AppCore.showMessage(context, '예산 정보', validationMessage, ActionType.ok, () {
                               Navigator.pop(context);
                             });
                           }
-                        }
-                        else {
-                          // ignore: use_build_context_synchronously
-                          AppCore.showMessage(context, '예산 정보', validationMessage, ActionType.ok, () {
-                            Navigator.pop(context);
-                          });
-                        }
-                      },
-                      child: Text(
-                        '저장',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                          color: Colors.white,
+                        },
+                        child: Text(
+                          '저장',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),

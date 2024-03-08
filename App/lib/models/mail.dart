@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:collection/collection.dart';
 import 'package:flutter_excel/excel.dart';
 import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,11 +14,11 @@ class Mail {
   Future<bool> sendCalculateMail() async {
     // 엑셀 생성
     Excel excel = Excel.createExcel();
-    excel.rename('Sheet1', '사용내역');
+    // excel.rename('Sheet1', '사용내역');
 
-    Sheet sheet = excel['사용내역'];
+    Sheet sheet = excel['Sheet1'];
 
-    // 엑셀에 정보 저장
+    // 컬럼명 입력
     sheet.merge(CellIndex.indexByString('B2'), CellIndex.indexByString('K2'), customValue: calculateMail.title);
     sheet.cell(CellIndex.indexByString('B2')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center, bold: true, underline: Underline.Single);
     sheet.cell(CellIndex.indexByString('B3')).value = '번호';
@@ -40,7 +41,10 @@ class Mail {
     sheet.cell(CellIndex.indexByString('J3')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center, backgroundColorHex: '#ffffcc');
     sheet.cell(CellIndex.indexByString('K3')).value = '영수증';
     sheet.cell(CellIndex.indexByString('K3')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center, backgroundColorHex: '#ffffcc');
+    sheet.cell(CellIndex.indexByString('L3')).value = '계좌번호';
+    sheet.cell(CellIndex.indexByString('L3')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center, backgroundColorHex: '#ffffcc');
     
+    // 데이터 입력
     int rowIndex = 4;
     int remainBudgetAmount = calculateMail.remainBudgetAmount;
     for (Receipt receipt in calculateMail.receiptList) {
@@ -64,10 +68,20 @@ class Mail {
       sheet.cell(CellIndex.indexByString('J$rowIndex')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center);
       sheet.cell(CellIndex.indexByString('K$rowIndex')).value = receipt.fileNameList.isNotEmpty ? 'o' : '';
       sheet.cell(CellIndex.indexByString('K$rowIndex')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center);
+      sheet.cell(CellIndex.indexByString('L$rowIndex')).value = receipt.bankAccountNumber;
+      sheet.cell(CellIndex.indexByString('L$rowIndex')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Center);
 
       remainBudgetAmount = receipt.approvalDatetime.isNotEmpty ? remainBudgetAmount - receipt.requestAmount : remainBudgetAmount + receipt.requestAmount;
       rowIndex++;
     }
+
+    // 합계 입력
+    sheet.cell(CellIndex.indexByString('E$rowIndex')).value = NumberFormat('#,##0', 'en-US').format(calculateMail.receiptList.map((e) => e.approvalDatetime.isNotEmpty ? e.requestAmount : 0).sum);
+    sheet.cell(CellIndex.indexByString('E$rowIndex')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Right);
+    sheet.cell(CellIndex.indexByString('F$rowIndex')).value = NumberFormat('#,##0', 'en-US').format(calculateMail.receiptList.map((e) => e.approvalDatetime.isNotEmpty ? 0 : e.requestAmount).sum);
+    sheet.cell(CellIndex.indexByString('F$rowIndex')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Right);
+    sheet.cell(CellIndex.indexByString('G$rowIndex')).value = NumberFormat('#,##0', 'en-US').format(remainBudgetAmount);
+    sheet.cell(CellIndex.indexByString('G$rowIndex')).cellStyle = CellStyle(verticalAlign: VerticalAlign.Center, horizontalAlign: HorizontalAlign.Right);
 
     // 엑셀 저장
     var directory = await getApplicationDocumentsDirectory();
