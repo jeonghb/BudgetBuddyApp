@@ -59,7 +59,7 @@ class Budget {
   Future<bool> budgetRemove() async {
     String address = '/budgetRemove';
     Map<String, dynamic> body = {
-      'budgetId': id,
+      'id': id,
       'userId': AppCore.instance.getUser().userId,
     };
 

@@ -27,8 +27,8 @@ public class ReceiptServiceImp implements ReceiptService {
 	}
 	
 	@Override
-	public List<ReceiptVO> getReceiptRequestList(String _userId) {
-		return dao.getReceiptRequestList(_userId);
+	public List<ReceiptVO> getReceiptRequestList(Map<String, Object> _map) {
+		return dao.getReceiptRequestList(_map);
 	}
 	
 	@Override

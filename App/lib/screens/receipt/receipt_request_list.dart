@@ -51,6 +51,7 @@ class _ReceiptRequestList extends State<ReceiptRequestList> {
     String address = '/getReceiptRequestList';
     Map<String, dynamic> body = {
       'userId': AppCore.instance.getUser().userId,
+      'groupId': AppCore.instance.getUser().selectGroup.groupId,
     };
 
     ResponseData responseData = await AppCore.request(ServerType.POST, address, body, null);

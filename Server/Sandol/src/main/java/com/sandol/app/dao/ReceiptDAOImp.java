@@ -41,9 +41,9 @@ public class ReceiptDAOImp implements ReceiptDAO {
 	}
 	
 	@Override
-	public List<ReceiptVO> getReceiptRequestList(String _userId) {
+	public List<ReceiptVO> getReceiptRequestList(Map<String, Object> _map) {
 		try {
-			return tmp.selectList("com.sandol.mapper.app.getReceiptRequestList", _userId);
+			return tmp.selectList("com.sandol.mapper.app.getReceiptRequestList", _map);
 		} catch (NullPointerException e) {
 			return null;
 		}

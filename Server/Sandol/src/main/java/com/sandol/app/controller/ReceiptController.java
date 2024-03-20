@@ -59,8 +59,8 @@ public class ReceiptController {
 	
 	@RequestMapping(value = "/getReceiptRequestList", method = RequestMethod.POST)
 	@ResponseBody
-	public List<ReceiptVO> getReceiptRequestList(@RequestBody Map<String, String> _userId) {
-		return receiptService.getReceiptRequestList(_userId.get("userId"));
+	public List<ReceiptVO> getReceiptRequestList(@RequestBody Map<String, Object> _map) {
+		return receiptService.getReceiptRequestList(_map);
 	}
 	
 	@RequestMapping(value = "/changeSubmissionStatus", method = RequestMethod.POST)

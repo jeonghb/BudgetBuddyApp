@@ -93,7 +93,12 @@ class _ReceiptDetail extends State<ReceiptDetail> {
         return Dialog(
           child: Container(
             padding: EdgeInsets.all(16),
-            child: Image.file(file),
+            child: InteractiveViewer(
+              boundaryMargin: EdgeInsets.all(20),
+              minScale: 0.1,
+              maxScale: 4.0,
+              child: Image.file(file),
+            ),
           ),
         );
       }

@@ -11,8 +11,8 @@
     <select id="getReceiptApprovalList" resultType="receiptVO" parameterType="map">
     	<![CDATA[CALL get_receipt_approval_list(#{userId}, #{groupId})]]>
     </select>
-    <select id="getReceiptRequestList" resultType="receiptVO">
-    	<![CDATA[CALL get_receipt_request_list(#{userId})]]>
+    <select id="getReceiptRequestList" resultType="receiptVO" parameterType="map">
+    	<![CDATA[CALL get_receipt_request_list(#{userId}, #{groupId})]]>
     </select>
     <update id="changeSubmissionStatus" parameterType="receiptVO">
     	<![CDATA[CALL change_submission_status(#{requestId}, #{submissionStatus}, #{rejectMessage})]]>
@@ -21,7 +21,7 @@
     	<![CDATA[CALL get_month_receipt_list(#{departmentId}, #{yearMonth})]]>
     </select>
     <delete id="receiptRemove" parameterType="map">
-    	<![CDATA[CALL receipt_remove(#{receiptId}, #{userId})]]>
+    	<![CDATA[CALL receipt_remove(#{requestId}, #{userId})]]>
     </delete>
     
 </mapper>
